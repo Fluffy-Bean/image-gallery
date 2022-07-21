@@ -11,10 +11,13 @@
   <?php include('ui/header.php'); ?>
 
   <div class="upload-root">
-    <form class="flex-left between" method="POST" action="upload.php" enctype="multipart/form-data">
+    <form class="flex-down between" method="POST" action="upload.php" enctype="multipart/form-data">
         <input class="btn alert-default" type="file" name="image" placeholder="select image UwU">
         <hr class="space-small">
+        <input class="btn" type="text" name="alt" placeholder="Enter a description for image, this will also be used as an alt">
+        <hr class="space-small">
         <button class="btn alert-default" type="submit" name="upload">Upload Image</button>
+        <hr class="space-small">
     </form>
     <?php
     if ($_GET["r"] == "success") {
@@ -42,12 +45,19 @@
     // Get image name
     $get_image_name = $_FILES['image']['name'];
 
+    // Get alt text
+    if ($_POST['alt'] != "") {
+      $get_alt_text = $_POST['alt'];
+    }else{
+      $get_alt_text = "No description provided";
+    }
+
 
     // If image present, continue
     if ($get_image_name != "") {
       // Set file path for image upload
       $image_path = "images/".basename($get_image_name);
-      $sql = "INSERT INTO swag_table (imagename) VALUES ('$get_image_name')";
+      $sql = "INSERT INTO swag_table (imagename, alt) VALUES ('$get_image_name','$get_alt_text')";
 
 
       // Uploading image to Table

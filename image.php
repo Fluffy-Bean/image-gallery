@@ -40,6 +40,7 @@
     echo "<p>ID: ".$image['id']."</p>";
     echo "<p>File Name: ".$image['imagename']."</p>";
     echo "<p>Upload Date: ".$image['upload']."</p>";
+    echo "<p>Description: ".$image['alt']."</p>";
     ?>
   </div>
 
