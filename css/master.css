@@ -1,6 +1,6 @@
 :root {
-  --red: #B66467;
-  --green: #8C977D;
+  --red: #B66467dd;
+  --green: #8C977Ddd;
   --black: #151515;
   --gray: #15151555;
   --dark-gray: #151515cc;
@@ -19,10 +19,18 @@
   font-weight: 621;
 }
 html {
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
 }
 body {
-  margin: 0; padding: var(--space-small);
+  margin: 0;
+  padding: var(--space-small);
+
+  min-height: calc(100vh - 1rem);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 
@@ -45,20 +53,20 @@ body {
 .around {
   justify-content: space-around;
 }
-
 .center {
   text-align: center;
 }
 
 .alert {
   margin: var(--space-small) 0;
-  padding: var(--space-small);
+  padding: var(--space-medium);
 
-  width: auto;
+  width: calc(100% - (var(--space-large)));
+
+  display: inline-block;
 
   border-radius: var(--rad);
 }
-
 .alert-high {
   background-color: var(--green);
 }
@@ -69,38 +77,63 @@ body {
   background-color: var(--gray);
 }
 
-.block {
+.btn {
+  padding: var(--space-small);
+
+  border: none;
+
   display: inline-block;
+
+  align-items: center;
+
+  border-radius: var(--rad);
 }
-.inline {
-  display: inline;
+.btn:hover {
+  outline: var(--gray) 3px solid;
+}
+
+.space-small {
+  margin-left: var(--space-small);
+
+  width: 0;
+  height: 0;
+
+  border: none;
 }
 
 /*
   -=-=-= NAV =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
-.nav-root {
+nav {
   margin: 0;
   padding: var(--space-small);
 
   width: calc(100vw - (var(--space-medium) * 2));
-  height: 3rem;
+  height: 2.5rem;
 
   align-items: center;
 
-  background-color: var(--gray);
+  background-image: url(../assets/nav.svg);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+
   border-radius: var(--rad);
 }
 /*
   -=-=-= FOOTER =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
-.footer-root {
+footer {
   margin: 0;
   padding: var(--space-small);
 
   width: calc(100vw - (var(--space-medium) * 2));
 
-  background-color: var(--gray);
+  background-image: url(../assets/footer.svg);
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+
   border-radius: var(--rad);
 }
 .footer-child {
@@ -119,12 +152,21 @@ body {
   background-color: var(--gray);
   border-radius: var(--rad);
 }
+form {
+  width: 100%;
+}
 
 /*
   -=-=-= GALLERY =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
+.info-text {
+  margin: var(--space-medium) auto;
+
+  max-width: 1500px;
+}
+
 .gallery-root {
-  margin: var(--space-large) auto;
+  margin: var(--space-medium) auto;
   padding: 0;
 
   max-width: 1500px;
@@ -152,7 +194,7 @@ body {
 }
 
 .gallery-item:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
   box-shadow:0 0 5px var(--dark-gray);
 }
 
@@ -160,7 +202,7 @@ body {
   -=-=-= IMAGE FULLSCREEN =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
 .image-container {
-  margin: var(--space-large) auto;
+  margin: var(--space-medium) auto;
   padding: 0;
 
   width: calc(100vw - var(--space-medium));
@@ -182,8 +224,8 @@ body {
 }
 
 .image-detail {
-  margin: var(--space-large) 0;
-  padding: var(--space-small);
+  margin: var(--space-medium) 0;
+  padding: var(--space-medium);
 
   background-color: var(--gray);
 
@@ -191,8 +233,8 @@ body {
 }
 
 .danger-zone {
-  margin: var(--space-large) 0;
-  padding: var(--space-small);
+  margin: var(--space-medium) 0;
+  padding: var(--space-medium);
 
   background-color: var(--red);
 
@@ -203,39 +245,27 @@ body {
   -=-=-= TEXT SIZES =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
 h1 {
-  margin: var(--space-small);
-  padding: 0;
+  margin: 0 0 var(--space-small) 0;
 
   font-size: 30px;
 }
 h2 {
-  margin: var(--space-small);
-  padding: 0;
+  margin: 0 0 var(--space-small) 0;
 
   font-size: 27px;
 }
 h3 {
-  margin: var(--space-small);
-  padding: 0;
+  margin: 0 0 var(--space-small) 0;
 
   font-size: 24px;
 }
 h4 {
-  margin: var(--space-small);
-  padding: 0;
+  margin: 0 0 var(--space-small) 0;
 
   font-size: 21px;
 }
 
 p {
-  margin: var(--space-small);
-  padding: 0;
+  margin: 0 0 var(--space-small) 0;
 
-  display: inline;
-
-  font-size: 16px;
-}
-a {
-  margin: 0;
-  padding: 0;
 }

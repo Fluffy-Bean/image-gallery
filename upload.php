@@ -11,9 +11,10 @@
   <?php include('ui/header.php'); ?>
 
   <div class="upload-root">
-    <form method="POST" action="upload.php" enctype="multipart/form-data">
-        <input class="btn" type="file" name="image" placeholder="select image UwU">
-        <button class="btn" type="submit" name="upload">Upload Image</button>
+    <form class="flex-left between" method="POST" action="upload.php" enctype="multipart/form-data">
+        <input class="btn alert-default" type="file" name="image" placeholder="select image UwU">
+        <hr class="space-small">
+        <button class="btn alert-default" type="submit" name="upload">Upload Image</button>
     </form>
     <?php
     if ($_GET["r"] == "success") {

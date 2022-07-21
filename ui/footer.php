@@ -1,4 +1,4 @@
-<div class="footer-root flex-left around">
+<footer class="footer-root flex-left around">
   <div class="footer-child center flex-down">
     <h3>Contact me</h3>
     <p>Telegram</p>
@@ -17,4 +17,4 @@
     <p>*Internal screaming*</p>
     <p>(s)pain</p>
   </div>
-</div>
+</footer>

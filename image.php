@@ -47,34 +47,24 @@
     <h2>Danger zone</h2>
     <?php
     // Image hover details
-    echo "<form class='detail' method='GET' enctype='multipart/form-data'>";
-    echo "<p class='identity default'>ID: ".$row['id']."</p>";
-    echo "<button class='delete_button btn b-colour' type='submit' name='d' value='".$row['id']."'>Delete</button>";
+    echo "<form class='detail' method='POST' enctype='multipart/form-data'>";
+    echo "<button class='btn alert-low' type='submit' name='delete' value='".$image['id']."'>Delete image</button>";
     echo "</form>";
 
     // Check if query is set
-    if (isset($_GET['d'])) {
-      // Get all image detail
-      $delete_select = "SELECT * FROM swag_table WHERE id = ".$_GET['d'];
-      $delete_result = mysqli_query($conn,$delete_select);
-      $img_records = mysqli_fetch_assoc($delete_result);
-
-      // Get image name and its file path
-      $file_name = $img_records['imagename'];
-      $file_path = "images/".$file_name;
-
+    if (isset($_POST['delete'])) {
       // Try deleting image
-      if(unlink($file_path)) {
+      if(unlink("images/".$image['imagename'])) {
         // If deleted, delete from Table
-        $img_delete_request = "DELETE FROM swag_table WHERE id =".$img_records[id];
-        $img_delete = mysqli_query($conn,$img_delete_request);
-        if ($img_delete) {
+        $image_delete_request = "DELETE FROM swag_table WHERE id =".$image['id'];
+        $image_delete = mysqli_query($conn,$image_delete_request);
+        if ($image_delete) {
           // Deleted image
-          echo "<p class='alert success' id='deleted'>Successfully deleted: ".$file_name."/".$_GET['d']."</p>";
+          header("Location:index.php?del=true&id=".$image['id']);
         }
       }else{
         // Could not delete from file
-        echo "<p class='alert fail' id='deleted'>Failed to delete or no file under the name: ".$file_name." ".$_GET['d']."</p>";
+        echo "<p class='alert alert-fail' id='deleted'>Error: Coult not delete image</p>";
       }
     }
     ?>

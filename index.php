@@ -10,15 +10,23 @@
 <body>
   <?php include('ui/header.php'); ?>
 
-  <h1>The website is currently being reconstructed! Please be patient!</h1>
-  <p>Fluffy's test website on uploading images to a database!</p>
+  <?php
+  if ($_GET["del"] == "true") {
+    echo "<p class='alert alert-high'>Successfully deleted image: ".$_GET['id']."</p>";
+  }
+  ?>
+
+  <div class="info-text center">
+    <h1>Fluffys Super Duper Secrete Project!</h1>
+    <p>Fluffy's test website on uploading images to a database!</p>
+  </div>
 
   <?php
   // Attempt database connection
   $conn = mysqli_connect("localhost", "uwu", "password", "swag");
   // If connecton failed, notify user
   if (!$conn) {
-    echo "<p class='alert fail'>Could not connect to database</p>";
+    echo "<p class='alert alert-high'>Could not connect to database</p>";
   }
 
 
@@ -39,7 +47,6 @@
     }
     ?>
   </div>
-
 
   <?php include('ui/footer.php'); ?>
 </body>
