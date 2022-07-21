@@ -27,7 +27,15 @@
     $image_results = mysqli_query($conn, $get_image);
     $image = mysqli_fetch_assoc($image_results);
 
-    echo "<img class='image' src='images/".$image['imagename']."' id='".$image['id']."'>";
+    if ($image['imagename'] != "") {
+      $image_name = "images/".$image['imagename'];
+      $image_alt = $image['alt'];
+    }else{
+      $image_name = "assets/no_image.png";
+      $image_alt = "No image could be found, sowwy";
+    }
+
+    echo "<img class='image' id='".$image['id']."' src='".$image_name."' alt='".$image_alt."'>";
 
     if (!isset($_GET['id'])) {
       echo "cannot obtain image";
@@ -40,7 +48,7 @@
     echo "<p>ID: ".$image['id']."</p>";
     echo "<p>File Name: ".$image['imagename']."</p>";
     echo "<p>Upload Date: ".$image['upload']."</p>";
-    echo "<p>Description: ".$image['alt']."</p>";
+    echo "<p>Description: ".$image_alt."</p>";
     ?>
   </div>
 

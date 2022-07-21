@@ -179,7 +179,7 @@ form {
   background-color: var(--gray);
   border-radius: var(--rad);
 
-  flex: 1 0 150px;
+  flex: 1 0 170px;
 
   transition: transform 0.15s cubic-bezier(.19,1,.22,1);
 }
@@ -194,7 +194,7 @@ form {
 }
 
 .gallery-item:hover {
-  transform: scale(1.1);
+  transform: scale(1.1) rotate(5deg);
   box-shadow:0 0 5px var(--dark-gray);
 }
 

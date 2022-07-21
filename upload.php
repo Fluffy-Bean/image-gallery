@@ -14,7 +14,7 @@
     <form class="flex-down between" method="POST" action="upload.php" enctype="multipart/form-data">
         <input class="btn alert-default" type="file" name="image" placeholder="select image UwU">
         <hr class="space-small">
-        <input class="btn" type="text" name="alt" placeholder="Enter a description for image, this will also be used as an alt">
+        <input class="btn" type="text" name="alt" placeholder="Description/Alt for image">
         <hr class="space-small">
         <button class="btn alert-default" type="submit" name="upload">Upload Image</button>
         <hr class="space-small">
@@ -27,7 +27,7 @@
     }elseif ($_GET["r"] == "nofile") {
       echo "<p class='alert alert-default'>No file lol</p>";
     }else{
-      echo "<p class='alert alert-default'>Select an image to upload</p>";
+      // echo "<p class='alert alert-default'>Select an image to upload</p>";
     }
     ?>
   </div>
@@ -67,10 +67,8 @@
       // Checking if image uploaded
       if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
         header("Location:upload.php?r=success");
-
       }else{
         header("Location:upload.php?r=fail");
-
       }
     }else{
       // No image present
