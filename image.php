@@ -43,12 +43,19 @@
     ?>
   </div>
 
+  <div class="image-description">
+    <h2>Description</h2>
+    <?php
+    echo "<p>".$image_alt."</p>";
+    ?>
+  </div>
+
   <div class="image-detail flex-down">
+    <h2>Details</h2>
     <?php
     echo "<p>ID: ".$image['id']."</p>";
     echo "<p>File Name: ".$image['imagename']."</p>";
     echo "<p>Upload Date: ".$image['upload']."</p>";
-    echo "<p>Description: ".$image_alt."</p>";
     ?>
   </div>
 

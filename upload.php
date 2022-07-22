@@ -13,19 +13,18 @@
   <div class="upload-root">
     <form class="flex-down between" method="POST" action="upload.php" enctype="multipart/form-data">
         <input class="btn alert-default" type="file" name="image" placeholder="select image UwU">
-        <hr class="space-small">
-        <input class="btn" type="text" name="alt" placeholder="Description/Alt for image">
-        <hr class="space-small">
+        <span class="space-bottom"></span>
+        <input class="btn alert-default" type="text" name="alt" placeholder="Description/Alt for image">
+        <span class="space-bottom"></span>
         <button class="btn alert-default" type="submit" name="upload">Upload Image</button>
-        <hr class="space-small">
     </form>
     <?php
     if ($_GET["r"] == "success") {
-      echo "<p class='alert alert-high'>Your Image uploaded successfully!</p>";
+      echo "<p class='alert alert-high space-top'>Your Image uploaded successfully!</p>";
     }elseif ($_GET["r"] == "fail") {
-      echo "<p class='alert alert-low'>F, Upload failed</p>";
+      echo "<p class='alert alert-low space-top'>F, Upload failed</p>";
     }elseif ($_GET["r"] == "nofile") {
-      echo "<p class='alert alert-default'>No file lol</p>";
+      echo "<p class='alert alert-default space-top'>No file lol</p>";
     }else{
       // echo "<p class='alert alert-default'>Select an image to upload</p>";
     }

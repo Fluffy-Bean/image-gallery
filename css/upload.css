@@ -1,0 +1,20 @@
+/*
+  -=-=-= UPLOAD =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+.upload-root {
+  margin: 0 auto 2rem; padding: 0.5rem;;
+
+  background-color: var(--bg); color: var(--fg);
+
+  border: 0.2rem solid var(--green);
+  outline: 0.5rem solid var(--bg);
+
+  border-radius: var(--rad);
+  box-shadow: var(--shadow);
+
+  max-width: 621px;
+}
+
+form {
+  width: 100%;
+}
