@@ -73,16 +73,8 @@
         // If image is gif
         if ($image_format == 'GIF') {
           $image_thumbnail = $image_thumbnail->coalesceImages();
-          foreach ($image_thumbnail as $frame) {
-            $frame->thumbnailImage(300, null);
-            $frame->setImagePage(300, null, 0, 0);
-          }
-          // Put image back together
-          $image_thumbnail = $image_thumbnail->deconstructImages();
-        }else{
-          // Image not gif
-          $image_thumbnail->resizeImage(300,null,null,1,null);
         }
+        $image_thumbnail->resizeImage(300,null,null,1,null);
         // Save image
         $image_thumbnail->writeImage("images/thumbnails/".$image_basename);
 
