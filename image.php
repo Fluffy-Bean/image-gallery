@@ -28,14 +28,14 @@
     $image = mysqli_fetch_assoc($image_results);
 
     if ($image['imagename'] != "") {
-      $image_name = "images/".$image['imagename'];
+      $image_path = "images/".$image['imagename'];
       $image_alt = $image['alt'];
     }else{
-      $image_name = "assets/no_image.png";
+      $image_path = "assets/no_image.png";
       $image_alt = "No image could be found, sowwy";
     }
 
-    echo "<img class='image' id='".$image['id']."' src='".$image_name."' alt='".$image_alt."'>";
+    echo "<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>";
 
     if (!isset($_GET['id'])) {
       echo "cannot obtain image";
@@ -46,16 +46,31 @@
   <div class="image-description">
     <h2>Description</h2>
     <?php
-    echo "<p>".$image_alt."</p>";
+    // Image Description/Alt
+    if ($image_alt != "") {
+      echo "<p>".$image_alt."</p>";
+    }else{
+      echo "<p>Image uploaded prior to description being added</p>";
+    }
+
     ?>
   </div>
 
   <div class="image-detail flex-down">
     <h2>Details</h2>
     <?php
+    // Image ID
     echo "<p>ID: ".$image['id']."</p>";
+
+    // File name
     echo "<p>File Name: ".$image['imagename']."</p>";
+
+    // Image Upload date
     echo "<p>Upload Date: ".$image['upload']."</p>";
+
+    // Image resolution
+    list($width, $height) = getimagesize($image_path);
+    echo "<p>Image resolution: ".$width."x".$height."</p>";
     ?>
   </div>
 

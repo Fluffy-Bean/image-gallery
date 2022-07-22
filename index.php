@@ -42,9 +42,16 @@
     // Reading images from table
     $img = mysqli_query($conn, "SELECT * FROM swag_table");
     while ($row = mysqli_fetch_array($img)) {
-      echo "<div class='gallery-item'>";
+      // Getting thumbnail
+      if (file_exists("images/thumbnails/".$row['imagename'])) {
+        $image_path = "images/thumbnails/".$row['imagename'];
+      }else{
+        $image_path = "images/".$row['imagename'];
+      }
+
       // Image loading
-      echo "<a href='https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$row['id']."'><img class='gallery-image' loading='lazy' src='images/".$row['imagename']."' id='".$row['id']."'></a>";
+      echo "<div class='gallery-item'>";
+      echo "<a href='https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$row['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$row['id']."'></a>";
       echo "</div>";
     }
     ?>

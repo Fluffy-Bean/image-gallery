@@ -55,7 +55,8 @@
     // If image present, continue
     if ($get_image_name != "") {
       // Set file path for image upload
-      $image_path = "images/".basename($get_image_name);
+      $image_basename = basename($get_image_name);
+      $image_path = "images/".$image_basename;
       $sql = "INSERT INTO swag_table (imagename, alt) VALUES ('$get_image_name','$get_alt_text')";
 
 
@@ -65,6 +66,11 @@
 
       // Checking if image uploaded
       if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+        // Make thumbnail
+        $image_thumbnail = new Imagick($image_path);
+        $image_thumbnail->resizeImage(300,null,null,1,null);
+        $image_thumbnail->writeImage("images/thumbnails/".$image_basename);
+
         header("Location:upload.php?r=success");
       }else{
         header("Location:upload.php?r=fail");
