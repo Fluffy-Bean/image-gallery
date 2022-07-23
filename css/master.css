@@ -48,6 +48,7 @@ body {
   min-height: calc(100vh - 2rem); max-width: 1500px;
 
   display: flex;
+
   flex-direction: column;
   justify-content: space-between;
 }
@@ -87,7 +88,7 @@ form * {
 .alert {
   margin: 0 auto; padding: 1rem;
 
-  width: inherit;
+  width: calc(100% - 2rem);
 
   text-align: center;
 
@@ -114,6 +115,9 @@ form * {
 
   font-size: 16px;
   align-items: center;
+  vertical-align: middle;
+
+  text-decoration: underline;
 
   border: none;
   border-radius: var(--rad);
@@ -123,7 +127,6 @@ form * {
 }
 a.btn {
   text-align: center;
-  text-decoration: none;
 }
 
 .space-bottom {
@@ -131,6 +134,15 @@ a.btn {
 }
 .space-top {
   margin-top: 1rem;
+}
+
+.svg {
+  margin: 0 0.2rem 0.1rem 0;
+  width: 18px; height: 18px;
+
+  vertical-align: middle;
+
+  display: inline;
 }
 
 /*

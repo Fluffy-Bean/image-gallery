@@ -5,10 +5,17 @@
   margin: 0 0 2rem; padding: 0;
 
   width: calc(100vw - var(--space-medium));
-  height: 60vh;
+  height: 69vh;
 
   position: relative;
 }
+
+@media (max-width: 600px) {
+  .image-container {
+    height: 40vh;
+  }
+}
+
 .image {
   max-width: 100%;
   width: auto;

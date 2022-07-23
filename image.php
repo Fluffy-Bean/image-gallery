@@ -6,6 +6,8 @@
   <title>UwU</title>
   <link rel="stylesheet" href="css/master.css">
   <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 </head>
 <body>
   <?php
@@ -18,21 +20,26 @@
   $image_results = mysqli_query($conn, $get_image);
   $image = mysqli_fetch_assoc($image_results);
 
+  // Image has been modified successfully
   if ($_GET["update"] == "success") {
-    echo "<p class='alert alert-high space-top'>Information updated</p>";
+    echo "<p class='alert alert-high space-bottom'>Information updated</p>";
   }
 
+  // Check if ID of image in URL
   if (!isset($_GET['id'])) {
-    echo "<p class='alert alert-low'>No ID present</p>";
-
+    // No ID
+    echo "<p class='alert alert-low space-bottom'>No ID present</p>";
+    // Replacement "no image" image and description
     $image_path = "assets/no_image.png";
     $image_alt = "No image could be found, sowwy";
   } elseif (empty($image['imagename'])) {
+    // proposed ID not avalible
     echo "<p class='alert alert-low'>Could not find image with ID: ".$_GET['id']."</p>";
-
+    // Replacement "no image" image and description
     $image_path = "assets/no_image.png";
     $image_alt = "No image could be found, sowwy";
   } else {
+    // Image avalible
     $image_path = "images/".$image['imagename'];
     $image_alt = $image['alt'];
   }
@@ -70,6 +77,9 @@
     // Image resolution
     list($width, $height) = getimagesize($image_path);
     echo "<p>Image resolution: ".$width."x".$height."</p>";
+
+    // Image download
+    echo "<a class='btn alert-high space-top' href='images/".$image['imagename']."' download='".$image['imagename']."'><img class='svg' src='assets/icons/download.svg'>Download image</a>";
     ?>
   </div>
 
@@ -79,7 +89,7 @@
     <?php
     // Image hover details
     echo "<form class='detail' method='POST' enctype='multipart/form-data'>";
-    echo "<button class='btn alert-low' type='submit' name='delete' value='".$image['id']."'>Delete image</button>";
+    echo "<button class='btn alert-low' type='submit' name='delete' value='".$image['id']."'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>";
     echo "</form>";
 
     // Check if query is set
@@ -101,7 +111,7 @@
     ?>
 
     <!-- EDIT BUTTON -->
-    <?php echo "<a class='btn alert-low space-top' href='https://superdupersecteteuploadtest.fluffybean.gay/edit.php?id=".$image['id']."'>Modify image content</a>"; ?>
+    <?php echo "<a class='btn alert-low space-top' href='https://superdupersecteteuploadtest.fluffybean.gay/edit.php?id=".$image['id']."'><img class='svg' src='assets/icons/edit.svg'>Modify image content</a>"; ?>
   </div>
 
   <?php include("ui/footer.php"); ?>

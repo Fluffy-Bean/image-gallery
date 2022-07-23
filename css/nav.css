@@ -21,5 +21,24 @@ nav h3 {
   margin: 0;
 }
 nav hr {
-  margin: 0.5rem 0.2rem; padding: 0;
+  margin: 0.5rem 0; padding: 0;
+
+  opacity: 0;
+}
+
+.nav-name h3, .nav-name {
+  display: block;
+}
+.nav-links {
+  width: auto;
+  justify-content: space-between;
+}
+@media (max-width: 450px) {
+  .nav-name h3, .nav-name {
+    display: none;
+  }
+  .nav-links {
+    width: 100%;
+    justify-content: space-around;
+  }
 }

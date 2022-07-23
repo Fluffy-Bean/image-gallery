@@ -6,6 +6,8 @@
   <title>UwU</title>
   <link rel="stylesheet" href="css/master.css">
   <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 </head>
 <body>
   <?php include("ui/header.php"); ?>

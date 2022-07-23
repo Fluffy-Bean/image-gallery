@@ -2,9 +2,9 @@
   <div class="nav-name flex-left">
     <h3>Fluffys Gallery!</h3>
   </div>
-  <div class="nav-links flex-left between">
-    <p class="btn alert-default"><a href="https://superdupersecteteuploadtest.fluffybean.gay">Home</a></p>
+  <div class="nav-links flex-left">
+    <a class="btn alert-default" href="https://superdupersecteteuploadtest.fluffybean.gay"><img class="svg" src="assets/icons/house.svg">Home</a>
     <hr>
-    <p class="btn alert-default"><a href="https://superdupersecteteuploadtest.fluffybean.gay/upload.php">Upload</a></p>
+    <a class="btn alert-default" href="https://superdupersecteteuploadtest.fluffybean.gay/upload.php"><img class="svg" src="assets/icons/upload.svg">Upload</a>
   </div>
 </nav>
