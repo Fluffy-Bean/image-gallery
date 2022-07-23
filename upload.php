@@ -8,36 +8,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
 </head>
 <body>
-  <?php include('ui/header.php'); ?>
+  <?php include("ui/header.php"); ?>
 
   <div class="upload-root">
     <form class="flex-down between" method="POST" action="upload.php" enctype="multipart/form-data">
         <input class="btn alert-default" type="file" name="image" placeholder="select image UwU">
-        <span class="space-bottom"></span>
+        <br class="space-bottom">
         <input class="btn alert-default" type="text" name="alt" placeholder="Description/Alt for image">
-        <span class="space-bottom"></span>
+        <br class="space-bottom">
         <button class="btn alert-default" type="submit" name="upload">Upload Image</button>
     </form>
     <?php
     if ($_GET["r"] == "success") {
+      // Image uploaded
       echo "<p class='alert alert-high space-top'>Your Image uploaded successfully!</p>";
-    }elseif ($_GET["r"] == "fail") {
+    } elseif ($_GET["r"] == "fail") {
+      // Upload failed
       echo "<p class='alert alert-low space-top'>F, Upload failed</p>";
-    }elseif ($_GET["r"] == "nofile") {
+    } elseif ($_GET["r"] == "nofile") {
+      // No file was present
       echo "<p class='alert alert-default space-top'>No file lol</p>";
-    }else{
+    } else {
       // echo "<p class='alert alert-default'>Select an image to upload</p>";
     }
     ?>
   </div>
 
   <?php
-  // Attempt database connection
-  $conn = mysqli_connect("localhost", "uwu", "password", "swag");
-  // If connecton failed, notify user
-  if (!$conn) {
-    echo "<p class='alert fail'>Could not connect to database</p>";
-  }
+  include_once("ui/conn.php");
 
 
   if (isset($_POST['upload'])) {
@@ -45,15 +43,15 @@
     $get_image_name = $_FILES['image']['name'];
 
     // Get alt text
-    if ($_POST['alt'] != "") {
-      $get_alt_text = $_POST['alt'];
-    }else{
+    if (empty($_POST['alt'])) {
       $get_alt_text = "No description provided";
+    } else {
+      $get_alt_text = $_POST['alt'];
     }
 
 
     // If image present, continue
-    if ($get_image_name != "") {
+    if (!empty($get_image_name)) {
       // Set file path for image upload
       $image_basename = basename($get_image_name);
       $image_path = "images/".$image_basename;
@@ -74,21 +72,23 @@
         if ($image_format == 'GIF') {
           $image_thumbnail = $image_thumbnail->coalesceImages();
         }
+        // Resize image
         $image_thumbnail->resizeImage(300,null,null,1,null);
         // Save image
         $image_thumbnail->writeImage("images/thumbnails/".$image_basename);
 
         header("Location:upload.php?r=success");
-      }else{
+      } else {
+        // Could not move images to folder
         header("Location:upload.php?r=fail");
       }
-    }else{
+    } else {
       // No image present
       header("Location:upload.php?r=nofile");
     }
   }
   ?>
 
-  <?php include('ui/footer.php'); ?>
+  <?php include("ui/footer.php"); ?>
 </body>
 </html>

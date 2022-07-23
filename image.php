@@ -8,49 +8,44 @@
   <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
 </head>
 <body>
-  <?php include('ui/header.php'); ?>
-
   <?php
-  // Attempt database connection
-  $conn = mysqli_connect("localhost", "uwu", "password", "swag");
-  // If connecton failed, notify user
-  if (!$conn) {
-    echo "<p class='alert fail'>Could not connect to database</p>";
+  include("ui/header.php");
+  include_once("ui/conn.php");
+
+  // Get image ID
+  // Getting all image info from table
+  $get_image = "SELECT * FROM swag_table WHERE id = ".$_GET['id'];
+  $image_results = mysqli_query($conn, $get_image);
+  $image = mysqli_fetch_assoc($image_results);
+
+  if (!isset($_GET['id'])) {
+    echo "<p class='alert alert-low'>No ID present</p>";
+
+    $image_path = "assets/no_image.png";
+    $image_alt = "No image could be found, sowwy";
+  } elseif (empty($image['imagename'])) {
+    echo "<p class='alert alert-low'>Could not find image with ID: ".$_GET['id']."</p>";
+
+    $image_path = "assets/no_image.png";
+    $image_alt = "No image could be found, sowwy";
+  } else {
+    $image_path = "images/".$image['imagename'];
+    $image_alt = $image['alt'];
   }
   ?>
 
   <div class="image-container">
-    <?php
-    // Get image ID
-    // Getting all image info from table
-    $get_image = "SELECT * FROM swag_table WHERE id = ".$_GET['id'];
-    $image_results = mysqli_query($conn, $get_image);
-    $image = mysqli_fetch_assoc($image_results);
-
-    if ($image['imagename'] != "") {
-      $image_path = "images/".$image['imagename'];
-      $image_alt = $image['alt'];
-    }else{
-      $image_path = "assets/no_image.png";
-      $image_alt = "No image could be found, sowwy";
-    }
-
-    echo "<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>";
-
-    if (!isset($_GET['id'])) {
-      echo "cannot obtain image";
-    }
-    ?>
+    <?php echo "<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>"; ?>
   </div>
 
   <div class="image-description">
     <h2>Description</h2>
     <?php
     // Image Description/Alt
-    if ($image_alt != "") {
-      echo "<p>".$image_alt."</p>";
-    }else{
+    if (empty($image_alt)) {
       echo "<p>Image uploaded prior to description being added</p>";
+    }else{
+      echo "<p>".$image_alt."</p>";
     }
 
     ?>
@@ -93,7 +88,7 @@
           // Deleted image
           header("Location:index.php?del=true&id=".$image['id']);
         }
-      }else{
+      } else {
         // Could not delete from file
         echo "<p class='alert alert-fail' id='deleted'>Error: Coult not delete image</p>";
       }
@@ -101,6 +96,6 @@
     ?>
   </div>
 
-  <?php include('ui/footer.php'); ?>
+  <?php include("ui/footer.php"); ?>
 </body>
 </html>

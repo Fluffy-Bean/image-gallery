@@ -14,6 +14,7 @@
   --fg-dark: #151515;
 
   --red: #B66467;
+  --orange: #FF7700;
   --green: #8C977D;
   --black: #151515;
   --white: #E8E3E3;
@@ -29,16 +30,20 @@
 html {
   margin: 0; padding: 0;
 
-  height: 100vh; width: 100vw;
+  min-height: 100vh; max-width: 100vw;
 
   background-color: var(--bg-2);
+  background-image: url("../assets/bg2.svg");
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 body {
   margin: 0 auto; padding: 1rem;
 
-  min-height: calc(100vh - 1rem);
-
-  max-width: 1500px;
+  min-height: calc(100vh - 2rem); max-width: 1500px;
 
   display: flex;
   flex-direction: column;
@@ -70,13 +75,17 @@ body {
 }
 
 .alert {
-  margin: 0; padding: 1rem;
+  margin: 0 auto; padding: 1rem;
 
   width: inherit;
+
+  text-align: center;
 
   display: inline-block;
 
   border-radius: var(--rad);
+
+  outline: 0.5rem solid var(--bg);
 }
 .alert-high {
   background-color: var(--green);

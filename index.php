@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 </head>
 <body>
-  <?php include('ui/header.php'); ?>
+  <?php include("ui/header.php"); ?>
 
   <?php
   if ($_GET["del"] == "true") {
@@ -24,12 +24,7 @@
   </div>
 
   <?php
-  // Attempt database connection
-  $conn = mysqli_connect("localhost", "uwu", "password", "swag");
-  // If connecton failed, notify user
-  if (!$conn) {
-    echo "<p class='alert alert-high'>Could not connect to database</p>";
-  }
+  include_once("ui/conn.php");
 
 
   // My terrible workaround for not being able to show deletion status up here
@@ -45,7 +40,7 @@
       // Getting thumbnail
       if (file_exists("images/thumbnails/".$row['imagename'])) {
         $image_path = "images/thumbnails/".$row['imagename'];
-      }else{
+      } else {
         $image_path = "images/".$row['imagename'];
       }
 
@@ -57,6 +52,6 @@
     ?>
   </div>
 
-  <?php include('ui/footer.php'); ?>
+  <?php include("ui/footer.php"); ?>
 </body>
 </html>

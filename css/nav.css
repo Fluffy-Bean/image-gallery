@@ -16,3 +16,10 @@ nav {
   border-radius: var(--rad);
   box-shadow: var(--shadow);
 }
+
+nav h3 {
+  margin: 0;
+}
+nav hr {
+  margin: 0.5rem 0.2rem; padding: 0;
+}

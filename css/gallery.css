@@ -22,7 +22,7 @@
 
   max-width: 300px; height: 200px;
 
-  background-color: var(--gray);
+  background-color: var(--bg-2);
   border-radius: var(--rad);
 
   flex: 1 0 150px;

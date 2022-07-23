@@ -5,12 +5,12 @@
     <p>Twitter</p>
     <p>Discord</p>
   </div>
-  <div class="footer-child center flex-down">
+  <!--<div class="footer-child center flex-down">
     <h3>Information</h3>
     <p>How to use</p>
     <p>Wiki</p>
     <p>Guides</p>
-  </div>
+  </div>-->
   <div class="footer-child center flex-down">
     <h3>Other</h3>
     <p>AAAAAAAA</p>
