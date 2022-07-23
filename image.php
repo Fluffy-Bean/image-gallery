@@ -18,6 +18,10 @@
   $image_results = mysqli_query($conn, $get_image);
   $image = mysqli_fetch_assoc($image_results);
 
+  if ($_GET["update"] == "success") {
+    echo "<p class='alert alert-high space-top'>Information updated</p>";
+  }
+
   if (!isset($_GET['id'])) {
     echo "<p class='alert alert-low'>No ID present</p>";
 
@@ -43,7 +47,7 @@
     <?php
     // Image Description/Alt
     if (empty($image_alt)) {
-      echo "<p>Image uploaded prior to description being added</p>";
+      echo "<p>No description provided</p>";
     }else{
       echo "<p>".$image_alt."</p>";
     }
@@ -71,6 +75,7 @@
 
   <div class="danger-zone flex-down">
     <h2>Danger zone</h2>
+    <!-- DELETE BUTTON -->
     <?php
     // Image hover details
     echo "<form class='detail' method='POST' enctype='multipart/form-data'>";
@@ -94,6 +99,9 @@
       }
     }
     ?>
+
+    <!-- EDIT BUTTON -->
+    <?php echo "<a class='btn alert-low space-top' href='https://superdupersecteteuploadtest.fluffybean.gay/edit.php?id=".$image['id']."'>Modify image content</a>"; ?>
   </div>
 
   <?php include("ui/footer.php"); ?>

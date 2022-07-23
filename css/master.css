@@ -3,6 +3,7 @@
 
 @import "gallery.css";
 @import "image.css";
+@import "edit.css";
 @import "upload.css";
 
 :root {
@@ -26,6 +27,7 @@
 * {
   font-weight: 521;
   color: var(--fg);
+  font-family: "Fira Code", monospace;
 }
 html {
   margin: 0; padding: 0;
@@ -50,6 +52,14 @@ body {
   justify-content: space-between;
 }
 
+form {
+  width: 100%;
+  box-sizing: border-box;
+}
+form * {
+  width: 100%;
+  box-sizing: border-box;
+}
 
 /*
   -=-=-= UNIVERSAL =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -81,7 +91,7 @@ body {
 
   text-align: center;
 
-  display: inline-block;
+  display: block;
 
   border-radius: var(--rad);
 
@@ -100,16 +110,20 @@ body {
 .btn {
   margin: 0; padding: 0.5rem;
 
-  border: none;
+  display: block;
 
-  display: inline-block;
-
+  font-size: 16px;
   align-items: center;
 
+  border: none;
   border-radius: var(--rad);
 }
 .btn:hover {
   outline: var(--white) 3px solid;
+}
+a.btn {
+  text-align: center;
+  text-decoration: none;
 }
 
 .space-bottom {
@@ -146,7 +160,7 @@ h4 {
   font-family: "Lexend Deca", sans-serif;
   font-size: 21px;
 }
-p {
+p, a {
   margin: 0 0 0.5rem 0;
   font-family: "Fira Code", monospace;
 }
