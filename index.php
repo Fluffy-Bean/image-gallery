@@ -20,8 +20,8 @@
   ?>
 
   <div class="info-text center">
-    <h1>Fluffys Super Duper Secrete Project!</h1>
-    <p>Fluffy's test website on uploading images to a database!</p>
+    <h1>Welcome!</h1>
+    <p>*internal screaming*</p>
   </div>
 
   <div class="gallery-root flex-left">
@@ -38,7 +38,7 @@
       } else {
         $image_path = "images/".$image['imagename'];
       }
-      
+
       // Image loading
       echo "<div class='gallery-item'>";
       echo "<a href='https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";

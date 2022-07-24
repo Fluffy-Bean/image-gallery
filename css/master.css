@@ -22,6 +22,8 @@
 
   --shadow: 6px 6px 10px #15151588;
   --rad: 5px;
+
+  --square: 33.33%;
 }
 
 * {
