@@ -117,7 +117,7 @@ form * {
   align-items: center;
   vertical-align: middle;
 
-  text-decoration: underline;
+  text-decoration: none;
 
   border: none;
   border-radius: var(--rad);
@@ -138,7 +138,7 @@ a.btn {
 
 .svg {
   margin: 0 0.2rem 0.1rem 0;
-  width: 18px; height: 18px;
+  width: 19px; height: 18px;
 
   vertical-align: middle;
 

@@ -17,8 +17,9 @@
     <form class="flex-down between" method="POST" action="upload.php" enctype="multipart/form-data">
         <input class="btn alert-default space-bottom" type="file" name="image" placeholder="select image UwU">
         <input class="btn alert-default space-bottom" type="text" name="alt" placeholder="Description/Alt for image">
-        <button class="btn alert-default" type="submit" name="upload">Upload Image</button>
+        <button class="btn alert-default" type="submit" name="upload"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
     </form>
+
     <?php
     if ($_GET["r"] == "success") {
       // Image uploaded
@@ -29,8 +30,6 @@
     } elseif ($_GET["r"] == "nofile") {
       // No file was present
       echo "<p class='alert alert-default space-top'>No file lol</p>";
-    } else {
-      // echo "<p class='alert alert-default'>Select an image to upload</p>";
     }
     ?>
   </div>
@@ -38,10 +37,9 @@
   <?php
   include_once("ui/conn.php");
 
-
   if (isset($_POST['upload'])) {
     // Get image name
-    $get_image_name = $_FILES['image']['name'];
+    $image_name = $_FILES['image']['name'];
 
     // Get alt text
     if (empty($_POST['alt'])) {
@@ -50,18 +48,18 @@
       $get_alt_text = $_POST['alt'];
     }
 
-
     // If image present, continue
-    if (!empty($get_image_name)) {
+    if (!empty($image_name)) {
       // Set file path for image upload
-      $image_basename = basename($get_image_name);
+      $image_basename = basename($image_name);
       $image_path = "images/".$image_basename;
-      $sql = "INSERT INTO swag_table (imagename, alt) VALUES ('$get_image_name','$get_alt_text')";
 
+      // Prepare sql for destruction and filtering the sus
+      $sql = $conn->prepare("INSERT INTO swag_table (imagename, alt) VALUES (?, ?)");
+      $sql->bind_param("ss", $image_name, $get_alt_text);
 
       // Uploading image to Table
-      mysqli_query($conn, $sql);
-
+      $sql->execute();
 
       // Checking if image uploaded
       if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {

@@ -10,9 +10,10 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 </head>
 <body>
-  <?php include("ui/header.php"); ?>
-
   <?php
+  include("ui/header.php");
+
+  // Deletion toast
   if ($_GET["del"] == "true") {
     echo "<p class='alert alert-high space-bottom'>Successfully deleted image: ".$_GET['id']."</p>";
   }
@@ -23,30 +24,24 @@
     <p>Fluffy's test website on uploading images to a database!</p>
   </div>
 
-  <?php
-  include_once("ui/conn.php");
-
-
-  // My terrible workaround for not being able to show deletion status up here
-  if (isset($_GET['d'])) {
-    echo "<p class='alert default'>Image ".$_GET['d']." has been modified, <a href='#deleted'>view status here</a></p>";
-  }
-  ?>
   <div class="gallery-root flex-left">
     <?php
-    // Reading images from table
-    $img = mysqli_query($conn, "SELECT * FROM swag_table");
-    while ($row = mysqli_fetch_array($img)) {
-      // Getting thumbnail
-      if (file_exists("images/thumbnails/".$row['imagename'])) {
-        $image_path = "images/thumbnails/".$row['imagename'];
-      } else {
-        $image_path = "images/".$row['imagename'];
-      }
+    include_once("ui/conn.php");
 
+    // Reading images from table
+    $image_request = mysqli_query($conn, "SELECT * FROM swag_table");
+
+    while ($image = mysqli_fetch_array($image_request)) {
+      // Getting thumbnail
+      if (file_exists("images/thumbnails/".$image['imagename'])) {
+        $image_path = "images/thumbnails/".$image['imagename'];
+      } else {
+        $image_path = "images/".$image['imagename'];
+      }
+      
       // Image loading
       echo "<div class='gallery-item'>";
-      echo "<a href='https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$row['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$row['id']."'></a>";
+      echo "<a href='https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
       echo "</div>";
     }
     ?>

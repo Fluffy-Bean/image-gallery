@@ -14,32 +14,38 @@
   include("ui/header.php");
   include_once("ui/conn.php");
 
+
+  // Update toast
+  if ($_GET["update"] == "success") {
+    echo "<p class='alert alert-high space-bottom'>Information updated</p>";
+  }
+
+
   // Get image ID
   // Getting all image info from table
   $get_image = "SELECT * FROM swag_table WHERE id = ".$_GET['id'];
   $image_results = mysqli_query($conn, $get_image);
   $image = mysqli_fetch_assoc($image_results);
 
-  // Image has been modified successfully
-  if ($_GET["update"] == "success") {
-    echo "<p class='alert alert-high space-bottom'>Information updated</p>";
-  }
-
   // Check if ID of image in URL
   if (!isset($_GET['id'])) {
-    // No ID
+    // No ID toast
     echo "<p class='alert alert-low space-bottom'>No ID present</p>";
+
     // Replacement "no image" image and description
     $image_path = "assets/no_image.png";
     $image_alt = "No image could be found, sowwy";
+
   } elseif (empty($image['imagename'])) {
-    // proposed ID not avalible
+    // ID not avalible toast
     echo "<p class='alert alert-low'>Could not find image with ID: ".$_GET['id']."</p>";
+
     // Replacement "no image" image and description
     $image_path = "assets/no_image.png";
     $image_alt = "No image could be found, sowwy";
+
   } else {
-    // Image avalible
+    // Display image
     $image_path = "images/".$image['imagename'];
     $image_alt = $image['alt'];
   }
@@ -95,10 +101,11 @@
     // Check if query is set
     if (isset($_POST['delete'])) {
       // Try deleting image
-      if(unlink("images/".$image['imagename'])) {
+      if(unlink("images/".$image['imagename']) && unlink("images/thumbnails/".$image['imagename'])) {
         // If deleted, delete from Table
         $image_delete_request = "DELETE FROM swag_table WHERE id =".$image['id'];
         $image_delete = mysqli_query($conn,$image_delete_request);
+        
         if ($image_delete) {
           // Deleted image
           header("Location:index.php?del=true&id=".$image['id']);

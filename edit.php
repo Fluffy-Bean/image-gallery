@@ -10,18 +10,16 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 </head>
 <body>
-  <?php
-  include("ui/header.php");
-  $id = $_GET["id"];
-  ?>
+  <?php include("ui/header.php"); ?>
 
   <div class="edit-root">
     <h2>Modify Information</h2>
-    <p class="space-below">Make sure that the id of the image is correct!</p>
+    <p class="space-below">This is a dangerous place to step foot into... tread carefully.</p>
     <form class="flex-down between" method="POST" action="edit.php" enctype="multipart/form-data">
         <input class="btn alert-default space-bottom" type="text" name="alt" placeholder="Description/Alt for image">
-        <?php echo "<button class='btn alert-default' type='submit' name='update' value=".$id.">Update information</button>"; ?>
+        <?php echo "<button class='btn alert-default' type='submit' name='id' value=".$_GET["id"]."><img class='svg' src='assets/icons/edit.svg'>Update information</button>"; ?>
     </form>
+
     <?php
     if ($_GET["r"] == "success") {
       // Info updated
@@ -32,31 +30,33 @@
     } elseif ($_GET["r"] == "noinfo") {
       // No info was present
       echo "<p class='alert alert-default space-top'>No description/alt, pls give</p>";
-    } else {
-      // echo "<p class='alert alert-default'>Please enter information</p>";
     }
     ?>
   </div>
 
-  <?php include("ui/conn.php");
+  <?php
+  include("ui/conn.php");
 
-  if (isset($_POST['update'])) {
+  if (isset($_POST['id'])) {
     if (empty($_POST['alt'])) {
       header("Location:edit.php?r=noinfo");
 
     } else {
-      $sql = "UPDATE swag_table SET alt='".$_POST['alt']."' WHERE id=".$_POST['update'];
+      $sql = $conn->prepare("UPDATE swag_table SET alt=? WHERE id=?");
+      $sql->bind_param("si", $alt, $id);
 
-      if (mysqli_query($conn, $sql)) {
+      $alt = $_POST['alt'];
+      $id = $_POST['id'];
+
+      if ($sql->execute()) {
         //header("Location:edit.php?r=success");
-        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$_POST['update']."&update=success");
+        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$_POST['id']."&update=success");
       } else {
         header("Location:edit.php?r=fail");
       }
     }
   }
   ?>
-
 
   <?php include("ui/footer.php"); ?>
 </body>
