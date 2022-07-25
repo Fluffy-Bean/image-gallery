@@ -119,7 +119,7 @@
       <input class="btn alert-default space-bottom" type="password" name="password" placeholder="Password">
       <input class="btn alert-default space-bottom-large" type="password" name="confirm_password" placeholder="Re-enter Password">
       <input class="btn alert-default space-bottom-large" type="text" name="invite_code" placeholder="Invite Code">
-      <button class="btn alert-high" type="submit" name="signup">Sign Up</button>
+      <button class="btn alert-high" type="submit" name="signup"><img class="svg" src="assets/icons/sign-in.svg">Sign Up</button>
       <?php
       if (isset($error)) {
         echo "<p class='alert alert-low space-top'>".$error."</p>";
@@ -129,7 +129,7 @@
       }
       ?>
     </form>
-    <a class='btn alert-default space-top-large' href='https://superdupersecteteuploadtest.fluffybean.gay/login.php'>Got an account? Login!</a>
+    <a class='btn alert-default space-top-large' href='https://superdupersecteteuploadtest.fluffybean.gay/login.php'><img class="svg" src="assets/icons/sign-in.svg">Got an account? Login!</a>
   </div>
 
   <?php include("ui/footer.php"); ?>

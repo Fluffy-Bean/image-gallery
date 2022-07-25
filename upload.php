@@ -68,8 +68,8 @@
     }
   } else {
     $error = "You must be logged in to upload images";
+    header("Location: https://superdupersecteteuploadtest.fluffybean.gay");
   }
-
   ?>
 
   <div class="upload-root">

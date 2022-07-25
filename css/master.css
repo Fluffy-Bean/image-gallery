@@ -47,6 +47,8 @@ html {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+
+  scroll-behavior: smooth;
 }
 body {
   margin: 0 auto; padding: 1rem;

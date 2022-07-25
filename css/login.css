@@ -4,7 +4,7 @@
 .login-root {
   margin: 0 auto 2rem; padding: 0.5rem;
 
-  max-width: 621px;
+  max-width: 621px; width: calc(100% - 2rem);
 
   background-color: var(--bg); color: var(--fg);
 

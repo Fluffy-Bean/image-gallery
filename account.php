@@ -16,8 +16,8 @@
     <h2>Account settings</h2>
     <?php
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-      echo "<p>Oh hi ".$_SESSION["username"].".</p>";
-      echo "<a class='btn alert-default space-top' href='https://superdupersecteteuploadtest.fluffybean.gay/logout.php'><img class='svg' src='assets/icons/user-circle.svg'>Logout</a>";
+      echo "<p>O hi ".$_SESSION["username"].".</p>";
+      echo "<a class='btn alert-default space-top' href='https://superdupersecteteuploadtest.fluffybean.gay/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Logout</a>";
     } else {
       echo "<p class='space-bottom-large'>You must be logged in to change your account settings!</p>";
       echo "<a class='btn alert-high space-top-large' href='https://superdupersecteteuploadtest.fluffybean.gay/signup.php'>Sign up!</a>";
