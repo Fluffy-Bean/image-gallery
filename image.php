@@ -20,12 +20,17 @@
     echo "<p class='alert alert-high space-bottom-large'>Information updated</p>";
   }
 
-
-  // Get image ID
   // Getting all image info from table
   $get_image = "SELECT * FROM swag_table WHERE id = ".$_GET['id'];
   $image_results = mysqli_query($conn, $get_image);
   $image = mysqli_fetch_assoc($image_results);
+
+  // Get all user details
+  if (isset($image['author'])) {
+    $get_user = "SELECT * FROM users WHERE id = ".$image['author'];
+    $user_results = mysqli_query($conn, $get_user);
+    $user = mysqli_fetch_assoc($user_results);
+  }
 
   // Check if ID of image in URL
   if (!isset($_GET['id'])) {
@@ -72,6 +77,13 @@
     <h2>Details</h2>
     <?php
     // Image ID
+    if (isset($image['author'])) {
+      echo "<p>Author: ".$user['username']."</p>";
+    } else {
+      echo "<p>Author: No author</p>";
+    }
+
+    // Image ID
     echo "<p>ID: ".$image['id']."</p>";
 
     // File name
@@ -89,10 +101,10 @@
     ?>
   </div>
 
-  <div class="danger-zone flex-down">
-    <h2>Danger zone</h2>
-    <!-- DELETE BUTTON -->
-    <?php
+  <?php
+  if (isset($_SESSION['id']) && $image['author'] == $_SESSION['id'] || $_SESSION['id'] == 1) {
+    echo "<div class='danger-zone flex-down'>";
+    echo "<h2>Danger zone</h2>";
     // Image hover details
     echo "<form class='detail' method='POST' enctype='multipart/form-data'>";
     echo "<button class='btn alert-low' type='submit' name='delete' value='".$image['id']."'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>";
@@ -115,11 +127,14 @@
         echo "<p class='alert alert-fail' id='deleted'>Error: Coult not delete image</p>";
       }
     }
-    ?>
 
-    <!-- EDIT BUTTON -->
-    <?php echo "<a class='btn alert-low space-top' href='https://superdupersecteteuploadtest.fluffybean.gay/edit.php?id=".$image['id']."'><img class='svg' src='assets/icons/edit.svg'>Modify image content</a>"; ?>
-  </div>
+    echo "<a class='btn alert-low space-top' href='https://superdupersecteteuploadtest.fluffybean.gay/edit.php?id=".$image['id']."'><img class='svg' src='assets/icons/edit.svg'>Modify image content</a>";
+    echo "</div>";
+  } else {
+
+  }
+
+  ?>
 
   <?php include("ui/footer.php"); ?>
 </body>

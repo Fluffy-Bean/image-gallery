@@ -14,55 +14,62 @@
   include("ui/header.php");
   include_once("ui/conn.php");
 
-  if (isset($_POST['upload'])) {
-    // Get image name
-    $image_name = $_FILES['image']['name'];
+  if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    if (isset($_POST['upload'])) {
+      // Get image name
+      $image_name = $_FILES['image']['name'];
 
-    // Get alt text
-    if (empty($_POST['alt'])) {
-      $get_alt_text = "No description provided";
-    } else {
-      $get_alt_text = $_POST['alt'];
-    }
-
-    // If image present, continue
-    if (!empty($image_name)) {
-      // Set file path for image upload
-      $image_basename = basename($image_name);
-      $image_path = "images/".$image_basename;
-
-      // Prepare sql for destruction and filtering the sus
-      $sql = $conn->prepare("INSERT INTO swag_table (imagename, alt) VALUES (?, ?)");
-      $sql->bind_param("ss", $image_name, $get_alt_text);
-
-      // Uploading image to Table
-      $sql->execute();
-
-      // Checking if image uploaded
-      if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
-        // Make thumbnail
-        $image_thumbnail = new Imagick($image_path);
-        // Get image format
-        $image_format = $image_thumbnail->getImageFormat();
-        // If image is gif
-        if ($image_format == 'GIF') {
-          $image_thumbnail = $image_thumbnail->coalesceImages();
-        }
-        // Resize image
-        $image_thumbnail->resizeImage(300,null,null,1,null);
-        // Save image
-        $image_thumbnail->writeImage("images/thumbnails/".$image_basename);
-
-        $success = "Your Image uploaded successfully!";
+      // Get alt text
+      if (empty($_POST['alt'])) {
+        $get_alt_text = "No description provided";
       } else {
-        // Could not move images to folder
-        $error = "F, Upload failed";
+        $get_alt_text = $_POST['alt'];
       }
-    } else {
-      // No image present
-      $error = "No file lol";
+
+      // If image present, continue
+      if (!empty($image_name)) {
+        // Set file path for image upload
+        $image_basename = basename($image_name);
+        $image_path = "images/".$image_basename;
+
+        // Prepare sql for destruction and filtering the sus
+        $sql = $conn->prepare("INSERT INTO swag_table (imagename, alt, author) VALUES (?, ?, ?)");
+        $sql->bind_param("sss", $image_name, $get_alt_text, $user_id);
+
+        $user_id = $_SESSION["id"];
+
+        // Uploading image to Table
+        $sql->execute();
+
+        // Checking if image uploaded
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+          // Make thumbnail
+          $image_thumbnail = new Imagick($image_path);
+          // Get image format
+          $image_format = $image_thumbnail->getImageFormat();
+          // If image is gif
+          if ($image_format == 'GIF') {
+            $image_thumbnail = $image_thumbnail->coalesceImages();
+          }
+          // Resize image
+          $image_thumbnail->resizeImage(300,null,null,1,null);
+          // Save image
+          $image_thumbnail->writeImage("images/thumbnails/".$image_basename);
+
+          $success = "Your Image uploaded successfully!";
+        } else {
+          // Could not move images to folder
+          $error = "F, Upload failed";
+        }
+      } else {
+        // No image present
+        $error = "No file lol";
+      }
     }
+  } else {
+    $error = "You must be logged in to upload images";
   }
+
   ?>
 
   <div class="upload-root">

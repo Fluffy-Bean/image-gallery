@@ -26,13 +26,17 @@
 
   <div class="info-text center">
     <?php
+    // Welcome depending on if user is logged in or not
     if (isset($_SESSION["username"])) {
       echo "<h1>Welcome ".$_SESSION['username']."!</h1>";
     } else {
       echo "<h1>Welcome!</h1>";
     }
+
+    // Random welcome message
+    $welcome_message = array("*internal screaming*", "Sussy Wussy", "What is this world?", "Don't forget to drink water!", "Bruh", "PHP is pain", "This is so poorly programmed");
+    echo "<p>".$welcome_message[array_rand($welcome_message, 1)]."</p>";
     ?>
-    <p>*internal screaming*</p>
   </div>
 
   <div class="gallery-root flex-left">

@@ -98,7 +98,7 @@
     <form class="flex-down between" method="POST" action="login.php" enctype="multipart/form-data">
       <input class="btn alert-default space-bottom" type="text" name="username" placeholder="Username">
       <input class="btn alert-default space-bottom-large" type="password" name="password" placeholder="Password">
-      <button class="btn alert-default" type="submit" name="login"><img class="svg" src="assets/icons/user-circle.svg">Login</button>
+      <button class="btn alert-high" type="submit" name="login"><img class="svg" src="assets/icons/user-circle.svg">Login</button>
     </form>
     <?php
     if (isset($error)) {

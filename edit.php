@@ -10,7 +10,39 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 </head>
 <body>
-  <?php include("ui/header.php"); ?>
+  <?php
+  include("ui/header.php");
+  include("ui/conn.php");
+
+  if (isset($_POST['id'])) {
+    // Getting all image info from table
+    $get_image = "SELECT * FROM swag_table WHERE id = ".$_POST['id'];
+    $image_results = mysqli_query($conn, $get_image);
+    $image = mysqli_fetch_assoc($image_results);
+
+    // Checking if user has edit rights
+    if (isset($_SESSION['id']) && $image['author'] == $_SESSION['id'] || $_SESSION['id'] == 1) {
+      if (isset($_POST['alt'])) {
+        $sql = $conn->prepare("UPDATE swag_table SET alt=? WHERE id=?");
+        $sql->bind_param("si", $alt, $id);
+
+        $alt = $_POST['alt'];
+        $id = $_POST['id'];
+
+        if ($sql->execute()) {
+          header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$_POST['id']."&update=success");
+        } else {
+          $error = "Something fuckywucky";
+        }
+      } else {
+        $error = "No description/alt, pls give";
+      }
+    } else {
+      $error = "You do not have edit rights";
+    }
+  }
+
+  ?>
 
   <div class="edit-root">
     <h2>Modify Information</h2>
@@ -21,42 +53,11 @@
     </form>
 
     <?php
-    if ($_GET["r"] == "success") {
-      // Info updated
-      echo "<p class='alert alert-high space-top'>Information updated!</p>";
-    } elseif ($_GET["r"] == "fail") {
-      // Upload failed
-      echo "<p class='alert alert-low space-top'>Something fuckywucky</p>";
-    } elseif ($_GET["r"] == "noinfo") {
-      // No info was present
-      echo "<p class='alert alert-default space-top'>No description/alt, pls give</p>";
+    if (isset($error)) {
+      echo "<p class='alert alert-low space-top'>".$error."</p>";
     }
     ?>
   </div>
-
-  <?php
-  include("ui/conn.php");
-
-  if (isset($_POST['id'])) {
-    if (empty($_POST['alt'])) {
-      header("Location:edit.php?r=noinfo");
-
-    } else {
-      $sql = $conn->prepare("UPDATE swag_table SET alt=? WHERE id=?");
-      $sql->bind_param("si", $alt, $id);
-
-      $alt = $_POST['alt'];
-      $id = $_POST['id'];
-
-      if ($sql->execute()) {
-        //header("Location:edit.php?r=success");
-        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$_POST['id']."&update=success");
-      } else {
-        header("Location:edit.php?r=fail");
-      }
-    }
-  }
-  ?>
 
   <?php include("ui/footer.php"); ?>
 </body>

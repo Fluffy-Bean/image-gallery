@@ -79,6 +79,15 @@
       }
     }
 
+    // Check for invite code
+    if (isset($_POST['invite_code'])) {
+      if ($_POST['invite_code'] != "23R2pz33yDrb3Ry9") {
+        $error = "Seems that you don't have the right invite code, whatever shall you do";
+      }
+    } else {
+      $error = "Enter Invite Code ;3";
+    }
+
     // Checking for errors
     if (empty($error)) {
       $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
@@ -109,6 +118,7 @@
       <input class="btn alert-default space-bottom-large" type="text" name="username" placeholder="Username">
       <input class="btn alert-default space-bottom" type="password" name="password" placeholder="Password">
       <input class="btn alert-default space-bottom-large" type="password" name="confirm_password" placeholder="Re-enter Password">
+      <input class="btn alert-default space-bottom-large" type="text" name="invite_code" placeholder="Invite Code">
       <button class="btn alert-high" type="submit" name="signup">Sign Up</button>
       <?php
       if (isset($error)) {
