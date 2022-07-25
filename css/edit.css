@@ -2,7 +2,9 @@
   -=-=-= EDIT =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
 .edit-root {
-  margin: 0 auto 2rem; padding: 0.5rem;;
+  margin: 0 auto 2rem; padding: 0.5rem;
+
+  max-width: 621px;
 
   background-color: var(--bg); color: var(--fg);
 
@@ -11,6 +13,4 @@
 
   border-radius: var(--rad);
   box-shadow: var(--shadow);
-
-  max-width: 621px;
 }

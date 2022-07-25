@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UwU</title>
+  <title>Gallery</title>
   <link rel="stylesheet" href="css/master.css">
   <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
@@ -17,10 +17,21 @@
   if ($_GET["del"] == "true") {
     echo "<p class='alert alert-high space-bottom'>Successfully deleted image: ".$_GET['id']."</p>";
   }
+
+  // Account toast
+  if ($_GET["login"] == "success") {
+    echo "<p class='alert alert-high space-bottom'>You're now logged in!</p>";
+  }
   ?>
 
   <div class="info-text center">
-    <h1>Welcome!</h1>
+    <?php
+    if (isset($_SESSION["username"])) {
+      echo "<h1>Welcome ".$_SESSION['username']."!</h1>";
+    } else {
+      echo "<h1>Welcome!</h1>";
+    }
+    ?>
     <p>*internal screaming*</p>
   </div>
 

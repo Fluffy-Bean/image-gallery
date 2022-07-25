@@ -3,38 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UwU</title>
+  <title>Upload</title>
   <link rel="stylesheet" href="css/master.css">
   <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 </head>
 <body>
-  <?php include("ui/header.php"); ?>
-
-  <div class="upload-root">
-    <h2 class="space-bottom">Upload image</h2>
-    <form class="flex-down between" method="POST" action="upload.php" enctype="multipart/form-data">
-        <input class="btn alert-default space-bottom" type="file" name="image" placeholder="select image UwU">
-        <input class="btn alert-default space-bottom" type="text" name="alt" placeholder="Description/Alt for image">
-        <button class="btn alert-default" type="submit" name="upload"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
-    </form>
-
-    <?php
-    if ($_GET["r"] == "success") {
-      // Image uploaded
-      echo "<p class='alert alert-high space-top'>Your Image uploaded successfully!</p>";
-    } elseif ($_GET["r"] == "fail") {
-      // Upload failed
-      echo "<p class='alert alert-low space-top'>F, Upload failed</p>";
-    } elseif ($_GET["r"] == "nofile") {
-      // No file was present
-      echo "<p class='alert alert-default space-top'>No file lol</p>";
-    }
-    ?>
-  </div>
-
   <?php
+  include("ui/header.php");
   include_once("ui/conn.php");
 
   if (isset($_POST['upload'])) {
@@ -76,17 +53,36 @@
         // Save image
         $image_thumbnail->writeImage("images/thumbnails/".$image_basename);
 
-        header("Location:upload.php?r=success");
+        $success = "Your Image uploaded successfully!";
       } else {
         // Could not move images to folder
-        header("Location:upload.php?r=fail");
+        $error = "F, Upload failed";
       }
     } else {
       // No image present
-      header("Location:upload.php?r=nofile");
+      $error = "No file lol";
     }
   }
   ?>
+
+  <div class="upload-root">
+    <h2 class="space-bottom">Upload image</h2>
+    <p>In this world you have 2 choices, to upload a really cute picture of an animal or fursuit, or something other than those 2 things.</p>
+    <form class="flex-down between" method="POST" action="upload.php" enctype="multipart/form-data">
+        <input class="btn alert-default space-bottom" type="file" name="image" placeholder="select image UwU">
+        <input class="btn alert-default space-bottom-large" type="text" name="alt" placeholder="Description/Alt for image">
+        <button class="btn alert-default" type="submit" name="upload"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
+    </form>
+
+    <?php
+    if (isset($error)) {
+      echo "<p class='alert alert-low space-top'>".$error."</p>";
+    }
+    if (isset($success)) {
+      echo "<p class='alert alert-high space-top'>".$success."</p>";
+    }
+    ?>
+  </div>
 
   <?php include("ui/footer.php"); ?>
 </body>

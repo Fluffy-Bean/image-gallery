@@ -6,6 +6,10 @@
 @import "edit.css";
 @import "upload.css";
 
+@import "signup.css";
+@import "login.css";
+@import "account.css";
+
 :root {
   --bg: #151515df;
   --bg-1: #242621;
@@ -136,6 +140,12 @@ a.btn {
 }
 .space-top {
   margin-top: 1rem;
+}
+.space-bottom-large {
+  margin-bottom: 2rem;
+}
+.space-top-large {
+  margin-top: 2rem;
 }
 
 .svg {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UwU</title>
+  <title>Gallery</title>
   <link rel="stylesheet" href="css/master.css">
   <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
@@ -16,7 +16,7 @@
     <h2>Modify Information</h2>
     <p class="space-below">This is a dangerous place to step foot into... tread carefully.</p>
     <form class="flex-down between" method="POST" action="edit.php" enctype="multipart/form-data">
-        <input class="btn alert-default space-bottom" type="text" name="alt" placeholder="Description/Alt for image">
+        <input class="btn alert-default space-bottom-large" type="text" name="alt" placeholder="Description/Alt for image">
         <?php echo "<button class='btn alert-default' type='submit' name='id' value=".$_GET["id"]."><img class='svg' src='assets/icons/edit.svg'>Update information</button>"; ?>
     </form>
 

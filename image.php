@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UwU</title>
+  <title>Gallery</title>
   <link rel="stylesheet" href="css/master.css">
   <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
@@ -17,7 +17,7 @@
 
   // Update toast
   if ($_GET["update"] == "success") {
-    echo "<p class='alert alert-high space-bottom'>Information updated</p>";
+    echo "<p class='alert alert-high space-bottom-large'>Information updated</p>";
   }
 
 
@@ -30,7 +30,7 @@
   // Check if ID of image in URL
   if (!isset($_GET['id'])) {
     // No ID toast
-    echo "<p class='alert alert-low space-bottom'>No ID present</p>";
+    echo "<p class='alert alert-low space-bottom-large'>No ID present</p>";
 
     // Replacement "no image" image and description
     $image_path = "assets/no_image.png";
@@ -38,7 +38,7 @@
 
   } elseif (empty($image['imagename'])) {
     // ID not avalible toast
-    echo "<p class='alert alert-low'>Could not find image with ID: ".$_GET['id']."</p>";
+    echo "<p class='alert alert-low space-bottom-large'>Could not find image with ID: ".$_GET['id']."</p>";
 
     // Replacement "no image" image and description
     $image_path = "assets/no_image.png";
@@ -105,7 +105,7 @@
         // If deleted, delete from Table
         $image_delete_request = "DELETE FROM swag_table WHERE id =".$image['id'];
         $image_delete = mysqli_query($conn,$image_delete_request);
-        
+
         if ($image_delete) {
           // Deleted image
           header("Location:index.php?del=true&id=".$image['id']);
