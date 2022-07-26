@@ -16,50 +16,51 @@
 
   if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     if (isset($_POST['upload'])) {
-      // Get image name
+      // Setting image up for upload
       $image_name = $_FILES['image']['name'];
-
-      // Get alt text
-      if (empty($_POST['alt'])) {
-        $get_alt_text = "No description provided";
-      } else {
-        $get_alt_text = $_POST['alt'];
-      }
-
-      // If image present, continue
-      if (!empty($image_name)) {
+      if (isset($image_name)) {
         // Set file path for image upload
         $image_basename = basename($image_name);
         $image_path = "images/".$image_basename;
 
-        // Prepare sql for destruction and filtering the sus
-        $sql = $conn->prepare("INSERT INTO swag_table (imagename, alt, author) VALUES (?, ?, ?)");
-        $sql->bind_param("sss", $image_name, $get_alt_text, $user_id);
+        // Check if errors occured
+        if (empty($error)) {
+          // Prepare sql for destruction and filtering the sus
+          $sql = "INSERT INTO swag_table (imagename, alt, author) VALUES (?, ?, ?)";
 
-        $user_id = $_SESSION["id"];
+          // Can contact database?
+          if ($stmt = mysqli_prepare($conn, $sql)) {
+            // Bind the smelly smelly
+            mysqli_stmt_bind_param($stmt, "sss", $param_image_name, $param_alt_text, $param_user_id);
 
-        // Uploading image to Table
-        $sql->execute();
+            // Setting up parameters
+            $param_image_name = $image_name;
+            $param_alt_text = $_POST['alt'];
+            $param_user_id = $_SESSION["id"];
 
-        // Checking if image uploaded
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
-          // Make thumbnail
-          $image_thumbnail = new Imagick($image_path);
-          // Get image format
-          $image_format = $image_thumbnail->getImageFormat();
-          // If image is gif
-          if ($image_format == 'GIF') {
-            $image_thumbnail = $image_thumbnail->coalesceImages();
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+              // Move files onto server
+              if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+                // Make thumbnail
+                $image_thumbnail = new Imagick($image_path);
+                $image_format = $image_thumbnail->getImageFormat();
+                // If image is GIF
+                if ($image_format == 'GIF') {
+                  $image_thumbnail = $image_thumbnail->coalesceImages();
+                }
+                // Resize image
+                $image_thumbnail->resizeImage(300,null,null,1,null);
+                $image_thumbnail->writeImage("images/thumbnails/".$image_basename);
+
+                $success = "Your Image uploaded successfully!";
+              } else {
+                $error = "F, Upload failed";
+              }
+            } else {
+              $error = "Something went fuckywucky, please try later";
+            }
           }
-          // Resize image
-          $image_thumbnail->resizeImage(300,null,null,1,null);
-          // Save image
-          $image_thumbnail->writeImage("images/thumbnails/".$image_basename);
-
-          $success = "Your Image uploaded successfully!";
-        } else {
-          // Could not move images to folder
-          $error = "F, Upload failed";
         }
       } else {
         // No image present
@@ -68,7 +69,7 @@
     }
   } else {
     $error = "You must be logged in to upload images";
-    header("Location: https://superdupersecteteuploadtest.fluffybean.gay");
+    //header("Location: https://superdupersecteteuploadtest.fluffybean.gay");
   }
   ?>
 
@@ -80,7 +81,6 @@
         <input class="btn alert-default space-bottom-large" type="text" name="alt" placeholder="Description/Alt for image">
         <button class="btn alert-default" type="submit" name="upload"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
     </form>
-
     <?php
     if (isset($error)) {
       echo "<p class='alert alert-low space-top'>".$error."</p>";

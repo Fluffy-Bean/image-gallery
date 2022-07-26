@@ -14,34 +14,46 @@
   include("ui/header.php");
   include("ui/conn.php");
 
-  if (isset($_POST['id'])) {
-    // Getting all image info from table
-    $get_image = "SELECT * FROM swag_table WHERE id = ".$_POST['id'];
-    $image_results = mysqli_query($conn, $get_image);
-    $image = mysqli_fetch_assoc($image_results);
+  // Check if user is logged in
+  if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    // Get post ID from button
+    if (isset($_POST['id'])) {
+      // Getting all image info from table
+      $get_image = "SELECT * FROM swag_table WHERE id = ".$_POST['id'];
+      $image_results = mysqli_query($conn, $get_image);
+      $image = mysqli_fetch_assoc($image_results);
 
-    // Checking if user has edit rights
-    if (isset($_SESSION['id']) && $image['author'] == $_SESSION['id'] || $_SESSION['id'] == 1) {
-      if (isset($_POST['alt'])) {
-        $sql = $conn->prepare("UPDATE swag_table SET alt=? WHERE id=?");
-        $sql->bind_param("si", $alt, $id);
+      // Check if user owns image
+      if (isset($_SESSION['id']) && $image['author'] == $_SESSION['id'] || $_SESSION['id'] == 1) {
+        // If no errors
+        if (empty($error)) {
+          // getting ready forSQL asky asky
+          $sql = "UPDATE swag_table SET alt=? WHERE id=?";
 
-        $alt = $_POST['alt'];
-        $id = $_POST['id'];
+          // Checking if databse is doing ok
+          if ($stmt = mysqli_prepare($conn, $sql)) {
+            mysqli_stmt_bind_param($stmt, "si", $param_alt, $param_id);
 
-        if ($sql->execute()) {
-          header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$_POST['id']."&update=success");
-        } else {
-          $error = "Something fuckywucky";
+            // Setting parameters
+            $param_alt = $_POST['alt'];
+            $param_id = $_POST['id'];
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+              header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$_POST['id']."&update=success");
+            } else {
+              $error = "Something went fuckywucky, please try later";
+            }
+          }
         }
       } else {
-        $error = "No description/alt, pls give";
+        $error = "You do not have edit rights";
       }
-    } else {
-      $error = "You do not have edit rights";
     }
+  } else {
+    $error = "You must be logged in to edit images";
+    //header("Location: https://superdupersecteteuploadtest.fluffybean.gay");
   }
-
   ?>
 
   <div class="edit-root">
@@ -51,7 +63,6 @@
         <input class="btn alert-default space-bottom-large" type="text" name="alt" placeholder="Description/Alt for image">
         <?php echo "<button class='btn alert-default' type='submit' name='id' value=".$_GET["id"]."><img class='svg' src='assets/icons/edit.svg'>Update information</button>"; ?>
     </form>
-
     <?php
     if (isset($error)) {
       echo "<p class='alert alert-low space-top'>".$error."</p>";

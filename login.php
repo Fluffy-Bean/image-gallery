@@ -108,6 +108,7 @@
       echo "<p class='alert alert-high space-top'>".$success."</p>";
     }
     ?>
+    <a class='btn alert-default space-top-large' href='https://superdupersecteteuploadtest.fluffybean.gay/signup.php'><img class="svg" src="assets/icons/sign-in.svg">Need an account? Sign up!</a>
   </div>
 
   <?php include("ui/footer.php"); ?>

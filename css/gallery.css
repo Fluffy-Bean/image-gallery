@@ -21,7 +21,7 @@
   margin: 0.5rem; padding: 0;
 
   /*max-width: 232.5px; max-height: 232.5px;*/
-  height: auto; max-width: 315px;
+  height: auto; max-width: 350px;
 
   background-color: var(--bg-2);
   border-radius: var(--rad);

@@ -53,6 +53,13 @@
     // Display image
     $image_path = "images/".$image['imagename'];
     $image_alt = $image['alt'];
+
+    // Add image view
+    if (empty($image['views'])) {
+      //$conn->query("UPDATE swag_table SET views=1 WHERE id=".$image['id']);
+    } else {
+      //$conn->query("UPDATE swag_table SET views=views+1 WHERE id=".$image['id']);
+    }
   }
   ?>
 
@@ -83,6 +90,9 @@
       echo "<p>Author: No author</p>";
     }
 
+    // Views
+    //echo "<p>Views: ".$image['views']."</p>";
+
     // Image ID
     echo "<p>ID: ".$image['id']."</p>";
 
@@ -90,7 +100,7 @@
     echo "<p>File Name: ".$image['imagename']."</p>";
 
     // Image Upload date
-    echo "<p>Upload Date: ".$image['upload']."</p>";
+    echo "<p>Last updated: ".$image['upload']." (+0)</p>";
 
     // Image resolution
     list($width, $height) = getimagesize($image_path);

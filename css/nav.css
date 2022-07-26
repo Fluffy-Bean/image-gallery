@@ -42,3 +42,12 @@ nav hr {
     justify-content: space-around;
   }
 }
+
+@media (max-width: 400px) {
+  .nav-hide {
+    display: none;
+  }
+  .nav-links a .svg {
+    margin: 0;
+  }
+}

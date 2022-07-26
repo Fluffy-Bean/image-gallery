@@ -129,7 +129,6 @@
       }
       ?>
     </form>
-    <a class='btn alert-default space-top-large' href='https://superdupersecteteuploadtest.fluffybean.gay/login.php'><img class="svg" src="assets/icons/sign-in.svg">Got an account? Login!</a>
   </div>
 
   <?php include("ui/footer.php"); ?>
