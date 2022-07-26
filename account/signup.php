@@ -74,7 +74,7 @@
 
     // Check for invite code
     if (isset($_POST['invite_code'])) {
-      if ($_POST['invite_code'] != "23R2pz33yDrb3Ry9") {
+      if ($_POST['invite_code'] != "supercoolcode") {
         $error = "Seems that you don't have the right invite code, whatever shall you do";
       }
     } else {
