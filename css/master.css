@@ -9,6 +9,7 @@
 @import "signup.css";
 @import "login.css";
 @import "account.css";
+@import "password-reset.css";
 
 :root {
   --bg: #151515df;
