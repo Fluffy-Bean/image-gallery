@@ -34,7 +34,7 @@
     }
 
     // Random welcome message
-    $welcome_message = array("*internal screaming*", "Sussy Wussy", "What is this world?", "Don't forget to drink water!", "Bruh", "PHP is pain", "This is so poorly programmed");
+    $welcome_message = array("*internal screaming*", "Sussy Wussy", "What is this world?", "Don't forget to drink water!", "Bruh", "This is so poorly programmed", "Sorry", "Fluffy made this!", "maybe", "I'm gay");
     echo "<p>".$welcome_message[array_rand($welcome_message, 1)]."</p>";
     ?>
   </div>

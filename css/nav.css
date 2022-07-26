@@ -34,7 +34,7 @@ nav hr {
   justify-content: space-between;
 }
 @media (max-width: 800px) {
-  .nav-name h3, .nav-name {
+  .nav-name h3, .nav-name hr, .nav-name {
     display: none;
   }
   .nav-links {

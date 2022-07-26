@@ -6,7 +6,7 @@
 }
 
 .gallery-root {
-  margin: 0 0 2rem; padding: 0;
+  margin: 0 0 2rem; padding: 0.25rem;
 
   background-color: var(--bg); color: var(--fg);
 
@@ -18,7 +18,7 @@
 }
 
 .gallery-item {
-  margin: 0.5rem; padding: 0;
+  margin: 0.25rem; padding: 0;
 
   /*max-width: 232.5px; max-height: 232.5px;*/
   height: auto; max-width: 350px;
@@ -35,6 +35,8 @@
 .gallery-item:hover {
   transform: scale(1.1) rotate(5deg);
   box-shadow: var(--shadow);
+
+  z-index: 999;
 }
 .gallery-item:after {
   content: "";

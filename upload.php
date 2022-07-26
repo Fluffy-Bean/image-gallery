@@ -73,13 +73,13 @@
   }
   ?>
 
-  <div class="upload-root">
+  <div class="upload-root default-window">
     <h2 class="space-bottom">Upload image</h2>
     <p>In this world you have 2 choices, to upload a really cute picture of an animal or fursuit, or something other than those 2 things.</p>
     <form class="flex-down between" method="POST" action="upload.php" enctype="multipart/form-data">
         <input class="btn alert-default space-bottom" type="file" name="image" placeholder="select image UwU">
         <input class="btn alert-default space-bottom-large" type="text" name="alt" placeholder="Description/Alt for image">
-        <button class="btn alert-default" type="submit" name="upload"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
+        <button class="btn alert-high" type="submit" name="upload"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
     </form>
     <?php
     if (isset($error)) {

@@ -6,6 +6,8 @@
 @import "edit.css";
 @import "upload.css";
 
+@import "about.css";
+
 @import "signup.css";
 @import "login.css";
 @import "account.css";
@@ -137,6 +139,9 @@ form * {
 a.btn {
   text-align: center;
 }
+.link:hover {
+  color: var(--orange);
+}
 
 .space-bottom {
   margin-bottom: 1rem;
@@ -160,6 +165,16 @@ a.btn {
   display: inline;
 }
 
+.default-window {
+  margin: 0 auto 2rem; padding: 0.5rem;
+
+  background-color: var(--bg); color: var(--fg);
+
+  outline: 0.5rem solid var(--bg);
+
+  border-radius: var(--rad);
+  box-shadow: var(--shadow);
+}
 /*
   -=-=-= TEXT SIZES =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
