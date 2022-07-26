@@ -113,7 +113,7 @@
 
   <div class="signup-root">
     <h2 class="space-bottom">Make account</h2>
-    <p class="space-bottom">This is still being worked on, so I ask you kindly to not try anything, thankies!</p>
+    <p class="space-bottom">And amazing things happened here...</p>
     <form class="flex-down between" method="POST" action="signup.php" enctype="multipart/form-data">
       <input class="btn alert-default space-bottom-large" type="text" name="username" placeholder="Username">
       <input class="btn alert-default space-bottom" type="password" name="password" placeholder="Password">
@@ -131,6 +131,9 @@
     </form>
   </div>
 
-  <?php include("ui/footer.php"); ?>
+  <?php
+  include("ui/top.html");
+  include("ui/footer.html");
+  ?>
 </body>
 </html>

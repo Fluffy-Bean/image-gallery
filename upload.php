@@ -91,6 +91,9 @@
     ?>
   </div>
 
-  <?php include("ui/footer.php"); ?>
+  <?php
+  include("ui/top.html");
+  include("ui/footer.html");
+  ?>
 </body>
 </html>

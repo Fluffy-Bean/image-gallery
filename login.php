@@ -94,7 +94,7 @@
 
   <div class="login-root">
     <h2 class="space-bottom">Login</h2>
-    <p class="space-bottom">This is still being worked on, so I ask you kindly to not try anything, thankies!</p>
+    <p class="space-bottom">Passwords are important to keep safe. Don't tell anyone your password, not even Fluffy!</p>
     <form class="flex-down between" method="POST" action="login.php" enctype="multipart/form-data">
       <input class="btn alert-default space-bottom" type="text" name="username" placeholder="Username">
       <input class="btn alert-default space-bottom-large" type="password" name="password" placeholder="Password">
@@ -111,6 +111,9 @@
     <a class='btn alert-default space-top-large' href='https://superdupersecteteuploadtest.fluffybean.gay/signup.php'><img class="svg" src="assets/icons/sign-in.svg">Need an account? Sign up!</a>
   </div>
 
-  <?php include("ui/footer.php"); ?>
+  <?php
+  include("ui/top.html");
+  include("ui/footer.html");
+  ?>
 </body>
 </html>

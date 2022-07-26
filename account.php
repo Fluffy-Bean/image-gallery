@@ -16,7 +16,7 @@
     <h2>Account settings</h2>
     <?php
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-      echo "<p>O hi ".$_SESSION["username"].".</p>";
+      echo "<p>O hi ".$_SESSION["username"].". This is pretty empty right now. But it wont be soon!</p>";
       echo "<a class='btn alert-default space-top' href='https://superdupersecteteuploadtest.fluffybean.gay/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Logout</a>";
     } else {
       echo "<p class='space-bottom-large'>You must be logged in to change your account settings!</p>";
@@ -25,6 +25,9 @@
     ?>
   </div>
 
-  <?php include("ui/footer.php"); ?>
+  <?php
+  include("ui/top.html");
+  include("ui/footer.html");
+  ?>
 </body>
 </html>
