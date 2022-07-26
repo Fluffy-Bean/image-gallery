@@ -14,62 +14,59 @@
   include("ui/header.php");
   include_once("ui/conn.php");
 
+  // Check if user is logged in
   if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    if (isset($_POST['upload'])) {
-      // Setting image up for upload
-      $image_name = $_FILES['image']['name'];
-      if (isset($image_name)) {
-        // Set file path for image upload
-        $image_basename = basename($image_name);
-        $image_path = "images/".$image_basename;
+    // User is logged in
+  } else {
+    $error = "You must be logged in to upload images";
+    header("Location: index.php");
+  }
 
-        // Check if errors occured
-        if (empty($error)) {
+  // Setting up varibles
+  $dir = "images/";
+  $thumb_dir = $dir."thumbnails/";
+  $image_basename = basename($_FILES["image"]["name"]);
+  $image_path = $dir.$image_basename;
+  $file_type = pathinfo($image_path,PATHINFO_EXTENSION);
+
+  // Continue if no errors
+  if (isset($_POST['upload']) && !empty($_FILES["image"]["name"])) {
+    if (empty($error)) {
+      $allowed_types = array('jpg', 'jpeg', 'png', 'webp');
+      if (in_array($file_type, $allowed_types)) {
+        // Upload to server
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+          // Make thumbnail
+          $image_thumbnail = new Imagick($image_path);
+          $image_thumbnail->resizeImage(300,null,null,1,null);
+          $image_thumbnail->writeImage($thumb_dir.$image_basename);
+
           // Prepare sql for destruction and filtering the sus
           $sql = "INSERT INTO swag_table (imagename, alt, author) VALUES (?, ?, ?)";
 
-          // Can contact database?
           if ($stmt = mysqli_prepare($conn, $sql)) {
             // Bind the smelly smelly
             mysqli_stmt_bind_param($stmt, "sss", $param_image_name, $param_alt_text, $param_user_id);
 
             // Setting up parameters
-            $param_image_name = $image_name;
+            $param_image_name = $_FILES["image"]["name"];
             $param_alt_text = $_POST['alt'];
             $param_user_id = $_SESSION["id"];
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
-              // Move files onto server
-              if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
-                // Make thumbnail
-                $image_thumbnail = new Imagick($image_path);
-                $image_format = $image_thumbnail->getImageFormat();
-                // If image is GIF
-                if ($image_format == 'GIF') {
-                  $image_thumbnail = $image_thumbnail->coalesceImages();
-                }
-                // Resize image
-                $image_thumbnail->resizeImage(300,null,null,1,null);
-                $image_thumbnail->writeImage("images/thumbnails/".$image_basename);
-
-                $success = "Your Image uploaded successfully!";
-              } else {
-                $error = "F, Upload failed";
-              }
+              $success = "Your Image uploaded successfully!";
             } else {
               $error = "Something went fuckywucky, please try later";
             }
           }
+        } else {
+          $error = "F, Upload failed";
         }
       } else {
-        // No image present
-        $error = "No file lol";
+        $error = "File uploaded not supported, file types that are allowed include: JPG, JPEG, PNG and WEBP";
       }
     }
-  } else {
-    $error = "You must be logged in to upload images";
-    //header("Location: https://superdupersecteteuploadtest.fluffybean.gay");
   }
   ?>
 

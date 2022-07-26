@@ -1,3 +1,11 @@
+<?php
+if (is_dir("assets/icons/")) {
+  $dir = "assets/icons/";
+} else {
+  $dir = "../assets/icons/";
+}
+?>
+
 <footer class="footer-root flex-left around">
   <div class="footer-child center flex-down">
     <h3>Contact me</h3>
