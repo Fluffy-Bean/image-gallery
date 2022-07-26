@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  <link rel="stylesheet" href="css/master.css">
+  <link rel="stylesheet" href="../css/master.css">
   <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 </head>
 <body>
   <?php
-  include("ui/header.php");
-  require_once("ui/conn.php");
+  include("../ui/header.php");
+  require_once("../ui/conn.php");
 
   // Initialize the session
   session_start();
@@ -98,7 +98,7 @@
     <form class="flex-down between" method="POST" action="login.php" enctype="multipart/form-data">
       <input class="btn alert-default space-bottom" type="text" name="username" placeholder="Username">
       <input class="btn alert-default space-bottom-large" type="password" name="password" placeholder="Password">
-      <button class="btn alert-high" type="submit" name="login"><img class="svg" src="assets/icons/sign-in.svg">Login</button>
+      <button class="btn alert-high" type="submit" name="login"><img class="svg" src="../assets/icons/sign-in.svg">Login</button>
     </form>
     <?php
     if (isset($error)) {
@@ -108,12 +108,12 @@
       echo "<p class='alert alert-high space-top'>".$success."</p>";
     }
     ?>
-    <a class='btn alert-default space-top-large' href='https://superdupersecteteuploadtest.fluffybean.gay/signup.php'><img class="svg" src="assets/icons/sign-in.svg">Need an account? Sign up!</a>
+    <a class='btn alert-default space-top-large' href='https://superdupersecteteuploadtest.fluffybean.gay/account/signup.php'><img class="svg" src="../assets/icons/sign-in.svg">Need an account? Sign up!</a>
   </div>
 
   <?php
-  include("ui/top.html");
-  include("ui/footer.html");
+  include("../ui/top.html");
+  include("../ui/footer.php");
   ?>
 </body>
 </html>

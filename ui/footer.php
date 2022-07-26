@@ -1,9 +1,9 @@
 <footer class="footer-root flex-left around">
   <div class="footer-child center flex-down">
     <h3>Contact me</h3>
-    <a href="https://t.me/Fluffy_Bean"><img class='svg' src='assets/icons/telegram-logo.svg'>Telegram</a>
-    <a href="https://twitter.com/fluffybeanUwU"><img class='svg' src='assets/icons/twitter-logo.svg'>Twitter</a>
-    <a href="https://github.com/Fluffy-Bean"><img class='svg' src='assets/icons/github-logo.svg'>GitHub</a>
+    <a href="https://t.me/Fluffy_Bean"><img class='svg' src='<?php echo $dir; ?>telegram-logo.svg'>Telegram</a>
+    <a href="https://twitter.com/fluffybeanUwU"><img class='svg' src='<?php echo $dir; ?>twitter-logo.svg'>Twitter</a>
+    <a href="https://github.com/Fluffy-Bean"><img class='svg' src='<?php echo $dir; ?>github-logo.svg'>GitHub</a>
   </div>
   <div class="footer-child center flex-down">
     <h3>Information</h3>

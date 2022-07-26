@@ -93,7 +93,7 @@
 
   <?php
   include("ui/top.html");
-  include("ui/footer.html");
+  include("ui/footer.php");
   ?>
 </body>
 </html>

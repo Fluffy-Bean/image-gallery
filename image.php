@@ -33,7 +33,7 @@
   }
 
   // Check if ID of image in URL
-  if (!isset($_GET['id'])) {
+  if (empty($_GET['id'])) {
     // No ID toast
     echo "<p class='alert alert-low space-bottom-large'>No ID present</p>";
 
@@ -147,7 +147,7 @@
 
   <?php
   include("ui/top.html");
-  include("ui/footer.html");
+  include("ui/footer.php");
   ?>
 </body>
 </html>

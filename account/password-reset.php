@@ -4,22 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Account</title>
-  <link rel="stylesheet" href="css/master.css">
+  <link rel="stylesheet" href="../css/master.css">
   <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 </head>
 <body>
   <?php
-  include("ui/header.php");
-  include_once("ui/conn.php");
+  include("../ui/header.php");
+  include_once("../ui/conn.php");
 
   // Initialize the session
   session_start();
 
   // Check if the user is logged in, otherwise redirect to login page
   if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: https://superdupersecteteuploadtest.fluffybean.gay/login.php");
+    header("location: https://superdupersecteteuploadtest.fluffybean.gay/account/login.php");
     exit;
   }
 
@@ -60,7 +60,7 @@
         if (mysqli_stmt_execute($stmt)) {
           // Password updated!!!! Now goodbye
           session_destroy();
-          header("Location: https://superdupersecteteuploadtest.fluffybean.gay/login.php");
+          header("Location: https://superdupersecteteuploadtest.fluffybean.gay/account/login.php");
         } else {
           $error = "Oopsie woopsie, somthing brokie :c";
         }
@@ -81,7 +81,7 @@
     <form class="flex-down between" method="POST" action="password-reset.php" enctype="multipart/form-data">
       <input class="btn alert-default space-bottom" type="password" name="new_password" placeholder="New Password">
       <input class="btn alert-default space-bottom" type="password" name="confirm_password" placeholder="Confirm Password">
-      <button class="btn alert-low" type="submit" name="reset"><img class="svg" src="assets/icons/sign-in.svg">Reset</button>
+      <button class="btn alert-low" type="submit" name="reset"><img class="svg" src="../assets/icons/sign-in.svg">Reset</button>
     </form>
     <?php
     if (isset($error)) {
@@ -91,8 +91,8 @@
   </div>
 
   <?php
-  include("ui/top.html");
-  include("ui/footer.html");
+  include("../ui/top.html");
+  include("../ui/footer.php");
   ?>
 </body>
 </html>

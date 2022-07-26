@@ -4,26 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up</title>
-  <link rel="stylesheet" href="css/master.css">
+  <link rel="stylesheet" href="../css/master.css">
   <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 </head>
 <body>
   <?php
-  include("ui/header.php");
-  include_once("ui/conn.php");
+  include("../ui/header.php");
+  include_once("../ui/conn.php");
 
   // Validate susness of Username
   if (isset($_POST['signup'])) {
     if (empty(trim($_POST["username"]))) {
       // Username was taken
       $error = "Enter a username reeeee";
-      //header("Location:signup.php?r=noUser");
     } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
       // Username entered contains ilegal characters
       $error = "Very sus. Username can only contain letters, numbers, and underscores";
-      //header("Location:signup.php?r=username");
     } else {
       // Prepare sql for sus
       $sql = "SELECT id FROM users WHERE username = ?";
@@ -40,7 +38,6 @@
           if (mysqli_stmt_num_rows($stmt) == 1) {
             // Username not entered
             $error = "Oopsie, username taken :c";
-            //header("Location:signup.php?r=userTake");
           } else {
             $username = trim($_POST["username"]);
           }
@@ -56,11 +53,9 @@
     if (empty(trim($_POST["password"]))) {
       // No password entered
       $error = "Bruh, enter a password";
-      //header("Location:signup.php?r=noPassword");
     } elseif(strlen(trim($_POST["password"])) < 6){
       // Password not long enough 👀
       $error = "(Password) Not long enough 👀";
-      //header("Location:signup.php?r=passwordShort");
     } else {
       $password = trim($_POST["password"]);
     }
@@ -69,13 +64,11 @@
     if (empty(trim($_POST["confirm_password"]))) {
       // Did not confirm passowrd
       $error = "You must confirm password!!!!!";
-      //header("Location:signup.php?r=noConfirm");
     } else {
       $confirm_password = trim($_POST["confirm_password"]);
       if (empty($error) && $confirm_password != $password) {
         // Password and re-entered Password does not match
         $error = "Passwords need to be the same, smelly smelly";
-        //header("Location:signup.php?r=notSame");
       }
     }
 
@@ -119,7 +112,7 @@
       <input class="btn alert-default space-bottom" type="password" name="password" placeholder="Password">
       <input class="btn alert-default space-bottom-large" type="password" name="confirm_password" placeholder="Re-enter Password">
       <input class="btn alert-default space-bottom-large" type="text" name="invite_code" placeholder="Invite Code">
-      <button class="btn alert-high" type="submit" name="signup"><img class="svg" src="assets/icons/sign-in.svg">Sign Up</button>
+      <button class="btn alert-high" type="submit" name="signup"><img class="svg" src="../assets/icons/sign-in.svg">Sign Up</button>
       <?php
       if (isset($error)) {
         echo "<p class='alert alert-low space-top'>".$error."</p>";
@@ -132,8 +125,8 @@
   </div>
 
   <?php
-  include("ui/top.html");
-  include("ui/footer.html");
+  include("../ui/top.html");
+  include("../ui/footer.php");
   ?>
 </body>
 </html>
