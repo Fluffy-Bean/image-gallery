@@ -20,7 +20,7 @@
       // Username was taken
       $error = "Enter a username reeeee";
     } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
-      // Username entered contains ilegal characters
+      // Username entered contains illegal characters
       $error = "Very sus. Username can only contain letters, numbers, and underscores";
     } else {
       // Prepare sql for sus
