@@ -75,7 +75,7 @@
   }
   ?>
 
-  <div class="password-reset-root">
+  <div class="password-reset-root default-window">
     <h2 class="space-bottom">Reset Password</h2>
     <p class="space-bottom">After reset, you will be kicked out to login again</p>
     <form class="flex-down between" method="POST" action="password-reset.php" enctype="multipart/form-data">

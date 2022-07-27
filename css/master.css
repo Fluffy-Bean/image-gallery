@@ -3,15 +3,6 @@
 
 @import "gallery.css";
 @import "image.css";
-@import "edit.css";
-@import "upload.css";
-
-@import "about.css";
-
-@import "signup.css";
-@import "login.css";
-@import "account.css";
-@import "password-reset.css";
 
 :root {
   --bg: #151515df;
@@ -135,12 +126,10 @@ form * {
 }
 .btn:hover {
   outline: var(--white) 3px solid;
+  color: var(--fg);
 }
 a.btn {
   text-align: center;
-}
-.link:hover {
-  color: var(--orange);
 }
 
 .space-bottom {
@@ -163,17 +152,6 @@ a.btn {
   vertical-align: middle;
 
   display: inline;
-}
-
-.default-window {
-  margin: 0 auto 2rem; padding: 0.5rem;
-
-  background-color: var(--bg); color: var(--fg);
-
-  outline: 0.5rem solid var(--bg);
-
-  border-radius: var(--rad);
-  box-shadow: var(--shadow);
 }
 /*
   -=-=-= TEXT SIZES =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -206,6 +184,9 @@ p, a {
   margin: 0 0 0.5rem 0;
   font-family: "Fira Code", monospace;
 }
+a:hover {
+  color: var(--orange);
+}
 
 /*
   -=-=-= Back to top button =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -236,4 +217,48 @@ p, a {
   display: block;
 
   object-position: center;
+}
+
+/*
+  -=-=-= DIV DECORATIONS =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+.default-window {
+  margin: 0 0 2rem; padding: 0.5rem;
+
+  /*max-width: 621px;*/ width: calc(100% - 2rem);
+
+  background-color: var(--bg);
+
+  outline: 0.5rem solid var(--bg);
+
+  border-radius: var(--rad);
+  box-shadow: var(--shadow);
+}
+
+.upload-root {
+  border: 0.2rem solid var(--green);
+}
+
+.edit-root {
+  border: 0.2rem solid var(--red);
+}
+
+.signup-root {
+  border: 0.2rem solid var(--green);
+}
+
+.password-reset-root {
+  border: 0.2rem solid var(--red);
+}
+
+.account-root {
+  border: 0.2rem solid var(--green);
+}
+
+.login-root {
+  border: 0.2rem solid var(--green);
+}
+
+.about-root {
+  border: 0.2rem solid var(--green);
 }

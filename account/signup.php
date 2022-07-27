@@ -104,7 +104,7 @@
   }
   ?>
 
-  <div class="signup-root">
+  <div class="signup-root default-window">
     <h2 class="space-bottom">Make account</h2>
     <p class="space-bottom">And amazing things happened here...</p>
     <form class="flex-down between" method="POST" action="signup.php" enctype="multipart/form-data">

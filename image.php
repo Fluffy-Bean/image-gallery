@@ -18,6 +18,8 @@
   // Update toast
   if ($_GET["update"] == "success") {
     echo "<p class='alert alert-high space-bottom-large'>Information updated</p>";
+  } elseif ($_GET["update"] == "skip") {
+    echo "<p class='alert alert-default space-bottom-large'>No alt, skip</p>";
   }
 
   // Getting all image info from table
@@ -67,7 +69,7 @@
     <?php echo "<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>"; ?>
   </div>
 
-  <div class="image-description">
+  <div class="image-description default-window">
     <h2>Description</h2>
     <?php
     // Image Description/Alt
@@ -76,11 +78,10 @@
     }else{
       echo "<p>".$image_alt."</p>";
     }
-
     ?>
   </div>
 
-  <div class="image-detail flex-down">
+  <div class="image-detail flex-down default-window">
     <h2>Details</h2>
     <?php
     // Image ID
@@ -113,35 +114,40 @@
 
   <?php
   if (isset($_SESSION['id']) && $image['author'] == $_SESSION['id'] || $_SESSION['id'] == 1) {
-    echo "<div class='danger-zone flex-down'>";
+    // Deleting image
+    if (isset($_POST['delete'])) {
+      // Delete from table
+      $image_delete_request = "DELETE FROM swag_table WHERE id =".$image['id'];
+      $image_delete = mysqli_query($conn,$image_delete_request);
+
+      if ($image_delete) {
+        // See if image is in the directory
+        if (is_file("images/".$image['imagename'])) {
+          unlink("images/".$image['imagename']);
+        }
+        // Delete thumbnail if exitsts
+        if (is_file("images/thumbnails/".$image['imagename'])) {
+          unlink("images/thumbnails/".$image['imagename']);
+        }
+        header("Location:index.php?del=true&id=".$image['id']);
+      } else {
+        $error = "Could not delete image";
+      }
+    }
+    // Delete form
+    echo "<div class='danger-zone flex-down default-window'>";
     echo "<h2>Danger zone</h2>";
     // Image hover details
     echo "<form class='detail' method='POST' enctype='multipart/form-data'>";
     echo "<button class='btn alert-low' type='submit' name='delete' value='".$image['id']."'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>";
+    if (isset($error)) {
+      echo "<p class='alert alert-fail' id='deleted'>".$error."</p>";
+    }
     echo "</form>";
 
-    // Check if query is set
-    if (isset($_POST['delete'])) {
-      // Try deleting image
-      if(unlink("images/".$image['imagename']) && unlink("images/thumbnails/".$image['imagename'])) {
-        // If deleted, delete from Table
-        $image_delete_request = "DELETE FROM swag_table WHERE id =".$image['id'];
-        $image_delete = mysqli_query($conn,$image_delete_request);
-
-        if ($image_delete) {
-          // Deleted image
-          header("Location:index.php?del=true&id=".$image['id']);
-        }
-      } else {
-        // Could not delete from file
-        echo "<p class='alert alert-fail' id='deleted'>Error: Coult not delete image</p>";
-      }
-    }
-
+    // Edit image button
     echo "<a class='btn alert-low space-top' href='https://superdupersecteteuploadtest.fluffybean.gay/edit.php?id=".$image['id']."'><img class='svg' src='assets/icons/edit.svg'>Modify image content</a>";
     echo "</div>";
-  } else {
-
   }
   ?>
 

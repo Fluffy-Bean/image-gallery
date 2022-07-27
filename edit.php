@@ -23,10 +23,10 @@
       $image_results = mysqli_query($conn, $get_image);
       $image = mysqli_fetch_assoc($image_results);
 
-      // Check if user owns image
+      // Updating alt
       if (isset($_SESSION['id']) && $image['author'] == $_SESSION['id'] || $_SESSION['id'] == 1) {
         // If no errors
-        if (empty($error)) {
+        if (isset($_POST['alt']) || $_POST['alt'] != "") {
           // getting ready forSQL asky asky
           $sql = "UPDATE swag_table SET alt=? WHERE id=?";
 
@@ -45,6 +45,8 @@
               $error = "Something went fuckywucky, please try later";
             }
           }
+        } else {
+          header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$_POST['id']."&update=skip");
         }
       } else {
         $error = "You do not have edit rights";
@@ -56,12 +58,12 @@
   }
   ?>
 
-  <div class="edit-root">
+  <div class="edit-root default-window">
     <h2>Modify Information</h2>
     <p class="space-below">This is a dangerous place to step foot into... tread carefully.</p>
     <form class="flex-down between" method="POST" action="edit.php" enctype="multipart/form-data">
-        <input class="btn alert-default space-bottom-large" type="text" name="alt" placeholder="Description/Alt for image">
-        <?php echo "<button class='btn alert-default' type='submit' name='id' value=".$_GET["id"]."><img class='svg' src='assets/icons/edit.svg'>Update information</button>"; ?>
+      <input class="btn alert-default space-bottom-large" type="text" name="alt" placeholder="Description/Alt for image">
+      <?php echo "<button class='btn alert-default' type='submit' name='id' value=".$_GET["id"]."><img class='svg' src='assets/icons/edit.svg'>Update information</button>"; ?>
     </form>
     <?php
     if (isset($error)) {

@@ -12,7 +12,7 @@
 <body>
   <?php include("../ui/header.php"); ?>
 
-  <div class="about-root">
+  <div class="about-root default-window">
     <h2 id="about">What is Fluffys Amazing Gallery?</h2>
     <p>Fluffys Amazing Gallery, or F.A.G for short, is a project by Fluffy Bean. It started as a project to manage the gallery on my main page, but quickly turned into its own thing.</p>
     <p>What do I want this to become? Good question! I have no clue. All I know is that I want to make this open-source and free to host on your own server once I'm finished with this.</p>

@@ -92,7 +92,7 @@
   }
   ?>
 
-  <div class="login-root">
+  <div class="login-root default-window">
     <h2 class="space-bottom">Login</h2>
     <p class="space-bottom">Passwords are important to keep safe. Don't tell anyone your password, not even Fluffy!</p>
     <form class="flex-down between" method="POST" action="login.php" enctype="multipart/form-data">

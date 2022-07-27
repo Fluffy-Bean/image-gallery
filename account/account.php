@@ -12,7 +12,7 @@
 <body>
   <?php include("../ui/header.php"); ?>
 
-  <div class="account-root">
+  <div class="account-root default-window">
     <h2>Account settings</h2>
     <?php
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {

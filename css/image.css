@@ -36,39 +36,13 @@
 }
 
 .image-description {
-  margin: 0 0 2rem; padding: 0.5rem;
-
-  background-color: var(--bg); color: var(--fg);
-
   border: 0.2rem solid var(--green);
-  outline: 0.5rem solid var(--bg);
-
-  border-radius: var(--rad);
-  box-shadow: var(--shadow);
 }
 
 .image-detail {
-  margin: 0 0 2rem; padding: 0.5rem;
-
-  background-color: var(--bg); color: var(--fg);
-
-  word-wrap: break-word;
-
   border: 0.2rem solid var(--green);
-  outline: 0.5rem solid var(--bg);
-
-  border-radius: var(--rad);
-  box-shadow: var(--shadow);
 }
 
 .danger-zone {
-  margin: 0 0 2rem; padding: 0.5rem;
-
-  background-color: var(--bg); color: var(--fg);
-
   border: 0.2rem solid var(--red);
-  outline: 0.5rem solid var(--bg);
-
-  border-radius: var(--rad);
-  box-shadow: var(--shadow);
 }
