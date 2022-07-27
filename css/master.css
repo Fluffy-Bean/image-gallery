@@ -1,9 +1,6 @@
 @import "nav.css";
 @import "footer.css";
 
-@import "gallery.css";
-@import "image.css";
-
 :root {
   --bg: #151515df;
   --bg-1: #242621;
@@ -47,7 +44,7 @@ html {
 body {
   margin: 0 auto; padding: 1rem;
 
-  min-height: calc(100vh - 2rem); max-width: 1500px;
+  min-height: calc(100vh - 2rem); max-width: 1000px;
 
   display: flex;
 
@@ -55,106 +52,8 @@ body {
   justify-content: space-between;
 }
 
-form {
-  width: 100%;
-  box-sizing: border-box;
-}
-form * {
-  width: 100%;
-  box-sizing: border-box;
-}
-
 /*
-  -=-=-= UNIVERSAL =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*/
-.flex-left {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-.flex-down {
-  display: flex;
-  flex-direction: column;
-}
-
-.between {
-  justify-content: space-between;
-}
-.around {
-  justify-content: space-around;
-}
-.center {
-  text-align: center;
-}
-
-.alert {
-  margin: 0 auto; padding: 1rem;
-
-  width: calc(100% - 2rem);
-
-  text-align: center;
-
-  display: block;
-
-  border-radius: var(--rad);
-
-  outline: 0.5rem solid var(--bg);
-}
-.alert-high {
-  background-color: var(--green);
-}
-.alert-low {
-  background-color: var(--red);
-}
-.alert-default {
-  background-color: var(--black);
-}
-
-.btn {
-  margin: 0; padding: 0.5rem;
-
-  display: block;
-
-  font-size: 16px;
-  align-items: center;
-  vertical-align: middle;
-
-  text-decoration: none;
-
-  border: none;
-  border-radius: var(--rad);
-}
-.btn:hover {
-  outline: var(--white) 3px solid;
-  color: var(--fg);
-}
-a.btn {
-  text-align: center;
-}
-
-.space-bottom {
-  margin-bottom: 1rem;
-}
-.space-top {
-  margin-top: 1rem;
-}
-.space-bottom-large {
-  margin-bottom: 2rem;
-}
-.space-top-large {
-  margin-top: 2rem;
-}
-
-.svg {
-  margin: 0 0.2rem 0.1rem 0;
-  width: 19px; height: 18px;
-
-  vertical-align: middle;
-
-  display: inline;
-}
-/*
-  -=-=-= TEXT SIZES =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  -=-=-= FONT SIZES =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
 h1 {
   margin: 0 0 0.5rem 0;
@@ -189,7 +88,7 @@ a:hover {
 }
 
 /*
-  -=-=-= Back to top button =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  -=-=-= BACK TO TOP BUTTON =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
 #back-to-top {
   margin: 0; padding: 0.5rem;
@@ -225,7 +124,7 @@ a:hover {
 .default-window {
   margin: 0 0 2rem; padding: 0.5rem;
 
-  /*max-width: 621px;*/ width: calc(100% - 2rem);
+  width: auto;
 
   background-color: var(--bg);
 
@@ -235,30 +134,236 @@ a:hover {
   box-shadow: var(--shadow);
 }
 
-.upload-root {
-  border: 0.2rem solid var(--green);
+.password-reset-root {
+  border: 0.2rem solid var(--red);
 }
-
 .edit-root {
   border: 0.2rem solid var(--red);
 }
 
+.upload-root {
+  border: 0.2rem solid var(--green);
+}
 .signup-root {
   border: 0.2rem solid var(--green);
 }
-
-.password-reset-root {
-  border: 0.2rem solid var(--red);
-}
-
 .account-root {
   border: 0.2rem solid var(--green);
 }
-
 .login-root {
   border: 0.2rem solid var(--green);
 }
-
 .about-root {
   border: 0.2rem solid var(--green);
+}
+
+/*
+  -=-=-= GALLERY =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+.info-text {
+  margin: 0 0 2rem;
+}
+
+.gallery-root {
+  margin: 0 0 2rem; padding: 0.25rem;
+
+  background-color: var(--bg); color: var(--fg);
+
+  border: 0.2rem solid var(--green);
+  outline: 0.5rem solid var(--bg);
+
+  border-radius: var(--rad);
+  box-shadow: var(--shadow);
+}
+
+.gallery-item {
+  margin: 0.25rem; padding: 0;
+
+  height: auto; max-width: 350px;
+
+  background-color: var(--bg-2);
+  border-radius: var(--rad);
+
+  position: relative;
+
+  flex: 1 0 150px;
+
+  transition: transform 0.15s cubic-bezier(.19,1,.22,1);
+}
+.gallery-item:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: var(--shadow);
+
+  z-index: 999;
+}
+.gallery-item:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.gallery-image {
+  margin: 0; padding: 0;
+
+  width: 100%; height: 100%;
+
+  top: 0; bottom: 0; left: 0; right: 0;
+
+  position: absolute;
+
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: var(--rad);
+}
+
+/*
+  -=-=-= IMAGE FULLSCREEN =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+.image-container {
+  margin: 0 0 2rem; padding: 0;
+
+  width: calc(100vw - var(--space-medium));
+  height: 69vh;
+
+  position: relative;
+
+  transition: height 0.15s cubic-bezier(.19,1,.22,1);
+}
+
+@media (max-width: 600px) {
+  .image-container {
+    height: 35vh;
+  }
+}
+
+.image {
+  max-width: 100%;
+  width: auto;
+  max-height: 100%;
+  height: auto;
+
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+
+  border-radius: var(--rad);
+}
+
+.image-description {
+  border: 0.2rem solid var(--green);
+}
+.image-detail {
+  border: 0.2rem solid var(--green);
+}
+.danger-zone {
+  border: 0.2rem solid var(--red);
+}
+
+/*
+  -=-=-= UNIVERSAL =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+.flex-left {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.flex-down {
+  display: flex;
+  flex-direction: column;
+}
+
+.between {
+  justify-content: space-between;
+}
+.around {
+  justify-content: space-around;
+}
+.center {
+  text-align: center;
+}
+
+.space-bottom {
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+.space-top {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+.space-bottom-large {
+  margin-bottom: 2rem;
+}
+.space-top-large {
+  margin-top: 2rem;
+}
+
+.svg {
+  margin: 0 0.2rem 0.1rem 0;
+  width: 19px; height: 18px;
+
+  vertical-align: middle;
+
+  display: inline;
+}
+
+/*
+  -=-=-= ALERT =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+.alert {
+  padding: 1rem;
+
+  width: calc(100% - 2rem);
+
+  text-align: center;
+
+  display: block;
+
+  border-radius: var(--rad);
+
+  outline: 0.5rem solid var(--bg);
+}
+.alert-high {
+  background-color: var(--green);
+}
+.alert-low {
+  background-color: var(--red);
+}
+.alert-default {
+  background-color: var(--black);
+}
+
+/*
+  -=-=-= FORM =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+form {
+  width: 100%;
+  box-sizing: border-box;
+}
+form * {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/*
+  -=-=-= BUTTONS =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+.btn {
+  padding: 0.5rem;
+
+  display: block;
+
+  font-size: 16px;
+
+  text-decoration: none;
+
+  border: none;
+  border-radius: var(--rad);
+}
+.btn:hover {
+  outline: var(--white) 3px solid;
+  color: var(--fg);
+}
+a.btn {
+  text-align: center;
 }
