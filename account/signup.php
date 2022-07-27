@@ -73,12 +73,35 @@
     }
 
     // Check for invite code
-    if (isset($_POST['invite_code'])) {
-      if ($_POST['invite_code'] != "supercoolcode") {
-        $error = "Seems that you don't have the right invite code, whatever shall you do";
+    if (isset($_POST['token'])) {
+      // Check if invite code is empty
+      if (empty($_POST['token'])) {
+        $error = "Enter Invite Code ;3";
+      } else {
+        // Prepare sql for sus
+        $sql = "SELECT id FROM tokens WHERE code = ? AND used = 0";
+
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+          mysqli_stmt_bind_param($stmt, "s", $param_code);
+
+          $param_code = $_POST['token'];
+
+          // Ask sql nicely if other usernames exist and store info
+          if (mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_store_result($stmt);
+            if (mysqli_stmt_num_rows($stmt) == 1) {
+              $token = trim($_POST["token"]);
+            } else {
+              $error = "Invite code not valid";
+            }
+          } else {
+            $error = "Sussy things happened on our end and couldn't check token";
+          }
+
+          // Outa here with this
+          mysqli_stmt_close($stmt);
+        }
       }
-    } else {
-      $error = "Enter Invite Code ;3";
     }
 
     // Checking for errors
@@ -95,6 +118,35 @@
 
         // Attempt to execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
+          // Prepare sql
+          $sql = "UPDATE tokens SET used = True WHERE code = ?";
+          $stmt = mysqli_prepare($conn, $sql);
+          mysqli_stmt_bind_param($stmt, "s", $param_token);
+          $param_token = $_POST['token'];
+
+          if (mysqli_stmt_execute($stmt)) {
+            //
+            // Hey fluffy why didn't you do this
+            // Hey fluffy, thats not how you do this
+            // Thats wrong! Do this instead!!!!!!
+            //
+            // I DON'T KNOW HOW TO DO THIS, BUT IT WORKS
+            // SO LEAVE ME ALONEEEEEEEEEE
+            // anyway....
+
+            // Generate Token
+            $token_array = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz';
+            $new_token = substr(str_shuffle($token_array), 0, 10);
+
+            // Prepare sql
+            $sql = "INSERT INTO tokens (code, used) VALUES(?, False)";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "s", $param_new_token);
+            $param_new_token = $new_token;
+            mysqli_stmt_execute($stmt);
+          }
+
+          // Yupeee! Account was made
           $success = "Account made for ".$username."!!!!!!";
         } else {
           $error = "Something went fuckywucky, please try later";
@@ -111,7 +163,7 @@
       <input class="btn alert-default space-bottom-large" type="text" name="username" placeholder="Username">
       <input class="btn alert-default space-bottom" type="password" name="password" placeholder="Password">
       <input class="btn alert-default space-bottom-large" type="password" name="confirm_password" placeholder="Re-enter Password">
-      <input class="btn alert-default space-bottom-large" type="text" name="invite_code" placeholder="Invite Code">
+      <input class="btn alert-default space-bottom-large" type="text" name="token" placeholder="Invite Code">
       <button class="btn alert-high" type="submit" name="signup"><img class="svg" src="../assets/icons/sign-in.svg">Sign Up</button>
       <?php
       if (isset($error)) {

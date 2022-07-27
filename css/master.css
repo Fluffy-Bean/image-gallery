@@ -365,5 +365,6 @@ form * {
   color: var(--fg);
 }
 a.btn {
+  margin-bottom: 0;
   text-align: center;
 }
