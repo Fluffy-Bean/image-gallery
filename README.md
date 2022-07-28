@@ -1,4 +1,6 @@
-# Fluffys Amazing Gallery!
+<img src="GitHub/onlylegs.jpg" class="center">
+
+# OnlyLegs!
 Welcome little one, this is the start of something great
 
 Hey Fluffy! Why is this open source when there could still be security issues with all of this?
