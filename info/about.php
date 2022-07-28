@@ -14,24 +14,15 @@
 
   <div class="about-root default-window">
     <h2 id="about">What is Fluffys Amazing Gallery?</h2>
-    <p>Fluffys Amazing Gallery, or F.A.G for short, is a project by Fluffy Bean. It started as a project to manage the gallery on my main page, but quickly turned into its own thing.</p>
-    <p>What do I want this to become? Good question! I have no clue. All I know is that I want to make this open-source and free to host on your own server once I'm finished with this.</p>
-    <p>For now due to security reasons I want to keep this closed-source, and will probably stay-close for the near futre.</p>
-
-    <h2 class="space-top-large">I want A and B features!</h2>
-    <p>No.</p>
-
-    <h2 class="space-top-large" id="usage">What can I upload if I have an account?</h2>
-    <p>I think common-sense should be more than enough, please?</p>
+    <p>Fluffys Amazing Gallery is a smol project I originally started to control the images on my main page, but quickly turned into something much bigger...</p>
+    <p>What Do I want this to become in the future? No clue, but I do want this to be usable by others, if its a file they download a docker image they setup on your own web server.</p>
+    <p>Will it become that any time soon? No, but. I am going to work on this untill it becomes what I want it to be!</p>
 
     <h2 class="space-top-large" id="guide">How do I use this!</h2>
     <p>First you must obtain the invite code. If you don't have one and are interested in trying this, feel free to DM me on Telegram!</p>
     <p>But once you're done doing that, you can start making your account <a class='link' href="https://superdupersecteteuploadtest.fluffybean.gay/account/signup.php">at the signup page here</a>.</p>
-    <p>From there you should be able to go and login <a class='link' href="https://superdupersecteteuploadtest.fluffybean.gay/account/signup.php">at this fancy page here</a>!</p>
+    <p>From there you should be able to go and login <a class='link' href="https://superdupersecteteuploadtest.fluffybean.gay/account/login.php">at this fancy page here</a>!</p>
     <p>Now you should see "Welcome (your username)" at the homepage. From there navigate to the navbar and click on the upload button. Choose your file, enter the description and your image is up!</p>
-
-    <h2 class="space-top-large">Who are you?</h2>
-    <p>idk</p>
 
     <h2 class="space-top-large">Credits!</h2>
     <p>To Carty for being super cool again and helping me get started with SQL and PHP!</p>

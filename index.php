@@ -20,7 +20,7 @@
 
   // Account toast
   if ($_GET["login"] == "success") {
-    echo "<p class='alert alert-high space-bottom'>You're now logged in!</p>";
+    echo "<p class='alert alert-high space-bottom'>O hi ".$_SESSION['username']."</p>";
   }
   ?>
 
