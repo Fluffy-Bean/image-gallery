@@ -68,7 +68,7 @@
     <h2>Description</h2>
     <?php
     // Image Description/Alt
-    if (isset($image_alt)) {
+    if (isset($image_alt) && !empty($image_alt)) {
       echo "<p>".$image_alt."</p>";
     } else {
       echo "<p>No description provided</p>";
@@ -108,6 +108,27 @@
     ?>
   </div>
 
+  <div class="tags-root default-window">
+    <h2>Tags</h2>
+    <div class="tags flex-left around">
+      <?php
+      function clean($string) {
+        $string = str_replace('-', '_', $string);
+        $string = preg_replace('/[^A-Za-z0-9\_ ]/', '', $string);
+        return preg_replace('/ +/', ' ', $string);
+      }
+      $tags_string = "This is a test of ta.gs and their s//ystem_of_ignoring ran!!dom characters BUT THIS DOES$$$$$$.NT WORK YET!!!!";
+      $tags_string = strtolower($tags_string);
+      $tags_string = clean($tags_string);
+      $image_tags_array = explode(" ", $tags_string);
+
+      foreach ($image_tags_array as $tag) {
+        echo "<p class='tag alert-high'>".$tag."</p>";
+      }
+      ?>
+    </div>
+  </div>
+
   <?php
   // Check if user is admin or the owner of image, if yes, display the edit and delete div
   if (isset($_SESSION['id']) && $image['author'] == $_SESSION['id'] || $_SESSION['id'] == 1) {
@@ -144,7 +165,7 @@
     echo "</form>";
 
     // Edit image button
-    echo "<a class='btn alert-low space-top' href='https://superdupersecteteuploadtest.fluffybean.gay/edit.php?id=".$image['id']."'><img class='svg' src='assets/icons/edit.svg'>Modify image content</a>";
+    echo "<a class='btn alert-low space-top-small' href='https://superdupersecteteuploadtest.fluffybean.gay/edit.php?id=".$image['id']."'><img class='svg' src='assets/icons/edit.svg'>Modify image content</a>";
     echo "</div>";
   }
   ?>

@@ -10,7 +10,7 @@ if (is_dir("assets/icons/")) {
 
 <nav class="nav-root flex-left between">
   <div class="nav-name flex-left">
-    <h3>Fluffys Amazing Gallery!</h3>
+    <h3>OnlyLegs</h3>
   </div>
   <div class="nav-links flex-left">
     <?php

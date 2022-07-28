@@ -227,6 +227,19 @@ body {
   border: 0.2rem solid var(--red);
 }
 
+.tags-root {
+  border: 0.2rem solid var(--green);
+}
+.tag {
+  margin: 0.25rem; padding: 0.5rem;
+
+  display: block;
+
+  border-radius: var(--rad);
+}
+.tag::before {
+  content: '#';
+}
 /*
   -=-=-= UNIVERSAL =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
@@ -250,6 +263,14 @@ body {
   text-align: center;
 }
 
+.space-bottom-small {
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+}
+.space-top-small {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
 .space-bottom {
   margin-bottom: 1rem;
   margin-top: 0;
@@ -283,7 +304,6 @@ body {
 
   text-decoration: none;
 
-  background-color: var(--black);
   border: none;
   border-radius: var(--rad);
 }
