@@ -53,41 +53,6 @@ body {
 }
 
 /*
-  -=-=-= FONT SIZES =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*/
-h1 {
-  margin: 0 0 0.5rem 0;
-
-  font-family: "Lexend Deca", sans-serif;
-  font-size: 30px;
-}
-h2 {
-  margin: 0 0 0.5rem 0;
-
-  font-family: "Lexend Deca", sans-serif;
-  font-size: 27px;
-}
-h3 {
-  margin: 0 0 0.5rem 0;
-
-  font-family: "Lexend Deca", sans-serif;
-  font-size: 24px;
-}
-h4 {
-  margin: 0 0 0.5rem 0;
-
-  font-family: "Lexend Deca", sans-serif;
-  font-size: 21px;
-}
-p, a {
-  margin: 0 0 0.5rem 0;
-  font-family: "Fira Code", monospace;
-}
-a:hover {
-  color: var(--orange);
-}
-
-/*
   -=-=-= BACK TO TOP BUTTON =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
 #back-to-top {
@@ -252,6 +217,8 @@ a:hover {
 
 .image-description {
   border: 0.2rem solid var(--green);
+
+  word-wrap: break-word;
 }
 .image-detail {
   border: 0.2rem solid var(--green);
@@ -313,7 +280,7 @@ a:hover {
 .alert {
   padding: 1rem;
 
-  width: calc(100% - 2rem);
+  width: auto;
 
   text-align: center;
 
@@ -367,4 +334,32 @@ form * {
 a.btn {
   margin-bottom: 0;
   text-align: center;
+}
+
+/*
+  -=-=-= FONT SIZES =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+h1, h2, h3, h4 {
+  margin: 0 0 0.5rem 0;
+  font-family: "Lexend Deca", sans-serif;
+}
+h1 {
+  font-size: 30px;
+}
+h2 {
+  font-size: 27px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 21px;
+}
+
+p, a {
+  margin: 0 0 0.5rem 0;
+  font-family: "Fira Code", monospace;
+}
+a:hover {
+  color: var(--orange);
 }
