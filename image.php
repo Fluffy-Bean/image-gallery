@@ -14,7 +14,6 @@
   include("ui/header.php");
   include_once("ui/conn.php");
 
-
   // Update toast
   if ($_GET["update"] == "success") {
     echo "<p class='alert alert-high space-bottom-large'>Information updated</p>";
@@ -22,61 +21,57 @@
     echo "<p class='alert alert-default space-bottom-large'>No alt, skip</p>";
   }
 
-  // Getting all image info from table
-  $get_image = "SELECT * FROM swag_table WHERE id = ".$_GET['id'];
-  $image_results = mysqli_query($conn, $get_image);
-  $image = mysqli_fetch_assoc($image_results);
+  // If ID present pull all image data
+  if (isset($_GET['id'])) {
+    $get_image = "SELECT * FROM swag_table WHERE id = ".$_GET['id'];
+    $image_results = mysqli_query($conn, $get_image);
+    $image = mysqli_fetch_assoc($image_results);
 
-  // Get all user details
-  if (isset($image['author'])) {
-    $get_user = "SELECT * FROM users WHERE id = ".$image['author'];
-    $user_results = mysqli_query($conn, $get_user);
-    $user = mysqli_fetch_assoc($user_results);
-  }
+    // Check if image is avalible
+    if (isset($image['imagename'])) {
+      // Display image
+      $image_path = "images/".$image['imagename'];
+      $image_alt = $image['alt'];
+    } else {
+      // ID not avalible toast
+      echo "<p class='alert alert-low space-bottom-large'>Could not find image with ID: ".$_GET['id']."</p>";
 
-  // Check if ID of image in URL
-  if (empty($_GET['id'])) {
+      // Replacement "no image" image and description
+      $image_path = "assets/no_image.png";
+      $image_alt = "No image could be found, sowwy";
+    }
+  } else {
     // No ID toast
     echo "<p class='alert alert-low space-bottom-large'>No ID present</p>";
 
     // Replacement "no image" image and description
     $image_path = "assets/no_image.png";
     $image_alt = "No image could be found, sowwy";
-
-  } elseif (empty($image['imagename'])) {
-    // ID not avalible toast
-    echo "<p class='alert alert-low space-bottom-large'>Could not find image with ID: ".$_GET['id']."</p>";
-
-    // Replacement "no image" image and description
-    $image_path = "assets/no_image.png";
-    $image_alt = "No image could be found, sowwy";
-
-  } else {
-    // Display image
-    $image_path = "images/".$image['imagename'];
-    $image_alt = $image['alt'];
-
-    // Add image view
-    if (empty($image['views'])) {
-      //$conn->query("UPDATE swag_table SET views=1 WHERE id=".$image['id']);
-    } else {
-      //$conn->query("UPDATE swag_table SET views=views+1 WHERE id=".$image['id']);
-    }
   }
+
+  // Get all user details
+  if (isset($image['author'])) {
+    $get_user = "SELECT * FROM users WHERE id = ".$image['author'];
+    $user_results = mysqli_query($conn, $get_user);
+    $user = mysqli_fetch_assoc($user_results);
+  } else
   ?>
 
   <div class="image-container">
-    <?php echo "<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>"; ?>
+    <?php
+    // Displaying image
+    echo "<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>";
+    ?>
   </div>
 
   <div class="image-description default-window">
     <h2>Description</h2>
     <?php
     // Image Description/Alt
-    if (empty($image_alt)) {
-      echo "<p>No description provided</p>";
-    }else{
+    if (isset($image_alt)) {
       echo "<p>".$image_alt."</p>";
+    } else {
+      echo "<p>No description provided</p>";
     }
     ?>
   </div>
@@ -86,13 +81,14 @@
     <?php
     // Image ID
     if (isset($image['author'])) {
-      echo "<p>Author: ".$user['username']."</p>";
+      if (isset($user['username'])) {
+        echo "<p>Author: ".$user['username']."</p>";
+      } else {
+        echo "<p>Author: Deleted User</p>";
+      }
     } else {
       echo "<p>Author: No author</p>";
     }
-
-    // Views
-    //echo "<p>Views: ".$image['views']."</p>";
 
     // Image ID
     echo "<p>ID: ".$image['id']."</p>";
@@ -113,6 +109,7 @@
   </div>
 
   <?php
+  // Check if user is admin or the owner of image, if yes, display the edit and delete div
   if (isset($_SESSION['id']) && $image['author'] == $_SESSION['id'] || $_SESSION['id'] == 1) {
     // Deleting image
     if (isset($_POST['delete'])) {
@@ -137,6 +134,7 @@
     // Delete form
     echo "<div class='danger-zone flex-down default-window'>";
     echo "<h2>Danger zone</h2>";
+
     // Image hover details
     echo "<form class='detail' method='POST' enctype='multipart/form-data'>";
     echo "<button class='btn alert-low' type='submit' name='delete' value='".$image['id']."'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>";
