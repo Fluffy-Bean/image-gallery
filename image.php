@@ -106,11 +106,12 @@
     // Image download
     echo "<a class='btn alert-high space-top' href='images/".$image['imagename']."' download='".$image['imagename']."'><img class='svg' src='assets/icons/download.svg'>Download image</a>";
     ?>
+    <button class='btn alert-high space-top flyout-display' onclick="<?php $flyout_content = "<h2 class='space-bottom-large'>Sus</h2> <p class='space-bottom'>This is a test UwU</p> <p class='space-bottom-large'>You are currently viewing image: ".$_GET['id']."</p>"; ?>">Test button</button>
   </div>
 
   <div class="tags-root default-window">
     <h2>Tags</h2>
-    <div class="tags flex-left around">
+    <div class="tags flex-left">
       <?php
       function clean($string) {
         $string = str_replace('-', '_', $string);
@@ -171,6 +172,8 @@
   ?>
 
   <?php
+  include_once("ui/flyout.php");
+
   include("ui/top.html");
   include("ui/footer.php");
   ?>

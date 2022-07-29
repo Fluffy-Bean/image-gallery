@@ -371,6 +371,48 @@ a.btn {
 }
 
 /*
+  -=-=-= FLYOUT =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+.flyout {
+  margin: 0; padding: 0.5rem 0.5rem 1.5rem;
+
+  max-width: 621px; width: calc(100% - 2.5rem + 3px);
+  max-height: 50vh; height: auto;
+
+  bottom: -50vh; left: 50%;
+
+  transform: translateX(-50%);
+
+  position: fixed; z-index: 99999;
+
+  overflow-y: auto;
+
+  border: 0.2rem solid var(--green);
+  border-bottom: none;
+  border-radius: inherit inherit none none;
+
+  word-wrap: break-word;
+
+  transition: bottom 0.5s cubic-bezier(.19,1,.22,1);
+}
+
+.flyout-dim {
+  margin: 0; padding: 0;
+
+  width: 100vw; height: 100vh;
+
+  left: 0; top: 0;
+
+  position: fixed; z-index: 99998;
+
+  opacity: 0.8;
+
+  display: none;
+
+  background: var(--bg);
+}
+
+/*
   -=-=-= FONT SIZES =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
 h1, h2, h3, h4 {
