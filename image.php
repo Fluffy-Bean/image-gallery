@@ -105,8 +105,11 @@
 
     // Image download
     echo "<a class='btn alert-high space-top' href='images/".$image['imagename']."' download='".$image['imagename']."'><img class='svg' src='assets/icons/download.svg'>Download image</a>";
+
+    // Flyout test button
     ?>
-    <button class='btn alert-high space-top flyout-display' onclick="<?php $flyout_content = "<h2 class='space-bottom-large'>Sus</h2> <p class='space-bottom'>This is a test UwU</p> <p class='space-bottom-large'>You are currently viewing image: ".$_GET['id']."</p>"; ?>">Test button</button>
+
+
   </div>
 
   <div class="tags-root default-window">
@@ -153,23 +156,34 @@
         $error = "Could not delete image";
       }
     }
-    // Delete form
-    echo "<div class='danger-zone flex-down default-window'>";
-    echo "<h2>Danger zone</h2>";
 
-    // Image hover details
-    echo "<form class='detail' method='POST' enctype='multipart/form-data'>";
-    echo "<button class='btn alert-low' type='submit' name='delete' value='".$image['id']."'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>";
-    if (isset($error)) {
-      echo "<p class='alert alert-fail' id='deleted'>".$error."</p>";
-    }
-    echo "</form>";
+    // Danger zone
+    echo "<div class='danger-zone flex-down default-window'>
+    <h2>Danger zone</h2>";
 
+    // Delete button
+    ?>
+
+    <button class="btn alert-low space-top flyout-display" onClick=" <?php
+     $flyout_header = "Are you sure?";
+     $flyout_content = "Deleting this image is pernament, there is no going back after this!!!!!";
+     $flyout_interaction = "<form class='detail' method='POST' enctype='multipart/form-data'>
+     <button class='btn alert-low' type='submit' name='delete' value='".$image['id']."'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
+     </form>";
+    ?> ">Delete image</button>
+
+    <?php
     // Edit image button
     echo "<a class='btn alert-low space-top-small' href='https://superdupersecteteuploadtest.fluffybean.gay/edit.php?id=".$image['id']."'><img class='svg' src='assets/icons/edit.svg'>Modify image content</a>";
     echo "</div>";
   }
   ?>
+
+  <button class="btn alert-high space-top flyout-display" onClick=" <?php
+   $flyout_header = "Sus";
+   $flyout_content = "This is a test UwU. You are currently viewing image: ".$_GET['id'];
+   $flyout_interaction = "<a class='btn alert-high'>This button does nothing!</a> <a class='btn alert-low space-top-small'>I'm another button, but scawwy</a>";
+   ?> ">Test button</button>
 
   <?php
   include_once("ui/flyout.php");
