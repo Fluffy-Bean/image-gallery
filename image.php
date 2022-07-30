@@ -1,3 +1,55 @@
+<?php
+/*
+  Why are you putting all the image checking up here?
+  Wasn't it fine below the header????
+
+  The reason why all this is up here, is so link previews can generate correctly in the header
+  I would rather it all not be up here, but due to variables not being able to be set after already being mentioned
+  (at least to my knowlage)
+
+  I am forced to put ALLL of this up here :c
+*/
+
+
+include_once("ui/conn.php");
+
+// If ID present pull all image data
+if (isset($_GET['id'])) {
+  $get_image = "SELECT * FROM swag_table WHERE id = ".$_GET['id'];
+  $image_results = mysqli_query($conn, $get_image);
+  $image = mysqli_fetch_assoc($image_results);
+
+  // Check if image is avalible
+  if (isset($image['imagename'])) {
+    // Display image
+    $image_path = "images/".$image['imagename'];
+    $image_alt = $image['alt'];
+  } else {
+    // ID not avalible toast
+    echo "<p class='alert alert-low space-bottom-large'>Could not find image with ID: ".$_GET['id']."</p>";
+
+    // Replacement "no image" image and description
+    $image_path = "assets/no_image.png";
+    $image_alt = "No image could be found, sowwy";
+  }
+} else {
+  // No ID toast
+  echo "<p class='alert alert-low space-bottom-large'>No ID present</p>";
+
+  // Replacement "no image" image and description
+  $image_path = "assets/no_image.png";
+  $image_alt = "No image could be found, sowwy";
+}
+
+
+// Get all user details
+if (isset($image['author'])) {
+  $get_user = "SELECT * FROM users WHERE id = ".$image['author'];
+  $user_results = mysqli_query($conn, $get_user);
+  $user = mysqli_fetch_assoc($user_results);
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,11 +60,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
+  <?php echo "<meta property='og:image' content='https://superdupersecteteuploadtest.fluffybean.gay/".$image_path."'/>"; ?>
+  <?php echo "<meta itemprop='image' content='https://superdupersecteteuploadtest.fluffybean.gay/".$image_path."'/>"; ?>
 </head>
 <body>
   <?php
   include("ui/header.php");
-  include_once("ui/conn.php");
 
   // Include flyout for extra actions
   include("ui/flyout.php");
@@ -23,45 +76,8 @@
   */
   if ($_GET["update"] == "success") {
     echo "<p class='alert alert-high space-bottom-large'>Information updated</p>";
-  } elseif ($_GET["update"] == "skip") {
-    echo "<p class='alert alert-default space-bottom-large'>No alt, skip</p>";
-  }
-
-
-  // If ID present pull all image data
-  if (isset($_GET['id'])) {
-    $get_image = "SELECT * FROM swag_table WHERE id = ".$_GET['id'];
-    $image_results = mysqli_query($conn, $get_image);
-    $image = mysqli_fetch_assoc($image_results);
-
-    // Check if image is avalible
-    if (isset($image['imagename'])) {
-      // Display image
-      $image_path = "images/".$image['imagename'];
-      $image_alt = $image['alt'];
-    } else {
-      // ID not avalible toast
-      echo "<p class='alert alert-low space-bottom-large'>Could not find image with ID: ".$_GET['id']."</p>";
-
-      // Replacement "no image" image and description
-      $image_path = "assets/no_image.png";
-      $image_alt = "No image could be found, sowwy";
-    }
-  } else {
-    // No ID toast
-    echo "<p class='alert alert-low space-bottom-large'>No ID present</p>";
-
-    // Replacement "no image" image and description
-    $image_path = "assets/no_image.png";
-    $image_alt = "No image could be found, sowwy";
-  }
-
-
-  // Get all user details
-  if (isset($image['author'])) {
-    $get_user = "SELECT * FROM users WHERE id = ".$image['author'];
-    $user_results = mysqli_query($conn, $get_user);
-    $user = mysqli_fetch_assoc($user_results);
+  } elseif ($_GET["update"] == "error") {
+    echo "<p class='alert alert-default space-bottom-large'>Something went fuckywucky, please try later</p>";
   }
 
 
@@ -79,6 +95,17 @@
     $privilaged = False;
   }
 
+
+  /*
+    Test flyout button
+  */
+  if (isset($_POST['test_flyout'])) {
+    $header = "Sus";
+    $content = "This is a test UwU. You are currently viewing image: ".$_GET['id'];
+    $action = "<a class='btn alert-high'>This button does nothing!</a> <a class='btn alert-low space-top-small'>I'm another button, but scawwy</a>";
+
+    flyout($header, $content, $action);
+  }
 
   /*
     Delete flyout
@@ -122,16 +149,84 @@
     }
   }
 
-
   /*
-    Test flyout button
+    Description edit
   */
-  if (isset($_POST['test_flyout'])) {
-    $header = "Sus";
-    $content = "This is a test UwU. You are currently viewing image: ".$_GET['id'];
-    $action = "<a class='btn alert-high'>This button does nothing!</a> <a class='btn alert-low space-top-small'>I'm another button, but scawwy</a>";
+  if (isset($_POST['description_flyout']) && $privilaged) {
+    $header = "Enter new Description/Alt";
+    $content = "Whatcha gonna put in there 👀";
+    $action = "<form class='flex-down between' method='POST' enctype='multipart/form-data'>
+      <input class='btn alert-default space-bottom' type='text' name='update_alt' placeholder='Description/Alt for image'>
+      <button class='btn alert-low' type='submit' name='description_confirm' value='".$image["id"]."'><img class='svg' src='assets/icons/edit.svg'>Update information</button>
+    </form>";
 
     flyout($header, $content, $action);
+  }
+  /*
+    Description confirm
+  */
+  if (isset($_POST['description_confirm']) && $privilaged) {
+    // Unset all the variables, needed by flyout
+    unset($header, $content, $action);
+
+    // getting ready forSQL asky asky
+    $sql = "UPDATE swag_table SET alt=? WHERE id=?";
+
+    // Checking if databse is doing ok
+    if ($stmt = mysqli_prepare($conn, $sql)) {
+      mysqli_stmt_bind_param($stmt, "si", $param_alt, $param_id);
+
+      // Setting parameters
+      $param_alt = $_POST['update_alt'];
+      $param_id = $image["id"];
+
+      // Attempt to execute the prepared statement
+      if (mysqli_stmt_execute($stmt)) {
+        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image["id"]."&update=success");
+      } else {
+        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image["id"]."&update=error");
+      }
+    }
+  }
+
+  /*
+    Description athor
+  */
+  if (isset($_POST['author_flyout']) && $_SESSION['id'] == 1) {
+    $header = "Who owns the image?????";
+    $content = "Enter ID of image owner";
+    $action = "<form class='flex-down between' method='POST' enctype='multipart/form-data'>
+      <input class='btn alert-default space-bottom' type='text' name='update_author' placeholder='New user ID'>
+      <button class='btn alert-low' type='submit' name='author_confirm' value='".$image["id"]."'><img class='svg' src='assets/icons/edit.svg'>Update information</button>
+    </form>";
+
+    flyout($header, $content, $action);
+  }
+  /*
+    Author confirm
+  */
+  if (isset($_POST['author_confirm']) && $_SESSION['id'] == 1) {
+    // Unset all the variables, needed by flyout
+    unset($header, $content, $action);
+
+    // getting ready forSQL asky asky
+    $sql = "UPDATE swag_table SET author=? WHERE id=?";
+
+    // Checking if databse is doing ok
+    if ($stmt = mysqli_prepare($conn, $sql)) {
+      mysqli_stmt_bind_param($stmt, "si", $param_author, $param_id);
+
+      // Setting parameters
+      $param_author = $_POST['update_author'];
+      $param_id = $image["id"];
+
+      // Attempt to execute the prepared statement
+      if (mysqli_stmt_execute($stmt)) {
+        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image["id"]."&update=success");
+      } else {
+        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image["id"]."&update=error");
+      }
+    }
   }
   ?>
 
@@ -219,13 +314,21 @@
     echo "<div class='danger-zone flex-down default-window'>
     <h2>Danger zone</h2>";
 
-    // Delete Button
+    // Delete
     echo "<form method='POST'>
-      <button class='btn alert-low space-top flyout-display' type='submit' name='delete_flyout'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
+      <button class='btn alert-low flyout-display' type='submit' name='delete_flyout'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
     </form>";
 
-    // Edit image button
-    echo "<a class='btn alert-low space-top-small' href='https://superdupersecteteuploadtest.fluffybean.gay/edit.php?id=".$image['id']."'><img class='svg' src='assets/icons/edit.svg'>Modify image content</a>";
+    // Edit description
+    echo "<form method='POST'>
+      <button class='btn alert-low space-top-small flyout-display' type='submit' name='description_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit description</button>
+    </form>";
+
+    // Edit authro
+    echo "<form method='POST'>
+      <button class='btn alert-low space-top-small flyout-display' type='submit' name='author_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
+    </form>";
+
     echo "</div>";
   }
   ?>
