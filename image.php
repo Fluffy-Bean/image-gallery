@@ -50,6 +50,7 @@ if (isset($image['author'])) {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -190,6 +191,61 @@ if (isset($image['author'])) {
   }
 
   /*
+    Adding tags
+  */
+  if (isset($_POST['tags_flyout']) && $privilaged) {
+    $header = "Tags";
+    $content = "Add image tags here! This is still being tested so your tags may be removed later on. Tags ONLY accept, letters, numbers and underscores. Hyphens will be stitched to underscores and spaces will seperate the different tags from eachother.";
+    $action = "<form class='flex-down between' method='POST' enctype='multipart/form-data'>
+      <input class='btn alert-default space-bottom' type='text' name='add_tags' placeholder='Tags are seperated by spaces'>
+      <button class='btn alert-low' type='submit' name='tags_confirm' value='".$image["id"]."'><img class='svg' src='assets/icons/edit.svg'>Add tags</button>
+    </form>";
+
+    flyout($header, $content, $action);
+  }
+  /*
+    Tags Confirm
+  */
+  if (isset($_POST['tags_confirm']) && $privilaged) {
+    // Unset all the variables, needed by flyout
+    unset($header, $content, $action);
+
+    // Clean tags before adding
+    function clean($string) {
+      // Change to lowercase
+      $tags_string = strtolower($tags_string);
+      // Replace hyphens
+      $string = str_replace('-', '_', $string);
+      // Regex
+      $string = preg_replace('/[^A-Za-z0-9\_ ]/', '', $string);
+      // Return string
+      return preg_replace('/ +/', ' ', $string);
+    }
+
+    // Clean input
+    $tags_string = clean(trim($_POST['add_tags']));
+
+    // getting ready forSQL asky asky
+    $sql = "UPDATE swag_table SET tags=? WHERE id=?";
+
+    // Checking if databse is doing ok
+    if ($stmt = mysqli_prepare($conn, $sql)) {
+      mysqli_stmt_bind_param($stmt, "si", $param_tags, $param_id);
+
+      // Setting parameters
+      $param_tags = $tags_string;
+      $param_id = $image["id"];
+
+      // Attempt to execute the prepared statement
+      if (mysqli_stmt_execute($stmt)) {
+        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image["id"]."&update=success");
+      } else {
+        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image["id"]."&update=error");
+      }
+    }
+  }
+
+  /*
     Description athor
   */
   if (isset($_POST['author_flyout']) && $_SESSION['id'] == 1) {
@@ -290,25 +346,27 @@ if (isset($image['author'])) {
     <h2>Tags</h2>
     <div class="tags flex-left">
       <?php
-      function clean($string) {
-        $string = str_replace('-', '_', $string);
-        $string = preg_replace('/[^A-Za-z0-9\_ ]/', '', $string);
-        return preg_replace('/ +/', ' ', $string);
+      // Get image tags
+      if (isset($image['tags']) && !empty($image['tags'])) {
+        $image_tags_array = explode(" ", $image['tags']);
+        foreach ($image_tags_array as $tag) {
+          echo "<p class='tag alert-high'>".$tag."</p>";
+        }
+      } else {
+        echo "<p>No tags present</p>";
       }
-      $tags_string = "This is a test of ta.gs and their s//ystem_of_ignoring ran!!dom characters BUT THIS DOES$$$$$$.NT WORK YET!!!!";
-      $tags_string = strtolower($tags_string);
-      $tags_string = clean($tags_string);
-      $image_tags_array = explode(" ", $tags_string);
 
-      foreach ($image_tags_array as $tag) {
-        echo "<p class='tag alert-high'>".$tag."</p>";
-      }
       ?>
     </div>
   </div>
 
   <?php
-  // Check if user is admin or the owner of image, if yes, display the edit and delete div
+  /*
+    Check if user is privilaged,
+    If yes, grant them access to the Danger zone, or "the place that can fuck things up"
+
+    Checking is done prior to here
+  */
   if ($privilaged) {
     // Danger zone
     echo "<div class='danger-zone flex-down default-window'>
@@ -324,10 +382,17 @@ if (isset($image['author'])) {
       <button class='btn alert-low space-top-small flyout-display' type='submit' name='description_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit description</button>
     </form>";
 
-    // Edit authro
+    // Edit tags
     echo "<form method='POST'>
-      <button class='btn alert-low space-top-small flyout-display' type='submit' name='author_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
+      <button class='btn alert-low space-top-small flyout-display' type='submit' name='tags_flyout'><img class='svg' src='assets/icons/edit.svg'>Add image tags</button>
     </form>";
+
+    // Edit authro
+    if ($_SESSION['id'] == 1) {
+      echo "<form method='POST'>
+        <button class='btn alert-low space-top-small flyout-display' type='submit' name='author_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
+      </form>";
+    }
 
     echo "</div>";
   }
