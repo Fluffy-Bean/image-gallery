@@ -98,17 +98,6 @@ if (isset($image['author'])) {
 
 
   /*
-    Test flyout button
-  */
-  if (isset($_POST['test_flyout'])) {
-    $header = "Sus";
-    $content = "This is a test UwU. You are currently viewing image: ".$_GET['id'];
-    $action = "<a class='btn alert-high'>This button does nothing!</a> <a class='btn alert-low space-top-small'>I'm another button, but scawwy</a>";
-
-    flyout($header, $content, $action);
-  }
-
-  /*
     Delete flyout
 
     This goes with the confirm script below, to use flyout, you must include the js script and php function
@@ -337,9 +326,6 @@ if (isset($image['author'])) {
 
     // Flyout test button
     ?>
-    <form method='POST'>
-      <button class='btn alert-high space-top-small flyout-display' type='submit' name='test_flyout'>Test button</button>
-    </form>
   </div>
 
   <div class="tags-root default-window">
