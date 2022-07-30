@@ -187,7 +187,7 @@
     // Flyout test button
     ?>
     <form method='POST'>
-      <button class='btn alert-high space-top flyout-display' type='submit' name='test_flyout'>Test button</button>
+      <button class='btn alert-high space-top-small flyout-display' type='submit' name='test_flyout'>Test button</button>
     </form>
   </div>
 

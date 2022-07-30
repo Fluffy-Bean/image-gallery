@@ -1,5 +1,5 @@
 <?php
-function flyout($flyout_header, $flyout_description, $flyout_action) {
+function flyout($flyout_header, $flyout_content, $flyout_action) {
   // Used for background dimming
   echo "<div class='flyout-dim'></div>";
   // Div Start
