@@ -1,26 +1,25 @@
-<div class="flyout-dim">
-</div>
-<div class="flyout flex-down default-window between">
-  <?php
+<?php
+function flyout($flyout_header, $flyout_description, $flyout_action) {
+  // Used for background dimming
+  echo "<div class='flyout-dim'></div>";
+  // Div Start
+  echo "<div class='flyout flex-down default-window between'>";
+
   // Header for the flyout, must be included
   if (isset($flyout_header) && !empty($flyout_header)) {
     echo "<h2 class='space-bottom'>".$flyout_header."</h2>";
-  } else {
-    echo "<h2 class='space-bottom'>Missing Header</h2>";
   }
-
   // Flyout content, must be included!!!!
   if (isset($flyout_content) && !empty($flyout_content)) {
     echo "<p class='space-bottom'>".$flyout_content."</p>";
-  } else {
-    echo "<p class='space-bottom'>This is just being tested as a better alternative to some things, sowwy!</p>";
+  }
+  // Flyout button, not required so must need more information when added
+  if (isset($flyout_action) && !empty($flyout_action)) {
+    echo $flyout_action;
   }
 
-  // Flyout button, not required so must need more information when added
-  if (isset($flyout_interaction) && !empty($flyout_interaction)) {
-    echo $flyout_interaction;
-  }
-  ?>
-  <a class="btn alert-default space-top flyout-close">Cancel</a>
-</div>
-<script src="scripts/flyout.js"></script>
+  // Exit button + Div End
+  echo "<button class='btn alert-default space-top flyout-close'>Cancel</button>
+  </div>";
+}
+?>

@@ -14,12 +14,19 @@
   include("ui/header.php");
   include_once("ui/conn.php");
 
-  // Update toast
+  // Include flyout for extra actions
+  include("ui/flyout.php");
+
+  /*
+    If theres a success in updating the image,
+    it'll let the user know
+  */
   if ($_GET["update"] == "success") {
     echo "<p class='alert alert-high space-bottom-large'>Information updated</p>";
   } elseif ($_GET["update"] == "skip") {
     echo "<p class='alert alert-default space-bottom-large'>No alt, skip</p>";
   }
+
 
   // If ID present pull all image data
   if (isset($_GET['id'])) {
@@ -49,12 +56,83 @@
     $image_alt = "No image could be found, sowwy";
   }
 
+
   // Get all user details
   if (isset($image['author'])) {
     $get_user = "SELECT * FROM users WHERE id = ".$image['author'];
     $user_results = mysqli_query($conn, $get_user);
     $user = mysqli_fetch_assoc($user_results);
-  } else
+  }
+
+
+  /*
+    Check if the user is an admin session id = 1
+    Or the owner of the image, image author == session id
+
+    This may not be the best system of doing this, but much better than not having it at all
+    I plan on adding an array of privilaged users that user with the id of 1 can modify,
+    sort of like a mod/admin list of users
+  */
+  if (isset($_SESSION['id']) && $image['author'] == $_SESSION['id'] || $_SESSION['id'] == 1) {
+    $privilaged = True;
+  } else {
+    $privilaged = False;
+  }
+
+
+  /*
+    Delete flyout
+
+    This goes with the confirm script below, to use flyout, you must include the js script and php function
+  */
+  if (isset($_POST['delete_flyout']) && $privilaged) {
+    $header = "Are you sure?";
+    $content = "Deleting this image is pernament, there is no going back after this!!!!!";
+    $action = "<form method='POST' enctype='multipart/form-data'>
+    <button class='btn alert-low' type='submit' name='delete_confirm' value='".$image['id']."'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
+    </form>";
+
+    flyout($header, $content, $action);
+  }
+  /*
+    Confirm deleting user
+
+    user must be privilaged to do this action this the privilaged == true
+  */
+  if (isset($_POST['delete_confirm']) && $privilaged) {
+    // Unset all the variables, needed by flyout
+    unset($header, $content, $action);
+
+    // Delete from table
+    $image_delete_request = "DELETE FROM swag_table WHERE id =".$image['id'];
+    $image_delete = mysqli_query($conn,$image_delete_request);
+
+    if ($image_delete) {
+      // See if image is in the directory
+      if (is_file("images/".$image['imagename'])) {
+        unlink("images/".$image['imagename']);
+      }
+      // Delete thumbnail if exitsts
+      if (is_file("images/thumbnails/".$image['imagename'])) {
+        unlink("images/thumbnails/".$image['imagename']);
+      }
+      header("Location:index.php?del=true&id=".$image['id']);
+    } else {
+      $error = "Could not delete image";
+    }
+  }
+
+
+  /*
+    Test flyout button
+  */
+  if (isset($_POST['test_flyout'])) {
+    $header = "Sus";
+    $content = "This is a test UwU. You are currently viewing image: ".$_GET['id'];
+    $action = "<a class='btn alert-high'>This button does nothing!</a> <a class='btn alert-low space-top-small'>I'm another button, but scawwy</a>";
+
+    flyout($header, $content, $action);
+  }
   ?>
 
   <div class="image-container">
@@ -108,8 +186,9 @@
 
     // Flyout test button
     ?>
-
-
+    <form method='POST'>
+      <button class='btn alert-high space-top flyout-display' type='submit' name='test_flyout'>Test button</button>
+    </form>
   </div>
 
   <div class="tags-root default-window">
@@ -135,58 +214,25 @@
 
   <?php
   // Check if user is admin or the owner of image, if yes, display the edit and delete div
-  if (isset($_SESSION['id']) && $image['author'] == $_SESSION['id'] || $_SESSION['id'] == 1) {
-    // Deleting image
-    if (isset($_POST['delete'])) {
-      // Delete from table
-      $image_delete_request = "DELETE FROM swag_table WHERE id =".$image['id'];
-      $image_delete = mysqli_query($conn,$image_delete_request);
-
-      if ($image_delete) {
-        // See if image is in the directory
-        if (is_file("images/".$image['imagename'])) {
-          unlink("images/".$image['imagename']);
-        }
-        // Delete thumbnail if exitsts
-        if (is_file("images/thumbnails/".$image['imagename'])) {
-          unlink("images/thumbnails/".$image['imagename']);
-        }
-        header("Location:index.php?del=true&id=".$image['id']);
-      } else {
-        $error = "Could not delete image";
-      }
-    }
-
+  if ($privilaged) {
     // Danger zone
     echo "<div class='danger-zone flex-down default-window'>
     <h2>Danger zone</h2>";
 
-    // Delete button
-    ?>
+    // Delete Button
+    echo "<form method='POST'>
+      <button class='btn alert-low space-top flyout-display' type='submit' name='delete_flyout'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
+    </form>";
 
-    <button class="btn alert-low space-top flyout-display" onClick=" <?php
-     $flyout_header = "Are you sure?";
-     $flyout_content = "Deleting this image is pernament, there is no going back after this!!!!!";
-     $flyout_interaction = "<form class='detail' method='POST' enctype='multipart/form-data'>
-     <button class='btn alert-low' type='submit' name='delete' value='".$image['id']."'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
-     </form>";
-    ?> ">Delete image</button>
-
-    <?php
     // Edit image button
     echo "<a class='btn alert-low space-top-small' href='https://superdupersecteteuploadtest.fluffybean.gay/edit.php?id=".$image['id']."'><img class='svg' src='assets/icons/edit.svg'>Modify image content</a>";
     echo "</div>";
   }
   ?>
 
-  <button class="btn alert-high space-top flyout-display" onClick=" <?php
-   $flyout_header = "Sus";
-   $flyout_content = "This is a test UwU. You are currently viewing image: ".$_GET['id'];
-   $flyout_interaction = "<a class='btn alert-high'>This button does nothing!</a> <a class='btn alert-low space-top-small'>I'm another button, but scawwy</a>";
-   ?> ">Test button</button>
-
   <?php
-  include_once("ui/flyout.php");
+  // Must be included with flyout.php
+  echo "<script src='scripts/flyout.js'></script>";
 
   include("ui/top.html");
   include("ui/footer.php");

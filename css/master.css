@@ -42,6 +42,8 @@ html {
   background-attachment: fixed;
 
   scroll-behavior: smooth;
+
+  overflow: auto;
 }
 body {
   margin: 0 auto; padding: 1rem;
