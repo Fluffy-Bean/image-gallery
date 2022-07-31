@@ -13,6 +13,9 @@
   <?php
   include("ui/header.php");
 
+  // Include flyout for extra actions
+  include("ui/flyout.php");
+
   // Deletion toast
   if ($_GET["del"] == "true") {
     echo "<p class='alert alert-high space-bottom'>Successfully deleted image: ".$_GET['id']."</p>";
@@ -21,6 +24,45 @@
   // Account toast
   if ($_GET["login"] == "success") {
     echo "<p class='alert alert-high space-bottom'>O hi ".$_SESSION['username']."</p>";
+  }
+
+  // Show search
+  if ($_GET["srch"] == "show") {
+    $header = "Search for a tags!";
+    $content = "Here you can search for funnies! Like raccoons!!!!!!!!!";
+    $action = "<form class='flex-down between' method='POST' enctype='multipart/form-data'>
+      <input class='btn alert-default space-bottom' type='text' name='search' placeholder='👀'>
+      <button class='btn alert-high' type='submit' name='search_confirm' value=''><img class='svg' src='assets/icons/binoculars.svg'>Search</button>
+    </form>";
+
+    flyout($header, $content, $action);
+  }
+  /*
+    Search Confirm
+  */
+  if (isset($_POST['search_confirm'])) {
+    // Unset all the variables, needed by flyout
+    unset($header, $content, $action);
+
+    // Clean tags before adding
+    function clean($string) {
+      // Change to lowercase
+      $string = strtolower($string);
+      // Replace hyphens
+      $string = str_replace('-', '_', $string);
+      // Regex
+      $string = preg_replace('/[^A-Za-z0-9\_ ]/', '', $string);
+      // Return string
+      return preg_replace('/ +/', ' ', $string);
+    }
+
+    // Clean input
+    $tags_string = clean(trim($_POST['search']));
+
+    header("Location:https://superdupersecteteuploadtest.fluffybean.gay?q=".$tags_string);
+  }
+  if (isset($_GET["q"])) {
+    echo "<p class='alert alert-high space-bottom'>Search results for: ".$_GET['q']."</p>";
   }
   ?>
 
@@ -47,22 +89,50 @@
     $image_request = mysqli_query($conn, "SELECT * FROM swag_table");
 
     while ($image = mysqli_fetch_array($image_request)) {
-      // Getting thumbnail
-      if (file_exists("images/thumbnails/".$image['imagename'])) {
-        $image_path = "images/thumbnails/".$image['imagename'];
-      } else {
-        $image_path = "images/".$image['imagename'];
-      }
+      // If search is set
+      if (isset($_GET['q']) && !empty($_GET['q'])) {
+        // Make search into an array
+        $search_array = explode(" ", $_GET['q']);
 
-      // Image loading
-      echo "<div class='gallery-item'>";
-      echo "<a href='https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
-      echo "</div>";
+        // Get images tags for comparing
+        $image_tag_array = explode(" ", $image['tags']);
+
+        // Compare arrays
+        $compare_results = array_intersect($image_tag_array, $search_array);
+        if (count($compare_results) > 0) {
+          // Getting thumbnail
+          if (file_exists("images/thumbnails/".$image['imagename'])) {
+            $image_path = "images/thumbnails/".$image['imagename'];
+          } else {
+            $image_path = "images/".$image['imagename'];
+          }
+
+          // Image loading
+          echo "<div class='gallery-item'>";
+          echo "<a href='https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
+          echo "</div>";
+        }
+      } else {
+        // Getting thumbnail
+        if (file_exists("images/thumbnails/".$image['imagename'])) {
+          $image_path = "images/thumbnails/".$image['imagename'];
+        } else {
+          $image_path = "images/".$image['imagename'];
+        }
+
+        // Image loading
+        echo "<div class='gallery-item'>";
+        echo "<a href='https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
+        echo "</div>";
+      }
     }
     ?>
   </div>
 
   <?php
+  // Must be included with flyout.php
+  echo "<script src='scripts/flyout.js'></script>";
+
   include("ui/top.html");
   include("ui/footer.php");
   ?>

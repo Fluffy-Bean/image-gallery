@@ -16,6 +16,8 @@ if (is_dir("assets/icons/")) {
     <?php
     echo "<a class='btn alert-default' href='https://superdupersecteteuploadtest.fluffybean.gay'><img class='svg' src='".$dir."house.svg'><span class='nav-hide'>Home</span></a>";
     echo "<hr>";
+    echo "<a class='btn alert-default flyout-display' href='https://superdupersecteteuploadtest.fluffybean.gay?srch=show'><img class='svg' src='".$dir."binoculars.svg'><span class='nav-hide'>Search</span></a>";
+    echo "<hr>";
 
     if (isset($_SESSION["username"])) {
       echo "<a class='btn alert-default' href='https://superdupersecteteuploadtest.fluffybean.gay/upload.php'><img class='svg' src='".$dir."upload.svg'><span class='nav-hide'>Upload</span></a>";

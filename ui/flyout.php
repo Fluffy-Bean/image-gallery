@@ -19,7 +19,7 @@ function flyout($flyout_header, $flyout_content, $flyout_action) {
   }
 
   // Exit button + Div End
-  echo "<button class='btn alert-default space-top flyout-close'>Cancel</button>
+  echo "<button class='btn alert-default space-top flyout-close'>Close</button>
   </div>";
 }
 ?>

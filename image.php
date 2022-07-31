@@ -61,8 +61,19 @@ if (isset($image['author'])) {
   <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
-  <?php echo "<meta property='og:image' content='https://superdupersecteteuploadtest.fluffybean.gay/".$image_path."'/>"; ?>
-  <?php echo "<meta itemprop='image' content='https://superdupersecteteuploadtest.fluffybean.gay/".$image_path."'/>"; ?>
+  <!-- Rich preview -->
+  <meta property="og:type" content="object">
+  <meta property="og:title" content="Only Legs">
+  <?php echo "<meta property='og:image' content='https://superdupersecteteuploadtest.fluffybean.gay/".$image_path."'/>";
+
+  list($meta_width, $meta_height) = getimagesize($image_path);
+  echo "<meta property='og:image:width' content='".$meta_width."'/>";
+  echo "<meta property='og:image:height' content='".$meta_height."'/>";
+
+  echo "<meta property='og:image:alt' content='".$image['alt']."'/>"?>
+  <meta property="og:site_name" content="Only Legs">
+  <meta property="og:url" content="https://superdupersecteteuploadtest.fluffybean.gay">
+  <meta property="og:description" content="Only Legs, a gallery made and hosted by Fluffy">
 </head>
 <body>
   <?php
@@ -202,7 +213,7 @@ if (isset($image['author'])) {
     // Clean tags before adding
     function clean($string) {
       // Change to lowercase
-      $tags_string = strtolower($tags_string);
+      $string = strtolower($string);
       // Replace hyphens
       $string = str_replace('-', '_', $string);
       // Regex
