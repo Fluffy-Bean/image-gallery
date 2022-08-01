@@ -15,7 +15,7 @@
   include_once("ui/conn.php");
 
   // Check if user is logged in
-  if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+  if (loggedin()) {
     // User is logged in
   } else {
     $error = "You must be logged in to upload images";

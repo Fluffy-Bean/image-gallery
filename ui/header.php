@@ -1,6 +1,15 @@
 <?php
+// Include required files by every page on header
 session_start();
+if (is_dir("ui/")) {
+  include("ui/conn.php");
+  include_once("ui/functions.php");
+} else {
+  include("../ui/conn.php");
+  include_once("../ui/functions.php");
+}
 
+// Check which directory icons are in
 if (is_dir("assets/icons/")) {
   $dir = "assets/icons/";
 } else {
@@ -19,7 +28,7 @@ if (is_dir("assets/icons/")) {
     echo "<a class='btn alert-default flyout-display' href='https://superdupersecteteuploadtest.fluffybean.gay?srch=show'><img class='svg' src='".$dir."binoculars.svg'><span class='nav-hide'>Search</span></a>";
     echo "<hr>";
 
-    if (isset($_SESSION["username"])) {
+    if (loggedin()) {
       echo "<a class='btn alert-default' href='https://superdupersecteteuploadtest.fluffybean.gay/upload.php'><img class='svg' src='".$dir."upload.svg'><span class='nav-hide'>Upload</span></a>";
       echo "<hr>";
       echo "<a class='btn alert-default' href='https://superdupersecteteuploadtest.fluffybean.gay/account/account.php'><img class='svg' src='".$dir."user-circle.svg'><span class='nav-hide'>".substr($_SESSION["username"], 0, 15)."</span></a>";

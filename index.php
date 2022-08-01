@@ -13,9 +13,6 @@
   <?php
   include("ui/header.php");
 
-  // Include flyout for extra actions
-  include("ui/flyout.php");
-
   // Deletion toast
   if ($_GET["del"] == "true") {
     echo "<p class='alert alert-high space-bottom'>Successfully deleted image: ".$_GET['id']."</p>";
@@ -43,18 +40,6 @@
   if (isset($_POST['search_confirm'])) {
     // Unset all the variables, needed by flyout
     unset($header, $content, $action);
-
-    // Clean tags before adding
-    function clean($string) {
-      // Change to lowercase
-      $string = strtolower($string);
-      // Replace hyphens
-      $string = str_replace('-', '_', $string);
-      // Regex
-      $string = preg_replace('/[^A-Za-z0-9\_ ]/', '', $string);
-      // Return string
-      return preg_replace('/ +/', ' ', $string);
-    }
 
     // Clean input
     $tags_string = clean(trim($_POST['search']));

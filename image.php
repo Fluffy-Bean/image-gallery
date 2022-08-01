@@ -1,56 +1,3 @@
-<?php
-/*
-  Why are you putting all the image checking up here?
-  Wasn't it fine below the header????
-
-  The reason why all this is up here, is so link previews can generate correctly in the header
-  I would rather it all not be up here, but due to variables not being able to be set after already being mentioned
-  (at least to my knowlage)
-
-  I am forced to put ALLL of this up here :c
-*/
-
-
-include_once("ui/conn.php");
-
-// If ID present pull all image data
-if (isset($_GET['id'])) {
-  $get_image = "SELECT * FROM swag_table WHERE id = ".$_GET['id'];
-  $image_results = mysqli_query($conn, $get_image);
-  $image = mysqli_fetch_assoc($image_results);
-
-  // Check if image is avalible
-  if (isset($image['imagename'])) {
-    // Display image
-    $image_path = "images/".$image['imagename'];
-    $image_alt = $image['alt'];
-  } else {
-    // ID not avalible toast
-    echo "<p class='alert alert-low space-bottom-large'>Could not find image with ID: ".$_GET['id']."</p>";
-
-    // Replacement "no image" image and description
-    $image_path = "assets/no_image.png";
-    $image_alt = "No image could be found, sowwy";
-  }
-} else {
-  // No ID toast
-  echo "<p class='alert alert-low space-bottom-large'>No ID present</p>";
-
-  // Replacement "no image" image and description
-  $image_path = "assets/no_image.png";
-  $image_alt = "No image could be found, sowwy";
-}
-
-
-// Get all user details
-if (isset($image['author'])) {
-  $get_user = "SELECT * FROM users WHERE id = ".$image['author'];
-  $user_results = mysqli_query($conn, $get_user);
-  $user = mysqli_fetch_assoc($user_results);
-}
-?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,13 +11,6 @@ if (isset($image['author'])) {
   <!-- Rich preview -->
   <meta property="og:type" content="object">
   <meta property="og:title" content="Only Legs">
-  <?php echo "<meta property='og:image' content='https://superdupersecteteuploadtest.fluffybean.gay/".$image_path."'/>";
-
-  list($meta_width, $meta_height) = getimagesize($image_path);
-  echo "<meta property='og:image:width' content='".$meta_width."'/>";
-  echo "<meta property='og:image:height' content='".$meta_height."'/>";
-
-  echo "<meta property='og:image:alt' content='".$image['alt']."'/>"?>
   <meta property="og:site_name" content="Only Legs">
   <meta property="og:url" content="https://superdupersecteteuploadtest.fluffybean.gay">
   <meta property="og:description" content="Only Legs, a gallery made and hosted by Fluffy">
@@ -78,9 +18,6 @@ if (isset($image['author'])) {
 <body>
   <?php
   include("ui/header.php");
-
-  // Include flyout for extra actions
-  include("ui/flyout.php");
 
   /*
     If theres a success in updating the image,
@@ -92,16 +29,40 @@ if (isset($image['author'])) {
     echo "<p class='alert alert-default space-bottom-large'>Something went fuckywucky, please try later</p>";
   }
 
+  // If ID present pull all image data
+  if (isset($_GET['id'])) {
+    $image = get_image_info($conn, $_GET['id']);
 
-  /*
-    Check if the user is an admin session id = 1
-    Or the owner of the image, image author == session id
+    // Check if image is avalible
+    if (isset($image['imagename'])) {
+      // Display image
+      $image_path = "images/".$image['imagename'];
+      $image_alt = $image['alt'];
+    } else {
+      // ID not avalible toast
+      echo "<p class='alert alert-low space-bottom-large'>Could not find image with ID: ".$_GET['id']."</p>";
 
-    This may not be the best system of doing this, but much better than not having it at all
-    I plan on adding an array of privilaged users that user with the id of 1 can modify,
-    sort of like a mod/admin list of users
-  */
-  if (isset($_SESSION['id']) && $image['author'] == $_SESSION['id'] || $_SESSION['id'] == 1) {
+      // Replacement "no image" image and description
+      $image_path = "assets/no_image.png";
+      $image_alt = "No image could be found, sowwy";
+    }
+  } else {
+    // No ID toast
+    echo "<p class='alert alert-low space-bottom-large'>No ID present</p>";
+
+    // Replacement "no image" image and description
+    $image_path = "assets/no_image.png";
+    $image_alt = "No image could be found, sowwy";
+  }
+
+
+  // Get all user details
+  if (isset($image['author'])) {
+    $user = get_user_info($conn, $image['author']);
+  }
+
+  // Check user privilge
+  if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
     $privilaged = True;
   } else {
     $privilaged = False;
@@ -248,7 +209,7 @@ if (isset($image['author'])) {
   /*
     Description athor
   */
-  if (isset($_POST['author_flyout']) && $_SESSION['id'] == 1) {
+  if (isset($_POST['author_flyout']) && is_admin($_SESSION['id'])) {
     $header = "Who owns the image?????";
     $content = "Enter ID of image owner";
     $action = "<form class='flex-down between' method='POST' enctype='multipart/form-data'>
@@ -261,7 +222,7 @@ if (isset($image['author'])) {
   /*
     Author confirm
   */
-  if (isset($_POST['author_confirm']) && $_SESSION['id'] == 1) {
+  if (isset($_POST['author_confirm']) && is_admin($_SESSION['id'])) {
     // Unset all the variables, needed by flyout
     unset($header, $content, $action);
 
@@ -352,7 +313,6 @@ if (isset($image['author'])) {
       } else {
         echo "<p>No tags present</p>";
       }
-
       ?>
     </div>
   </div>
@@ -385,7 +345,7 @@ if (isset($image['author'])) {
     </form>";
 
     // Edit authro
-    if ($_SESSION['id'] == 1) {
+    if (is_admin($_SESSION['id'])) {
       echo "<form method='POST'>
         <button class='btn alert-low space-top-small flyout-display' type='submit' name='author_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
       </form>";
