@@ -75,7 +75,7 @@
       echo notify($error, "low");
     }
     if (isset($success)) {
-      echo notify($success, "hight");
+      echo notify($success, "high");
     }
     ?>
     <script src='scripts/alert.js'></script>

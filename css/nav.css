@@ -10,6 +10,7 @@ nav {
   vertical-align: middle;
 
   background-color: var(--bg); color: var(--fg);
+  backdrop-filter: blur(8px);
 
   border: 0.2rem solid var(--green);
   outline: 0.5rem solid var(--bg);

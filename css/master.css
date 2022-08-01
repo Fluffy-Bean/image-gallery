@@ -2,7 +2,7 @@
 @import "footer.css";
 
 :root {
-  --bg: #151515df;
+  --bg: #15151588;
   --bg-1: #242621;
   --bg-2: #1D1E1C;
 
@@ -96,6 +96,7 @@ body {
   width: auto;
 
   background-color: var(--bg);
+  backdrop-filter: blur(8px);
 
   outline: 0.5rem solid var(--bg);
 
@@ -328,7 +329,7 @@ body {
 }
 
 .alert {
-  padding: 1rem;
+  padding: 0.69rem;
 
   width: auto;
 
@@ -424,11 +425,12 @@ a.btn {
 
   position: fixed; z-index: 99998;
 
-  opacity: 0.8;
+  opacity: 1;
 
   display: none;
 
-  background: var(--bg);
+  background: #15151588;
+  backdrop-filter: blur(5px);
 }
 
 /*
