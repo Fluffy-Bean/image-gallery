@@ -155,6 +155,18 @@
   }
   ?>
 
+  <div class="alert-banner">
+    <?php
+    if (isset($error)) {
+      echo notify($error, "low");
+    }
+    if (isset($success)) {
+      echo notify($success, "hight");
+    }
+    ?>
+    <script src='../scripts/alert.js'></script>
+  </div>
+
   <div class="signup-root default-window">
     <h2 class="space-bottom">Make account</h2>
     <p class="space-bottom">And amazing things happened here...</p>
@@ -164,14 +176,6 @@
       <input class="btn alert-default space-bottom-large" type="password" name="confirm_password" placeholder="Re-enter Password">
       <input class="btn alert-default space-bottom-large" type="text" name="token" placeholder="Invite Code">
       <button class="btn alert-high" type="submit" name="signup"><img class="svg" src="../assets/icons/sign-in.svg">Sign Up</button>
-      <?php
-      if (isset($error)) {
-        echo "<p class='alert alert-low space-top'>".$error."</p>";
-      }
-      if (isset($success)) {
-        echo "<p class='alert alert-high space-top'>".$success."</p>";
-      }
-      ?>
     </form>
   </div>
 

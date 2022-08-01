@@ -91,6 +91,18 @@
   }
   ?>
 
+  <div class="alert-banner">
+    <?php
+    if (isset($error)) {
+      echo notify($error, "low");
+    }
+    if (isset($success)) {
+      echo notify($success, "hight");
+    }
+    ?>
+    <script src='../scripts/alert.js'></script>
+  </div>
+
   <div class="login-root default-window">
     <h2 class="space-bottom">Login</h2>
     <p class="space-bottom">Passwords are important to keep safe. Don't tell anyone your password, not even Fluffy!</p>
@@ -99,14 +111,6 @@
       <input class="btn alert-default space-bottom-large" type="password" name="password" placeholder="Password">
       <button class="btn alert-high" type="submit" name="login"><img class="svg" src="../assets/icons/sign-in.svg">Login</button>
     </form>
-    <?php
-    if (isset($error)) {
-      echo "<p class='alert alert-low space-top'>".$error."</p>";
-    }
-    if (isset($success)) {
-      echo "<p class='alert alert-high space-top'>".$success."</p>";
-    }
-    ?>
     <a class='btn alert-default space-top-large' href='https://superdupersecteteuploadtest.fluffybean.gay/account/signup.php'><img class="svg" src="../assets/icons/sign-in.svg">Need an account? Sign up!</a>
   </div>
 

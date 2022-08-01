@@ -10,19 +10,27 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 </head>
 <body>
+  <?php include("ui/header.php"); ?>
+
+  <div class="alert-banner">
+    <?php
+    /*
+      If theres a success in updating the image,
+      it'll let the user know
+    */
+    // Deletion toast
+    if ($_GET["del"] == "true") {
+      echo notify("Successfully deleted image: ".$_GET['id'], "high");
+    }
+    // Account toast
+    if ($_GET["login"] == "success") {
+      echo notify("O hi ".$_SESSION['username'], "high");
+    }
+    ?>
+    <script src='scripts/alert.js'></script>
+  </div>
+
   <?php
-  include("ui/header.php");
-
-  // Deletion toast
-  if ($_GET["del"] == "true") {
-    echo "<p class='alert alert-high space-bottom'>Successfully deleted image: ".$_GET['id']."</p>";
-  }
-
-  // Account toast
-  if ($_GET["login"] == "success") {
-    echo "<p class='alert alert-high space-bottom'>O hi ".$_SESSION['username']."</p>";
-  }
-
   // Show search
   if ($_GET["srch"] == "show") {
     $header = "Search for a tags!";
@@ -42,12 +50,12 @@
     unset($header, $content, $action);
 
     // Clean input
-    $tags_string = clean(trim($_POST['search']));
+    $tags_string = tag_clean(trim($_POST['search']));
 
     header("Location:https://superdupersecteteuploadtest.fluffybean.gay?q=".$tags_string);
   }
   if (isset($_GET["q"])) {
-    echo "<p class='alert alert-high space-bottom'>Search results for: ".$_GET['q']."</p>";
+    echo "<p class='alert alert-default space-bottom'>Search results for: ".$_GET['q']."</p>";
   }
   ?>
 

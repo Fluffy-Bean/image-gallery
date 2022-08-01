@@ -315,6 +315,18 @@ body {
 /*
   -=-=-= ALERT =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
+.alert-banner {
+  margin: 0; padding: 0;
+
+  max-width: 621px; width: calc(100% - 2rem);
+  height: auto;
+
+  top: 1rem; left: 50%;
+  transform: translateX(-50%);
+
+  position: fixed; z-index: 9999999;
+}
+
 .alert {
   padding: 1rem;
 
@@ -328,6 +340,7 @@ body {
 
   outline: 0.5rem solid var(--bg);
 }
+
 .alert-high {
   background-color: var(--green);
 }

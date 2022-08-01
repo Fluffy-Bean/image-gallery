@@ -69,6 +69,18 @@
   }
   ?>
 
+  <div class="alert-banner">
+    <?php
+    if (isset($error)) {
+      echo notify($error, "low");
+    }
+    if (isset($success)) {
+      echo notify($success, "hight");
+    }
+    ?>
+    <script src='scripts/alert.js'></script>
+  </div>
+
   <div class="upload-root default-window">
     <h2 class="space-bottom">Upload image</h2>
     <p>In this world you have 2 choices, to upload a really cute picture of an animal or fursuit, or something other than those 2 things.</p>
@@ -77,14 +89,6 @@
         <input class="btn alert-default space-bottom-large" type="text" name="alt" placeholder="Description/Alt for image">
         <button class="btn alert-high" type="submit" name="upload"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
     </form>
-    <?php
-    if (isset($error)) {
-      echo "<p class='alert alert-low space-top'>".$error."</p>";
-    }
-    if (isset($success)) {
-      echo "<p class='alert alert-high space-top'>".$success."</p>";
-    }
-    ?>
   </div>
 
   <?php

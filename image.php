@@ -16,19 +16,27 @@
   <meta property="og:description" content="Only Legs, a gallery made and hosted by Fluffy">
 </head>
 <body>
+  <?php include("ui/header.php"); ?>
+
+  <div class="alert-banner">
+    <?php
+    /*
+      If theres a success in updating the image,
+      it'll let the user know
+    */
+    if ($_GET["update"] == "success") {
+      echo notify("Information updated", "high");
+    } elseif ($_GET["update"] == "error") {
+      echo notify("Something went fuckywucky, please try later", "default");
+    }
+    if ($_GET["del"] == "fail") {
+      echo notify("Failed to delete image", "low");
+    }
+    ?>
+    <script src='scripts/alert.js'></script>
+  </div>
+
   <?php
-  include("ui/header.php");
-
-  /*
-    If theres a success in updating the image,
-    it'll let the user know
-  */
-  if ($_GET["update"] == "success") {
-    echo "<p class='alert alert-high space-bottom-large'>Information updated</p>";
-  } elseif ($_GET["update"] == "error") {
-    echo "<p class='alert alert-default space-bottom-large'>Something went fuckywucky, please try later</p>";
-  }
-
   // If ID present pull all image data
   if (isset($_GET['id'])) {
     $image = get_image_info($conn, $_GET['id']);
@@ -107,7 +115,7 @@
       }
       header("Location:index.php?del=true&id=".$image['id']);
     } else {
-      $error = "Could not delete image";
+      header("Location: image.php?id=".$image['id']."&del=fail>");
     }
   }
 
@@ -184,7 +192,7 @@
     }
 
     // Clean input
-    $tags_string = clean(trim($_POST['add_tags']));
+    $tags_string = tag_clean(trim($_POST['add_tags']));
 
     // getting ready forSQL asky asky
     $sql = "UPDATE swag_table SET tags=? WHERE id=?";

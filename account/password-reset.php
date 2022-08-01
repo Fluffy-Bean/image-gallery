@@ -74,6 +74,15 @@
   }
   ?>
 
+  <div class="alert-banner">
+    <?php
+    if (isset($error)) {
+      echo notify($error, "low");
+    }
+    ?>
+    <script src='../scripts/alert.js'></script>
+  </div>
+
   <div class="password-reset-root default-window">
     <h2 class="space-bottom">Reset Password</h2>
     <p class="space-bottom">After reset, you will be kicked out to login again</p>
@@ -82,11 +91,6 @@
       <input class="btn alert-default space-bottom" type="password" name="confirm_password" placeholder="Confirm Password">
       <button class="btn alert-low" type="submit" name="reset"><img class="svg" src="../assets/icons/sign-in.svg">Reset</button>
     </form>
-    <?php
-    if (isset($error)) {
-      echo "<p class='alert alert-low space-top'>".$error."</p>";
-    }
-    ?>
   </div>
 
   <?php

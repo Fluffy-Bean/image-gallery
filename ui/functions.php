@@ -151,4 +151,38 @@ function flyout($header, $content, $action) {
   echo "<button class='btn alert-default space-top flyout-close'>Close</button>
   </div>";
 }
+
+
+/*
+  Notification of an action done, takes in min 3 inputs:
+
+  Text is the text that shows up on the notification
+    Takes in string input
+
+  Level is the level of the notification
+    high is a good response or the colour green
+    low is a bad response or the colour red
+    default is a neutral response or the colour black/gray
+
+  returns notification html including classes
+
+  ===== Editors note ==================================
+   I made this so I didn't have to remake the html
+   portion of the notification, it was annoying.
+   This also allows for expanding the system later on!
+  =====================================================
+*/
+function notify($text, $level) {
+  if ($level == "high") {
+    $text_string = "<p class='alert alert-high space-bottom-large' onclick='closeAlert(this)'>".$text."</p>";
+  } elseif ($level == "low") {
+    $text_string = "<p class='alert alert-low space-bottom-large' onclick='closeAlert(this)'>".$text."</p>";
+  } elseif ($level == "default") {
+    $text_string = "<p class='alert alert-default space-bottom-large' onclick='closeAlert(this)'>".$text."</p>";
+  } else {
+    $text_string = "<p class='alert alert-default space-bottom-large' onclick='closeAlert(this)'>".$text."</p>";
+  }
+
+  return $text_string;
+}
 ?>
