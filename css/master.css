@@ -5,6 +5,7 @@
   --bg: #15151588;
   --bg-1: #242621;
   --bg-2: #1D1E1C;
+  --bg-3: #151515;
 
   --fg:#E8E3E3;
   --fg-dark: #151515;
@@ -33,8 +34,8 @@ html {
 
   position: relative;
 
-  background-color: var(--bg-2);
-  background-image: url("../assets/bg2.svg");
+  background-color: var(--bg-3);
+  background-image: url("../assets/bg.svg");
 
   background-position: center;
   background-size: cover;
@@ -138,6 +139,7 @@ body {
   margin: 0 0 2rem; padding: 0.25rem;
 
   background-color: var(--bg); color: var(--fg);
+  backdrop-filter: blur(8px);
 
   border: 0.2rem solid var(--green);
   outline: 0.5rem solid var(--bg);
@@ -149,7 +151,7 @@ body {
 .gallery-item {
   margin: 0.25rem; padding: 0;
 
-  height: auto; max-width: 350px;
+  height: auto; max-width: calc(33.33% - 0.5rem); /*max-width: 350px;*/
 
   background-color: var(--bg-2);
   border-radius: var(--rad);
@@ -197,6 +199,12 @@ body {
   height: 69vh;
 
   position: relative;
+
+  background-color: var(--bg);
+  backdrop-filter: blur(8px);
+  outline: 0.5rem solid var(--bg);
+
+  border-radius: var(--rad);
 
   transition: height 0.15s cubic-bezier(.19,1,.22,1);
 }

@@ -77,7 +77,7 @@
   <div class="gallery-root flex-left">
     <?php
     // Reading images from table
-    $image_request = mysqli_query($conn, "SELECT * FROM swag_table");
+    $image_request = mysqli_query($conn, "SELECT * FROM swag_table ORDER BY id DESC");
 
     while ($image = mysqli_fetch_array($image_request)) {
       // If search is set
