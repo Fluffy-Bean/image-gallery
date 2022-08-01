@@ -101,11 +101,6 @@ body {
 
   border-radius: var(--rad);
   box-shadow: var(--shadow);
-
-  text-overflow: ellipsis;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-all;
 }
 
 .password-reset-root {

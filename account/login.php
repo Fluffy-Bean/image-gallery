@@ -12,7 +12,6 @@
 <body>
   <?php
   include("../ui/header.php");
-  require_once("../ui/conn.php");
 
   // Initialize the session
   session_start();

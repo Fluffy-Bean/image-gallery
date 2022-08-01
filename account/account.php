@@ -12,7 +12,6 @@
 <body>
   <?php
   include("../ui/header.php");
-  include("../ui/conn.php");
   ?>
 
   <div class="account-root default-window">

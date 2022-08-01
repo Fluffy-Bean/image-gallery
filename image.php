@@ -284,19 +284,24 @@
     echo "<p>ID: ".$image['id']."</p>";
 
     // File name
-    echo "<p>File Name: ".$image['imagename']."</p>";
+    if (strlen($image['imagename']) > 30) {
+      echo "<p>File Name: ".trim(substr($image['imagename'], 0, 30))."...</p>";
+    } else {
+      echo "<p>File Name: ".$image['imagename']."</p>";
+    }
 
-    // Image Upload date
-    echo "<p>Last updated: ".$image['upload']." (+0)</p>";
+    // File extention
+    echo "<p>File Type: ".pathinfo($image['imagename'], PATHINFO_EXTENSION)."</p>";
 
     // Image resolution
     list($width, $height) = getimagesize($image_path);
     echo "<p>Image resolution: ".$width."x".$height."</p>";
 
+    // Image Upload date
+    echo "<p>Last updated: ".$image['upload']." (+0)</p>";
+
     // Image download
     echo "<a class='btn alert-high space-top' href='images/".$image['imagename']."' download='".$image['imagename']."'><img class='svg' src='assets/icons/download.svg'>Download image</a>";
-
-    // Flyout test button
     ?>
   </div>
 

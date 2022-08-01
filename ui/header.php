@@ -1,12 +1,16 @@
 <?php
-// Include required files by every page on header
+// Include required files and commands by every page on header
 session_start();
+
 if (is_dir("ui/")) {
-  include("ui/conn.php");
   include_once("ui/functions.php");
 } else {
-  include("../ui/conn.php");
   include_once("../ui/functions.php");
+}
+
+$conn = mysqli_connect("localhost", "uwu", "fennec621", "swag");
+if ($conn->connect_error) {
+  echo "<p class='alert alert-low'>Could not connect to database</p>";
 }
 
 // Check which directory icons are in

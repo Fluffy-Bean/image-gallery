@@ -68,8 +68,6 @@
 
   <div class="gallery-root flex-left">
     <?php
-    include_once("ui/conn.php");
-
     // Reading images from table
     $image_request = mysqli_query($conn, "SELECT * FROM swag_table");
 

@@ -12,7 +12,6 @@
 <body>
   <?php
   include("ui/header.php");
-  include_once("ui/conn.php");
 
   // Check if user is logged in
   if (loggedin()) {
