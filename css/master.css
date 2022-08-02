@@ -63,12 +63,13 @@ body {
 #back-to-top {
   margin: 0; padding: 0.5rem;
 
-  position: fixed;
+  position: fixed; z-index: 9999999999;
   right: -2.5rem; bottom: 1rem;
 
   object-position: center;
 
   background-color: var(--bg);
+  backdrop-filter: blur(8px);
 
   border-radius: 50%;
   box-shadow: var(--shadow);
@@ -193,12 +194,11 @@ body {
   -=-=-= IMAGE FULLSCREEN =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
 .image-container {
-  margin: 0 0 2rem; padding: 0;
-
   width: calc(100vw - var(--space-medium));
-  height: 69vh;
+  max-height: 69vh; height: auto;
 
   position: relative;
+  display: flex;
 
   background-color: var(--bg);
   backdrop-filter: blur(8px);
@@ -206,24 +206,20 @@ body {
 
   border-radius: var(--rad);
 
-  transition: height 0.15s cubic-bezier(.19,1,.22,1);
+  transition: max-height 0.15s cubic-bezier(.19,1,.22,1);
 }
 
 @media (max-width: 600px) {
   .image-container {
-    height: 35vh;
+    max-height: 35vh;
   }
 }
 
 .image {
-  max-width: 100%;
-  width: auto;
-  max-height: 100%;
-  height: auto;
+  margin: 0 auto;
 
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
+  max-width: 100%; width: auto;
+  max-height: inherit; height: auto;
 
   border-radius: var(--rad);
 }
@@ -348,6 +344,11 @@ body {
   border-radius: var(--rad);
 
   outline: 0.5rem solid var(--bg);
+
+  transition: transform 0.15s cubic-bezier(.19,1,.22,1);
+}
+.alert:hover {
+  transform: scale(1.05);
 }
 
 .alert-high {

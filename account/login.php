@@ -11,6 +11,7 @@
 </head>
 <body>
   <?php
+  include "../ui/required.php";
   include("../ui/header.php");
 
   // Initialize the session

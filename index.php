@@ -10,7 +10,10 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 </head>
 <body>
-  <?php include("ui/header.php"); ?>
+  <?php
+  include "ui/required.php";
+  include "ui/header.php";
+  ?>
 
   <div class="alert-banner">
     <?php
@@ -121,9 +124,6 @@
   </div>
 
   <?php
-  // Must be included with flyout.php
-  echo "<script src='scripts/flyout.js'></script>";
-
   include("ui/top.html");
   include("ui/footer.php");
   ?>

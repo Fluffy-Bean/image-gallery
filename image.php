@@ -16,7 +16,10 @@
   <meta property="og:description" content="Only Legs, a gallery made and hosted by Fluffy">
 </head>
 <body>
-  <?php include("ui/header.php"); ?>
+  <?php
+  include "ui/required.php";
+  include("ui/header.php");
+  ?>
 
   <div class="alert-banner">
     <?php
@@ -255,7 +258,7 @@
   }
   ?>
 
-  <div class="image-container">
+  <div class="image-container space-bottom-large">
     <?php
     // Displaying image
     echo "<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>";

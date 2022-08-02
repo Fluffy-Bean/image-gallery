@@ -150,6 +150,9 @@ function flyout($header, $content, $action) {
   // Exit button + Div End
   echo "<button class='btn alert-default space-top flyout-close'>Close</button>
   </div>";
+
+  // Must be included with flyout.php
+  echo "<script src='scripts/flyout.js'></script>";
 }
 
 
@@ -166,7 +169,7 @@ function flyout($header, $content, $action) {
 
   returns notification html including classes
 
-  ===== Editors note ==================================
+  ===== Programmers note ==============================
    I made this so I didn't have to remake the html
    portion of the notification, it was annoying.
    This also allows for expanding the system later on!
