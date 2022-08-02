@@ -194,6 +194,7 @@ body {
   -=-=-= IMAGE FULLSCREEN =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
 .image-container {
+  padding: 0.5rem;
   width: calc(100vw - var(--space-medium));
   max-height: 69vh; height: auto;
 
@@ -345,10 +346,11 @@ body {
 
   outline: 0.5rem solid var(--bg);
 
-  transition: transform 0.15s cubic-bezier(.19,1,.22,1);
+  transition: transform 1s cubic-bezier(.19,1,.22,1), opacity 0.2s cubic-bezier(.19,1,.22,1);
 }
 .alert:hover {
   transform: scale(1.05);
+  cursor: pointer;
 }
 
 .alert-high {
@@ -399,6 +401,22 @@ a.btn {
   text-align: center;
 }
 
+.btn:where(input[type="file"])::file-selector-button {
+  margin: -0.5rem 0.5rem -0.5rem -0.5rem;
+  padding: 0.5rem;
+
+  display: inline-block;
+
+  font-size: 16px;
+
+  text-decoration: none;
+
+  background-color: var(--white);
+
+  border: none;
+  border-radius: var(--rad);
+}
+
 /*
   -=-=-= FLYOUT =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
@@ -440,6 +458,8 @@ a.btn {
 
   background: #15151588;
   backdrop-filter: blur(5px);
+
+  transition: opacity 2s cubic-bezier(.19,1,.22,1);
 }
 
 /*

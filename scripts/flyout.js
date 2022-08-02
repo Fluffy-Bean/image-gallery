@@ -14,6 +14,11 @@ $(document).ready(function() {
   hide.addEventListener("click", function(){
     document.querySelector(".flyout").style.transform= "translateX(-50%) scale(0.8)";
     document.querySelector(".flyout").style.bottom= "-20rem";
-    document.querySelector(".flyout-dim").style.display= "none";
+
+    document.querySelector(".flyout-dim").style.opacity= "0";
+
+    setTimeout(function(){
+      document.querySelector(".flyout-dim").style.display= "none";
+    }, 600);
   });
 });
