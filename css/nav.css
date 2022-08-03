@@ -19,7 +19,7 @@ nav {
   box-shadow: var(--shadow);
 }
 
-nav h3 {
+nav p {
   margin: 0;
   vertical-align: middle;
 }
@@ -29,7 +29,7 @@ nav hr {
   opacity: 0;
 }
 
-.nav-name h3, .nav-name {
+.nav-name p, .nav-name {
   display: block;
 }
 .nav-links {
@@ -37,7 +37,7 @@ nav hr {
   justify-content: space-between;
 }
 @media (max-width: 800px) {
-  .nav-name h3, .nav-name hr, .nav-name {
+  .nav-name p, .nav-name hr, .nav-name {
     display: none;
   }
   .nav-links {

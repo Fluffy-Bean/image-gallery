@@ -1,3 +1,12 @@
+/*
+  Normalize CSS
+
+  This ensures that the website looks the same across all devices
+  and browsers, regardless if I waisted my time making a tag look
+  good or not
+*/
+@import "normalize.css";
+
 @import "nav.css";
 @import "footer.css";
 
@@ -321,8 +330,14 @@ body {
 /*
   -=-=-= ALERT =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
-.alert-banner {
-  margin: 0; padding: 0;
+
+/*
+  Notification system
+
+  This is the notification system used by the website. Probably a little too much for what its used for
+*/
+.notify-root {
+  margin: 0; padding: 1rem;
 
   max-width: 621px; width: calc(100% - 2rem);
   height: auto;
@@ -330,7 +345,19 @@ body {
   top: 1rem; left: 50%;
   transform: translateX(-50%);
 
-  position: fixed; z-index: 9999999;
+  position: fixed; z-index: 999;
+}
+.notify {
+  margin-bottom: 1rem; padding: 0.5rem;
+
+  width: auto;
+
+  text-align: center;
+
+  display: block;
+
+  border-radius: var(--rad);
+  outline: 0.5rem solid var(--bg);
 }
 
 .alert {

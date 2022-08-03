@@ -1,0 +1,20 @@
+<nav class="nav-root flex-left between">
+  <div class="nav-name flex-left">
+    <p>Lynx Gallery</p>
+  </div>
+  <div class="nav-links flex-left">
+    <a class='btn alert-default' href='index.php'><img class='svg' src='<?php echo $root_dir; ?>assets/icons/house.svg'><span class='nav-hide'>Home</span></a>
+    <hr>
+    <a class='btn alert-default' href='search.php'><img class='svg' src='<?php echo $root_dir; ?>assets/icons/binoculars.svg'><span class='nav-hide'>Search</span></a>
+    <hr>
+    <?php
+    if (loggedin()) {
+      echo "<a class='btn alert-default' href='upload.php'><img class='svg' src='".$root_dir."assets/icons/upload.svg'><span class='nav-hide'>Upload</span></a>";
+      echo "<hr>";
+      echo "<a class='btn alert-default' href='/account/account.php'><img class='svg' src='".$root_dir."assets/icons/user-circle.svg'><span class='nav-hide'>".substr($_SESSION["username"], 0, 15)."</span></a>";
+    } else {
+      echo "<a class='btn alert-default' href='/account/login.php'><img class='svg' src='".$root_dir."assets/icons/user-circle-plus.svg'><span class='nav-hide'>Login</span></a>";
+    }
+    ?>
+  </div>
+</nav>

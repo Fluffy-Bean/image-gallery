@@ -1,5 +1,3 @@
-console.log(" . . /|/| . . . . . . . \n .. /0 0 \\ . . . . . .. \n (III% . \\________, . . \n .. .\\_, .%###%/ \\'\\,.. \n . . . .||#####| |'\\ \\. \n .. . . ||. . .|/. .\\V. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . cc/ . .cc/ . . .");
-
 $(document).ready(function() {
   let show = document.querySelectorAll(".flyout-display");
   let hide = document.querySelector(".flyout-close");
@@ -19,6 +17,6 @@ $(document).ready(function() {
 
     setTimeout(function(){
       document.querySelector(".flyout-dim").style.display= "none";
-    }, 600);
+    }, 621);
   });
 });

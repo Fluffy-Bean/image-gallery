@@ -1,25 +1,101 @@
+<?php
+// Used for background dimming
+echo "<div class='flyout-dim'></div>";
+// Div Start
+echo "<div class='flyout flex-down default-window between'>";
+
+
+// Header for the flyout, must be included
+echo "<h2 class='space-bottom'>Header</h2>";
+// Flyout content, must be included!!!!
+echo "<p class='space-bottom'>Description</p>";
+// Flyout button, not required so must need more information when added
+echo $action;
+// Exit button + Div End
+echo "<button class='btn alert-default space-top flyout-close'>Close</button>
+</div>";
+// Must be included with flyout.php
+echo "<script src='scripts/flyout.js'></script>";
+?>
+
+<?php
+include "ui/required.php";
+
+/*
+  Get image ID
+
+  Image ID should be written in the URL of the page as ?id=69
+  If ID cannot be obtained, give error.      ID going here ^^
+*/
+if (isset($_GET['id'])) {
+  // Get all image info
+  $image = get_image_info($conn, $_GET['id']);
+
+  // Check if image is avalible
+  if (isset($image['imagename'])) {
+    // Display image
+    $image_path = "images/".$image['imagename'];
+    $image_alt = $image['alt'];
+  } else {
+    // ID not avalible toast
+    echo "<p class='alert alert-low space-bottom-large'>Could not find image with ID: ".$_GET['id']."</p>";
+
+    // Replacement "no image" image and description
+    $image_path = "assets/no_image.png";
+    $image_alt = "No image could be found, sowwy";
+  }
+} else {
+  // No ID toast
+  //echo "<p class='alert alert-low space-bottom-large'>No ID present</p>";
+
+  // Replacement "no image" image and description
+  //$image_path = "assets/no_image.png";
+  //$image_alt = "No image could be found, sowwy";
+}
+
+
+/*
+  Get all user details
+
+  This gets the user info from the image
+*/
+if (isset($image['author'])) {
+  $user = get_user_info($conn, $image['author']);
+}
+
+/*
+  Check user privilge
+
+  This requires the user to be logged in or an admin
+*/
+if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
+  $privilaged = True;
+} else {
+  $privilaged = False;
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery</title>
+  <title>Lynx Gallery</title>
+
+  <!-- Google Fonts -->
   <link rel="stylesheet" href="css/master.css">
-  <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
-  <!-- Rich preview -->
-  <meta property="og:type" content="object">
-  <meta property="og:title" content="Only Legs">
-  <meta property="og:site_name" content="Only Legs">
-  <meta property="og:url" content="https://superdupersecteteuploadtest.fluffybean.gay">
-  <meta property="og:description" content="Only Legs, a gallery made and hosted by Fluffy">
+
+  <!-- JQuery -->
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous">
+  </script>
 </head>
 <body>
-  <?php
-  include "ui/required.php";
-  include("ui/header.php");
-  ?>
+  <?php include"ui/nav.php"; ?>
 
   <div class="alert-banner">
     <?php
@@ -36,50 +112,11 @@
       echo notify("Failed to delete image", "low");
     }
     ?>
+    <p class='alert alert-high space-bottom-large' onclick='closeAlert(this)'></p>
     <script src='scripts/alert.js'></script>
   </div>
 
   <?php
-  // If ID present pull all image data
-  if (isset($_GET['id'])) {
-    $image = get_image_info($conn, $_GET['id']);
-
-    // Check if image is avalible
-    if (isset($image['imagename'])) {
-      // Display image
-      $image_path = "images/".$image['imagename'];
-      $image_alt = $image['alt'];
-    } else {
-      // ID not avalible toast
-      echo "<p class='alert alert-low space-bottom-large'>Could not find image with ID: ".$_GET['id']."</p>";
-
-      // Replacement "no image" image and description
-      $image_path = "assets/no_image.png";
-      $image_alt = "No image could be found, sowwy";
-    }
-  } else {
-    // No ID toast
-    echo "<p class='alert alert-low space-bottom-large'>No ID present</p>";
-
-    // Replacement "no image" image and description
-    $image_path = "assets/no_image.png";
-    $image_alt = "No image could be found, sowwy";
-  }
-
-
-  // Get all user details
-  if (isset($image['author'])) {
-    $user = get_user_info($conn, $image['author']);
-  }
-
-  // Check user privilge
-  if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
-    $privilaged = True;
-  } else {
-    $privilaged = False;
-  }
-
-
   /*
     Delete flyout
 
@@ -155,9 +192,9 @@
 
       // Attempt to execute the prepared statement
       if (mysqli_stmt_execute($stmt)) {
-        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image["id"]."&update=success");
+        header("Location:image.php?id=".$image["id"]."&update=success");
       } else {
-        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image["id"]."&update=error");
+        header("Location:image.php?id=".$image["id"]."&update=error");
       }
     }
   }
@@ -210,9 +247,9 @@
 
       // Attempt to execute the prepared statement
       if (mysqli_stmt_execute($stmt)) {
-        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image["id"]."&update=success");
+        header("Location:image.php?id=".$image["id"]."&update=success");
       } else {
-        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image["id"]."&update=error");
+        header("Location:image.php?id=".$image["id"]."&update=error");
       }
     }
   }
@@ -250,9 +287,9 @@
 
       // Attempt to execute the prepared statement
       if (mysqli_stmt_execute($stmt)) {
-        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image["id"]."&update=success");
+        header("Location:image.php?id=".$image["id"]."&update=success");
       } else {
-        header("Location:https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image["id"]."&update=error");
+        header("Location:image.php?id=".$image["id"]."&update=error");
       }
     }
   }
@@ -265,6 +302,7 @@
     ?>
   </div>
 
+
   <div class="image-description default-window">
     <h2>Description</h2>
     <?php
@@ -276,6 +314,7 @@
     }
     ?>
   </div>
+
 
   <div class="image-detail flex-down default-window">
     <h2>Details</h2>
@@ -362,8 +401,10 @@
 
     // Edit authro
     if (is_admin($_SESSION['id'])) {
-      echo "<form method='POST'>
-        <button class='btn alert-low space-top-small flyout-display' type='submit' name='author_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
+      echo "<form id='author_form' method='POST' action='ui/image_interaction.php'>
+        <input    id='author_header'                                                            type='hidden' name='header'       value='Who owns the image?????'>
+        <input    id='author_description'                                                       type='hidden' name='description'  value='Enter ID of image owner'>
+        <button   id='author_submit'      class='btn alert-low space-top-small flyout-display'  type='submit' name='author_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
       </form>";
     }
 
@@ -375,8 +416,8 @@
   // Must be included with flyout.php
   echo "<script src='scripts/flyout.js'></script>";
 
-  include("ui/top.html");
-  include("ui/footer.php");
+  include "ui/top.html";
+  include "ui/footer.php";
   ?>
 </body>
 </html>

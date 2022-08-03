@@ -1,18 +1,27 @@
+<?php include "ui/required.php"; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery</title>
+  <title>Lynx Gallery</title>
+
+  <!-- Google Fonts -->
   <link rel="stylesheet" href="css/master.css">
-  <link href="https://fonts.googleapis.com/css2?family=Rubik" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
+
+  <!-- JQuery -->
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous">
+  </script>
 </head>
 <body>
   <?php
-  include "ui/required.php";
-  include "ui/header.php";
+  include "ui/nav.php";
   ?>
 
   <div class="alert-banner">
@@ -55,7 +64,7 @@
     // Clean input
     $tags_string = tag_clean(trim($_POST['search']));
 
-    header("Location:https://superdupersecteteuploadtest.fluffybean.gay?q=".$tags_string);
+    header("Location:index.php?q=".$tags_string);
   }
   if (isset($_GET["q"])) {
     echo "<p class='alert alert-default space-bottom'>Search results for: ".$_GET['q']."</p>";
@@ -103,7 +112,7 @@
 
           // Image loading
           echo "<div class='gallery-item'>";
-          echo "<a href='https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
+          echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
           echo "</div>";
         }
       } else {
@@ -116,7 +125,7 @@
 
         // Image loading
         echo "<div class='gallery-item'>";
-        echo "<a href='https://superdupersecteteuploadtest.fluffybean.gay/image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
+        echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
         echo "</div>";
       }
     }
@@ -124,8 +133,8 @@
   </div>
 
   <?php
-  include("ui/top.html");
-  include("ui/footer.php");
+  include "ui/top.html";
+  include "ui/footer.php";
   ?>
 </body>
 </html>
