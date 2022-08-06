@@ -1,0 +1,6 @@
+[submodule "Sniffle"]
+	path = Sniffle
+	url = https://github.com/Fluffy-Bean/Sniffle.git
+[submodule "Flyout"]
+	path = Flyout
+	url = https://github.com/Fluffy-Bean/Flyout.git

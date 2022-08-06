@@ -18,29 +18,28 @@
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
     crossorigin="anonymous">
   </script>
+
+  <!-- Sniffle script! -->
+  <script src="Sniffle/sniffle.js"></script>
+  <link rel='stylesheet' href='Sniffle/sniffle.css'>
+
+  <!-- Flyout script! -->
+  <script src="Flyout/flyout.js"></script>
+  <link rel='stylesheet' href='Flyout/flyout.css'>
 </head>
 <body>
   <?php
   include "ui/nav.php";
   ?>
 
-  <div class="alert-banner">
-    <?php
-    /*
-      If theres a success in updating the image,
-      it'll let the user know
-    */
-    // Deletion toast
-    if ($_GET["del"] == "true") {
-      echo notify("Successfully deleted image: ".$_GET['id'], "high");
+  <script>
+    if (params.del == "true") {
+      sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)");
     }
-    // Account toast
-    if ($_GET["login"] == "success") {
-      echo notify("O hi ".$_SESSION['username'], "high");
+    if (params.login == "success") {
+      sniffleAdd("Logged in", "O hi <?php echo $_SESSION['username']; ?>", "var(--green)");
     }
-    ?>
-    <script src='scripts/alert.js'></script>
-  </div>
+  </script>
 
   <?php
   // Show search
@@ -92,30 +91,6 @@
     $image_request = mysqli_query($conn, "SELECT * FROM swag_table ORDER BY id DESC");
 
     while ($image = mysqli_fetch_array($image_request)) {
-      // If search is set
-      if (isset($_GET['q']) && !empty($_GET['q'])) {
-        // Make search into an array
-        $search_array = explode(" ", $_GET['q']);
-
-        // Get images tags for comparing
-        $image_tag_array = explode(" ", $image['tags']);
-
-        // Compare arrays
-        $compare_results = array_intersect($image_tag_array, $search_array);
-        if (count($compare_results) > 0) {
-          // Getting thumbnail
-          if (file_exists("images/thumbnails/".$image['imagename'])) {
-            $image_path = "images/thumbnails/".$image['imagename'];
-          } else {
-            $image_path = "images/".$image['imagename'];
-          }
-
-          // Image loading
-          echo "<div class='gallery-item'>";
-          echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
-          echo "</div>";
-        }
-      } else {
         // Getting thumbnail
         if (file_exists("images/thumbnails/".$image['imagename'])) {
           $image_path = "images/thumbnails/".$image['imagename'];
@@ -127,7 +102,6 @@
         echo "<div class='gallery-item'>";
         echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
         echo "</div>";
-      }
     }
     ?>
   </div>

@@ -93,28 +93,26 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
     crossorigin="anonymous">
   </script>
+
+  <!-- Sniffle script! -->
+  <script src="Sniffle/sniffle.js"></script>
+  <link rel='stylesheet' href='Sniffle/sniffle.css'>
+
+  <!-- Flyout script! -->
+  <script src="Flyout/flyout.js"></script>
+  <link rel='stylesheet' href='Flyout/flyout.css'>
 </head>
 <body>
   <?php include"ui/nav.php"; ?>
 
-  <div class="alert-banner">
-    <?php
-    /*
-      If theres a success in updating the image,
-      it'll let the user know
-    */
-    if ($_GET["update"] == "success") {
-      echo notify("Information updated", "high");
-    } elseif ($_GET["update"] == "error") {
-      echo notify("Something went fuckywucky, please try later", "default");
+  <script>
+    if (params.update == "success") {
+      sniffleAdd("Info", "Image information updated", "var(--green)");
     }
-    if ($_GET["del"] == "fail") {
-      echo notify("Failed to delete image", "low");
+    if (params.del == "fail") {
+      sniffleAdd("Error", "Failed to delete image", "var(--red)");
     }
-    ?>
-    <p class='alert alert-high space-bottom-large' onclick='closeAlert(this)'></p>
-    <script src='scripts/alert.js'></script>
-  </div>
+  </script>
 
   <?php
   /*
@@ -407,6 +405,12 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
         <button   id='author_submit'      class='btn alert-low space-top-small flyout-display'  type='submit' name='author_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
       </form>";
     }
+
+    echo "<button id='flyoutShow' class='btn'>Show flyout!</button>";
+
+    echo"<script>$('#flyoutShow').click(function(){
+      flyoutShow('Flyout Header', 'A very very cool description', '<button>Im a cool button!</button>');
+    });</script>";
 
     echo "</div>";
   }

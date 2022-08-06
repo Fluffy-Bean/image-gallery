@@ -337,7 +337,7 @@ body {
   This is the notification system used by the website. Probably a little too much for what its used for
 */
 .notify-root {
-  margin: 0; padding: 1rem;
+  margin: 0; padding: 0;
 
   max-width: 621px; width: calc(100% - 2rem);
   height: auto;
@@ -447,7 +447,7 @@ a.btn {
 /*
   -=-=-= FLYOUT =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
-.flyout {
+/*.flyout {
   margin: 0; padding: 0.5rem 0.5rem 1.5rem;
 
   max-width: 621px; width: calc(100% - 2.5rem + 3px);
@@ -487,7 +487,7 @@ a.btn {
   backdrop-filter: blur(5px);
 
   transition: opacity 2s cubic-bezier(.19,1,.22,1);
-}
+}*/
 
 /*
   -=-=-= FONT SIZES =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

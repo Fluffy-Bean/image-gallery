@@ -52,5 +52,28 @@ include $root_dir."ui/functions.php";
 echo "<div id='notify-root' class='notify-root'></div>";
 ?>
 <script>
+  /*
+    This is a little secrete for the ones who care, nothing important
+  */
   console.log(" . . /|/| . . . . . . . \n .. /0 0 \\ . . . . . .. \n (III% . \\________, . . \n .. .\\_, .%###%/ \\'\\,.. \n . . . .||#####| |'\\ \\. \n .. . . ||. . .|/. .\\V. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . cc/ . .cc/ . . .");
+
+  /*
+    Gets Querys from the URL the user is at
+    Used by Sniffle to display notificaions
+  */
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
 </script>
+
+<!-- Used by Sniffle to add Notifications, div can be displayed all time as it has no width or height initself -->
+<div id='sniffle' class='sniffle'></div>
+
+<!-- Div for information flyouts, controlled by Flyout.js -->
+<div id='flyoutDim' class='flyout-dim'></div>
+<div id='flyoutRoot' class='flyout'>
+  <p id='flyoutHeader' class='flyout-header'>Header</p>
+  <p id='flyoutDescription' class='flyout-description'>Description</p>
+  <div id='flyoutActionbox' class='flyout-actionbox'></div>
+  <button onclick='flyoutClose()'>Close</button>
+</div>
