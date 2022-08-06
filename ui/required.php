@@ -71,9 +71,9 @@ echo "<div id='notify-root' class='notify-root'></div>";
 
 <!-- Div for information flyouts, controlled by Flyout.js -->
 <div id='flyoutDim' class='flyout-dim'></div>
-<div id='flyoutRoot' class='flyout'>
-  <p id='flyoutHeader' class='flyout-header'>Header</p>
-  <p id='flyoutDescription' class='flyout-description'>Description</p>
-  <div id='flyoutActionbox' class='flyout-actionbox'></div>
-  <button onclick='flyoutClose()'>Close</button>
+<div id='flyoutRoot' class='flyout flex-down'>
+  <p id='flyoutHeader' class='flyout-header space-bottom'>Header</p>
+  <p id='flyoutDescription' class='flyout-description space-bottom'>Description</p>
+  <div id='flyoutActionbox' class='flyout-actionbox space-bottom-small'></div>
+  <button onclick='flyoutClose()' class='btn alert-default'>Close</button>
 </div>

@@ -6,6 +6,9 @@ nav {
 
   width: calc(100vh - 2rem)); height: 2.5rem;
 
+  position: sticky; z-index: 99;
+  top: 1rem;
+
   align-items: center;
   vertical-align: middle;
 

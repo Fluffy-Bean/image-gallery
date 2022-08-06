@@ -1,24 +1,4 @@
 <?php
-// Used for background dimming
-echo "<div class='flyout-dim'></div>";
-// Div Start
-echo "<div class='flyout flex-down default-window between'>";
-
-
-// Header for the flyout, must be included
-echo "<h2 class='space-bottom'>Header</h2>";
-// Flyout content, must be included!!!!
-echo "<p class='space-bottom'>Description</p>";
-// Flyout button, not required so must need more information when added
-echo $action;
-// Exit button + Div End
-echo "<button class='btn alert-default space-top flyout-close'>Close</button>
-</div>";
-// Must be included with flyout.php
-echo "<script src='scripts/flyout.js'></script>";
-?>
-
-<?php
 include "ui/required.php";
 
 /*
@@ -378,48 +358,51 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
     Checking is done prior to here
   */
   if ($privilaged) {
-    // Danger zone
-    echo "<div class='danger-zone flex-down default-window'>
-    <h2>Danger zone</h2>";
+  ?>
+    <!-- Danger zone -->
+    <div class='danger-zone flex-down default-window'>
+    <h2>Danger zone</h2>
 
-    // Delete
-    echo "<form method='POST'>
-      <button class='btn alert-low flyout-display' type='submit' name='delete_flyout'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
-    </form>";
+    <!-- Delete -->
+    <button id='deleteButton' class='btn alert-low'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
+    <script>
+      $('#deleteButton').click(function(){
+        flyoutShow('Are you sure?', 'Deleting this image is pernament, there is no going back after this!!!!!', '<button class="btn alert-low"><img class="svg" src="assets/icons/trash.svg">Delete image</button>');
+      });
+    </script>
 
-    // Edit description
-    echo "<form method='POST'>
-      <button class='btn alert-low space-top-small flyout-display' type='submit' name='description_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit description</button>
-    </form>";
+    <!-- Edit description -->
+    <button id='editButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/edit.svg'>Edit description</button>
+    <script>
+      $('#editButton').click(function(){
+        flyoutShow('Enter new Description/Alt', 'Whatcha gonna put in there 👀', '<button class="btn alert-low"><img class="svg" src="assets/icons/edit.svg">Update information</button>');
+      });
+    </script>
 
-    // Edit tags
-    echo "<form method='POST'>
-      <button class='btn alert-low space-top-small flyout-display' type='submit' name='tags_flyout'><img class='svg' src='assets/icons/edit.svg'>Add image tags</button>
-    </form>";
+    <!-- Edit tags -->
+    <button id='tagButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/edit.svg'>Add image tags</button>
+    <script>
+      $('#tagButton').click(function(){
+        flyoutShow('Tags', 'Add image tags here! This is still being tested so your tags may be removed later on. Tags ONLY accept, letters, numbers and underscores. Hyphens will be stitched to underscores and spaces will seperate the different tags from eachother.', '<input class="btn alert-default space-bottom" type="text" name="add_tags" placeholder="Tags are seperated by spaces"><button class="btn alert-low"><img class="svg" src="assets/icons/edit.svg">Add tags</button>');
+      });
+    </script>
 
-    // Edit authro
+    <!-- Edit authro -->
+  <?php
     if (is_admin($_SESSION['id'])) {
-      echo "<form id='author_form' method='POST' action='ui/image_interaction.php'>
+  ?>
+      <form id='author_form' method='POST' action='ui/image_interaction.php'>
         <input    id='author_header'                                                            type='hidden' name='header'       value='Who owns the image?????'>
         <input    id='author_description'                                                       type='hidden' name='description'  value='Enter ID of image owner'>
         <button   id='author_submit'      class='btn alert-low space-top-small flyout-display'  type='submit' name='author_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
-      </form>";
+      </form>
+  <?php
     }
-
-    echo "<button id='flyoutShow' class='btn'>Show flyout!</button>";
-
-    echo"<script>$('#flyoutShow').click(function(){
-      flyoutShow('Flyout Header', 'A very very cool description', '<button>Im a cool button!</button>');
-    });</script>";
-
     echo "</div>";
   }
   ?>
 
   <?php
-  // Must be included with flyout.php
-  echo "<script src='scripts/flyout.js'></script>";
-
   include "ui/top.html";
   include "ui/footer.php";
   ?>
