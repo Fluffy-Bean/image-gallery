@@ -1,23 +1,5 @@
 <?php
 /*
-  Connect to database
-
-  In the future I want this section to be configurable, but that'll require some work to be done.
-  For now it's hard-coded, shouldn't be an issue as most people wont be changing this often anyway
-*/
-// Setting up connection variables
-$conn_ip = "localhost";
-$conn_username = "uwu";
-$conn_password = "fennec621";
-$conn_database = "swag";
-
-$conn = mysqli_connect($conn_ip, $conn_username, $conn_password , $conn_database);
-if ($conn->connect_error) {
-  // Send notification that connection couldn't be made
-}
-
-
-/*
   Start session
 
   This is important as most pages use the PHP session and will complain if its not possible to access.
@@ -36,6 +18,11 @@ if (is_file("index.php")) {
   $root_dir = "../";
 }
 
+
+/*
+  Connect to the server
+*/
+include $root_dir."app/server/conn.php";
 
 /*
   Include functions
@@ -66,10 +53,16 @@ echo "<div id='notify-root' class='notify-root'></div>";
   });
 </script>
 
-<!-- Used by Sniffle to add Notifications, div can be displayed all time as it has no width or height initself -->
+<!--
+  Used by Sniffle to add Notifications
+  Div can be displayed all time as it has no width or height initself
+-->
 <div id='sniffle' class='sniffle'></div>
 
-<!-- Div for information flyouts, controlled by Flyout.js -->
+<!--
+  Div for information flyouts
+  Controlled by Flyout.js
+-->
 <div id='flyoutDim' class='flyout-dim'></div>
 <div id='flyoutRoot' class='flyout flex-down'>
   <p id='flyoutHeader' class='flyout-header space-bottom'>Header</p>
@@ -77,3 +70,26 @@ echo "<div id='notify-root' class='notify-root'></div>";
   <div id='flyoutActionbox' class='flyout-actionbox space-bottom-small'></div>
   <button onclick='flyoutClose()' class='btn alert-default'>Close</button>
 </div>
+
+<!--
+  Back to top button
+  Used to quickly get back up to the top of the page,
+  At some point will be removed as the UI metures and
+  everything can always be accessed
+-->
+<a id="back-to-top" href="#">
+  <img src="assets/icons/caret-up.svg">
+</a>
+<script>
+  button = document.getElementById("back-to-top");
+
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 20) {
+      button.style.right = "1rem";
+    } else {
+      button.style.right = "-2.5rem";
+    }
+  }
+</script>

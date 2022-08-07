@@ -96,20 +96,6 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
 
   <?php
   /*
-    Delete flyout
-
-    This goes with the confirm script below, to use flyout, you must include the js script and php function
-  */
-  if (isset($_POST['delete_flyout']) && $privilaged) {
-    $header = "Are you sure?";
-    $content = "Deleting this image is pernament, there is no going back after this!!!!!";
-    $action = "<form method='POST' enctype='multipart/form-data'>
-    <button class='btn alert-low' type='submit' name='delete_confirm' value='".$image['id']."'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
-    </form>";
-
-    flyout($header, $content, $action);
-  }
-  /*
     Confirm deleting user
 
     user must be privilaged to do this action this the privilaged == true
@@ -137,19 +123,7 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
     }
   }
 
-  /*
-    Description edit
-  */
-  if (isset($_POST['description_flyout']) && $privilaged) {
-    $header = "Enter new Description/Alt";
-    $content = "Whatcha gonna put in there 👀";
-    $action = "<form class='flex-down between' method='POST' enctype='multipart/form-data'>
-      <input class='btn alert-default space-bottom' type='text' name='update_alt' placeholder='Description/Alt for image'>
-      <button class='btn alert-low' type='submit' name='description_confirm' value='".$image["id"]."'><img class='svg' src='assets/icons/edit.svg'>Update information</button>
-    </form>";
 
-    flyout($header, $content, $action);
-  }
   /*
     Description confirm
   */
@@ -177,19 +151,7 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
     }
   }
 
-  /*
-    Adding tags
-  */
-  if (isset($_POST['tags_flyout']) && $privilaged) {
-    $header = "Tags";
-    $content = "Add image tags here! This is still being tested so your tags may be removed later on. Tags ONLY accept, letters, numbers and underscores. Hyphens will be stitched to underscores and spaces will seperate the different tags from eachother.";
-    $action = "<form class='flex-down between' method='POST' enctype='multipart/form-data'>
-      <input class='btn alert-default space-bottom' type='text' name='add_tags' placeholder='Tags are seperated by spaces'>
-      <button class='btn alert-low' type='submit' name='tags_confirm' value='".$image["id"]."'><img class='svg' src='assets/icons/edit.svg'>Add tags</button>
-    </form>";
 
-    flyout($header, $content, $action);
-  }
   /*
     Tags Confirm
   */
@@ -367,15 +329,49 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
     <button id='deleteButton' class='btn alert-low'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
     <script>
       $('#deleteButton').click(function(){
-        flyoutShow('Are you sure?', 'Deleting this image is pernament, there is no going back after this!!!!!', '<button class="btn alert-low"><img class="svg" src="assets/icons/trash.svg">Delete image</button>');
+        var header = "Are you sure?";
+        var description = "Deleting this image is pernament, there is no going back after this!!!!!";
+        var actionBox = "<button class='btn alert-low'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>";
+        flyoutShow(header, description, actionBox);
       });
     </script>
 
-    <!-- Edit description -->
-    <button id='editButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/edit.svg'>Edit description</button>
+    <!--
+     |-------------------------------------------------------------
+     | Edit description
+     |-------------------------------------------------------------
+     | As the name suggests, this edits the description, this
+     | Uses the following variables:
+     | editDescriptionButton
+     | editDescriptionConfirm
+     | editDescriptionInput
+     | editDescriptionSubmit
+     |-------------------------------------------------------------
+    -->
+    <button id='descriptionButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/edit.svg'>Edit description</button>
     <script>
-      $('#editButton').click(function(){
-        flyoutShow('Enter new Description/Alt', 'Whatcha gonna put in there 👀', '<button class="btn alert-low"><img class="svg" src="assets/icons/edit.svg">Update information</button>');
+      $('#descriptionButton').click(function(){
+        var header = "Enter new Description/Alt";
+        var description = "Whatcha gonna put in there 👀";
+        var actionBox = "<form id='descriptionConfirm' action='app/image/edit_description.php' method='POST'>\
+        <input id='descriptionInput' class='btn alert-default space-bottom' type='text' placeholder='Description/Alt for image'>\
+        <button id='descriptionSubmit' class='btn alert-low'><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
+        </form>\
+        <div id='descriptionErrorHandling'></div>";
+        flyoutShow(header, description, actionBox);
+      });
+
+      $(document).ready(function() {
+        $("#editDescriptionConfirm").submit(function(event) {
+          event.preventDefault();
+          var descriptionInput = $("#descriptionInput").val();
+          var descriptionSubmit = $("descriptionSubmit").val();
+          $("#descriptionErrorHandling").load("app/image/edit_description.php", {
+            image_id: <?php echo $_GET['id']; ?>,
+            description: descriptionInput,
+            submit: descriptionSubmit
+          })
+        });
       });
     </script>
 
@@ -383,7 +379,11 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
     <button id='tagButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/edit.svg'>Add image tags</button>
     <script>
       $('#tagButton').click(function(){
-        flyoutShow('Tags', 'Add image tags here! This is still being tested so your tags may be removed later on. Tags ONLY accept, letters, numbers and underscores. Hyphens will be stitched to underscores and spaces will seperate the different tags from eachother.', '<input class="btn alert-default space-bottom" type="text" name="add_tags" placeholder="Tags are seperated by spaces"><button class="btn alert-low"><img class="svg" src="assets/icons/edit.svg">Add tags</button>');
+        var header = "Tags";
+        var description = "Add image tags here! This is still being tested so your tags may be removed later on. Tags ONLY accept, letters, numbers and underscores. Hyphens will be stitched to underscores and spaces will seperate the different tags from eachother";
+        var actionBox = "<input class='btn alert-default space-bottom' type='text' name='add_tags' placeholder='Tags are seperated by spaces'>\
+        <button class='btn alert-low'><img class='svg' src='assets/icons/edit.svg'>Add tags</button>";
+        flyoutShow(header, description, actionBox);
       });
     </script>
 
@@ -394,7 +394,7 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
       <form id='author_form' method='POST' action='ui/image_interaction.php'>
         <input    id='author_header'                                                            type='hidden' name='header'       value='Who owns the image?????'>
         <input    id='author_description'                                                       type='hidden' name='description'  value='Enter ID of image owner'>
-        <button   id='author_submit'      class='btn alert-low space-top-small flyout-display'  type='submit' name='author_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
+        <button   id='author_submit'      class='btn alert-low space-top-small'  type='submit' name='author_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
       </form>
   <?php
     }
@@ -402,9 +402,6 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
   }
   ?>
 
-  <?php
-  include "ui/top.html";
-  include "ui/footer.php";
-  ?>
+  <?php include "ui/footer.php"; ?>
 </body>
 </html>

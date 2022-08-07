@@ -188,4 +188,3 @@ function notify($text, $level) {
 
   return $text_string;
 }
-?>
