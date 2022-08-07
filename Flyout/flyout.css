@@ -20,7 +20,7 @@
   max-width: 621px; width: calc(100% - 3.5rem);
   max-height: 20rem; height: auto; min-height: 10rem;
 
-  position: fixed; z-index: 99999;
+  position: fixed; z-index: 999999999;
   left: 50%; bottom: -15rem;
   transform: translateX(-50%) scale(0.5);
 
@@ -42,10 +42,12 @@
   display: inline;
   box-sizing: border-box;
 }
+
 /* Worlds shittest workaround to a problem I have no clue how to fix */
-.flyout-actionbox * {
+.flyout-actionbox *,
+.flyout-actionbox * * {
   width: 100%;
 }
-.flyout-actionbox * * {
+.flyout-actionbox * * * {
   width: auto;
 }

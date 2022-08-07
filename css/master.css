@@ -72,7 +72,7 @@ body {
 #back-to-top {
   margin: 0; padding: 0.5rem;
 
-  position: fixed; z-index: 9999999999;
+  position: fixed; z-index: 9999999;
   right: -2.5rem; bottom: 1rem;
 
   object-position: center;

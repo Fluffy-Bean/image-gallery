@@ -1,13 +1,3 @@
-<?php
-function info_check($string){
-  if (isset($string) && !empty($string)) {
-    return $string;
-  } else {
-    return "No information provided.";
-  }
-}
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +13,10 @@ function info_check($string){
   <!-- JQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
+  <script>
+
+  </script>
+
   <!-- Sniffle script! -->
   <script src="Sniffle/sniffle.js"></script>
   <link rel='stylesheet' href='Sniffle/sniffle.css'>
@@ -33,13 +27,25 @@ function info_check($string){
 </head>
 <body>
   <?php
+  /*
+   |-------------------------------------------------------------
+   | Import Required
+   |-------------------------------------------------------------
+   | These are common scripts used across all pages of the
+   | website. At some point I want the whole website to be only
+   | one index page. But that's going to require many many many
+   | many rewrites and hours of learning....
+   |-------------------------------------------------------------
+  */
   include "ui/required.php";
 
   /*
-    Get image ID
-
-    Image ID should be written in the URL of the page as ?id=69
-    If ID cannot be obtained, give error.      ID going here ^^
+   |-------------------------------------------------------------
+   | Get image ID
+   |-------------------------------------------------------------
+   | Image ID should be written in the URL of the page as ?id=69
+   | If ID cannot be obtained, give error.      ID going here ^^
+   |-------------------------------------------------------------
   */
   if (isset($_GET['id'])) {
     // Get all image info
@@ -69,18 +75,22 @@ function info_check($string){
 
 
   /*
-    Get all user details
-
-    This gets the user info from the image
+   |-------------------------------------------------------------
+   | Get all user details
+   |-------------------------------------------------------------
+   | This gets the user info from the image
+   |-------------------------------------------------------------
   */
   if (isset($image['author'])) {
     $user = get_user_info($conn, $image['author']);
   }
 
   /*
-    Check user privilge
-
-    This requires the user to be logged in or an admin
+   |-------------------------------------------------------------
+   | Check user privilge
+   |-------------------------------------------------------------
+   | This requires the user to be logged in or an admin
+   |-------------------------------------------------------------
   */
   if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
     $privilaged = True;
@@ -175,16 +185,20 @@ function info_check($string){
 
   <?php
   /*
-    Check if user is privilaged,
-    If yes, grant them access to the Danger zone, or "the place that can fuck things up"
-
-    Checking is done prior to here
+   |-------------------------------------------------------------
+   | Check if user is privilaged,
+   |-------------------------------------------------------------
+   | If yes, grant them access to the Danger zone, or "the place that can fuck things up"
+   | Checking is done prior to here
+   |-------------------------------------------------------------
   */
   if ($privilaged) {
   ?>
     <!-- Danger zone -->
     <div class='danger-zone flex-down default-window'>
     <h2>Danger zone</h2>
+
+    <script id="conformationMessage"></script>
 
     <!-- Delete -->
     <button id='deleteButton' class='btn alert-low'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
@@ -201,27 +215,33 @@ function info_check($string){
      |-------------------------------------------------------------
      | Edit description
      |-------------------------------------------------------------
+     | Most people reading through the code will probably say
+     | how shit it is. YOU HAVE NO FUCKING CLUE HOW LONG THIS TOOK
+     | ME TO FIGURE OUT. i hate js.
+     |-------------------------------------------------------------
     -->
     <button id='descriptionButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/edit.svg'>Edit description</button>
     <script>
       $('#descriptionButton').click(function(){
         var header = "Enter new Description/Alt";
         var description = "Whatcha gonna put in there 👀";
-        var actionBox = "<form id='descriptionConfirm'>\
-        <input id='descriptionInput' class='btn alert-default space-bottom' type='text' placeholder='Description/Alt for image'>\
-        <button id='descriptionSubmit' class='btn alert-low' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
-        </form>\
-        <div id='descriptionErrorHandling'></div>";
+        var actionBox = "<form id='descriptionConfirm' action='app/image/edit_description.php' method='POST'>\
+        <input id='descriptionInput' class='btn alert-default space-bottom' type='text' name='descriptionInput' placeholder='Description/Alt for image'>\
+        <button id='descriptionSubmit' class='btn alert-low' type='submit' name='descriptionSubmit'><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
+        </form>";
         flyoutShow(header, description, actionBox);
-      });
-      $("#descriptionConfirm").submit(function(event) {
-        event.preventDefault();
-        var descriptionInput = $("#descriptionInput").val();
-        var descriptionSubmit = $("#descriptionSubmit").val();
-        $("#descriptionErrorHandling").load("app/image/edit_description.php", {
-          id: <?php echo $_GET['id']; ?>,
-          description: descriptionInput,
-          submit: descriptionSubmit
+
+        $("#descriptionConfirm").submit(function(event) {
+          event.preventDefault();
+          var descriptionInput = $("#descriptionInput").val();
+          var descriptionSubmit = $("#descriptionSubmit").val();
+          $.post("app/image/edit_description.php", {
+            id: <?php echo $_GET['id']; ?>,
+            description: descriptionInput,
+            submit: descriptionSubmit
+          }, function(returnData) {
+            $("#conformationMessage").html(returnData);
+          });
         });
       });
     </script>

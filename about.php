@@ -28,6 +28,9 @@
     <p>What Do I want this to become in the future? No clue, but I do want this to be usable by others, if its a file they download a docker image they setup on your own web server.</p>
     <p>Will it become that any time soon? No, but. I am going to work on this untill it becomes what I want it to be!</p>
 
+    <h2 class="space-top-large" id="add-this">Can you add "A" or "B"?</h2>
+    <p>No.</p>
+
     <h2 class="space-top-large" id="guide">How do I use this!</h2>
     <p>First you must obtain the invite code. If you don't have one and are interested in trying this, feel free to DM me on Telegram!</p>
     <p>But once you're done doing that, you can start making your account <a class='link' href="https://superdupersecteteuploadtest.fluffybean.gay/account/signup.php">at the signup page here</a>.</p>
@@ -40,9 +43,6 @@
     <p>To mrHDash...</p>
   </div>
 
-  <?php
-  include "ui/top.html";
-  include "ui/footer.php";
-  ?>
+  <?php include "ui/footer.php"; ?>
 </body>
 </html>

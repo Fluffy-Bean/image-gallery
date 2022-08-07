@@ -24,9 +24,9 @@ if (isset($_POST['submit'])) {
 
     // Attempt to execute the prepared statement
     if (mysqli_stmt_execute($stmt)) {
-      echo "sniffleAdd('Info','Description has been updated successfully! You may need to refresh the page to see the new information.','var(--green)')";
+      echo "sniffleAdd('Info', 'Description has been updated successfully! You may need to refresh the page to see the new information.', 'var(--green)', ".$root_dir."'assets/icons/check.svg')";
     } else {
-      echo "sniffleAdd('Error','An error occured on the servers','var(--red)')";
+      echo "sniffleAdd('Error', 'An error occured on the servers', 'var(--red)', ".$root_dir."'assets/icons/check.svg')";
     }
   }
 }

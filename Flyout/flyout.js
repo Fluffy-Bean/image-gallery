@@ -20,7 +20,7 @@ function flyoutShow(header, description, actionbox) {
   // Set information in flyout
   flyoutHeader.textContent = header;
   flyoutDescription.textContent = description;
-  flyoutActionbox.innerHTML = actionbox;
+  $(flyoutActionbox).html(actionbox);
 
   // Show the flyout
   flyoutRoot.style.display = "flex";
