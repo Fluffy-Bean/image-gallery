@@ -25,18 +25,18 @@ if (is_file("index.php")) {
 include $root_dir."app/server/conn.php";
 
 /*
-  Include functions
-
-  Maybe I should put all the functions in this file? Dunno
+  Add functions
 */
-include $root_dir."ui/functions.php";
+include $root_dir."app/account/get_info.php";
+include $root_dir."app/account/is_admin.php";
+include $root_dir."app/account/login_status.php";
 
-/*
-  Notification system
+include $root_dir."app/format/string_to_tags.php";
 
-  This is the notification system used by the website. Probably a little too much for what its used for
-*/
-echo "<div id='notify-root' class='notify-root'></div>";
+include $root_dir."app/image/get_image_info.php";
+include $root_dir."app/image/image_privilage.php";
+
+include $root_dir."app/server/secrete.php";
 ?>
 <script>
   /*

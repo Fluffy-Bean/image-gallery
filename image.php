@@ -1,57 +1,10 @@
 <?php
-include "ui/required.php";
-
-/*
-  Get image ID
-
-  Image ID should be written in the URL of the page as ?id=69
-  If ID cannot be obtained, give error.      ID going here ^^
-*/
-if (isset($_GET['id'])) {
-  // Get all image info
-  $image = get_image_info($conn, $_GET['id']);
-
-  // Check if image is avalible
-  if (isset($image['imagename'])) {
-    // Display image
-    $image_path = "images/".$image['imagename'];
-    $image_alt = $image['alt'];
+function info_check($string){
+  if (isset($string) && !empty($string)) {
+    return $string;
   } else {
-    // ID not avalible toast
-    echo "<p class='alert alert-low space-bottom-large'>Could not find image with ID: ".$_GET['id']."</p>";
-
-    // Replacement "no image" image and description
-    $image_path = "assets/no_image.png";
-    $image_alt = "No image could be found, sowwy";
+    return "No information provided.";
   }
-} else {
-  // No ID toast
-  //echo "<p class='alert alert-low space-bottom-large'>No ID present</p>";
-
-  // Replacement "no image" image and description
-  //$image_path = "assets/no_image.png";
-  //$image_alt = "No image could be found, sowwy";
-}
-
-
-/*
-  Get all user details
-
-  This gets the user info from the image
-*/
-if (isset($image['author'])) {
-  $user = get_user_info($conn, $image['author']);
-}
-
-/*
-  Check user privilge
-
-  This requires the user to be logged in or an admin
-*/
-if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
-  $privilaged = True;
-} else {
-  $privilaged = False;
 }
 ?>
 
@@ -79,7 +32,63 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
   <link rel='stylesheet' href='Flyout/flyout.css'>
 </head>
 <body>
-  <?php include"ui/nav.php"; ?>
+  <?php
+  include "ui/required.php";
+
+  /*
+    Get image ID
+
+    Image ID should be written in the URL of the page as ?id=69
+    If ID cannot be obtained, give error.      ID going here ^^
+  */
+  if (isset($_GET['id'])) {
+    // Get all image info
+    $image = get_image_info($conn, $_GET['id']);
+
+    // Check if image is avalible
+    if (isset($image['imagename'])) {
+      // Display image
+      $image_path = "images/".$image['imagename'];
+      $image_alt = $image['alt'];
+    } else {
+      // ID not avalible toast
+      echo "<p class='alert alert-low space-bottom-large'>Could not find image with ID: ".$_GET['id']."</p>";
+
+      // Replacement "no image" image and description
+      $image_path = "assets/no_image.png";
+      $image_alt = "No image could be found, sowwy";
+    }
+  } else {
+    // No ID toast
+    //echo "<p class='alert alert-low space-bottom-large'>No ID present</p>";
+
+    // Replacement "no image" image and description
+    //$image_path = "assets/no_image.png";
+    //$image_alt = "No image could be found, sowwy";
+  }
+
+
+  /*
+    Get all user details
+
+    This gets the user info from the image
+  */
+  if (isset($image['author'])) {
+    $user = get_user_info($conn, $image['author']);
+  }
+
+  /*
+    Check user privilge
+
+    This requires the user to be logged in or an admin
+  */
+  if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
+    $privilaged = True;
+  } else {
+    $privilaged = False;
+  }
+
+  include"ui/nav.php"; ?>
 
   <script>
     if (params.update == "success") {
@@ -90,123 +99,8 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
     }
   </script>
 
-  <?php
-  /*
-    Confirm deleting user
-
-    user must be privilaged to do this action this the privilaged == true
-  */
-  if (isset($_POST['delete_confirm']) && $privilaged) {
-    // Unset all the variables, needed by flyout
-    unset($header, $content, $action);
-
-    // Delete from table
-    $image_delete_request = "DELETE FROM swag_table WHERE id =".$image['id'];
-    $image_delete = mysqli_query($conn,$image_delete_request);
-
-    if ($image_delete) {
-      // See if image is in the directory
-      if (is_file("images/".$image['imagename'])) {
-        unlink("images/".$image['imagename']);
-      }
-      // Delete thumbnail if exitsts
-      if (is_file("images/thumbnails/".$image['imagename'])) {
-        unlink("images/thumbnails/".$image['imagename']);
-      }
-      header("Location:index.php?del=true&id=".$image['id']);
-    } else {
-      header("Location: image.php?id=".$image['id']."&del=fail>");
-    }
-  }
-
-  /*
-    Tags Confirm
-  */
-  if (isset($_POST['tags_confirm']) && $privilaged) {
-    // Unset all the variables, needed by flyout
-    unset($header, $content, $action);
-
-    // Clean tags before adding
-    function clean($string) {
-      // Change to lowercase
-      $string = strtolower($string);
-      // Replace hyphens
-      $string = str_replace('-', '_', $string);
-      // Regex
-      $string = preg_replace('/[^A-Za-z0-9\_ ]/', '', $string);
-      // Return string
-      return preg_replace('/ +/', ' ', $string);
-    }
-
-    // Clean input
-    $tags_string = tag_clean(trim($_POST['add_tags']));
-
-    // getting ready forSQL asky asky
-    $sql = "UPDATE swag_table SET tags=? WHERE id=?";
-
-    // Checking if databse is doing ok
-    if ($stmt = mysqli_prepare($conn, $sql)) {
-      mysqli_stmt_bind_param($stmt, "si", $param_tags, $param_id);
-
-      // Setting parameters
-      $param_tags = $tags_string;
-      $param_id = $image["id"];
-
-      // Attempt to execute the prepared statement
-      if (mysqli_stmt_execute($stmt)) {
-        header("Location:image.php?id=".$image["id"]."&update=success");
-      } else {
-        header("Location:image.php?id=".$image["id"]."&update=error");
-      }
-    }
-  }
-
-  /*
-    Description athor
-  */
-  if (isset($_POST['author_flyout']) && is_admin($_SESSION['id'])) {
-    $header = "Who owns the image?????";
-    $content = "Enter ID of image owner";
-    $action = "<form class='flex-down between' method='POST' enctype='multipart/form-data'>
-      <input class='btn alert-default space-bottom' type='text' name='update_author' placeholder='New user ID'>
-      <button class='btn alert-low' type='submit' name='author_confirm' value='".$image["id"]."'><img class='svg' src='assets/icons/edit.svg'>Update information</button>
-    </form>";
-
-    flyout($header, $content, $action);
-  }
-  /*
-    Author confirm
-  */
-  if (isset($_POST['author_confirm']) && is_admin($_SESSION['id'])) {
-    // Unset all the variables, needed by flyout
-    unset($header, $content, $action);
-
-    // getting ready forSQL asky asky
-    $sql = "UPDATE swag_table SET author=? WHERE id=?";
-
-    // Checking if databse is doing ok
-    if ($stmt = mysqli_prepare($conn, $sql)) {
-      mysqli_stmt_bind_param($stmt, "si", $param_author, $param_id);
-
-      // Setting parameters
-      $param_author = $_POST['update_author'];
-      $param_id = $image["id"];
-
-      // Attempt to execute the prepared statement
-      if (mysqli_stmt_execute($stmt)) {
-        header("Location:image.php?id=".$image["id"]."&update=success");
-      } else {
-        header("Location:image.php?id=".$image["id"]."&update=error");
-      }
-    }
-  }
-  ?>
-
   <div class="image-container space-bottom-large">
-    <?php
-    // Displaying image
-    echo "<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>";
-    ?>
+    <img class='image' id='<?php echo $image['id']; ?>' src='<?php echo $image_path; ?>' alt='<?php echo $image_alt; ?>'>
   </div>
 
 
@@ -314,13 +208,12 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
         var header = "Enter new Description/Alt";
         var description = "Whatcha gonna put in there 👀";
         var actionBox = "<form id='descriptionConfirm'>\
-        <input id='descriptionInput' class='btn alert-default space-bottom' type='text' name='descriptionInput' placeholder='Description/Alt for image'>\
-        <button id='descriptionSubmit' class='btn alert-low' type='submit name='descriptionSubmit''><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
+        <input id='descriptionInput' class='btn alert-default space-bottom' type='text' placeholder='Description/Alt for image'>\
+        <button id='descriptionSubmit' class='btn alert-low' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
         </form>\
         <div id='descriptionErrorHandling'></div>";
         flyoutShow(header, description, actionBox);
       });
-
       $("#descriptionConfirm").submit(function(event) {
         event.preventDefault();
         var descriptionInput = $("#descriptionInput").val();

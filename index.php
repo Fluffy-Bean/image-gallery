@@ -43,35 +43,6 @@
     }
   </script>
 
-  <?php
-  // Show search
-  if ($_GET["srch"] == "show") {
-    $header = "Search for a tags!";
-    $content = "Here you can search for funnies! Like raccoons!!!!!!!!!";
-    $action = "<form class='flex-down between' method='POST' enctype='multipart/form-data'>
-      <input class='btn alert-default space-bottom' type='text' name='search' placeholder='👀'>
-      <button class='btn alert-high' type='submit' name='search_confirm' value=''><img class='svg' src='assets/icons/binoculars.svg'>Search</button>
-    </form>";
-
-    flyout($header, $content, $action);
-  }
-  /*
-    Search Confirm
-  */
-  if (isset($_POST['search_confirm'])) {
-    // Unset all the variables, needed by flyout
-    unset($header, $content, $action);
-
-    // Clean input
-    $tags_string = tag_clean(trim($_POST['search']));
-
-    header("Location:index.php?q=".$tags_string);
-  }
-  if (isset($_GET["q"])) {
-    echo "<p class='alert alert-default space-bottom'>Search results for: ".$_GET['q']."</p>";
-  }
-  ?>
-
   <div class="info-text center">
     <?php
     // Welcome depending on if user is logged in or not
@@ -82,7 +53,7 @@
     }
 
     // Random welcome message
-    $welcome_message = array("*internal screaming*", "Sussy Wussy", "What is this world?", "Don't forget to drink water!", "Bruh", "This is so poorly programmed", "Sorry", "Fluffy made this!", "maybe", "I'm gay");
+    $welcome_message = array("*internal screaming*", "Sussy Wussy", "What is this world?", "Don't forget to drink water!", "Bruh", "This is so poorly programmed", "Sorry", "Fluffy made this!", "maybe", "I'm gay", "I wish we were better strangers.");
     echo "<p>".$welcome_message[array_rand($welcome_message, 1)]."</p>";
     ?>
   </div>

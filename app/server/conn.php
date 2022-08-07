@@ -13,5 +13,5 @@ $conn_database = "swag";
 
 $conn = mysqli_connect($conn_ip, $conn_username, $conn_password , $conn_database);
 if ($conn->connect_error) {
-  // Send notification that connection couldn't be made
+  echo "<script>sniffleAdd('Error','Could not make a connection to the server, please try again later','var(--red)','".$root_dir."../../assets/icons/warning.svg')</script>";
 }
