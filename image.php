@@ -68,11 +68,7 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 
   <!-- JQuery -->
-  <script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous">
-  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
   <!-- Sniffle script! -->
   <script src="Sniffle/sniffle.js"></script>
@@ -122,35 +118,6 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
       header("Location: image.php?id=".$image['id']."&del=fail>");
     }
   }
-
-
-  /*
-    Description confirm
-  */
-  if (isset($_POST['description_confirm']) && $privilaged) {
-    // Unset all the variables, needed by flyout
-    unset($header, $content, $action);
-
-    // getting ready forSQL asky asky
-    $sql = "UPDATE swag_table SET alt=? WHERE id=?";
-
-    // Checking if databse is doing ok
-    if ($stmt = mysqli_prepare($conn, $sql)) {
-      mysqli_stmt_bind_param($stmt, "si", $param_alt, $param_id);
-
-      // Setting parameters
-      $param_alt = $_POST['update_alt'];
-      $param_id = $image["id"];
-
-      // Attempt to execute the prepared statement
-      if (mysqli_stmt_execute($stmt)) {
-        header("Location:image.php?id=".$image["id"]."&update=success");
-      } else {
-        header("Location:image.php?id=".$image["id"]."&update=error");
-      }
-    }
-  }
-
 
   /*
     Tags Confirm
@@ -340,37 +307,28 @@ if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
      |-------------------------------------------------------------
      | Edit description
      |-------------------------------------------------------------
-     | As the name suggests, this edits the description, this
-     | Uses the following variables:
-     | editDescriptionButton
-     | editDescriptionConfirm
-     | editDescriptionInput
-     | editDescriptionSubmit
-     |-------------------------------------------------------------
     -->
     <button id='descriptionButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/edit.svg'>Edit description</button>
     <script>
       $('#descriptionButton').click(function(){
         var header = "Enter new Description/Alt";
         var description = "Whatcha gonna put in there 👀";
-        var actionBox = "<form id='descriptionConfirm' action='app/image/edit_description.php' method='POST'>\
-        <input id='descriptionInput' class='btn alert-default space-bottom' type='text' placeholder='Description/Alt for image'>\
-        <button id='descriptionSubmit' class='btn alert-low'><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
+        var actionBox = "<form id='descriptionConfirm'>\
+        <input id='descriptionInput' class='btn alert-default space-bottom' type='text' name='descriptionInput' placeholder='Description/Alt for image'>\
+        <button id='descriptionSubmit' class='btn alert-low' type='submit name='descriptionSubmit''><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
         </form>\
         <div id='descriptionErrorHandling'></div>";
         flyoutShow(header, description, actionBox);
       });
 
-      $(document).ready(function() {
-        $("#editDescriptionConfirm").submit(function(event) {
-          event.preventDefault();
-          var descriptionInput = $("#descriptionInput").val();
-          var descriptionSubmit = $("descriptionSubmit").val();
-          $("#descriptionErrorHandling").load("app/image/edit_description.php", {
-            image_id: <?php echo $_GET['id']; ?>,
-            description: descriptionInput,
-            submit: descriptionSubmit
-          })
+      $("#descriptionConfirm").submit(function(event) {
+        event.preventDefault();
+        var descriptionInput = $("#descriptionInput").val();
+        var descriptionSubmit = $("#descriptionSubmit").val();
+        $("#descriptionErrorHandling").load("app/image/edit_description.php", {
+          id: <?php echo $_GET['id']; ?>,
+          description: descriptionInput,
+          submit: descriptionSubmit
         });
       });
     </script>
