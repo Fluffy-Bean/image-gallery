@@ -1,26 +1,52 @@
+<?php
 /*
-  Author confirm
+ |-------------------------------------------------------------
+ | Edit Author
+ |-------------------------------------------------------------
+ | If this has security problems I'm so fucked
+ |-------------------------------------------------------------
 */
-if (isset($_POST['author_confirm']) && is_admin($_SESSION['id'])) {
-  // Unset all the variables, needed by flyout
-  unset($header, $content, $action);
+session_start();
+// Include server connection
+include "../server/conn.php";
 
-  // getting ready forSQL asky asky
-  $sql = "UPDATE swag_table SET author=? WHERE id=?";
+if (isset($_POST['submit'])) {
+  // If user has the ID of 1
+  if ($_SESSION['id'] == 1) {
+    // getting ready forSQL asky asky
+    $sql = "UPDATE swag_table SET author=? WHERE id=?";
 
-  // Checking if databse is doing ok
-  if ($stmt = mysqli_prepare($conn, $sql)) {
-    mysqli_stmt_bind_param($stmt, "si", $param_author, $param_id);
+    // Checking if databse is doing ok
+    if ($stmt = mysqli_prepare($conn, $sql)) {
+      mysqli_stmt_bind_param($stmt, "si", $param_author, $param_id);
 
-    // Setting parameters
-    $param_author = $_POST['update_author'];
-    $param_id = $image["id"];
+      // Setting parameters
+      $param_author = $_POST['input'];
+      $param_id = $_POST["id"];
 
-    // Attempt to execute the prepared statement
-    if (mysqli_stmt_execute($stmt)) {
-      header("Location:image.php?id=".$image["id"]."&update=success");
-    } else {
-      header("Location:image.php?id=".$image["id"]."&update=error");
+      // Attempt to execute the prepared statement
+      if (mysqli_stmt_execute($stmt)) {
+        ?>
+        <script>
+          sniffleAdd('Success!!!', 'The Author has been updated successfully! You may need to refresh the page to see the new information.', 'var(--green)', '<?php echo $root_dir; ?>assets/icons/check.svg');
+          flyoutClose();
+        </script>
+        <?php
+      } else {
+        ?>
+        <script>
+          sniffleAdd('Oopsie....', 'An error occured on the servers', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/cross.svg');
+          flyoutClose();
+        </script>
+        <?php
+      }
     }
+  } else {
+    ?>
+    <script>
+      sniffleAdd('Denied', 'Sussy wussy.', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/cross.svg');
+      flyoutClose();
+    </script>
+    <?php
   }
 }

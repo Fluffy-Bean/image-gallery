@@ -98,16 +98,8 @@
     $privilaged = False;
   }
 
-  include"ui/nav.php"; ?>
-
-  <script>
-    if (params.update == "success") {
-      sniffleAdd("Info", "Image information updated", "var(--green)");
-    }
-    if (params.del == "fail") {
-      sniffleAdd("Error", "Failed to delete image", "var(--red)");
-    }
-  </script>
+  include "ui/nav.php";
+  ?>
 
   <div class="image-container space-bottom-large">
     <img class='image' id='<?php echo $image['id']; ?>' src='<?php echo $image_path; ?>' alt='<?php echo $image_alt; ?>'>
@@ -174,7 +166,7 @@
       if (isset($image['tags']) && !empty($image['tags'])) {
         $image_tags_array = explode(" ", $image['tags']);
         foreach ($image_tags_array as $tag) {
-          echo "<p class='tag alert-high'>".$tag."</p>";
+          echo "<p class='tag alert-high'><img class='svg' src='assets/icons/tag.svg'>".$tag."</p>";
         }
       } else {
         echo "<p>No tags present</p>";
@@ -200,34 +192,52 @@
 
     <script id="conformationMessage"></script>
 
-    <!-- Delete -->
+    <!--
+     |-------------------------------------------------------------
+     | Delete
+     |-------------------------------------------------------------
+     | sus
+     | I cannot describe the anxiety this gives me. pls help
+     |-------------------------------------------------------------
+    -->
     <button id='deleteButton' class='btn alert-low'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
     <script>
-      $('#deleteButton').click(function(){
+      $('#deleteButton').click(function() {
         var header = "Are you sure?";
         var description = "Deleting this image is pernament, there is no going back after this!!!!!";
-        var actionBox = "<button class='btn alert-low'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>";
+        var actionBox = "<form id='deleteConfirm' method='POST'>\
+        <button id='deleteSubmit' class='btn alert-low' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>\
+        </form>";
         flyoutShow(header, description, actionBox);
+
+        $("#deleteConfirm").submit(function(event) {
+          event.preventDefault();
+          var deleteSubmit = $("#deleteSubmit").val();
+          $("#conformationMessage").load("app/image/delete_image.php", {
+            id: <?php echo $_GET['id']; ?>,
+            submit: deleteSubmit
+          });
+        });
       });
     </script>
 
     <!--
      |-------------------------------------------------------------
-     | Edit description
+     | Edit Description
      |-------------------------------------------------------------
-     | Most people reading through the code will probably say
-     | how shit it is. YOU HAVE NO FUCKING CLUE HOW LONG THIS TOOK
-     | ME TO FIGURE OUT. i hate js.
+     | Most people reading through the code will probably say how
+     | shit it is. YOU HAVE NO FUCKING CLUE HOW LONG THIS TOOK ME
+     | TO FIGURE OUT. i hate js.
      |-------------------------------------------------------------
     -->
     <button id='descriptionButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/edit.svg'>Edit description</button>
     <script>
-      $('#descriptionButton').click(function(){
+      $('#descriptionButton').click(function() {
         var header = "Enter new Description/Alt";
         var description = "Whatcha gonna put in there 👀";
         var actionBox = "<form id='descriptionConfirm' action='app/image/edit_description.php' method='POST'>\
-        <input id='descriptionInput' class='btn alert-default space-bottom' type='text' name='descriptionInput' placeholder='Description/Alt for image'>\
-        <button id='descriptionSubmit' class='btn alert-low' type='submit' name='descriptionSubmit'><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
+        <input id='descriptionInput' class='btn alert-default space-bottom' type='text' placeholder='Description/Alt for image'>\
+        <button id='descriptionSubmit' class='btn alert-low' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
         </form>";
         flyoutShow(header, description, actionBox);
 
@@ -235,38 +245,82 @@
           event.preventDefault();
           var descriptionInput = $("#descriptionInput").val();
           var descriptionSubmit = $("#descriptionSubmit").val();
-          $.post("app/image/edit_description.php", {
+          $("#conformationMessage").load("app/image/edit_description.php", {
             id: <?php echo $_GET['id']; ?>,
-            description: descriptionInput,
+            input: descriptionInput,
             submit: descriptionSubmit
-          }, function(returnData) {
-            $("#conformationMessage").html(returnData);
           });
         });
       });
     </script>
 
-    <!-- Edit tags -->
-    <button id='tagButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/edit.svg'>Add image tags</button>
+    <!--
+     |-------------------------------------------------------------
+     | Edit Tags
+     |-------------------------------------------------------------
+     | Literally no amount of work will get tags/lists to play well
+     | with SQL so I gave up and made my own shitty system. It
+     | works but once I re-add the search function this will make
+     | anyone cry. I am so sorry.
+     |-------------------------------------------------------------
+    -->
+    <button id='tagsButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/tag.svg'>Add image tags</button>
     <script>
-      $('#tagButton').click(function(){
+      $('#tagsButton').click(function() {
         var header = "Tags";
         var description = "Add image tags here! This is still being tested so your tags may be removed later on. Tags ONLY accept, letters, numbers and underscores. Hyphens will be stitched to underscores and spaces will seperate the different tags from eachother";
-        var actionBox = "<input class='btn alert-default space-bottom' type='text' name='add_tags' placeholder='Tags are seperated by spaces'>\
-        <button class='btn alert-low'><img class='svg' src='assets/icons/edit.svg'>Add tags</button>";
+        var actionBox = "<form id='tagsConfirm' action='app/image/edit_tags.php' method='POST'>\
+        <input id='tagsInput' class='btn alert-default space-bottom' type='text' placeholder='Tags are seperated by spaces'>\
+        <button id='tagsSubmit' class='btn alert-low' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit tags</button>\
+        </form>";
         flyoutShow(header, description, actionBox);
+
+        $("#tagsConfirm").submit(function(event) {
+          event.preventDefault();
+          var tagsInput = $("#tagsInput").val();
+          var tagsSubmit = $("#tagsSubmit").val();
+          $("#conformationMessage").load("app/image/edit_tags.php", {
+            id: <?php echo $_GET['id']; ?>,
+            input: tagsInput,
+            submit: tagsSubmit
+          });
+        });
       });
     </script>
 
-    <!-- Edit authro -->
+    <!--
+     |-------------------------------------------------------------
+     | Edit Author
+     |-------------------------------------------------------------
+     | You must be a super cool person to see this section ;3
+     |-------------------------------------------------------------
+    -->
   <?php
     if (is_admin($_SESSION['id'])) {
   ?>
-      <form id='author_form' method='POST' action='ui/image_interaction.php'>
-        <input    id='author_header'                                                            type='hidden' name='header'       value='Who owns the image?????'>
-        <input    id='author_description'                                                       type='hidden' name='description'  value='Enter ID of image owner'>
-        <button   id='author_submit'      class='btn alert-low space-top-small'  type='submit' name='author_flyout'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
-      </form>
+      <button id='authorButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
+      <script>
+        $('#authorButton').click(function() {
+          var header = "Who owns the image?????";
+          var description = "Enter ID of image owner";
+          var actionBox = "<form id='authorConfirm' action='app/image/edit_author.php' method='POST'>\
+          <input id='authorInput' class='btn alert-default space-bottom' type='text' placeholder='le author'>\
+          <button id='authorSubmit' class='btn alert-low' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>\
+          </form>";
+          flyoutShow(header, description, actionBox);
+
+          $("#authorConfirm").submit(function(event) {
+            event.preventDefault();
+            var authorInput = $("#authorInput").val();
+            var authorSubmit = $("#authorSubmit").val();
+            $("#conformationMessage").load("app/image/edit_author.php", {
+              id: <?php echo $_GET['id']; ?>,
+              input: authorInput,
+              submit: authorSubmit
+            });
+          });
+        });
+      </script>
   <?php
     }
     echo "</div>";

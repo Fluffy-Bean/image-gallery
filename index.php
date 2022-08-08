@@ -33,7 +33,7 @@
   ?>
 
   <script>
-    sniffleAdd("Warning", "The website is currently being worked on, people who have accounts, I ask you kindly to not post anything. Thank you.", "var(--red)", "<?php echo $root_dir ?>assets/icons/warning.svg");
+    sniffleAdd("Warning", "The website is currently being worked on, some functionality has been restored, but tread carefully as errors may occur", "var(--red)", "<?php echo $root_dir ?>assets/icons/warning.svg");
 
     if (params.del == "true") {
       sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)", "<?php echo $root_dir ?>assets/icons/trash.svg");
