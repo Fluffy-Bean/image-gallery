@@ -10,7 +10,7 @@ footer {
   backdrop-filter: blur(8px);
 
   border: 0.2rem solid var(--green);
-  outline: 0.5rem solid var(--bg);
+  /*outline: 0.5rem solid var(--bg);*/
 
   border-radius: var(--rad);
   box-shadow: var(--shadow);

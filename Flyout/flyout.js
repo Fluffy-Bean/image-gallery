@@ -8,6 +8,8 @@ $(document).ready(function() {
 });
 
 function flyoutShow(header, description, actionbox) {
+  // Hide overflow
+  document.querySelector("html").style.overflow = "hidden";
   // Checking if actionbox is set
   if (typeof actionbox === 'undefined') {
     flyoutActionbox.style.display = "none";
@@ -36,6 +38,8 @@ function flyoutShow(header, description, actionbox) {
 };
 
 function flyoutClose() {
+  // Show overflow
+  document.querySelector("html").style.overflow = "auto";
   // Hide the flyout
   flyoutRoot.style.transform = "translateX(-50%) scale(0.5)";
   flyoutRoot.style.bottom = "-20rem";

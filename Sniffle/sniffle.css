@@ -41,7 +41,7 @@
 
   background-color: #151515;
 
-  box-shadow: 5px 5px 5px #151515aa;
+  box-shadow: var(--shadow);
 
   transition: transform 1s cubic-bezier(.19,1,.22,1), opacity 0.2s cubic-bezier(.19,1,.22,1);
 
