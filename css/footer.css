@@ -16,6 +16,6 @@ footer {
   box-shadow: var(--shadow);
 }
 
-.footer-child {
-  min-width: 200px;
+footer a {
+  margin: 0.5rem;
 }

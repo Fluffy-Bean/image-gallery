@@ -87,6 +87,7 @@
 
   font-size: 15px;
   font-weight: 621;
+  font-family: "Lexend Deca", sans-serif;
 
   color: var(--fg);
 }
@@ -98,7 +99,8 @@
   font-size: 14px;
 
   word-wrap: break-word;
-  font-weight: 300;
+  font-weight: 500;
+  font-family: 'Secular One', sans-serif;
 
   color: var(--fg);
 }

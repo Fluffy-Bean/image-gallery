@@ -4,8 +4,10 @@
   This ensures that the website looks the same across all devices
   and browsers, regardless if I waisted my time making a tag look
   good or not
-*/
+
 @import "normalize.css";
+*/
+
 
 @import "nav.css";
 @import "footer.css";
@@ -32,9 +34,9 @@
 }
 
 * {
-  font-weight: 521;
+  font-weight: 500;
   color: var(--fg);
-  font-family: "Fira Code", monospace;
+  font-family: 'Secular One', sans-serif;
 }
 html {
   margin: 0; padding: 0;
@@ -411,6 +413,7 @@ form * {
   display: block;
 
   font-size: 16px;
+  font-weight: 500;
 
   text-decoration: none;
 
@@ -511,7 +514,7 @@ h4 {
 
 p, a {
   margin: 0 0 0.5rem 0;
-  font-family: "Fira Code", monospace;
+  font-family: 'Secular One', sans-serif;
 }
 a {
   text-decoration: none;

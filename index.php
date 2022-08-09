@@ -10,7 +10,7 @@
   <!-- Google Fonts -->
   <link rel="stylesheet" href="css/master.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap">
 
   <!-- JQuery -->
   <script
@@ -62,7 +62,7 @@
     if (isset($_SESSION["username"])) {
       echo "<h1>".$time_welc." ".$_SESSION['username']."!</h1>";
     } else {
-      echo "<h1>Welcome!</h1>";
+      echo "<h1>".$time_welc."!</h1>";
     }
 
     // Random welcome message
@@ -78,7 +78,14 @@
     "I'm gay",
     "I wish we were better strangers.",
     "<span style='color:#ffff00;'>Just like Minecraft!</span>",
-    "If I were you, I'd run now");
+    "If I were you, I'd run now",
+    "This is the part where I kill you",
+    "SILICA GEL \"DO NOT EAT\".",
+    "This was supposed to be a simple project",
+    "AAAAAAAAAAAAAAAAAAAA",
+    "Let me out",
+    "nice",
+    "Thank you that you're here");
     echo "<p>".$welcome_message[array_rand($welcome_message, 1)]."</p>";
     ?>
   </div>
