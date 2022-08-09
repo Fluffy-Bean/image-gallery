@@ -1,5 +1,3 @@
-<?php include "ui/required.php"; ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lynx Gallery</title>
 
-  <!-- Google Fonts -->
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="css/master.css">
+  <link rel="stylesheet" href="css/normalise.css">
+
+  <!-- Google Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap">
 
@@ -26,6 +27,8 @@
   <!-- Flyout script! -->
   <script src="Flyout/flyout.js"></script>
   <link rel='stylesheet' href='Flyout/flyout.css'>
+
+  <?php include "ui/required.php"; ?>
 </head>
 <body>
   <?php
@@ -85,7 +88,9 @@
     "AAAAAAAAAAAAAAAAAAAA",
     "Let me out",
     "nice",
-    "Thank you that you're here");
+    "Thank you that you're here",
+    "The weather is dry",
+    "Need me a man 👀");
     echo "<p>".$welcome_message[array_rand($welcome_message, 1)]."</p>";
     ?>
   </div>

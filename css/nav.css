@@ -57,13 +57,14 @@ nav hr {
   nav {
     margin: 0;
 
-    width: calc(100vw - 2rem));
+    width: calc(100vw - 2rem)); height: 3rem;
 
     position: fixed;
     top: auto; bottom: 0; left: 0; right: 0;
 
     border: none;
     border-top: 3px solid var(--green);
+    border-radius: 0;
 
     backdrop-filter: blur(16px);
   }
@@ -75,9 +76,12 @@ nav hr {
   }
 
   footer {
-    margin-bottom: 3.5rem !important;
+    margin-bottom: 5.5rem !important;
   }
   #back-to-top {
-    bottom: 4.5rem !important;
+    bottom: 5.5rem !important;
+  }
+  nav .svg {
+    padding: 0.35rem !important;
   }
 }
