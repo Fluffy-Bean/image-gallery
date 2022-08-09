@@ -1,5 +1,3 @@
-<?php include "ui/required.php"; ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,21 +11,23 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 
   <!-- JQuery -->
-  <script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous">
-  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <!-- Sniffle script! -->
+  <script src="Sniffle/sniffle.js"></script>
+  <link rel='stylesheet' href='Sniffle/sniffle.css'>
+
+  <!-- Flyout script! -->
+  <script src="Flyout/flyout.js"></script>
+  <link rel='stylesheet' href='Flyout/flyout.css'>
 </head>
 <body>
   <?php
+  include "ui/required.php";
   include "ui/nav.php";
 
   // Check if user is logged in
-  if (loggedin()) {
-    // User is logged in
-  } else {
-    $error = "You must be logged in to upload images";
+  if (!loggedin()) {
     header("Location: index.php");
   }
 
@@ -82,10 +82,10 @@
   <div class="alert-banner">
     <?php
     if (isset($error)) {
-      echo notify($error, "low");
+      echo "<script>sniffleAdd('Error', '".$error."', 'var(--red)', '".$root_dir."assets/icons/cross.svg');</script>";
     }
     if (isset($success)) {
-      echo notify($success, "high");
+      echo "<script>sniffleAdd('Success!', '".$success."', 'var(--green)', '".$root_dir."assets/icons/check.svg');</script>";
     }
     ?>
     <script src='scripts/alert.js'></script>
@@ -101,9 +101,6 @@
     </form>
   </div>
 
-  <?php
-  include "ui/top.html";
-  include "ui/footer.php";
-  ?>
+  <?php include "ui/footer.php"; ?>
 </body>
 </html>

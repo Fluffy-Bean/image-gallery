@@ -31,7 +31,7 @@
   and a text div .sniffle-content
 */
 .sniffle-notification {
-  margin-bottom: 1rem; padding: 0.5rem;
+  margin-bottom: 0.5rem; padding: 0.5rem;
 
   max-width: calc(100% - 1rem); min-height: 2.5rem;
 
@@ -52,7 +52,6 @@
 
   cursor: pointer;
 }
-
 
 /*
   Notification content Root
@@ -86,8 +85,8 @@
 .sniffle-header {
   margin: 0 0 0.25rem 0; padding: 0;
 
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 621;
 
   color: var(--fg);
 }
@@ -96,10 +95,10 @@
 */
 .sniffle-description {
   margin: 0; padding: 0;
-  font-size: 14px;
+  font-size: 15px;
 
   word-wrap: break-word;
-  font-weight: bold;
+  font-weight: 300;
 
   color: var(--fg);
 }

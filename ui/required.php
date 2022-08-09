@@ -78,7 +78,7 @@ include $root_dir."app/server/secrete.php";
   everything can always be accessed
 -->
 <a id="back-to-top" href="#">
-  <img src="assets/icons/caret-up.svg">
+  <img src="<?php echo $root_dir; ?>assets/icons/caret-up.svg">
 </a>
 <script>
   button = document.getElementById("back-to-top");

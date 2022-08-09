@@ -9,8 +9,8 @@
 
   <!-- Google Fonts -->
   <link rel="stylesheet" href="css/master.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&amp;display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500">
 
   <!-- JQuery -->
   <script
@@ -45,15 +45,40 @@
 
   <div class="info-text center">
     <?php
+    // Set time for message
+    $time = date("H");
+    $timezone = date("e");
+    if ($time < "12") {
+      $time_welc = "Good morning";
+    } else if ($time >= "12" && $time < "17") {
+      $time_welc = "Good afternoon";
+    } else if ($time >= "17" && $time < "19") {
+      $time_welc = "Good evening";
+    } else if ($time >= "19") {
+      $time_welc = "Good night";
+    }
+
     // Welcome depending on if user is logged in or not
     if (isset($_SESSION["username"])) {
-      echo "<h1>Welcome ".$_SESSION['username']."!</h1>";
+      echo "<h1>".$time_welc." ".$_SESSION['username']."!</h1>";
     } else {
       echo "<h1>Welcome!</h1>";
     }
 
     // Random welcome message
-    $welcome_message = array("*internal screaming*", "Sussy Wussy", "What is this world?", "Don't forget to drink water!", "Bruh", "This is so poorly programmed", "Sorry", "Fluffy made this!", "maybe", "I'm gay", "I wish we were better strangers.");
+    $welcome_message = array("*internal screaming*",
+    "Sussy Wussy",
+    "What is this world?",
+    "Don't forget to drink water!",
+    "Bruh",
+    "This is so poorly programmed",
+    "Sorry",
+    "Fluffy made this!",
+    "maybe",
+    "I'm gay",
+    "I wish we were better strangers.",
+    "<span style='color:#ffff00;'>Just like Minecraft!</span>",
+    "If I were you, I'd run now");
     echo "<p>".$welcome_message[array_rand($welcome_message, 1)]."</p>";
     ?>
   </div>

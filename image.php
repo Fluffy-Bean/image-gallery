@@ -13,10 +13,6 @@
   <!-- JQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-  <script>
-
-  </script>
-
   <!-- Sniffle script! -->
   <script src="Sniffle/sniffle.js"></script>
   <link rel='stylesheet' href='Sniffle/sniffle.css'>
@@ -155,6 +151,18 @@
 
     // Image download
     echo "<a class='btn alert-high space-top' href='images/".$image['imagename']."' download='".$image['imagename']."'><img class='svg' src='assets/icons/download.svg'>Download image</a>";
+
+    // Copy image
+    ?>
+    <script>
+      function copyLink() {
+        navigator.clipboard.writeText(window.location.href);
+
+        sniffleAdd("Info", "Link has been copied!", "var(--green)", "assets/icons/clipboard-text.svg");
+      }
+    </script>
+    <?php
+    echo "<button class='btn alert-high space-top-small' onclick='copyLink()'><img class='svg' src='assets/icons/clipboard-text.svg'>Copy image link</button>";
     ?>
   </div>
 

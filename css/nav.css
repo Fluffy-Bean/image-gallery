@@ -54,10 +54,30 @@ nav hr {
 }
 
 @media (max-width: 550px) {
+  nav {
+    margin: 0;
+
+    width: calc(100vw - 2rem));
+
+    position: fixed;
+    top: auto; bottom: 0; left: 0; right: 0;
+
+    border: none;
+    border-top: 3px solid var(--green);
+
+    backdrop-filter: blur(16px);
+  }
   .nav-hide {
     display: none;
   }
   .nav-links a .svg {
     margin: 0;
+  }
+
+  footer {
+    margin-bottom: 3.5rem !important;
+  }
+  #back-to-top {
+    bottom: 4.5rem !important;
   }
 }

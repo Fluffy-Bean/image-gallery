@@ -1,5 +1,3 @@
-<?php include "../ui/required.php"; ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,14 +11,19 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&amp;display=swap">
 
   <!-- JQuery -->
-  <script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous">
-  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <!-- Sniffle script! -->
+  <script src="../Sniffle/sniffle.js"></script>
+  <link rel='stylesheet' href='../Sniffle/sniffle.css'>
+
+  <!-- Flyout script! -->
+  <script src="../Flyout/flyout.js"></script>
+  <link rel='stylesheet' href='../Flyout/flyout.css'>
 </head>
 <body>
   <?php
+  include "../ui/required.php";
   include "../ui/nav.php";
 
   // Initialize the session
@@ -124,9 +127,6 @@
     <a class='btn alert-default space-top-large' href='https://superdupersecteteuploadtest.fluffybean.gay/account/signup.php'><img class="svg" src="../assets/icons/sign-in.svg">Need an account? Sign up!</a>
   </div>
 
-  <?php
-  include "../ui/top.html";
-  include "../ui/footer.php";
-  ?>
+  <?php include "../ui/footer.php"; ?>
 </body>
 </html>
