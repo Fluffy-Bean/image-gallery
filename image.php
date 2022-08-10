@@ -205,8 +205,6 @@
     <div class='danger-zone flex-down default-window'>
     <h2>Danger zone</h2>
 
-    <script id="conformationMessage"></script>
-
     <!--
      |-------------------------------------------------------------
      | Delete
@@ -228,7 +226,7 @@
         $("#deleteConfirm").submit(function(event) {
           event.preventDefault();
           var deleteSubmit = $("#deleteSubmit").val();
-          $("#conformationMessage").load("app/image/delete_image.php", {
+          $("#sniffle").load("app/image/delete_image.php", {
             id: <?php echo $_GET['id']; ?>,
             submit: deleteSubmit
           });
@@ -260,7 +258,7 @@
           event.preventDefault();
           var descriptionInput = $("#descriptionInput").val();
           var descriptionSubmit = $("#descriptionSubmit").val();
-          $("#conformationMessage").load("app/image/edit_description.php", {
+          $("#sniffle").load("app/image/edit_description.php", {
             id: <?php echo $_GET['id']; ?>,
             input: descriptionInput,
             submit: descriptionSubmit
@@ -294,7 +292,7 @@
           event.preventDefault();
           var tagsInput = $("#tagsInput").val();
           var tagsSubmit = $("#tagsSubmit").val();
-          $("#conformationMessage").load("app/image/edit_tags.php", {
+          $("#sniffle").load("app/image/edit_tags.php", {
             id: <?php echo $_GET['id']; ?>,
             input: tagsInput,
             submit: tagsSubmit
@@ -328,7 +326,7 @@
             event.preventDefault();
             var authorInput = $("#authorInput").val();
             var authorSubmit = $("#authorSubmit").val();
-            $("#conformationMessage").load("app/image/edit_author.php", {
+            $("#sniffle").load("app/image/edit_author.php", {
               id: <?php echo $_GET['id']; ?>,
               input: authorInput,
               submit: authorSubmit
