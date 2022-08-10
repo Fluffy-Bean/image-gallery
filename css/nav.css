@@ -6,14 +6,13 @@ nav {
 
   width: calc(100vh - 2rem)); height: 2.5rem;
 
-  position: sticky; z-index: 99;
+  position: static; z-index: 99;
   top: 1rem;
 
   align-items: center;
   vertical-align: middle;
 
-  background-color: var(--bg); color: var(--fg);
-  backdrop-filter: blur(8px);
+  background-color: var(--bg-3); color: var(--fg);
 
   border: 0.2rem solid var(--green);
   /*outline: 0.5rem solid var(--bg);*/
@@ -61,6 +60,9 @@ nav hr {
 
     position: fixed;
     top: auto; bottom: 0; left: 0; right: 0;
+
+    background-color: var(--bg);
+    backdrop-filter: blur(8px);
 
     border: none;
     border-top: 3px solid var(--green);

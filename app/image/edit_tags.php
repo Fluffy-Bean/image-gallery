@@ -1,19 +1,3 @@
-/*
-  Tags Confirm
-*/
-if (isset($_POST['tags_confirm']) && $privilaged) {
-  // Unset all the variables, needed by flyout
-  unset($header, $content, $action);
-
-
-
-
-      header("Location:image.php?id=".$image["id"]."&update=success");
-    } else {
-      header("Location:image.php?id=".$image["id"]."&update=error");
-    }
-  }
-}
 <?php
 /*
  |-------------------------------------------------------------

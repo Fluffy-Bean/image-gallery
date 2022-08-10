@@ -41,6 +41,8 @@
    |-------------------------------------------------------------
   */
   include "ui/required.php";
+  include "ui/nav.php";
+
 
   /*
    |-------------------------------------------------------------
@@ -50,49 +52,92 @@
    | If ID cannot be obtained, give error.      ID going here ^^
    |-------------------------------------------------------------
   */
-  if (isset($_GET['id'])) {
+  if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     // Get all image info
     $image = get_image_info($conn, $_GET['id']);
 
     // Check if image is avalible
     if (isset($image['imagename'])) {
-      // Display image
-      $image_path = "images/".$image['imagename'];
-      $image_alt = $image['alt'];
+      $image_present = True;
     } else {
-      // ID not avalible toast
-      echo "<p class='alert alert-low space-bottom-large'>Could not find image with ID: ".$_GET['id']."</p>";
-
-      // Replacement "no image" image and description
-      $image_path = "assets/no_image.png";
-      $image_alt = "No image could be found, sowwy";
+      ?>
+      <script>
+        sniffleAdd('Woops', 'Something happened, either image with the ID <?php echo $_GET['id']; ?> was deleted or never existed, either way it could not be found!', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/cross.svg');
+      </script>
+      <?php
+      $image_present = False;
     }
   } else {
-    // No ID toast
-    //echo "<p class='alert alert-low space-bottom-large'>No ID present</p>";
-
-    // Replacement "no image" image and description
-    //$image_path = "assets/no_image.png";
-    //$image_alt = "No image could be found, sowwy";
+    ?>
+    <script>
+      sniffleAdd('Where is da image?', 'The link you followed seems to be broken, or there was some other error, who knows!', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/cross.svg');
+    </script>
+    <?php
+    $image_present = False;
   }
-
 
   /*
    |-------------------------------------------------------------
-   | Get all user details
+   | Image verification
    |-------------------------------------------------------------
-   | This gets the user info from the image
+   | Doublechecking if all information on images exists, if yes
+   | display it, otherwise don't display at all or replace with
+   | blank or filler info
    |-------------------------------------------------------------
   */
-  if (isset($image['author'])) {
-    $user = get_user_info($conn, $image['author']);
+  if ($image_present) {
+    /*
+     |-------------------------------------------------------------
+     | Check user details
+     |-------------------------------------------------------------
+    */
+    if (isset($image['author'])) {
+      // Get all information on the user
+      $user = get_user_info($conn, $image['author']);
+
+      if (isset($user['username'])) {
+        $image_author = $user['username'];
+      } else {
+        $image_author = "Deleted User";
+      }
+    } else {
+      $image_author = "No author";
+    }
+
+    /*
+     |-------------------------------------------------------------
+     | Check if image path is good
+     |-------------------------------------------------------------
+    */
+    if (isset($image['imagename'])) {
+      $image_path = "images/".$image['imagename'];
+      $image_alt = $image['alt'];
+    } else {
+      $image_path = "assets/no_image.png";
+      $image_alt = "No image could be found, sowwy";
+    }
+
+    /*
+     |-------------------------------------------------------------
+     | If description not set or empty, replace with filler
+     |-------------------------------------------------------------
+    */
+    if (!isset($image_alt) || empty($image_alt)) {
+      $image_alt = "No description avalible";
+    }
+  } else {
+    /*
+     |-------------------------------------------------------------
+     | Image was not present
+     |-------------------------------------------------------------
+    */
+    $image_path = "assets/no_image.png";
+    $image_alt = "No image could be found, sowwy";
   }
 
   /*
    |-------------------------------------------------------------
    | Check user privilge
-   |-------------------------------------------------------------
-   | This requires the user to be logged in or an admin
    |-------------------------------------------------------------
   */
   if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
@@ -100,48 +145,39 @@
   } else {
     $privilaged = False;
   }
-
-  include "ui/nav.php";
   ?>
 
   <div class="image-container space-bottom-large">
     <img class='image' id='<?php echo $image['id']; ?>' src='<?php echo $image_path; ?>' alt='<?php echo $image_alt; ?>'>
   </div>
 
+  <?php
+  /*
+   |-------------------------------------------------------------
+   | Start of displaying all info on image
+   |-------------------------------------------------------------
+  */
+  if ($image_present) {
+  ?>
 
   <div class="image-description default-window">
     <h2>Description</h2>
-    <?php
-    // Image Description/Alt
-    if (isset($image_alt) && !empty($image_alt)) {
-      echo "<p>".$image_alt."</p>";
-    } else {
-      echo "<p>No description provided</p>";
-    }
-    ?>
+    <p><?php echo $image_alt; ?></p>
   </div>
 
 
   <div class="image-detail flex-down default-window">
     <h2>Details</h2>
     <?php
-    // Image ID
-    if (isset($image['author'])) {
-      if (isset($user['username'])) {
-        echo "<p>Author: ".$user['username']."</p>";
-      } else {
-        echo "<p>Author: Deleted User</p>";
-      }
-    } else {
-      echo "<p>Author: No author</p>";
-    }
+    // User
+    echo "<p>Author: ".$image_author."</p>";
 
     // Image ID
     echo "<p>ID: ".$image['id']."</p>";
 
     // File name
     if (strlen($image['imagename']) > 30) {
-      echo "<p>File Name: ".trim(substr($image['imagename'], 0, 30))."...</p>";
+      echo "<p>File Name: ".substr($image['imagename'], 0, 30)."...</p>";
     } else {
       echo "<p>File Name: ".$image['imagename']."</p>";
     }
@@ -195,8 +231,8 @@
    |-------------------------------------------------------------
    | Check if user is privilaged,
    |-------------------------------------------------------------
-   | If yes, grant them access to the Danger zone, or "the place that can fuck things up"
-   | Checking is done prior to here
+   | If yes, grant them access to the Danger zone, or "the place
+   | that can fuck things up"
    |-------------------------------------------------------------
   */
   if ($privilaged) {
@@ -337,6 +373,13 @@
   <?php
     }
     echo "</div>";
+  }
+
+  /*
+   |-------------------------------------------------------------
+   | End of displaying all user info
+   |-------------------------------------------------------------
+  */
   }
   ?>
 

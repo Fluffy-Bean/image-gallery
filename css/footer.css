@@ -6,8 +6,7 @@ footer {
 
   width: calc(100vh - 2rem));
 
-  background-color: var(--bg); color: var(--fg);
-  backdrop-filter: blur(8px);
+  background-color: var(--bg-3); color: var(--fg);
 
   border: 0.2rem solid var(--green);
   /*outline: 0.5rem solid var(--bg);*/

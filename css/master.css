@@ -28,7 +28,7 @@
   --white: #E8E3E3;
 
   --shadow: 6px 6px 2px #15151588;
-  --rad: 2px;
+  --rad: 0px;
 
   --square: 33.33%;
 }
@@ -110,8 +110,7 @@ body {
 
   width: auto;
 
-  background-color: var(--bg);
-  backdrop-filter: blur(8px);
+  background-color: var(--bg-3);
 
   /*outline: 0.5rem solid var(--bg);*/
 
@@ -152,8 +151,7 @@ body {
 .gallery-root {
   margin: 0 0 2rem; padding: 0.25rem;
 
-  background-color: var(--bg); color: var(--fg);
-  backdrop-filter: blur(8px);
+  background-color: var(--bg-3); color: var(--fg);
 
   border: 0.2rem solid var(--green);
   /*outline: 0.5rem solid var(--bg);*/
@@ -332,36 +330,6 @@ body {
 /*
   -=-=-= ALERT =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 */
-
-/*
-  Notification system
-
-  This is the notification system used by the website. Probably a little too much for what its used for
-*/
-.notify-root {
-  margin: 0; padding: 0;
-
-  max-width: 621px; width: calc(100% - 2rem);
-  height: auto;
-
-  top: 1rem; left: 50%;
-  transform: translateX(-50%);
-
-  position: fixed; z-index: 999;
-}
-.notify {
-  margin-bottom: 1rem; padding: 0.5rem;
-
-  width: auto;
-
-  text-align: center;
-
-  display: block;
-
-  border-radius: var(--rad);
-  /*outline: 0.5rem solid var(--bg);*/
-}
-
 .alert {
   padding: 0.69rem;
 
@@ -446,51 +414,6 @@ a.btn {
   border: none;
   border-radius: var(--rad);
 }
-
-/*
-  -=-=-= FLYOUT =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*/
-/*.flyout {
-  margin: 0; padding: 0.5rem 0.5rem 1.5rem;
-
-  max-width: 621px; width: calc(100% - 2.5rem + 3px);
-  max-height: 20rem; height: auto; min-height: 10rem;
-
-  bottom: -20rem; left: 50%;
-
-  transform: translateX(-50%) scale(0.8);
-
-  position: fixed; z-index: 99999;
-
-  overflow-y: auto;
-
-  border: 0.2rem solid var(--green);
-  border-bottom: none;
-  border-radius: inherit inherit none none;
-
-  word-wrap: break-word;
-
-  transition: bottom 0.5s cubic-bezier(.19,1,.22,1), transform 0.5s cubic-bezier(.19,1,.22,1);
-}
-
-.flyout-dim {
-  margin: 0; padding: 0;
-
-  width: 100vw; height: 100vh;
-
-  left: 0; top: 0;
-
-  position: fixed; z-index: 99998;
-
-  opacity: 1;
-
-  display: none;
-
-  background: #15151588;
-  backdrop-filter: blur(5px);
-
-  transition: opacity 2s cubic-bezier(.19,1,.22,1);
-}*/
 
 /*
   -=-=-= FONT SIZES =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

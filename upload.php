@@ -33,30 +33,41 @@
     $(document).ready(function() {
       $("#uploadSubmit").submit(function(event) {
         event.preventDefault();
-        // Make form
-        var formData = new FormData();
+        // Check if image avalible
+        var file = $("#image").val();
+        if (file != "") {
+          // Make form
+          var formData = new FormData();
 
-        // Get image
-        var image_data = $("#image").prop("files")[0];
-        formData.append("image", image_data);
-        // Get ALT
-        var alt = $("#alt").val();
-        formData.append("alt", alt);
-        // Get ALT
-        var submit = $("#submit").val();
-        formData.append("submit", submit);
+          // Get image
+          var image_data = $("#image").prop("files")[0];
+          formData.append("image", image_data);
+          // Get ALT
+          var alt = $("#alt").val();
+          formData.append("alt", alt);
+          // Get ALT
+          var submit = $("#submit").val();
+          formData.append("submit", submit);
 
-        // Upload the information
-        $.ajax({
-          url: 'app/image/upload_image.php',
-          type: 'post',
-          data: formData,
-          contentType: false,
-          processData: false,
-          success: function(response){
-            $("#sniffle").html(response);
-          }
-        });
+          // Upload the information
+          $.ajax({
+            url: 'app/image/upload_image.php',
+            type: 'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response){
+              $("#sniffle").html(response);
+            }
+          });
+
+          // Empty values
+          $("#image").val("");
+          $("#alt").val("");
+          $("#submit").val("");
+        } else {
+          sniffleAdd('Gwha!', 'Pls provide image', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/file-search.svg');
+        }
       });
     });
   </script>
