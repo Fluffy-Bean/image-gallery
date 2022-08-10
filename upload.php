@@ -33,10 +33,22 @@
     $(document).ready(function() {
       $("#uploadSubmit").submit(function(event) {
         event.preventDefault();
-        var formData = new FormData(this.form);
+        // Make form
+        var formData = new FormData();
 
+        // Get image
+        var image_data = $("#image").prop("files")[0];
+        formData.append("image", image_data);
+        // Get ALT
+        var alt = $("#alt").val();
+        formData.append("alt", alt);
+        // Get ALT
+        var submit = $("#submit").val();
+        formData.append("submit", submit);
+
+        // Upload the information
         $.ajax({
-          url: "app/image/upload_image.php",
+          url: 'app/image/upload_image.php',
           type: 'post',
           data: formData,
           contentType: false,
@@ -56,7 +68,11 @@
 
   // Check if user is logged in
   if (!loggedin()) {
-    header("Location: index.php");
+    echo "
+    <script>
+      sniffleAdd('Who are you!', 'You must be loggedin to upload things, sowwy!', 'var(--red)', '".$root_dir."assets/icons/cross.svg');
+    </script>
+    ";
   }
   ?>
 
@@ -64,9 +80,9 @@
     <h2 class="space-bottom">Upload image</h2>
     <p>In this world you have 2 choices, to upload a really cute picture of an animal or fursuit, or something other than those 2 things.</p>
     <form id="uploadSubmit" class="flex-down between" method="POST" enctype="multipart/form-data">
-        <input name="image" class="btn alert-default space-bottom" type="file" placeholder="select image UwU">
-        <input name="alt" class="btn alert-default space-bottom-large" type="text" placeholder="Description/Alt for image">
-        <button name="submit" class="btn alert-high" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
+        <input id="image" class="btn alert-default space-bottom" type="file" placeholder="select image UwU">
+        <input id="alt" class="btn alert-default space-bottom-large" type="text" placeholder="Description/Alt for image">
+        <button id="submit" class="btn alert-high" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
     </form>
   </div>
 
