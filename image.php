@@ -6,7 +6,7 @@
   <title>Lynx Gallery</title>
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/master.css">
+	<link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/normalise.css">
 
   <!-- Google Fonts -->
@@ -147,7 +147,7 @@
   }
   ?>
 
-  <div class="image-container space-bottom-large">
+  <div class="image-container">
     <img class='image' id='<?php echo $image['id']; ?>' src='<?php echo $image_path; ?>' alt='<?php echo $image_alt; ?>'>
   </div>
 

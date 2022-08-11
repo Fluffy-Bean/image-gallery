@@ -31,7 +31,9 @@ nav hr {
   opacity: 0;
 }
 
-.nav-name p, .nav-name {
+.nav-name *, .nav-name {
+  margin: 0;
+  
   font-family: "Lexend Deca", sans-serif;
 
   font-size: 22px;
@@ -78,10 +80,10 @@ nav hr {
   }
 
   footer {
-    margin-bottom: 5.5rem !important;
+    margin-bottom: calc(4rem + 3px) !important;
   }
   #back-to-top {
-    bottom: 5.5rem !important;
+    bottom: 5rem !important;
   }
   nav .svg {
     padding: 0.35rem !important;

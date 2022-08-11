@@ -1,0 +1,400 @@
+/*
+ |-------------------------------------------------------------
+ | Sass stylesheet
+ |-------------------------------------------------------------
+ | This is all written by me! Fluffy! This is intended to be
+ | compiled before use, I want to make this autocompile for
+ | ease of use, but you may suffer along with me for now :3
+ |-------------------------------------------------------------
+*/
+:root {
+  --bg: #151515bb;
+  --bg-1: #242621;
+  --bg-2: #1D1E1C;
+  --bg-3: #151515;
+  --fg:#E8E3E3;
+  --fg-dark: #151515;
+  --red: #B66467;
+  --orange: #FF7700;
+  --green: #8C977D;
+  --black: #151515;
+  --white: #E8E3E3;
+  --shadow: 6px 6px 2px #15151588;
+  --rad: 0px;
+  --square: 33.33%;
+}
+
+nav {
+  width: calc(100% - 2.4rem);
+  padding: 0.5rem;
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto 1rem;
+  width: calc(100% - 1.4rem);
+  height: 2.5rem;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 99;
+  top: 1rem;
+  align-items: center;
+  vertical-align: middle;
+}
+nav p {
+  margin: 0;
+  vertical-align: middle;
+}
+nav hr {
+  margin: 0.5rem 0.2rem;
+  padding: 0;
+  opacity: 0;
+}
+
+.nav-name {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 22px;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  font-family: "Secular One", sans-serif;
+  width: auto;
+}
+
+@media (max-width: 800px) {
+  .nav-name {
+    display: none;
+  }
+  .nav-links {
+    width: 100%;
+  }
+}
+@media (max-width: 550px) {
+  nav {
+    margin: 0;
+    width: calc(100% - 1rem);
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #151515;
+    -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+    border: none;
+    border-top: 3px solid #8C977D;
+    border-radius: 0;
+    -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+  }
+  .nav-hide {
+    display: none;
+  }
+  .info-text {
+    text-align: left !important;
+  }
+  footer {
+    margin-bottom: calc(5rem + 3px) !important;
+  }
+  #back-to-top {
+    bottom: 5rem !important;
+  }
+}
+/*
+ |-------------------------------------------------------------
+ | INDEX
+ |-------------------------------------------------------------
+*/
+.info-text {
+  margin: 1rem 0;
+  padding: 0;
+  text-align: center;
+}
+.info-text h1 {
+  font-family: "Lexend Deca", sans-serif;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+.info-text p {
+  font-family: "Secular One", sans-serif;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.gallery-root {
+  padding: 0.25rem;
+  background-color: #151515;
+  color: #E8E3E3;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border: 0.2rem solid #8C977D;
+  border-radius: 0;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+}
+
+.gallery-item {
+  margin: 0.25rem;
+  padding: 0;
+  height: auto;
+  max-width: calc(33.33% - 0.5rem);
+  background-color: #151515;
+  border-radius: 0;
+  position: relative;
+  flex: 1 0 150px;
+  transition: transform 0.15s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.gallery-item:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  z-index: 999;
+}
+.gallery-item:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.gallery-image {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  border-radius: 0;
+}
+
+/*
+ |-------------------------------------------------------------
+ | IMAGE
+ |-------------------------------------------------------------
+*/
+.image-container {
+  margin: 1rem 0 2rem 0;
+  padding: 0;
+  width: 100%;
+  max-height: 69vh;
+  height: auto;
+  display: flex;
+  background-color: #151515;
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  border-radius: 0;
+  transition: max-height 0.15s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@media (max-width: 600px) {
+  .image-container {
+    max-height: 42vh !important;
+  }
+}
+.image {
+  margin: 0 auto;
+  max-width: 100%;
+  width: auto;
+  max-height: inherit;
+  height: auto;
+  border-radius: 0;
+}
+
+footer {
+  width: calc(100% - 2.4rem);
+  padding: 0.5rem;
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 auto !important;
+  bottom: 0;
+  width: calc(100% - 1.4rem);
+}
+footer a {
+  margin: 0.5rem;
+  text-decoration: none;
+  font-family: "Secular One", sans-serif;
+}
+footer a:hover {
+  color: #FF7700;
+}
+
+/*
+ |-------------------------------------------------------------
+ | BODY COMPONENTS
+ |-------------------------------------------------------------
+*/
+html {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  max-width: 100vw;
+  position: relative;
+  background-color: #151515;
+  background-image: url("../assets/bg.svg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  scroll-behavior: smooth;
+  overflow: auto;
+}
+
+body {
+  margin: 0 auto;
+  padding: 1rem;
+  max-width: 1000px;
+  min-height: calc(100vh - 2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+body * {
+  color: #E8E3E3;
+}
+
+/*
+ |-------------------------------------------------------------
+ | BUTTONS
+ |-------------------------------------------------------------
+*/
+.btn {
+  padding: 0.5rem;
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  border-radius: 0;
+  transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.btn:hover {
+  outline: #E8E3E3 3px solid;
+  color: #E8E3E3;
+}
+.btn:where(input[type=file])::-webkit-file-upload-button {
+  margin: -0.5rem 0.5rem -0.5rem -0.5rem;
+  padding: 0.5rem;
+  display: inline-block;
+  font-size: 16px;
+  text-decoration: none;
+  background-color: #E8E3E3;
+  border: none;
+  border-radius: 0;
+}
+.btn:where(input[type=file])::file-selector-button {
+  margin: -0.5rem 0.5rem -0.5rem -0.5rem;
+  padding: 0.5rem;
+  display: inline-block;
+  font-size: 16px;
+  text-decoration: none;
+  background-color: #E8E3E3;
+  border: none;
+  border-radius: 0;
+}
+.btn a {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+/*
+ |-------------------------------------------------------------
+ | FORM
+ |-------------------------------------------------------------
+*/
+form {
+  width: 100%;
+  box-sizing: border-box;
+}
+form * {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/*
+ |-------------------------------------------------------------
+ | IMAGES
+ |-------------------------------------------------------------
+*/
+.image-container {
+  width: 100%;
+  max-height: 69vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgba(21, 21, 21, 0.7333333333);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  border-radius: 0;
+  transition: max-height 0.15s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.svg {
+  margin: 0 0.2rem 0.1rem 0;
+  width: 19px;
+  height: 18px;
+  vertical-align: middle;
+  display: inline;
+}
+
+/*
+ |-------------------------------------------------------------
+ | BACK TO TOP
+ |-------------------------------------------------------------
+*/
+#back-to-top {
+  margin: 0;
+  padding: 0.5rem;
+  position: fixed;
+  z-index: 99;
+  right: -2.5rem;
+  bottom: 1rem;
+  -o-object-position: center;
+     object-position: center;
+  background-color: #151515;
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  border-radius: 50%;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  transition: right 0.15s cubic-bezier(0.19, 1, 0.22, 1);
+}
+#back-to-top:hover {
+  outline: 0.2rem solid #8C977D;
+}
+#back-to-top * {
+  margin: 0;
+  padding: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: block;
+  -o-object-position: center;
+     object-position: center;
+}/*# sourceMappingURL=main.css.map */

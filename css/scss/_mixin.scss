@@ -1,0 +1,30 @@
+@mixin defaultDecoration($border) {
+	width: calc(100% - 2.4rem);
+	
+	padding: 0.5rem;
+
+	background-color: $bg; color: $fg;
+
+	border-radius: $rad;
+
+    border: 0.2rem solid $border;
+
+	box-shadow: $shadow;
+}
+
+@mixin flexDown($justify) {
+	display: flex;
+
+	flex-direction: column;
+
+	justify-content: $justify;
+}
+@mixin flexLeft($justify) {
+	display: flex;
+
+	flex-direction: row;
+
+	flex-wrap: wrap;
+
+	justify-content: $justify;
+}
