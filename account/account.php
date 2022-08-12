@@ -6,7 +6,7 @@
   <title>Lynx Gallery</title>
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="../css/master.css">
+  <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/normalise.css">
 
   <!-- Google Fonts -->
@@ -34,32 +34,32 @@
   include "../ui/nav.php";
   ?>
 
-  <div class="account-root default-window">
+  <div class="account-root">
     <h2>Account settings</h2>
     <?php
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-      echo "<p>O hi ".$_SESSION["username"].".</p>";
-
-      // Join code
+      echo "<br>";
       if ($_SESSION["id"] == 1) {
-        echo "<h3 class='space-top'>Invite Codes</h3>";
+        echo "<h3>Invite Codes</h3>";
         $token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
         while ($token = mysqli_fetch_array($token_request)) {
-            echo "<p class='text-box space-top center alert-default'>".$token['code']."</p>";
+            echo "<p>".$token['code']."</p>";
         }
       }
-
-      echo "<h3 class='space-top'>Danger ahead</h3>";
-      // Reset password
-      echo "<p class='text-box space-top-large center alert-default'>Resetting your password regularly is a good way of keeping your account safe</p>";
-      echo "<a class='btn alert-low space-top-small' href='https://superdupersecteteuploadtest.fluffybean.gay/account/password-reset.php'><img class='svg' src='../assets/icons/password.svg'>Reset Password</a>";
-
-      // Logout
-      echo "<p class='text-box space-top-large center alert-default'>Don't leave! I'm with the science team!</p>";
-      echo "<a class='btn alert-low space-top-small' href='https://superdupersecteteuploadtest.fluffybean.gay/account/logout.php'><img class='svg' src='../assets/icons/sign-out.svg'>Logout</a>";
+      ?>
+      <br>
+      <h3 class='space-top'>Danger ahead</h3>
+      <p>Resetting your password regularly is a good way of keeping your account safe</p>
+      <a class='btn btn-bad' href='https://superdupersecteteuploadtest.fluffybean.gay/account/password-reset.php'><img class='svg' src='../assets/icons/password.svg'>Reset Password</a>
+      <br>
+      <p>Don't leave! I'm with the science team!</p>
+      <a class='btn btn-bad' href='https://superdupersecteteuploadtest.fluffybean.gay/account/logout.php'><img class='svg' src='../assets/icons/sign-out.svg'>Logout</a>
+      <?php
     } else {
-      echo "<p class='space-bottom-large'>You must be logged in to change your account settings!</p>";
-      echo "<a class='btn alert-high space-top-large' href='https://superdupersecteteuploadtest.fluffybean.gay/account/login.php'>Login!</a>";
+      ?>
+      <p>You must be logged in to change your account settings!</p>
+      <a class='btn btn-good' href='https://superdupersecteteuploadtest.fluffybean.gay/account/login.php'>Login!</a>
+      <?php
     }
     ?>
   </div>

@@ -12,25 +12,27 @@
   --bg-1: #242621;
   --bg-2: #1D1E1C;
   --bg-3: #151515;
-  --fg:#E8E3E3;
+  --fg: #E8E3E3;
   --fg-dark: #151515;
   --red: #B66467;
   --orange: #FF7700;
   --green: #8C977D;
   --black: #151515;
   --white: #E8E3E3;
-  --shadow: 6px 6px 2px #15151588;
-  --rad: 0px;
-  --square: 33.33%;
 }
 
+/*
+ |-------------------------------------------------------------
+ | NAVIGATION BAR
+ |-------------------------------------------------------------
+*/
 nav {
   margin-bottom: 1rem;
   padding: 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0;
+  border-radius: 0rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
   display: flex;
@@ -111,6 +113,10 @@ nav .btn {
     -webkit-backdrop-filter: blur(16px);
             backdrop-filter: blur(16px);
   }
+  nav .svg {
+    margin: 0;
+    display: block;
+  }
   .nav-hide {
     display: none;
   }
@@ -134,10 +140,17 @@ nav .btn {
   padding: 0;
   text-align: center;
 }
-.info-text h1, .info-text h2, .info-text h3, .info-text h4, .info-text h5 {
+.info-text h1,
+.info-text h2,
+.info-text h3,
+.info-text h4,
+.info-text h5 {
   font-family: "Lexend Deca", sans-serif;
 }
-.info-text p, .info-text a, .info-text button, .info-text input {
+.info-text p,
+.info-text a,
+.info-text button,
+.info-text input {
   font-family: "Secular One", sans-serif;
 }
 .info-text h1 {
@@ -160,7 +173,7 @@ nav .btn {
   flex-direction: row;
   flex-wrap: wrap;
   border: 0.2rem solid #8C977D;
-  border-radius: 0;
+  border-radius: 0rem;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
 
@@ -170,7 +183,7 @@ nav .btn {
   height: auto;
   max-width: calc(33.33% - 0.5rem);
   background-color: #151515;
-  border-radius: 0;
+  border-radius: -0.5rem;
   position: relative;
   flex: 1 0 150px;
   transition: transform 0.15s cubic-bezier(0.19, 1, 0.22, 1);
@@ -178,7 +191,7 @@ nav .btn {
 .gallery-item:hover {
   transform: scale(1.1) rotate(5deg);
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
-  z-index: 999;
+  z-index: 9;
 }
 .gallery-item:after {
   content: "";
@@ -200,7 +213,7 @@ nav .btn {
      object-fit: cover;
   -o-object-position: center;
      object-position: center;
-  border-radius: 0;
+  border-radius: -0.5rem;
 }
 
 /*
@@ -218,7 +231,7 @@ nav .btn {
   background-color: rgba(21, 21, 21, 0.7333333333);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
-  border-radius: 0;
+  border-radius: 0rem;
   transition: max-height 0.15s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
@@ -233,21 +246,16 @@ nav .btn {
   width: auto;
   max-height: inherit;
   height: auto;
-  border-radius: 0;
+  border-radius: 0rem;
 }
 
-/*
- |-------------------------------------------------------------
- | DESCRIPTION
- |-------------------------------------------------------------
-*/
 .image-description {
   margin-bottom: 1rem;
   padding: 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0;
+  border-radius: 0rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -255,25 +263,27 @@ nav .btn {
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
-.image-description h1, .image-description h2, .image-description h3, .image-description h4, .image-description h5 {
+.image-description h1,
+.image-description h2,
+.image-description h3,
+.image-description h4,
+.image-description h5 {
   font-family: "Lexend Deca", sans-serif;
 }
-.image-description p, .image-description a, .image-description button, .image-description input {
+.image-description p,
+.image-description a,
+.image-description button,
+.image-description input {
   font-family: "Secular One", sans-serif;
 }
 
-/*
- |-------------------------------------------------------------
- | DETAILS
- |-------------------------------------------------------------
-*/
 .image-detail {
   margin-bottom: 1rem;
   padding: 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0;
+  border-radius: 0rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -281,25 +291,27 @@ nav .btn {
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
-.image-detail h1, .image-detail h2, .image-detail h3, .image-detail h4, .image-detail h5 {
+.image-detail h1,
+.image-detail h2,
+.image-detail h3,
+.image-detail h4,
+.image-detail h5 {
   font-family: "Lexend Deca", sans-serif;
 }
-.image-detail p, .image-detail a, .image-detail button, .image-detail input {
+.image-detail p,
+.image-detail a,
+.image-detail button,
+.image-detail input {
   font-family: "Secular One", sans-serif;
 }
 
-/*
- |-------------------------------------------------------------
- | TAGS
- |-------------------------------------------------------------
-*/
 .tags-root {
   margin-bottom: 1rem;
   padding: 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0;
+  border-radius: 0rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -307,10 +319,17 @@ nav .btn {
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
-.tags-root h1, .tags-root h2, .tags-root h3, .tags-root h4, .tags-root h5 {
+.tags-root h1,
+.tags-root h2,
+.tags-root h3,
+.tags-root h4,
+.tags-root h5 {
   font-family: "Lexend Deca", sans-serif;
 }
-.tags-root p, .tags-root a, .tags-root button, .tags-root input {
+.tags-root p,
+.tags-root a,
+.tags-root button,
+.tags-root input {
   font-family: "Secular One", sans-serif;
 }
 
@@ -326,22 +345,17 @@ nav .btn {
   padding: 0.5rem;
   display: block;
   background-color: #8C977D;
-  border-radius: 0;
+  border-radius: 0rem;
   font-family: "Secular One", sans-serif;
 }
 
-/*
- |-------------------------------------------------------------
- | DANGER ZONE
- |-------------------------------------------------------------
-*/
 .danger-zone {
   margin-bottom: 1rem;
   padding: 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0;
+  border-radius: 0rem;
   border: 0.2rem solid #B66467;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -349,20 +363,235 @@ nav .btn {
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
-.danger-zone h1, .danger-zone h2, .danger-zone h3, .danger-zone h4, .danger-zone h5 {
+.danger-zone h1,
+.danger-zone h2,
+.danger-zone h3,
+.danger-zone h4,
+.danger-zone h5 {
   font-family: "Lexend Deca", sans-serif;
 }
-.danger-zone p, .danger-zone a, .danger-zone button, .danger-zone input {
+.danger-zone p,
+.danger-zone a,
+.danger-zone button,
+.danger-zone input {
   font-family: "Secular One", sans-serif;
 }
 
+/*
+ |-------------------------------------------------------------
+ | ABOUT
+ |-------------------------------------------------------------
+*/
+.about-root {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0rem;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+}
+.about-root > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.about-root h1,
+.about-root h2,
+.about-root h3,
+.about-root h4,
+.about-root h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.about-root p,
+.about-root a,
+.about-root button,
+.about-root input {
+  font-family: "Secular One", sans-serif;
+}
+
+/*
+ |-------------------------------------------------------------
+ | UPLOAD
+ |-------------------------------------------------------------
+*/
+.upload-root {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0rem;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+}
+.upload-root > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.upload-root h1,
+.upload-root h2,
+.upload-root h3,
+.upload-root h4,
+.upload-root h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.upload-root p,
+.upload-root a,
+.upload-root button,
+.upload-root input {
+  font-family: "Secular One", sans-serif;
+}
+
+/*
+ |-------------------------------------------------------------
+ | ACCOUNT
+ |-------------------------------------------------------------
+*/
+.account-root {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0rem;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+}
+.account-root > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.account-root h1,
+.account-root h2,
+.account-root h3,
+.account-root h4,
+.account-root h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.account-root p,
+.account-root a,
+.account-root button,
+.account-root input {
+  font-family: "Secular One", sans-serif;
+}
+.account-root p:first-of-type {
+  padding: 0.5rem;
+  background-color: #151515;
+  text-align: center;
+}
+
+/*
+ |-------------------------------------------------------------
+ | SIGNUP
+ |-------------------------------------------------------------
+*/
+.signup-root {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0rem;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+}
+.signup-root > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.signup-root h1,
+.signup-root h2,
+.signup-root h3,
+.signup-root h4,
+.signup-root h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.signup-root p,
+.signup-root a,
+.signup-root button,
+.signup-root input {
+  font-family: "Secular One", sans-serif;
+}
+
+/*
+ |-------------------------------------------------------------
+ | LOGIN
+ |-------------------------------------------------------------
+*/
+.login-root {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0rem;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+}
+.login-root > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.login-root h1,
+.login-root h2,
+.login-root h3,
+.login-root h4,
+.login-root h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.login-root p,
+.login-root a,
+.login-root button,
+.login-root input {
+  font-family: "Secular One", sans-serif;
+}
+
+/*
+ |-------------------------------------------------------------
+ | PASSWORD RESET
+ |-------------------------------------------------------------
+*/
+.password-reset-root {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0rem;
+  border: 0.2rem solid #B66467;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+}
+.password-reset-root > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.password-reset-root h1,
+.password-reset-root h2,
+.password-reset-root h3,
+.password-reset-root h4,
+.password-reset-root h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.password-reset-root p,
+.password-reset-root a,
+.password-reset-root button,
+.password-reset-root input {
+  font-family: "Secular One", sans-serif;
+}
+
+/*
+ |-------------------------------------------------------------
+ | FOOTER
+ |-------------------------------------------------------------
+*/
 footer {
   margin-bottom: 1rem;
   padding: 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0;
+  border-radius: 0rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
   display: flex;
@@ -435,9 +664,8 @@ body * {
   font-weight: 500;
   font-family: "Secular One", sans-serif;
   text-decoration: none;
-  text-align: center;
   border: none;
-  border-radius: 0;
+  border-radius: calc(0rem - (0.5rem + 3px));
   transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .btn:hover {
@@ -445,24 +673,28 @@ body * {
   color: #E8E3E3;
 }
 .btn:where(input[type=file])::-webkit-file-upload-button {
-  margin: -0.5rem 0.5rem -0.5rem -0.5rem;
+  margin: -0.25rem 0.5rem -0.25rem -0.25rem;
   padding: 0.5rem;
   display: inline-block;
   font-size: 16px;
   text-decoration: none;
   background-color: #E8E3E3;
   border: none;
-  border-radius: 0;
+  border-radius: 0rem;
 }
 .btn:where(input[type=file])::file-selector-button {
-  margin: -0.5rem 0.5rem -0.5rem -0.5rem;
+  margin: -0.25rem 0.5rem -0.25rem -0.25rem;
   padding: 0.5rem;
   display: inline-block;
   font-size: 16px;
   text-decoration: none;
   background-color: #E8E3E3;
   border: none;
-  border-radius: 0;
+  border-radius: 0rem;
+}
+
+a.btn {
+  text-align: center;
 }
 
 .btn-good {
@@ -486,6 +718,9 @@ form {
   width: 100%;
   box-sizing: content-box;
 }
+form > * {
+  margin-bottom: 0.5rem;
+}
 
 /*
  |-------------------------------------------------------------
@@ -498,6 +733,16 @@ form {
   height: 18px;
   vertical-align: middle;
   display: inline;
+}
+
+/*
+ |-------------------------------------------------------------
+ | BR / BREAK
+ |-------------------------------------------------------------
+*/
+br {
+  margin: 0;
+  line-height: 0.25rem;
 }
 
 /*

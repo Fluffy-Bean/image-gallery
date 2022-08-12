@@ -1,22 +1,27 @@
+/*
+ |-------------------------------------------------------------
+ | FOOTER
+ |-------------------------------------------------------------
+*/
 footer {
-	@include defaultDecoration($page-accent);
-	@include flexLeft(space-around);
+    @include defaultDecoration($page-accent);
+    @include flexLeft(space-around);
 
-	margin: 0 auto;
+    margin: 0 auto;
 
-	bottom: 0;
+    bottom: 0;
 
-	width: calc(100% - 1.4rem);
-	
-	a {
-		margin: 0.5rem;
+    width: calc(100% - 1.4rem);
 
-		text-decoration: none;
+    a {
+        margin: 0.5rem;
 
-		font-family: $font-body;
+        text-decoration: none;
 
-		&:hover {
-			color: $orange;
-		}
-	}
+        font-family: $font-body;
+
+        &:hover {
+            color: $orange;
+        }
+    }
 }

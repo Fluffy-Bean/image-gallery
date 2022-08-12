@@ -1,89 +1,113 @@
+/*
+ |-------------------------------------------------------------
+ | NAVIGATION BAR
+ |-------------------------------------------------------------
+*/
 nav {
-	@include defaultDecoration($page-accent);
-	@include flexLeft(space-between);
+    @include defaultDecoration($page-accent);
+    @include flexLeft(space-between);
 
-	margin: 0 auto 1rem;
+    margin: 0 auto 1rem;
 
-	width: calc(100% - 1.4rem); height: 2.5rem;
+    width: calc(100% - 1.4rem);
+    height: 2.5rem;
 
-	position: sticky; z-index: 99;
-	top: 1rem;
+    position: sticky;
+    z-index: 99;
+    top: 1rem;
 
-	align-items: center;
-	vertical-align: middle;
+    align-items: center;
+    vertical-align: middle;
 
-	p {
-		margin: 0;
-		vertical-align: middle;
-	}
-	hr {
-		margin: 0.5rem 0.2rem; padding: 0;
-		opacity: 0;
-	}
-	.btn {
-		width: auto;
-	}
+    p {
+        margin: 0;
+        vertical-align: middle;
+    }
+
+    hr {
+        margin: 0.5rem 0.2rem;
+        padding: 0;
+        opacity: 0;
+    }
+
+    .btn {
+        width: auto;
+    }
 }
 
 .nav-name {
-	@include flexLeft(space-around);
+    @include flexLeft(space-around);
 
-	margin: 0;
+    margin: 0;
 
-	font-family: $font-header;
-  
-	font-size: 22px;
-  
-	display: block;
+    font-family: $font-header;
+
+    font-size: 22px;
+
+    display: block;
 }
+
 .nav-links {
-	@include flexLeft(space-around);
+    @include flexLeft(space-around);
 
-	margin: 0;
+    margin: 0;
 
-	font-family: $font-body;
+    font-family: $font-body;
 
-	width: auto;
+    width: auto;
 }
 
 @media (max-width: 800px) {
-	.nav-name {
-		display: none;
-	}
-	.nav-links {
-		width: 100%;
-	}
+    .nav-name {
+        display: none;
+    }
+
+    .nav-links {
+        width: 100%;
+    }
 }
 
 @media (max-width: 550px) {
-	nav {
-		margin: 0;
-  
-		width: calc(100% - 1rem);
-  
-		position: fixed;
-		top: auto; bottom: 0; left: 0; right: 0;
-  
-		background-color: $bg-alt;
-		backdrop-filter: blur(8px);
-  
-		border: none;
-		border-top: 3px solid $green;
-		border-radius: 0;
-  
-		backdrop-filter: blur(16px);
-	}
-	.nav-hide {
-		display: none;
-	}
-  
-	.info-text {
-		text-align: left !important;
-	}
-	footer {
-		margin-bottom: 4rem !important;
-	}
-	#back-to-top {
-		bottom: 5rem !important;
-	}
+    nav {
+        margin: 0;
+
+        width: calc(100% - 1rem);
+
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        background-color: $bg-alt;
+        backdrop-filter: blur(8px);
+
+        border: none;
+        border-top: 3px solid $green;
+        border-radius: 0;
+
+        backdrop-filter: blur(16px);
+
+        .svg {
+            margin: 0;
+
+            display: block;
+        }
+    }
+
+    .nav-hide {
+        display: none;
+    }
+
+    .info-text {
+        text-align: left !important;
+    }
+
+    footer {
+        margin-bottom: 4rem !important;
+    }
+
+    #back-to-top {
+        bottom: 5rem !important;
+    }
 }

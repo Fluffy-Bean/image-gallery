@@ -4,82 +4,93 @@
  |-------------------------------------------------------------
 */
 .info-text {
-	@include defaultFont();
+    @include defaultFont();
 
-	margin: 1rem 0 1rem 0.5rem; padding: 0;
+    margin: 1rem 0 1rem 0.5rem;
+    padding: 0;
 
-	text-align: center;
+    text-align: center;
 
-	h1 {
-		font-family: $font-header;
+    h1 {
+        font-family: $font-header;
 
-		margin-top: 0;
-		margin-bottom: 1rem;
-	}
-	p {
-		font-family: $font-body;
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
 
-		margin-top: 0;
-		margin-bottom: 1rem;
-	}
+    p {
+        font-family: $font-body;
+
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
 }
 
 .gallery-root {
-	margin-bottom: 1rem; padding: 0.25rem;
-  
-	background-color: $bg; color: $fg;
+    margin-bottom: 1rem;
+    padding: 0.25rem;
 
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-  
-	border: 0.2rem solid $green;
-  
-	border-radius: $rad;
-	box-shadow: $shadow;
+    background-color: $bg;
+    color: $fg;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    border: 0.2rem solid $green;
+
+    border-radius: $rad;
+    box-shadow: $shadow;
 }
 
 .gallery-item {
-	margin: 0.25rem; padding: 0;
-  
-	height: auto; max-width: calc(33.33% - 0.5rem);
-  
-	background-color: $bg;
-	border-radius: $rad;
-  
-	position: relative;
-  
-	flex: 1 0 150px;
-  
-	transition: transform 0.15s cubic-bezier(.19,1,.22,1);
+    margin: 0.25rem;
+    padding: 0;
 
-	&:hover {
-		transform: scale(1.1) rotate(5deg);
-		box-shadow: $shadow;
-	  
-		z-index: 999;
-	}
+    height: auto;
+    max-width: calc(33.33% - 0.5rem);
 
-	&:after {
-		content: "";
-		display: block;
-		padding-bottom: 100%;
-	}
+    background-color: $bg;
+    border-radius: calc($rad - 0.5rem);
+
+    position: relative;
+
+    flex: 1 0 150px;
+
+    transition: transform 0.15s cubic-bezier(.19, 1, .22, 1);
+
+    &:hover {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: $shadow;
+
+        z-index: 9;
+    }
+
+    &:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+    }
 }
 
 .gallery-image {
-	margin: 0; padding: 0;
-  
-	width: 100%; height: 100%;
-  
-	top: 0; bottom: 0; left: 0; right: 0;
-  
-	position: absolute;
-  
-	object-fit: cover;
-	object-position: center;
-  
-	border-radius: $rad;
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    position: absolute;
+
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: calc($rad - 0.5rem);
 }
 
 /*
@@ -88,87 +99,146 @@
  |-------------------------------------------------------------
 */
 .image-container {
-	margin: 1rem 0 2rem 0; padding: 0;
+    margin: 1rem 0 2rem 0;
+    padding: 0;
 
-	width: 100%;
-	max-height: 69vh; height: auto;
+    width: 100%;
+    max-height: 69vh;
+    height: auto;
 
-	display: flex;
-  
-	background-color: $bg-alt;
-	backdrop-filter: blur(8px);
-  
-	border-radius: $rad;
-  
-	transition: max-height 0.15s cubic-bezier(.19,1,.22,1);
+    display: flex;
+
+    background-color: $bg-alt;
+    backdrop-filter: blur(8px);
+
+    border-radius: $rad;
+
+    transition: max-height 0.15s cubic-bezier(.19, 1, .22, 1);
 }
 
 @media (max-width: 600px) {
-	.image-container {
-		max-height: 42vh;
-	}
+    .image-container {
+        max-height: 42vh;
+    }
 }
 
 .image {
-	margin: 0 auto;
+    margin: 0 auto;
 
-	max-width: 100%; width: auto;
-	max-height: inherit; height: auto;
+    max-width: 100%;
+    width: auto;
+    max-height: inherit;
+    height: auto;
 
-	border-radius: $rad;
+    border-radius: $rad;
 }
 
-/*
- |-------------------------------------------------------------
- | DESCRIPTION
- |-------------------------------------------------------------
-*/
+// DESCRIPTION
 .image-description {
-	@include defaultDecoration($green);
-	@include defaultFont();
+    @include defaultDecoration($green);
+    @include defaultFont();
 }
 
 
-/*
- |-------------------------------------------------------------
- | DETAILS
- |-------------------------------------------------------------
-*/
+// DETAILS
 .image-detail {
-	@include defaultDecoration($green);
-	@include defaultFont();
+    @include defaultDecoration($green);
+    @include defaultFont();
 }
 
-/*
- |-------------------------------------------------------------
- | TAGS
- |-------------------------------------------------------------
-*/
+// TAGS
 .tags-root {
-	@include defaultDecoration($green);
-	@include defaultFont();
+    @include defaultDecoration($green);
+    @include defaultFont();
 }
+
 .tags {
-	@include flexLeft(auto);
+    @include flexLeft(auto);
 }
+
 .tag {
-	margin: 0.25rem; padding: 0.5rem;
+    margin: 0.25rem;
+    padding: 0.5rem;
 
-	display: block;
+    display: block;
 
-	background-color: $page-accent;
+    background-color: $page-accent;
 
-	border-radius: $rad;
+    border-radius: $rad;
 
-	font-family: $font-body;
+    font-family: $font-body;
+}
+
+// DANGER ZONE
+.danger-zone {
+    @include defaultDecoration($red);
+    @include defaultFont();
 }
 
 /*
  |-------------------------------------------------------------
- | DANGER ZONE
+ | ABOUT
  |-------------------------------------------------------------
 */
-.danger-zone {
-	@include defaultDecoration($red);
-	@include defaultFont();
+.about-root {
+    @include defaultDecoration($green);
+    @include defaultFont();
+}
+
+/*
+ |-------------------------------------------------------------
+ | UPLOAD
+ |-------------------------------------------------------------
+*/
+.upload-root {
+    @include defaultDecoration($green);
+    @include defaultFont();
+}
+
+/*
+ |-------------------------------------------------------------
+ | ACCOUNT
+ |-------------------------------------------------------------
+*/
+.account-root {
+    @include defaultDecoration($green);
+    @include defaultFont();
+
+	p:first-of-type {
+		padding: 0.5rem;
+
+		background-color: $black;
+
+		text-align: center;
+	}
+}
+
+/*
+ |-------------------------------------------------------------
+ | SIGNUP
+ |-------------------------------------------------------------
+*/
+.signup-root {
+    @include defaultDecoration($green);
+    @include defaultFont();
+}
+
+/*
+ |-------------------------------------------------------------
+ | LOGIN
+ |-------------------------------------------------------------
+*/
+.login-root {
+    @include defaultDecoration($green);
+    @include defaultFont();
+}
+
+/*
+ |-------------------------------------------------------------
+ | PASSWORD RESET
+ |-------------------------------------------------------------
+*/
+.password-reset-root {
+    @include defaultDecoration($red);
+    @include defaultFont();
 }

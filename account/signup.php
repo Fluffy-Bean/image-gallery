@@ -6,7 +6,7 @@
   <title>Lynx Gallery</title>
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="../css/master.css">
+  <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/normalise.css">
 
   <!-- Google Fonts -->
@@ -175,27 +175,19 @@
   }
   ?>
 
-  <div class="alert-banner">
-    <?php
-    if (isset($error)) {
-      echo notify($error, "low");
-    }
-    if (isset($success)) {
-      echo notify($success, "hight");
-    }
-    ?>
-    <script src='../scripts/alert.js'></script>
-  </div>
-
-  <div class="signup-root default-window">
-    <h2 class="space-bottom">Make account</h2>
-    <p class="space-bottom">And amazing things happened here...</p>
-    <form class="flex-down between" method="POST" action="signup.php" enctype="multipart/form-data">
-      <input class="btn alert-default space-bottom-large" type="text" name="username" placeholder="Username">
-      <input class="btn alert-default space-bottom" type="password" name="password" placeholder="Password">
-      <input class="btn alert-default space-bottom-large" type="password" name="confirm_password" placeholder="Re-enter Password">
-      <input class="btn alert-default space-bottom-large" type="text" name="token" placeholder="Invite Code">
-      <button class="btn alert-high" type="submit" name="signup"><img class="svg" src="../assets/icons/sign-in.svg">Sign Up</button>
+  <div class="signup-root">
+    <h2>Make account</h2>
+    <p>And amazing things happened here...</p>
+    <br>
+    <form method="POST" action="signup.php" enctype="multipart/form-data">
+      <input class="btn btn-neutral" type="text" name="username" placeholder="Username">
+      <br>
+      <input class="btn btn-neutral" type="password" name="password" placeholder="Password">
+      <input class="btn btn-neutral" type="password" name="confirm_password" placeholder="Re-enter Password">
+      <br>
+      <input class="btn btn-neutral" type="text" name="token" placeholder="Invite Code">
+      <br>
+      <button class="btn btn-good" type="submit" name="signup"><img class="svg" src="../assets/icons/sign-in.svg">Sign Up</button>
     </form>
   </div>
 

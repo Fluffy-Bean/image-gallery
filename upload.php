@@ -6,7 +6,7 @@
   <title>Lynx Gallery</title>
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/master.css">
+  <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/normalise.css">
 
   <!-- Google Fonts -->
@@ -87,13 +87,15 @@
   }
   ?>
 
-  <div class="upload-root default-window">
-    <h2 class="space-bottom">Upload image</h2>
+  <div class="upload-root">
+    <h2>Upload image</h2>
     <p>In this world you have 2 choices, to upload a really cute picture of an animal or fursuit, or something other than those 2 things.</p>
+    <br>
     <form id="uploadSubmit" class="flex-down between" method="POST" enctype="multipart/form-data">
-        <input id="image" class="btn alert-default space-bottom" type="file" placeholder="select image UwU">
-        <input id="alt" class="btn alert-default space-bottom-large" type="text" placeholder="Description/Alt for image">
-        <button id="submit" class="btn alert-high" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
+        <input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
+        <input id="alt" class="btn btn-neutral" type="text" placeholder="Description/Alt for image">
+        <br>
+        <button id="submit" class="btn btn-good" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
     </form>
   </div>
 

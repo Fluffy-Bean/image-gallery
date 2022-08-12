@@ -6,7 +6,7 @@
   <title>Lynx Gallery</title>
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="../css/master.css">
+  <link rel="stylesheet" href="../css/main.css">
   <link rel="stylesheet" href="../css/normalise.css">
 
   <!-- Google Fonts -->
@@ -83,33 +83,20 @@
         } else {
           $error = "Oopsie woopsie, somthing brokie :c";
         }
-
-        // Close connection
-        mysqli_close($stmt);
       }
     }
-
-    // Close connection
-    mysqli_close($conn);
   }
   ?>
 
-  <div class="alert-banner">
-    <?php
-    if (isset($error)) {
-      echo notify($error, "low");
-    }
-    ?>
-    <script src='../scripts/alert.js'></script>
-  </div>
-
-  <div class="password-reset-root default-window">
-    <h2 class="space-bottom">Reset Password</h2>
-    <p class="space-bottom">After reset, you will be kicked out to login again</p>
-    <form class="flex-down between" method="POST" action="password-reset.php" enctype="multipart/form-data">
-      <input class="btn alert-default space-bottom" type="password" name="new_password" placeholder="New Password">
-      <input class="btn alert-default space-bottom" type="password" name="confirm_password" placeholder="Confirm Password">
-      <button class="btn alert-low" type="submit" name="reset"><img class="svg" src="../assets/icons/sign-in.svg">Reset</button>
+  <div class="password-reset-root">
+    <h2>Reset Password</h2>
+    <p>After reset, you will be kicked out to login again</p>
+    <br>
+    <form method="POST" action="password-reset.php" enctype="multipart/form-data">
+      <input class="btn btn-neutral" type="password" name="new_password" placeholder="New Password">
+      <input class="btn btn-neutral" type="password" name="confirm_password" placeholder="Confirm Password">
+      <br>
+      <button class="btn btn-bad" type="submit" name="reset"><img class="svg" src="../assets/icons/sign-in.svg">Reset</button>
     </form>
   </div>
 
