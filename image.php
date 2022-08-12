@@ -192,8 +192,10 @@
     // Image Upload date
     echo "<p>Last updated: +0 ".$image['upload']."</p>";
 
+    echo "<br>";
+
     // Image download
-    echo "<a class='btn alert-high space-top' href='images/".$image['imagename']."' download='".$image['imagename']."'><img class='svg' src='assets/icons/download.svg'>Download image</a>";
+    echo "<a class='btn btn-good' href='images/".$image['imagename']."' download='".$image['imagename']."'><img class='svg' src='assets/icons/download.svg'>Download image</a>";
 
     // Copy image
     ?>
@@ -205,19 +207,19 @@
       }
     </script>
     <?php
-    echo "<button class='btn alert-high space-top-small' onclick='copyLink()'><img class='svg' src='assets/icons/clipboard-text.svg'>Copy image link</button>";
+    echo "<button class='btn btn-good' onclick='copyLink()'><img class='svg' src='assets/icons/clipboard-text.svg'>Copy image link</button>";
     ?>
   </div>
 
   <div class="tags-root default-window">
     <h2>Tags</h2>
-    <div class="tags flex-left">
+    <div class="tags">
       <?php
       // Get image tags
       if (isset($image['tags']) && !empty($image['tags'])) {
         $image_tags_array = explode(" ", $image['tags']);
         foreach ($image_tags_array as $tag) {
-          echo "<p class='tag alert-high'><img class='svg' src='assets/icons/tag.svg'>".$tag."</p>";
+          echo "<p class='tag btn-good'><img class='svg' src='assets/icons/tag.svg'>".$tag."</p>";
         }
       } else {
         echo "<p>No tags present</p>";
@@ -249,13 +251,13 @@
      | I cannot describe the anxiety this gives me. pls help
      |-------------------------------------------------------------
     -->
-    <button id='deleteButton' class='btn alert-low'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
+    <button id='deleteButton' class='btn btn-bad'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>
     <script>
       $('#deleteButton').click(function() {
         var header = "Are you sure?";
         var description = "Deleting this image is pernament, there is no going back after this!!!!!";
         var actionBox = "<form id='deleteConfirm' method='POST'>\
-        <button id='deleteSubmit' class='btn alert-low' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>\
+        <button id='deleteSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>\
         </form>";
         flyoutShow(header, description, actionBox);
 
@@ -279,14 +281,14 @@
      | TO FIGURE OUT. i hate js.
      |-------------------------------------------------------------
     -->
-    <button id='descriptionButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/edit.svg'>Edit description</button>
+    <button id='descriptionButton' class='btn btn-bad'><img class='svg' src='assets/icons/edit.svg'>Edit description</button>
     <script>
       $('#descriptionButton').click(function() {
         var header = "Enter new Description/Alt";
         var description = "Whatcha gonna put in there 👀";
         var actionBox = "<form id='descriptionConfirm' action='app/image/edit_description.php' method='POST'>\
-        <input id='descriptionInput' class='btn alert-default space-bottom' type='text' placeholder='Description/Alt for image'>\
-        <button id='descriptionSubmit' class='btn alert-low' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
+        <input id='descriptionInput' class='btn btn-neutral space-bottom' type='text' placeholder='Description/Alt for image'>\
+        <button id='descriptionSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
         </form>";
         flyoutShow(header, description, actionBox);
 
@@ -313,14 +315,14 @@
      | anyone cry. I am so sorry.
      |-------------------------------------------------------------
     -->
-    <button id='tagsButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/tag.svg'>Add image tags</button>
+    <button id='tagsButton' class='btn btn-bad'><img class='svg' src='assets/icons/tag.svg'>Add image tags</button>
     <script>
       $('#tagsButton').click(function() {
         var header = "Tags";
         var description = "Add image tags here! This is still being tested so your tags may be removed later on. Tags ONLY accept, letters, numbers and underscores. Hyphens will be stitched to underscores and spaces will seperate the different tags from eachother";
         var actionBox = "<form id='tagsConfirm' action='app/image/edit_tags.php' method='POST'>\
-        <input id='tagsInput' class='btn alert-default space-bottom' type='text' placeholder='Tags are seperated by spaces'>\
-        <button id='tagsSubmit' class='btn alert-low' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit tags</button>\
+        <input id='tagsInput' class='btn btn-neutral space-bottom' type='text' placeholder='Tags are seperated by spaces'>\
+        <button id='tagsSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit tags</button>\
         </form>";
         flyoutShow(header, description, actionBox);
 
@@ -347,14 +349,14 @@
   <?php
     if (is_admin($_SESSION['id'])) {
   ?>
-      <button id='authorButton' class='btn alert-low space-top-small'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
+      <button id='authorButton' class='btn btn-bad'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
       <script>
         $('#authorButton').click(function() {
           var header = "Who owns the image?????";
           var description = "Enter ID of image owner";
           var actionBox = "<form id='authorConfirm' action='app/image/edit_author.php' method='POST'>\
-          <input id='authorInput' class='btn alert-default space-bottom' type='text' placeholder='le author'>\
-          <button id='authorSubmit' class='btn alert-low' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>\
+          <input id='authorInput' class='btn btn-neutral space-bottom' type='text' placeholder='le author'>\
+          <button id='authorSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>\
           </form>";
           flyoutShow(header, description, actionBox);
 

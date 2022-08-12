@@ -63,12 +63,17 @@ body {
 .btn {
 	padding: 0.5rem;
 
+	width: 100%;
+
 	display: block;
+	box-sizing: border-box;
 
 	font-size: 16px;
 	font-weight: 500;
+	font-family: $font-body;
 
 	text-decoration: none;
+	text-align: center;
 
 	border: none;
 	border-radius: $rad;
@@ -95,47 +100,32 @@ body {
 		border: none;
 		border-radius: $rad;
 	}
-
-	a {
-		margin-bottom: 0;
-		text-align: center;
-	}
+}
+.btn-good {
+	background-color: $green;
+}
+.btn-bad {
+	background-color: $red;
+}
+.btn-neutral {
+	background-color: $black;
 }
 
 /*
  |-------------------------------------------------------------
- | FORM
+ | FORM SIZING
  |-------------------------------------------------------------
 */
 form {
 	width: 100%;
-	box-sizing: border-box;
-
-	* {
-		width: 100%;
-		box-sizing: border-box;
-	}
+	box-sizing: content-box;
 }
 
 /*
  |-------------------------------------------------------------
- | IMAGES
+ | SVG
  |-------------------------------------------------------------
 */
-.image-container {
-    width: 100%;
-    max-height: 69vh; height: auto;
-
-    @include flexDown(space-between);
-
-    background-color: $bg-alt;
-    backdrop-filter: blur(8px);
-
-    border-radius: $rad;
-
-    transition: max-height 0.15s cubic-bezier(.19,1,.22,1);
-}
-
 .svg {
 	margin: 0 0.2rem 0.1rem 0;
 

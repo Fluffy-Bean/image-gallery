@@ -25,8 +25,9 @@
 }
 
 nav {
-  width: calc(100% - 2.4rem);
+  margin-bottom: 1rem;
   padding: 0.5rem;
+  width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
   border-radius: 0;
@@ -46,6 +47,10 @@ nav {
   align-items: center;
   vertical-align: middle;
 }
+nav > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
 nav p {
   margin: 0;
   vertical-align: middle;
@@ -54,6 +59,9 @@ nav hr {
   margin: 0.5rem 0.2rem;
   padding: 0;
   opacity: 0;
+}
+nav .btn {
+  width: auto;
 }
 
 .nav-name {
@@ -72,6 +80,7 @@ nav hr {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+  margin: 0;
   font-family: "Secular One", sans-serif;
   width: auto;
 }
@@ -93,7 +102,7 @@ nav hr {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #151515;
+    background-color: rgba(21, 21, 21, 0.7333333333);
     -webkit-backdrop-filter: blur(8px);
             backdrop-filter: blur(8px);
     border: none;
@@ -109,7 +118,7 @@ nav hr {
     text-align: left !important;
   }
   footer {
-    margin-bottom: calc(5rem + 3px) !important;
+    margin-bottom: 4rem !important;
   }
   #back-to-top {
     bottom: 5rem !important;
@@ -121,13 +130,19 @@ nav hr {
  |-------------------------------------------------------------
 */
 .info-text {
-  margin: 1rem 0;
+  margin: 1rem 0 1rem 0.5rem;
   padding: 0;
   text-align: center;
 }
+.info-text h1, .info-text h2, .info-text h3, .info-text h4, .info-text h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.info-text p, .info-text a, .info-text button, .info-text input {
+  font-family: "Secular One", sans-serif;
+}
 .info-text h1 {
   font-family: "Lexend Deca", sans-serif;
-  margin-top: 0.5rem;
+  margin-top: 0;
   margin-bottom: 1rem;
 }
 .info-text p {
@@ -137,6 +152,7 @@ nav hr {
 }
 
 .gallery-root {
+  margin-bottom: 1rem;
   padding: 0.25rem;
   background-color: #151515;
   color: #E8E3E3;
@@ -199,7 +215,7 @@ nav hr {
   max-height: 69vh;
   height: auto;
   display: flex;
-  background-color: #151515;
+  background-color: rgba(21, 21, 21, 0.7333333333);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
   border-radius: 0;
@@ -208,7 +224,7 @@ nav hr {
 
 @media (max-width: 600px) {
   .image-container {
-    max-height: 42vh !important;
+    max-height: 42vh;
   }
 }
 .image {
@@ -220,9 +236,130 @@ nav hr {
   border-radius: 0;
 }
 
-footer {
-  width: calc(100% - 2.4rem);
+/*
+ |-------------------------------------------------------------
+ | DESCRIPTION
+ |-------------------------------------------------------------
+*/
+.image-description {
+  margin-bottom: 1rem;
   padding: 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+}
+.image-description > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.image-description h1, .image-description h2, .image-description h3, .image-description h4, .image-description h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.image-description p, .image-description a, .image-description button, .image-description input {
+  font-family: "Secular One", sans-serif;
+}
+
+/*
+ |-------------------------------------------------------------
+ | DETAILS
+ |-------------------------------------------------------------
+*/
+.image-detail {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+}
+.image-detail > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.image-detail h1, .image-detail h2, .image-detail h3, .image-detail h4, .image-detail h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.image-detail p, .image-detail a, .image-detail button, .image-detail input {
+  font-family: "Secular One", sans-serif;
+}
+
+/*
+ |-------------------------------------------------------------
+ | TAGS
+ |-------------------------------------------------------------
+*/
+.tags-root {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+}
+.tags-root > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.tags-root h1, .tags-root h2, .tags-root h3, .tags-root h4, .tags-root h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.tags-root p, .tags-root a, .tags-root button, .tags-root input {
+  font-family: "Secular One", sans-serif;
+}
+
+.tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: auto;
+}
+
+.tag {
+  margin: 0.25rem;
+  padding: 0.5rem;
+  display: block;
+  background-color: #8C977D;
+  border-radius: 0;
+  font-family: "Secular One", sans-serif;
+}
+
+/*
+ |-------------------------------------------------------------
+ | DANGER ZONE
+ |-------------------------------------------------------------
+*/
+.danger-zone {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0;
+  border: 0.2rem solid #B66467;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+}
+.danger-zone > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.danger-zone h1, .danger-zone h2, .danger-zone h3, .danger-zone h4, .danger-zone h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.danger-zone p, .danger-zone a, .danger-zone button, .danger-zone input {
+  font-family: "Secular One", sans-serif;
+}
+
+footer {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
   border-radius: 0;
@@ -232,9 +369,13 @@ footer {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 0 auto !important;
+  margin: 0 auto;
   bottom: 0;
   width: calc(100% - 1.4rem);
+}
+footer > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
 }
 footer a {
   margin: 0.5rem;
@@ -287,10 +428,14 @@ body * {
 */
 .btn {
   padding: 0.5rem;
+  width: 100%;
   display: block;
+  box-sizing: border-box;
   font-size: 16px;
   font-weight: 500;
+  font-family: "Secular One", sans-serif;
   text-decoration: none;
+  text-align: center;
   border: none;
   border-radius: 0;
   transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
@@ -319,44 +464,34 @@ body * {
   border: none;
   border-radius: 0;
 }
-.btn a {
-  margin-bottom: 0;
-  text-align: center;
+
+.btn-good {
+  background-color: #8C977D;
+}
+
+.btn-bad {
+  background-color: #B66467;
+}
+
+.btn-neutral {
+  background-color: #151515;
 }
 
 /*
  |-------------------------------------------------------------
- | FORM
+ | FORM SIZING
  |-------------------------------------------------------------
 */
 form {
   width: 100%;
-  box-sizing: border-box;
-}
-form * {
-  width: 100%;
-  box-sizing: border-box;
+  box-sizing: content-box;
 }
 
 /*
  |-------------------------------------------------------------
- | IMAGES
+ | SVG
  |-------------------------------------------------------------
 */
-.image-container {
-  width: 100%;
-  max-height: 69vh;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: rgba(21, 21, 21, 0.7333333333);
-  -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
-  border-radius: 0;
-  transition: max-height 0.15s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
 .svg {
   margin: 0 0.2rem 0.1rem 0;
   width: 19px;

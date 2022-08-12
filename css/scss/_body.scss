@@ -4,14 +4,16 @@
  |-------------------------------------------------------------
 */
 .info-text {
-	margin: 1rem 0; padding: 0;
+	@include defaultFont();
+
+	margin: 1rem 0 1rem 0.5rem; padding: 0;
 
 	text-align: center;
 
 	h1 {
 		font-family: $font-header;
 
-		margin-top: 0.5rem;
+		margin-top: 0;
 		margin-bottom: 1rem;
 	}
 	p {
@@ -23,7 +25,7 @@
 }
 
 .gallery-root {
-	padding: 0.25rem;
+	margin-bottom: 1rem; padding: 0.25rem;
   
 	background-color: $bg; color: $fg;
 
@@ -93,7 +95,7 @@
 
 	display: flex;
   
-	background-color: $bg;
+	background-color: $bg-alt;
 	backdrop-filter: blur(8px);
   
 	border-radius: $rad;
@@ -103,10 +105,10 @@
 
 @media (max-width: 600px) {
 	.image-container {
-		max-height: 42vh !important;
+		max-height: 42vh;
 	}
 }
-  
+
 .image {
 	margin: 0 auto;
 
@@ -114,4 +116,59 @@
 	max-height: inherit; height: auto;
 
 	border-radius: $rad;
+}
+
+/*
+ |-------------------------------------------------------------
+ | DESCRIPTION
+ |-------------------------------------------------------------
+*/
+.image-description {
+	@include defaultDecoration($green);
+	@include defaultFont();
+}
+
+
+/*
+ |-------------------------------------------------------------
+ | DETAILS
+ |-------------------------------------------------------------
+*/
+.image-detail {
+	@include defaultDecoration($green);
+	@include defaultFont();
+}
+
+/*
+ |-------------------------------------------------------------
+ | TAGS
+ |-------------------------------------------------------------
+*/
+.tags-root {
+	@include defaultDecoration($green);
+	@include defaultFont();
+}
+.tags {
+	@include flexLeft(auto);
+}
+.tag {
+	margin: 0.25rem; padding: 0.5rem;
+
+	display: block;
+
+	background-color: $page-accent;
+
+	border-radius: $rad;
+
+	font-family: $font-body;
+}
+
+/*
+ |-------------------------------------------------------------
+ | DANGER ZONE
+ |-------------------------------------------------------------
+*/
+.danger-zone {
+	@include defaultDecoration($red);
+	@include defaultFont();
 }

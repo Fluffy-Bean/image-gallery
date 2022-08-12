@@ -20,6 +20,9 @@ nav {
 		margin: 0.5rem 0.2rem; padding: 0;
 		opacity: 0;
 	}
+	.btn {
+		width: auto;
+	}
 }
 
 .nav-name {
@@ -35,6 +38,8 @@ nav {
 }
 .nav-links {
 	@include flexLeft(space-around);
+
+	margin: 0;
 
 	font-family: $font-body;
 
@@ -59,7 +64,7 @@ nav {
 		position: fixed;
 		top: auto; bottom: 0; left: 0; right: 0;
   
-		background-color: $bg;
+		background-color: $bg-alt;
 		backdrop-filter: blur(8px);
   
 		border: none;
@@ -76,7 +81,7 @@ nav {
 		text-align: left !important;
 	}
 	footer {
-		margin-bottom: calc(5rem + 3px) !important;
+		margin-bottom: 4rem !important;
 	}
 	#back-to-top {
 		bottom: 5rem !important;
