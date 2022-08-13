@@ -1,5 +1,3 @@
-<?php include "ui/required.php"; ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +29,10 @@
   <link rel='stylesheet' href='Flyout/flyout.css'>
 </head>
 <body>
-  <?php include "ui/nav.php"; ?>
+  <?php
+  include "ui/required.php";
+  include "ui/nav.php";
+  ?>
 
   <div class="about-root">
     <h2 id="about">What is Fluffys Amazing Gallery?</h2>

@@ -578,6 +578,39 @@ nav .btn {
 
 /*
  |-------------------------------------------------------------
+ | SEARCH
+ |-------------------------------------------------------------
+*/
+.search-root {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0rem;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+}
+.search-root > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.search-root h1,
+.search-root h2,
+.search-root h3,
+.search-root h4,
+.search-root h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.search-root p,
+.search-root a,
+.search-root button,
+.search-root input {
+  font-family: "Secular One", sans-serif;
+}
+
+/*
+ |-------------------------------------------------------------
  | FOOTER
  |-------------------------------------------------------------
 */

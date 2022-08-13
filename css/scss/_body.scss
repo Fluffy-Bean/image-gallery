@@ -235,3 +235,13 @@
     @include defaultDecoration($red);
     @include defaultFont();
 }
+
+/*
+ |-------------------------------------------------------------
+ | SEARCH
+ |-------------------------------------------------------------
+*/
+.search-root {
+    @include defaultDecoration($green);
+    @include defaultFont();
+}
