@@ -83,7 +83,7 @@ body {
     transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
 
     &:hover {
-        outline: $white 3px solid;
+        outline: $white 0.2rem solid;
         color: $fg;
     }
 
@@ -177,7 +177,7 @@ br {
 
     object-position: center;
 
-    background-color: $bg;
+    background-color: $bg-alt;
     backdrop-filter: blur(8px);
 
     border-radius: 50%;

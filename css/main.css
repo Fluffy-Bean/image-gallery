@@ -338,10 +338,11 @@ nav .btn {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: auto;
+  margin-bottom: 0;
 }
 
 .tag {
-  margin: 0.25rem;
+  margin: 0 0.5rem 0.5rem 0;
   padding: 0.5rem;
   display: block;
   background-color: #8C977D;
@@ -669,7 +670,7 @@ body * {
   transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .btn:hover {
-  outline: #E8E3E3 3px solid;
+  outline: #E8E3E3 0.2rem solid;
   color: #E8E3E3;
 }
 .btn:where(input[type=file])::-webkit-file-upload-button {
@@ -759,7 +760,7 @@ br {
   bottom: 1rem;
   -o-object-position: center;
      object-position: center;
-  background-color: #151515;
+  background-color: rgba(21, 21, 21, 0.7333333333);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
   border-radius: 50%;

@@ -43,7 +43,17 @@
         echo "<h3>Invite Codes</h3>";
         $token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
         while ($token = mysqli_fetch_array($token_request)) {
-            echo "<p>".$token['code']."</p>";
+          ?>
+          <!-- Button that's displayed with the invite code -->
+          <button onclick='copyCode()' class='btn btn-neutral'><?php echo $token['code']; ?></button>
+          <!-- Copy code on click -->
+          <script>
+          function copyCode() {
+            navigator.clipboard.writeText("<?php echo $token['code']; ?>");
+            sniffleAdd("Info", "Invite code has been copied!", "var(--green)", "<?php echo $root_dir; ?>assets/icons/clipboard-text.svg");
+          }
+          </script>
+          <?php
         }
       }
       ?>

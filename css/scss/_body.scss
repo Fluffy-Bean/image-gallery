@@ -154,10 +154,11 @@
 
 .tags {
     @include flexLeft(auto);
+    margin-bottom: 0;
 }
 
 .tag {
-    margin: 0.25rem;
+    margin: 0 0.5rem 0.5rem 0;
     padding: 0.5rem;
 
     display: block;
