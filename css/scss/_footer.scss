@@ -1,0 +1,27 @@
+/*
+ |-------------------------------------------------------------
+ | FOOTER
+ |-------------------------------------------------------------
+*/
+footer {
+    @include defaultDecoration($page-accent);
+    @include flexLeft(space-around);
+
+    margin: 0 auto;
+
+    bottom: 0;
+
+    width: calc(100% - 1.4rem);
+
+    a {
+        margin: 0.5rem;
+
+        text-decoration: none;
+
+        font-family: $font-body;
+
+        &:hover {
+            color: $orange;
+        }
+    }
+}

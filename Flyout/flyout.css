@@ -1,0 +1,60 @@
+.flyout-dim {
+  margin: 0; padding: 0;
+
+  width: 100vw; height: 100vh;
+
+  display: none;
+
+  top: 0; bottom: 0; left: 0; right: 0;
+
+  position: fixed; z-index: 999;
+
+  background-color: var(--bg);
+  backdrop-filter: blur(8px);
+
+  opacity: 0;
+
+  transition: opacity 1s cubic-bezier(.19,1,.22,1), filter 1s cubic-bezier(.19,1,.22,1);
+}
+
+.flyout {
+  margin: 0; padding: 0.5rem;
+
+  max-width: 621px; width: calc(100% - 3.5rem);
+  max-height: 20rem; height: auto; min-height: 10rem;
+
+  position: fixed; z-index: 9999;
+  left: 50%; bottom: -15rem;
+  transform: translateX(-50%) scale(0.5);
+
+  overflow-y: auto;
+
+  background-color: var(--bg);
+  backdrop-filter: blur(8px);
+  color: white;
+
+  transition: transform 1s cubic-bezier(.19,1,.22,1), bottom 1s cubic-bezier(.19,1,.22,1);
+
+  border-radius: var(--rad);
+  border: 0.2rem solid var(--green);
+  /*outline: 0.5rem solid var(--bg);*/
+}
+
+.flyout-header {
+  font-size: 20px;
+  font-family: "Lexend Deca", sans-serif;
+}
+
+.flyout-actionbox {
+  display: inline;
+  box-sizing: border-box;
+}
+
+/* Worlds shittest workaround to a problem I have no clue how to fix */
+.flyout-actionbox *,
+.flyout-actionbox * * {
+  width: 100%;
+}
+.flyout-actionbox * * * {
+  width: auto;
+}

@@ -1,0 +1,55 @@
+@mixin defaultDecoration($border) {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+
+    width: calc(100% - 1.4rem);
+
+    background-color: $bg;
+    color: $fg;
+
+    border-radius: $rad;
+    border: 0.2rem solid $border;
+
+    box-shadow: $shadow;
+
+    >* {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+}
+
+@mixin defaultFont() {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: $font-header;
+    }
+
+    p,
+    a,
+    button,
+    input {
+        font-family: $font-body;
+    }
+}
+
+@mixin flexDown($justify) {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: $justify;
+}
+
+@mixin flexLeft($justify) {
+    display: flex;
+
+    flex-direction: row;
+
+    flex-wrap: wrap;
+
+    justify-content: $justify;
+}

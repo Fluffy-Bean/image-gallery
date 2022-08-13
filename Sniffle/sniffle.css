@@ -1,0 +1,113 @@
+/*
+  Sniffle CSS
+
+  Written simply for easy changing!
+*/
+
+
+/*
+  Base notification stacking
+
+  It allows for the notifications to stack simply
+  Due to div having no height initself there is no
+  reason in hiding it when no notifications are showing
+*/
+.sniffle {
+  margin: 0; padding: 0 1rem;
+
+  max-width: 621px; width: calc(100% - 1rem);
+
+  top: 0.5rem; left: 50%;
+  transform: translateX(-50%);
+
+  position: fixed; z-index: 999;
+}
+
+/*
+  Notification body
+
+  It contains 2 child elements,
+  am image .sniffle-img
+  and a text div .sniffle-content
+*/
+.sniffle-notification {
+  margin-bottom: 0.5rem; padding: 0.5rem;
+
+  max-width: calc(100% - 1rem); min-height: 2.5rem;
+
+  display: flex; flex-direction: row; overflow-y: hidden;
+
+  z-index: 999;
+
+  background-color: #151515;
+
+  box-shadow: var(--shadow);
+
+  transition: transform 1s cubic-bezier(.19,1,.22,1), opacity 0.2s cubic-bezier(.19,1,.22,1);
+
+  border-radius: var(--rad);
+}
+.sniffle-notification:hover {
+  transform: scale(1.05);
+
+  cursor: pointer;
+}
+
+/*
+  Notification content Root
+
+  Overflow is hidden incase the description of the message is too long too display
+  And to prevent text from overflowing the notification
+*/
+.sniffle-content {
+  margin: 0 auto;
+
+  width: calc(100% - 3.5rem);
+  flex-direction: column; flex-wrap: wrap;
+
+  overflow-y: hidden;
+}
+
+/*
+  Notification icon/image
+*/
+.sniffle-img {
+  margin-right: 1rem;
+
+  max-width: 2.5rem; width: auto;
+  height: auto;
+
+  object-fit: contain;
+}
+/*
+  Notification header
+*/
+.sniffle-header {
+  margin: 0 0 0.25rem 0; padding: 0;
+
+  font-size: 15px;
+  font-weight: 621;
+  font-family: "Lexend Deca", sans-serif;
+
+  color: var(--fg);
+}
+/*
+  Notification description
+*/
+.sniffle-description {
+  margin: 0; padding: 0;
+  font-size: 14px;
+
+  word-wrap: break-word;
+  font-weight: 500;
+  font-family: 'Secular One', sans-serif;
+
+  color: var(--fg);
+}
+.sniffle-description::after {
+  content: '\A Click\00A0 to\00A0 dissmiss';
+
+  white-space: pre;
+
+  opacity: 0.6;
+}

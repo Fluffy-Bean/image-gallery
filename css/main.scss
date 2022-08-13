@@ -1,0 +1,202 @@
+/*
+ |-------------------------------------------------------------
+ | Sass stylesheet
+ |-------------------------------------------------------------
+ | This is all written by me! Fluffy! This is intended to be
+ | compiled before use, I want to make this autocompile for
+ | ease of use, but you may suffer along with me for now :3
+ |-------------------------------------------------------------
+*/
+@import "scss/mixin";
+@import "scss/variables";
+
+@import "scss/navigation";
+@import "scss/body";
+@import "scss/footer";
+
+/*
+ |-------------------------------------------------------------
+ | BODY COMPONENTS
+ |-------------------------------------------------------------
+*/
+html {
+    margin: 0;
+    padding: 0;
+
+    min-height: 100vh;
+    max-width: 100vw;
+
+    position: relative;
+
+    background-color: $bg;
+    background-image: url("../assets/bg.svg");
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    scroll-behavior: smooth;
+
+    overflow: auto;
+}
+
+body {
+    margin: 0 auto;
+    padding: 1rem;
+
+    max-width: 1000px;
+
+    min-height: calc(100vh - 2rem);
+
+    @include flexDown(space-between);
+
+    position: relative;
+
+    * {
+        color: $fg;
+    }
+}
+
+/*
+ |-------------------------------------------------------------
+ | BUTTONS
+ |-------------------------------------------------------------
+*/
+.btn {
+    padding: 0.5rem;
+
+    width: 100%;
+
+    display: block;
+    box-sizing: border-box;
+
+    font-size: 16px;
+    font-weight: 500;
+    font-family: $font-body;
+
+    text-decoration: none;
+
+    border: none;
+    border-radius: calc($rad - (0.5rem + 3px));
+
+    transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
+
+    &:hover {
+        outline: $white 0.2rem solid;
+        color: $fg;
+    }
+
+    &:where(input[type="file"])::file-selector-button {
+        margin: -0.25rem 0.5rem -0.25rem -0.25rem;
+        padding: 0.5rem;
+
+        display: inline-block;
+
+        font-size: 16px;
+
+        text-decoration: none;
+
+        background-color: $white;
+
+        border: none;
+        border-radius: $rad;
+    }
+}
+
+a.btn {
+    text-align: center;
+}
+
+.btn-good {
+    background-color: $green;
+}
+
+.btn-bad {
+    background-color: $red;
+}
+
+.btn-neutral {
+    background-color: $black;
+}
+
+/*
+ |-------------------------------------------------------------
+ | FORM SIZING
+ |-------------------------------------------------------------
+*/
+form {
+    width: 100%;
+    box-sizing: content-box;
+
+    >* {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/*
+ |-------------------------------------------------------------
+ | SVG
+ |-------------------------------------------------------------
+*/
+.svg {
+    margin: 0 0.2rem 0.1rem 0;
+
+    width: 19px;
+    height: 18px;
+
+    vertical-align: middle;
+
+    display: inline;
+}
+
+/*
+ |-------------------------------------------------------------
+ | BR / BREAK
+ |-------------------------------------------------------------
+*/
+br {
+    margin: 0;
+
+    line-height: 0.25rem;
+}
+
+/*
+ |-------------------------------------------------------------
+ | BACK TO TOP
+ |-------------------------------------------------------------
+*/
+#back-to-top {
+    margin: 0;
+    padding: 0.5rem;
+
+    position: fixed;
+    z-index: 99;
+    right: -2.5rem;
+    bottom: 1rem;
+
+    object-position: center;
+
+    background-color: $bg-alt;
+    backdrop-filter: blur(8px);
+
+    border-radius: 50%;
+    box-shadow: $shadow;
+
+    transition: right 0.15s cubic-bezier(.19, 1, .22, 1);
+
+    &:hover {
+        outline: 0.2rem solid $green;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+
+        display: block;
+
+        object-position: center;
+    }
+}

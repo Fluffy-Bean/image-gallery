@@ -1,0 +1,5 @@
+# Images from uploads to the website, including thumbnails
+images/
+
+# CSS map, I don't think its needed for upload... I think?
+*.map
