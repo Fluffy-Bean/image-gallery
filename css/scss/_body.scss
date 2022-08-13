@@ -204,14 +204,6 @@
 .account-root {
     @include defaultDecoration($green);
     @include defaultFont();
-
-	p:first-of-type {
-		padding: 0.5rem;
-
-		background-color: $black;
-
-		text-align: center;
-	}
 }
 
 /*

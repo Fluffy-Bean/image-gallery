@@ -33,72 +33,38 @@
   include "../ui/required.php";
   include "../ui/nav.php";
 
-  // Initialize the session
-  session_start();
-
-  // Check if the user is logged in, otherwise redirect to login page
-  if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: https://superdupersecteteuploadtest.fluffybean.gay/account/login.php");
-    exit;
-  }
-
-  if (isset($_POST['reset'])) {
-
-    // Validate new password
-    if (empty(trim($_POST["new_password"]))) {
-      $error = "Enter new password!";
-    } elseif(strlen(trim($_POST["new_password"])) < 6) {
-      $error = "Password not long enough, must be 6 or more characters!";
-    } else {
-      $new_password = trim($_POST["new_password"]);
+    // Check if the user is logged in, otherwise redirect to login page
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+      header("location: https://superdupersecteteuploadtest.fluffybean.gay/account/login.php");
+      exit;
     }
-
-    // Validate confirm password
-    if (empty(trim($_POST["confirm_password"]))) {
-      $error = "Pls confirm the password";
-    } else {
-      $confirm_password = trim($_POST["confirm_password"]);
-      if(empty($error) && ($new_password != $confirm_password)) {
-        $error = "Password did not match!!!!";
-      }
-    }
-
-    // Check for errors
-    if (empty($error)) {
-      // Prepare for wack
-      $sql = "UPDATE users SET password = ? WHERE id = ?";
-
-      if ($stmt = mysqli_prepare($conn, $sql)) {
-        mysqli_stmt_bind_param($stmt, "si", $param_password, $param_id);
-
-        // Setting up Password parameters
-        $param_password = password_hash($new_password, PASSWORD_DEFAULT);
-        $param_id = $_SESSION["id"];
-
-        // Attempt to execute (sus)
-        if (mysqli_stmt_execute($stmt)) {
-          // Password updated!!!! Now goodbye
-          session_destroy();
-          header("Location: https://superdupersecteteuploadtest.fluffybean.gay/account/login.php");
-        } else {
-          $error = "Oopsie woopsie, somthing brokie :c";
-        }
-      }
-    }
-  }
   ?>
 
   <div class="password-reset-root">
     <h2>Reset Password</h2>
     <p>After reset, you will be kicked out to login again</p>
     <br>
-    <form method="POST" action="password-reset.php" enctype="multipart/form-data">
-      <input class="btn btn-neutral" type="password" name="new_password" placeholder="New Password">
-      <input class="btn btn-neutral" type="password" name="confirm_password" placeholder="Confirm Password">
+    <form id="passwordForm" method="POST" enctype="multipart/form-data">
+      <input id="newPassword" class="btn btn-neutral" type="password" name="new_password" placeholder="New Password">
+      <input id="confirmSassword" class="btn btn-neutral" type="password" name="confirm_password" placeholder="Confirm Password">
       <br>
-      <button class="btn btn-bad" type="submit" name="reset"><img class="svg" src="../assets/icons/sign-in.svg">Reset</button>
+      <button id="passwordSubmit" class="btn btn-bad" type="submit" name="reset"><img class="svg" src="../assets/icons/sign-in.svg">Reset</button>
     </form>
   </div>
+
+  <script>
+    $("#passwordForm").submit(function(event) {
+      event.preventDefault();
+      var new_passowrd = $("#newPassword").val();
+      var confirm_password = $("#confirmSassword").val();
+      var submit = $("#passwordSubmit").val();
+      $("#sniffle").load("../app/account/password_reset.php", {
+        new_passowrd: new_passowrd,
+        confirm_password: confirm_password,
+        submit: submit
+      });
+    });
+  </script>
 
   <?php include "../ui/footer.php"; ?>
 </body>

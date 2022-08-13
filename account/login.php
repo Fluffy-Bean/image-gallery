@@ -47,7 +47,7 @@
     <h2>Login</h2>
     <p>Passwords are important to keep safe. Don't tell anyone your password, not even Fluffy!</p>
     <br>
-    <form id="loginSubmit" method="POST" enctype="multipart/form-data">
+    <form id="loginForm" method="POST" enctype="multipart/form-data">
       <input id="loginUsername" class="btn btn-neutral" type="text" name="username" placeholder="Username">
       <input id="loginPassword" class="btn btn-neutral" type="password" name="password" placeholder="Password">
       <br>
@@ -57,7 +57,7 @@
   </div>
 
   <script>
-    $("#loginSubmit").submit(function(event) {
+    $("#loginForm").submit(function(event) {
       event.preventDefault();
       var username = $("#loginUsername").val();
       var password = $("#loginPassword").val();

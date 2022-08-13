@@ -476,11 +476,6 @@ nav .btn {
 .account-root input {
   font-family: "Secular One", sans-serif;
 }
-.account-root p:first-of-type {
-  padding: 0.5rem;
-  background-color: #151515;
-  text-align: center;
-}
 
 /*
  |-------------------------------------------------------------
