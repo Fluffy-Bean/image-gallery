@@ -32,164 +32,41 @@
   <?php
   include "../ui/required.php";
   include "../ui/nav.php";
-
-  // Validate susness of Username
-  if (isset($_POST['signup'])) {
-    if (empty(trim($_POST["username"]))) {
-      // Username was taken
-      $error = "Enter a username reeeee";
-    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
-      // Username entered contains illegal characters
-      $error = "Very sus. Username can only contain letters, numbers, and underscores";
-    } else {
-      // Prepare sql for sus
-      $sql = "SELECT id FROM users WHERE username = ?";
-
-      if ($stmt = mysqli_prepare($conn, $sql)) {
-        mysqli_stmt_bind_param($stmt, "s", $username_request);
-
-        $username_request = trim($_POST["username"]);
-
-        if (mysqli_stmt_execute($stmt)) {
-          // Ask sql nicely if other usernames exist and store info
-          mysqli_stmt_store_result($stmt);
-
-          if (mysqli_stmt_num_rows($stmt) == 1) {
-            // Username not entered
-            $error = "Oopsie, username taken :c";
-          } else {
-            $username = trim($_POST["username"]);
-          }
-        } else {
-          $error = "Sussy things happened on our end, please try again later";
-        }
-        // Outa here with this
-        mysqli_stmt_close($stmt);
-      }
-    }
-
-    // Validate sussness of Password
-    if (empty(trim($_POST["password"]))) {
-      // No password entered
-      $error = "Bruh, enter a password";
-    } elseif(strlen(trim($_POST["password"])) < 6){
-      // Password not long enough 👀
-      $error = "(Password) Not long enough 👀";
-    } else {
-      $password = trim($_POST["password"]);
-    }
-
-    // Validate sussiness of the other Password
-    if (empty(trim($_POST["confirm_password"]))) {
-      // Did not confirm passowrd
-      $error = "You must confirm password!!!!!";
-    } else {
-      $confirm_password = trim($_POST["confirm_password"]);
-      if (empty($error) && $confirm_password != $password) {
-        // Password and re-entered Password does not match
-        $error = "Passwords need to be the same, smelly smelly";
-      }
-    }
-
-    // Check for invite code
-    if (isset($_POST['token'])) {
-      // Check if invite code is empty
-      if (empty($_POST['token'])) {
-        $error = "Enter Invite Code ;3";
-      } else {
-        // Prepare sql for sus
-        $sql = "SELECT id FROM tokens WHERE code = ? AND used = 0";
-
-        if ($stmt = mysqli_prepare($conn, $sql)) {
-          mysqli_stmt_bind_param($stmt, "s", $param_code);
-
-          $param_code = $_POST['token'];
-
-          // Ask sql nicely if other usernames exist and store info
-          if (mysqli_stmt_execute($stmt)) {
-            mysqli_stmt_store_result($stmt);
-            if (mysqli_stmt_num_rows($stmt) == 1) {
-              $token = trim($_POST["token"]);
-            } else {
-              $error = "Invite code not valid";
-            }
-          } else {
-            $error = "Sussy things happened on our end and couldn't check token";
-          }
-
-          // Outa here with this
-          mysqli_stmt_close($stmt);
-        }
-      }
-    }
-
-    // Checking for errors
-    if (empty($error)) {
-      $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
-
-      if ($stmt = mysqli_prepare($conn, $sql)) {
-        // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
-
-        // Set parameters
-        $param_username = $username;
-        $param_password = password_hash($password, PASSWORD_DEFAULT);
-
-        // Attempt to execute the prepared statement
-        if (mysqli_stmt_execute($stmt)) {
-          // Prepare sql
-          $sql = "UPDATE tokens SET used = True WHERE code = ?";
-          $stmt = mysqli_prepare($conn, $sql);
-          mysqli_stmt_bind_param($stmt, "s", $param_token);
-          $param_token = $_POST['token'];
-
-          if (mysqli_stmt_execute($stmt)) {
-            //
-            // Hey fluffy why didn't you do this
-            // Hey fluffy, thats not how you do this
-            // Thats wrong! Do this instead!!!!!!
-            //
-            // I DON'T KNOW HOW TO DO THIS, BUT IT WORKS
-            // SO LEAVE ME ALONEEEEEEEEEE
-            // anyway....
-
-            // Generate Token
-            $token_array = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz';
-            $new_token = substr(str_shuffle($token_array), 0, 10);
-
-            // Prepare sql
-            $sql = "INSERT INTO tokens (code, used) VALUES(?, False)";
-            $stmt = mysqli_prepare($conn, $sql);
-            mysqli_stmt_bind_param($stmt, "s", $param_new_token);
-            $param_new_token = $new_token;
-            mysqli_stmt_execute($stmt);
-          }
-
-          // Yupeee! Account was made
-          $success = "Account made for ".$username."!!!!!!";
-        } else {
-          $error = "Something went fuckywucky, please try later";
-        }
-      }
-    }
-  }
   ?>
 
   <div class="signup-root">
     <h2>Make account</h2>
     <p>And amazing things happened here...</p>
     <br>
-    <form method="POST" action="signup.php" enctype="multipart/form-data">
-      <input class="btn btn-neutral" type="text" name="username" placeholder="Username">
+    <form id="signupForm" method="POST" action="signup.php" enctype="multipart/form-data">
+      <input id="signupUsername" class="btn btn-neutral" type="text" name="username" placeholder="Username">
       <br>
-      <input class="btn btn-neutral" type="password" name="password" placeholder="Password">
-      <input class="btn btn-neutral" type="password" name="confirm_password" placeholder="Re-enter Password">
+      <input id="signupPassword" class="btn btn-neutral" type="password" name="password" placeholder="Password">
+      <input id="signupPasswordConfirm" class="btn btn-neutral" type="password" name="confirm_password" placeholder="Re-enter Password">
       <br>
-      <input class="btn btn-neutral" type="text" name="token" placeholder="Invite Code">
+      <input id="signupToken" class="btn btn-neutral" type="text" name="token" placeholder="Invite Code">
       <br>
-      <button class="btn btn-good" type="submit" name="signup"><img class="svg" src="../assets/icons/sign-in.svg">Sign Up</button>
+      <button id="signupSubmit" class="btn btn-good" type="submit" name="signup"><img class="svg" src="../assets/icons/sign-in.svg">Sign Up</button>
     </form>
   </div>
+
+  <script>
+    $("#signupForm").submit(function(event) {
+      event.preventDefault();
+      var username = $("#signupUsername").val();
+      var password = $("#signupPassword").val();
+      var confirm_password = $("#signupPasswordConfirm").val();
+      var token = $("#signupToken").val();
+      var submit = $("#signupSubmit").val();
+      $("#sniffle").load("../app/account/signup.php", {
+        username: username,
+        password: password,
+        confirm_password: confirm_password,
+        token: token,
+        submit: submit
+      });
+    });
+  </script>
 
   <?php include "../ui/footer.php"; ?>
 </body>
