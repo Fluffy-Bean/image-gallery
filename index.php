@@ -38,7 +38,7 @@ include "ui/nav.php";
 
 
 <script>
-	sniffleAdd("Warning", "The website is currently being worked on, some functionality has been restored, but tread carefully as errors may occur", "var(--red)", "<?php echo $root_dir ?>assets/icons/warning.svg");
+	//sniffleAdd("Warning", "The website is currently being worked on, some functionality has been restored, but tread carefully as errors may occur", "var(--red)", "<?php echo $root_dir ?>assets/icons/warning.svg");
 
 	if (params.del == "true") {
 		sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)", "<?php echo $root_dir ?>assets/icons/trash.svg");
