@@ -219,7 +219,11 @@
       if (isset($image['tags']) && !empty($image['tags'])) {
         $image_tags_array = explode(" ", $image['tags']);
         foreach ($image_tags_array as $tag) {
-          echo "<p class='tag btn-good'><img class='svg' src='assets/icons/tag.svg'>".$tag."</p>";
+          if ($tag == "nsfw") {
+            echo "<p id='tag' class='tag btn-bad'>".$tag."</p>";
+          } else {
+            echo "<p id='tag' class='tag btn-good'>".$tag."</p>";
+          }
         }
       } else {
         echo "<p>No tags present</p>";

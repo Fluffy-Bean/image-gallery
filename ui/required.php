@@ -1,5 +1,13 @@
 <?php
 /*
+  Used for testing, do not use this in production
+*/
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ERROR | E_PARSE | E_NOTICE);;
+
+
+/*
   Start session
 
   This is important as most pages use the PHP session and will complain if its not possible to access.
@@ -64,11 +72,13 @@ include $root_dir."app/server/secrete.php";
   Controlled by Flyout.js
 -->
 <div id='flyoutDim' class='flyout-dim'></div>
-<div id='flyoutRoot' class='flyout flex-down'>
-  <p id='flyoutHeader' class='flyout-header space-bottom'>Header</p>
-  <p id='flyoutDescription' class='flyout-description space-bottom'>Description</p>
-  <div id='flyoutActionbox' class='flyout-actionbox space-bottom-small'></div>
-  <button onclick='flyoutClose()' class='btn alert-default'>Close</button>
+<div id='flyoutRoot' class='flyout'>
+  <p id='flyoutHeader' class='flyout-header'>Header</p>
+  <br>
+  <p id='flyoutDescription' class='flyout-description'>Description</p>
+  <br>
+  <div id='flyoutActionbox' class='flyout-actionbox'></div>
+  <button onclick='flyoutClose()' class='btn btn-neutral'>Close</button>
 </div>
 
 <!--

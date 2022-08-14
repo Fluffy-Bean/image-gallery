@@ -28,18 +28,14 @@
 	<!-- Flyout script! -->
 	<script src="Flyout/flyout.js"></script>
 	<link rel='stylesheet' href='Flyout/flyout.css'>
-
-	<?php include "ui/required.php"; ?>
 </head>
 <body>
 <?php
+include "ui/required.php";
 include "ui/nav.php";
 ?>
 
-
 <script>
-	//sniffleAdd("Warning", "The website is currently being worked on, some functionality has been restored, but tread carefully as errors may occur", "var(--red)", "<?php echo $root_dir ?>assets/icons/warning.svg");
-
 	if (params.del == "true") {
 		sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)", "<?php echo $root_dir ?>assets/icons/trash.svg");
 	}
@@ -110,9 +106,16 @@ include "ui/nav.php";
 			$image_path = "images/".$image['imagename'];
 		}
 
+		// Check for NSFW tag
+		if (str_contains($image['tags'], "nsfw")) {
+			$image_nsfw = "nsfw-blur";
+		} else {
+			$image_nsfw = "";
+		}
+
 		// Image loading
 		echo "<div class='gallery-item'>";
-		echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
+		echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image ".$image_nsfw."' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
 		echo "</div>";
 	}
 	?>

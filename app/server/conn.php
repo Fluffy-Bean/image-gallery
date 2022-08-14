@@ -6,10 +6,10 @@
   For now it's hard-coded, shouldn't be an issue as most people wont be changing this often anyway
 */
 // Setting up connection variables
-$conn_ip = "localhost";
+$conn_ip = "192.168.0.79:3306";
 $conn_username = "uwu";
 $conn_password = "fennec621";
-$conn_database = "swag";
+$conn_database = "gallery";
 
 $conn = mysqli_connect($conn_ip, $conn_username, $conn_password , $conn_database);
 if ($conn->connect_error) {

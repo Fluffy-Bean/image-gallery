@@ -55,6 +55,8 @@
 
     position: relative;
 
+    overflow: hidden;
+
     flex: 1 0 150px;
 
     transition: transform 0.15s cubic-bezier(.19, 1, .22, 1);
@@ -93,6 +95,9 @@
     border-radius: calc($rad - 0.5rem);
 }
 
+.nsfw-blur {
+    filter: blur(10px);
+}
 /*
  |-------------------------------------------------------------
  | IMAGE
@@ -168,6 +173,9 @@
     border-radius: $rad;
 
     font-family: $font-body;
+    &::before {
+        content: '# ';
+    }
 }
 
 // DANGER ZONE
