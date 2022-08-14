@@ -21,7 +21,7 @@
   margin: 0; padding: 0.5rem;
 
   max-width: 621px; width: calc(100% - 3.5rem);
-  max-height: 20rem; height: auto; min-height: 10rem;
+  height: auto; min-height: 10rem;
 
   position: fixed; z-index: 9999;
   left: 50%; bottom: -15rem;
@@ -41,8 +41,14 @@
 }
 
 .flyout-header {
+  margin: 0 0 0.5rem 0;
   font-size: 20px;
   font-family: "Lexend Deca", sans-serif;
+}
+.flyout-description {
+  margin: 0 0 0.5rem 0;
+  max-height: 8rem;
+  overflow-y: auto;
 }
 
 .flyout-actionbox {

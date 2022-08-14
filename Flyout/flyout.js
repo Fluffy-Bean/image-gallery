@@ -25,7 +25,7 @@ function flyoutShow(header, description, actionbox) {
   $(flyoutActionbox).html(actionbox);
 
   // Show the flyout
-  flyoutRoot.style.display = "flex";
+  flyoutRoot.style.display = "block";
   // Show the dim
   flyoutDim.style.display = "block";
   setTimeout(function(){
