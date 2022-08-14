@@ -49,6 +49,9 @@
   margin: 0 0 0.5rem 0;
   max-height: 8rem;
   overflow-y: auto;
+
+  font-family: 'Secular One',
+  sans-serif;
 }
 
 .flyout-actionbox {
