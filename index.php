@@ -109,12 +109,15 @@ include "ui/nav.php";
 		// Check for NSFW tag
 		if (str_contains($image['tags'], "nsfw")) {
 			$image_nsfw = "nsfw-blur";
+			$nsfw_warning = "<a href='image.php?id=".$image['id']."' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>This image contains NSFW material</span></a>";
 		} else {
 			$image_nsfw = "";
+			$nsfw_warning = "";
 		}
 
 		// Image loading
 		echo "<div class='gallery-item'>";
+		echo $nsfw_warning;
 		echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image ".$image_nsfw."' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
 		echo "</div>";
 	}

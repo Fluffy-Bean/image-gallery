@@ -32,11 +32,11 @@ if (isset($_POST['submit'])) {
           $image_thumbnail->resizeImage(300,null,null,1,null);
           $image_thumbnail->writeImage($thumb_dir.$image_basename);
         } catch (Exception $e) {
-          echo "
+          ?>
           <script>
             sniffleAdd('Gwha!', 'We hit a small roadbump during making of the thumbail. We will continue anyway!', 'var(--black)', '".$root_dir."assets/icons/bug.svg');
           </script>
-          ";
+          <?php
         }
 
         // Prepare sql for destruction and filtering the sus
@@ -53,38 +53,38 @@ if (isset($_POST['submit'])) {
 
           // Attempt to execute the prepared statement
           if (mysqli_stmt_execute($stmt)) {
-            echo "
+            ?>
             <script>
               sniffleAdd(':3', 'Your Image uploaded successfully!', 'var(--green)', '".$root_dir."assets/icons/check.svg');
             </script>
-            ";
+            <?php
           } else {
-            echo "
+            ?>
             <script>
               sniffleAdd(':c', 'Something went fuckywucky, please try later', 'var(--red)', '".$root_dir."assets/icons/cross.svg');
             </script>
-            ";
+            <?php
           }
         }
       } else {
-        echo "
+        ?>
         <script>
           sniffleAdd('Hmmff', 'Something happened when moving the file to the server. This may just been a 1-off so try again', 'var(--red)', '".$root_dir."assets/icons/bug.svg');
         </script>
-        ";
+        <?php
       }
     } else {
-      echo "
+      ?>
       <script>
         sniffleAdd('Woopsie', 'The file type you are trying to upload is not supported. Supported files include: JPEG, JPG, PNG and WEBP', 'var(--red)', '".$root_dir."assets/icons/cross.svg');
       </script>
-      ";
+      <?php
     }
   } else {
-    echo "
+    ?>
     <script>
       sniffleAdd('Denied!!!', 'As you are not loggedin, your upload has been stopped, L', 'var(--red)', '".$root_dir."assets/icons/cross.svg');
     </script>
-    ";
+    <?php
   }
 }
