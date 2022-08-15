@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
                             ?>
                             <script>
                                 sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in! You will be redirected in a few seconds', 'var(--green)', '../assets/icons/hand-waving.svg');
-                                setTimeout(function(){window.location.href = "../index.php?login=success";}, 4000);
+                                setTimeout(function(){window.location.href = "../index.php?login=success";}, 2000);
                             </script>
                             <?php
                         } else {

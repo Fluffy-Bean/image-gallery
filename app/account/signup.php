@@ -210,7 +210,7 @@ if (isset($_POST['submit'])) {
                 ?>
                 <script>
                     sniffleAdd('Success!', 'You account made for <?php echo $username; ?>!!!!! You will be redirected in a moment to login', 'var(--green)', '../assets/icons/hand-waving.svg');
-                    setTimeout(function(){window.location.href = "../account/login.php";}, 4000);
+                    setTimeout(function(){window.location.href = "../account/login.php";}, 2000);
                 </script>
                 <?php
             } else {

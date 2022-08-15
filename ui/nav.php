@@ -1,6 +1,6 @@
 <nav class="nav-root flex-left">
   <div class="nav-name flex-left">
-    <p>Lynx Gallery</p>
+    <p><?php echo $setup_json['name']; ?></p>
   </div>
   <div class="nav-links flex-left">
     <a class='btn' href='<?php echo $root_dir; ?>index.php'><img class='svg' src='<?php echo $root_dir; ?>assets/icons/house.svg'><span class='nav-hide'>Home</span></a>
