@@ -13,7 +13,7 @@
       echo "<hr>";
       echo "<a class='btn' href='".$root_dir."/account/account.php'><img class='svg' src='".$root_dir."assets/icons/user-circle.svg'><span class='nav-hide'>".substr($_SESSION["username"], 0, 15)."</span></a>";
     } else {
-      echo "<a class='btn' href='".$root_dir."/account/login.php'><img class='svg' src='".$root_dir."assets/icons/sign-in.svg'><span class='nav-hide'>Login</span></a>";
+      echo "<a class='btn' href='".$root_dir."/account/account.php'><img class='svg' src='".$root_dir."assets/icons/sign-in.svg'><span class='nav-hide'>Login</span></a>";
     }
     ?>
   </div>

@@ -101,3 +101,9 @@ include $root_dir."app/server/secrete.php";
     }
   }
 </script>
+
+<!--
+  Required so main objects are centered when NAV
+  is in mobile view
+-->
+<div class="nav-mobile"></div>

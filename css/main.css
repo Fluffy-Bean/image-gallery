@@ -87,6 +87,10 @@ nav .btn {
   width: auto;
 }
 
+.nav-mobile {
+  display: none;
+}
+
 @media (max-width: 800px) {
   .nav-name {
     display: none;
@@ -128,6 +132,9 @@ nav .btn {
   }
   #back-to-top {
     bottom: 5rem !important;
+  }
+  .nav-mobile {
+    display: block;
   }
 }
 /*
@@ -534,6 +541,7 @@ nav .btn {
   border-radius: 0rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  display: none;
 }
 .signup-root > * {
   margin-top: 0;

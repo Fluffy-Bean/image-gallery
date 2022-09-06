@@ -272,6 +272,8 @@
 .signup-root {
     @include defaultDecoration($green);
     @include defaultFont();
+    // By default its hidden, in place is login
+    display: none;
 }
 
 /*
