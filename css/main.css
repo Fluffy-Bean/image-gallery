@@ -87,6 +87,10 @@ nav .btn {
   width: auto;
 }
 
+.nav-mobile {
+  display: none;
+}
+
 @media (max-width: 800px) {
   .nav-name {
     display: none;
@@ -128,6 +132,9 @@ nav .btn {
   }
   #back-to-top {
     bottom: 5rem !important;
+  }
+  .nav-mobile {
+    display: block;
   }
 }
 /*
@@ -218,7 +225,7 @@ nav .btn {
 }
 
 .nsfw-blur {
-  filter: blur(10px);
+  filter: blur(8px);
 }
 
 .nsfw-warning {
@@ -236,21 +243,24 @@ nav .btn {
   align-items: center;
   text-decoration: none;
   font-family: "Secular One", sans-serif;
+  background-color: rgba(21, 21, 21, 0.7333333333);
 }
 .nsfw-warning span {
   color: #B66467;
   text-align: center;
-  text-shadow: 0 0 2px #151515;
+}
+.nsfw-warning span::after {
+  content: " Content";
 }
 .nsfw-warning img {
   margin: 0.25rem;
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 @media (max-width: 500px) {
-  .nsfw-warning span {
-    display: none;
+  .nsfw-warning span::after {
+    content: none;
   }
 }
 /*
@@ -531,6 +541,7 @@ nav .btn {
   border-radius: 0rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  display: none;
 }
 .signup-root > * {
   margin-top: 0;
@@ -675,9 +686,16 @@ footer > * {
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
-footer a {
-  margin: 0.5rem;
+footer p {
+  margin: 0 0.5rem;
   text-decoration: none;
+  font-size: 16px;
+  font-family: "Secular One", sans-serif;
+}
+footer a {
+  margin: 0 0.5rem;
+  text-decoration: none;
+  font-size: 16px;
   font-family: "Secular One", sans-serif;
 }
 footer a:hover {

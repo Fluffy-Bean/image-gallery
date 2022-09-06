@@ -27,6 +27,9 @@ if (is_file("index.php")) {
 }
 
 
+$import_json = file_get_contents($root_dir."default.json");
+$setup_json = json_decode($import_json, true);
+
 /*
   Connect to the server
 */
@@ -47,11 +50,6 @@ include $root_dir."app/image/image_privilage.php";
 include $root_dir."app/server/secrete.php";
 ?>
 <script>
-  /*
-    This is a little secrete for the ones who care, nothing important
-  */
-  console.log(" . . /|/| . . . . . . . \n .. /0 0 \\ . . . . . .. \n (III% . \\________, . . \n .. .\\_, .%###%/ \\'\\,.. \n . . . .||#####| |'\\ \\. \n .. . . ||. . .|/. .\\V. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . .|| . . || . . . \n .. . . ||. . .||. . .. \n . . . cc/ . .cc/ . . .");
-
   /*
     Gets Querys from the URL the user is at
     Used by Sniffle to display notificaions
@@ -103,3 +101,9 @@ include $root_dir."app/server/secrete.php";
     }
   }
 </script>
+
+<!--
+  Required so main objects are centered when NAV
+  is in mobile view
+-->
+<div class="nav-mobile"></div>

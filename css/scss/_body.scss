@@ -96,8 +96,9 @@
 }
 
 .nsfw-blur {
-    filter: blur(10px);
+    filter: blur(8px);
 }
+
 .nsfw-warning {
     width: 100%;
     height: 100%;
@@ -106,38 +107,46 @@
     bottom: 0;
     left: 0;
     right: 0;
-    
+
     position: absolute;
     z-index: 5;
 
-    display: flex; flex-direction: column;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     text-decoration: none;
     font-family: $font-body;
 
+    background-color: $bg-alt;
+
     span {
         color: $red;
 
         text-align: center;
-        text-shadow: 0 0 2px $black;
+
+        &::after {
+            content: ' Content';
+        }
     }
+
     img {
         margin: 0.25rem;
 
-        width: 2rem;
-        height: 2rem;
+        width: 2.5rem;
+        height: 2.5rem;
     }
 }
 
 @media (max-width: 500px) {
     .nsfw-warning {
-        span {
-            display: none;
+        span::after {
+            content: none;
         }
     }
 }
+
 /*
  |-------------------------------------------------------------
  | IMAGE
@@ -213,6 +222,7 @@
     border-radius: $rad;
 
     font-family: $font-body;
+
     &::before {
         content: '# ';
     }
@@ -262,6 +272,8 @@
 .signup-root {
     @include defaultDecoration($green);
     @include defaultFont();
+    // By default its hidden, in place is login
+    display: none;
 }
 
 /*

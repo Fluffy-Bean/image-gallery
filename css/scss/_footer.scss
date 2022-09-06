@@ -13,10 +13,20 @@ footer {
 
     width: calc(100% - 1.4rem);
 
-    a {
-        margin: 0.5rem;
+    p {
+        margin: 0 0.5rem;
 
         text-decoration: none;
+        font-size: 16px;
+
+        font-family: $font-body;
+    }
+
+    a {
+        margin: 0 0.5rem;
+
+        text-decoration: none;
+        font-size: 16px;
 
         font-family: $font-body;
 

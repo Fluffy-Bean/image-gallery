@@ -57,6 +57,10 @@ nav {
     width: auto;
 }
 
+.nav-mobile {
+    display: none;
+}
+
 @media (max-width: 800px) {
     .nav-name {
         display: none;
@@ -109,5 +113,8 @@ nav {
 
     #back-to-top {
         bottom: 5rem !important;
+    }
+    .nav-mobile {
+        display: block;
     }
 }

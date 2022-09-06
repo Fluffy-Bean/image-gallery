@@ -1,38 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Lynx Gallery</title>
-
-	<!-- Stylesheets -->
-	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/normalise.css">
-
-
-	<!-- Google Fonts -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap">
-
-	<!-- JQuery -->
-	<script
-		src="https://code.jquery.com/jquery-3.6.0.min.js"
-		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-		crossorigin="anonymous">
-	</script>
-
-	<!-- Sniffle script! -->
-	<script src="Sniffle/sniffle.js"></script>
-	<link rel='stylesheet' href='Sniffle/sniffle.css'>
-
-	<!-- Flyout script! -->
-	<script src="Flyout/flyout.js"></script>
-	<link rel='stylesheet' href='Flyout/flyout.css'>
+	<?php include __DIR__."/ui/header.php"; ?>
 </head>
+
 <body>
 <?php
-include "ui/required.php";
-include "ui/nav.php";
+include __DIR__."/ui/required.php";
+include __DIR__."/ui/nav.php";
 ?>
 
 <script>
@@ -67,28 +43,9 @@ include "ui/nav.php";
 		}
 
 		// Random welcome message
-		$welcome_message = array("*internal screaming*",
-		"Sussy Wussy",
-		"What is this world?",
-		"Don't forget to drink water!",
-		"Bruh",
-		"This is so poorly programmed",
-		"Sorry",
-		"Fluffy made this!",
-		"maybe",
-		"I'm gay",
-		"I wish we were better strangers.",
-		"<span style='color:#ffff00;'>Just like Minecraft!</span>",
-		"If I were you, I'd run now",
-		"This is the part where I kill you",
-		"SILICA GEL \"DO NOT EAT\".",
-		"This was supposed to be a simple project",
-		"AAAAAAAAAAAAAAAAAAAA",
-		"Let me out",
-		"nice",
-		"Thank you that you're here",
-		"The weather is dry",
-		"Need me a man 👀");
+		$import_welcome = file_get_contents("default.json");
+		$import_decode = json_decode($import_welcome, true);
+		$welcome_message = $import_decode['welcome_msg'];
 		echo "<p>".$welcome_message[array_rand($welcome_message, 1)]."</p>";
 	?>
 </div>
@@ -109,7 +66,7 @@ include "ui/nav.php";
 		// Check for NSFW tag
 		if (str_contains($image['tags'], "nsfw")) {
 			$image_nsfw = "nsfw-blur";
-			$nsfw_warning = "<a href='image.php?id=".$image['id']."' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>This image contains NSFW material</span></a>";
+			$nsfw_warning = "<a href='image.php?id=".$image['id']."' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>";
 		} else {
 			$image_nsfw = "";
 			$nsfw_warning = "";
@@ -125,6 +82,6 @@ include "ui/nav.php";
 </div>
 
 
-<?php include "ui/footer.php"; ?>
+<?php include __DIR__."/ui/footer.php"; ?>
 </body>
 </html>
