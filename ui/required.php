@@ -27,6 +27,9 @@ if (is_file("index.php")) {
 }
 
 
+$import_json = file_get_contents($root_dir."default.json");
+$setup_json = json_decode($import_json, true);
+
 /*
   Connect to the server
 */
