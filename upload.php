@@ -70,7 +70,7 @@
 		<br>
 		<form id="uploadSubmit" class="flex-down between" method="POST" enctype="multipart/form-data">
 			<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
-			<input id="alt" class="btn btn-neutral" type="text" placeholder="Description/Alt for image">
+			<textarea id="alt" class="btn btn-neutral" placeholder="Description/Alt for image" rows="3"></textarea>
 			<br>
 			<button id="submit" class="btn btn-good" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
 		</form>

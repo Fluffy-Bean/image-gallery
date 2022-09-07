@@ -239,8 +239,8 @@
 						var header = "Are you sure?";
 						var description = "Deleting this image is pernament, there is no going back after this!!!!!";
 						var actionBox = "<form id='deleteConfirm' method='POST'>\
-				<button id='deleteSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>\
-				</form>";
+						<button id='deleteSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete image</button>\
+						</form>";
 						flyoutShow(header, description, actionBox);
 
 						$("#deleteConfirm").submit(function(event) {
@@ -269,9 +269,9 @@
 						var header = "Enter new Description/Alt";
 						var description = "Whatcha gonna put in there 👀";
 						var actionBox = "<form id='descriptionConfirm' action='app/image/edit_description.php' method='POST'>\
-				<input id='descriptionInput' class='btn btn-neutral space-bottom' type='text' placeholder='Description/Alt for image'>\
-				<button id='descriptionSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
-				</form>";
+						<textarea id='descriptionInput' class='btn btn-neutral space-bottom' placeholder='Description/Alt for image' rows='3'></textarea>\
+						<button id='descriptionSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
+						</form>";
 						flyoutShow(header, description, actionBox);
 
 						$('#descriptionInput').val("<?php echo $image['alt']; ?>");
@@ -305,12 +305,12 @@
 						var header = "Tags";
 						var description = "Add image tags here! This is still being tested so your tags may be removed later on. Tags ONLY accept, letters, numbers and underscores. Hyphens will be stitched to underscores and spaces will seperate the different tags from eachother";
 						var actionBox = "<form id='tagsConfirm' action='app/image/edit_tags.php' method='POST'>\
-				<input id='tagsInput' class='btn btn-neutral space-bottom' type='text' placeholder='Tags are seperated by spaces'>\
-				<button id='tagsSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit tags</button>\
-				</form>";
+						<textarea id='tagsInput' class='btn btn-neutral space-bottom' placeholder='Tags are seperated by spaces' row='3'></textarea>\
+						<button id='tagsSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit tags</button>\
+						</form>";
 						flyoutShow(header, description, actionBox);
-
-        				$('#tagsInput').val("<?php echo $image['tags']; ?>");
+						
+						$('#tagsInput').val("<?php echo $image['tags']; ?>");
 
 						$("#tagsConfirm").submit(function(event) {
 							event.preventDefault();
@@ -341,9 +341,9 @@
 							var header = "Who owns the image?????";
 							var description = "Enter ID of image owner";
 							var actionBox = "<form id='authorConfirm' action='app/image/edit_author.php' method='POST'>\
-					<input id='authorInput' class='btn btn-neutral space-bottom' type='text' placeholder='le author'>\
-					<button id='authorSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>\
-					</form>";
+							<input id='authorInput' class='btn btn-neutral space-bottom' type='text' placeholder='le author'>\
+							<button id='authorSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>\
+							</form>";
 							flyoutShow(header, description, actionBox);
 
 							$("#authorConfirm").submit(function(event) {
