@@ -274,6 +274,8 @@
 				</form>";
 						flyoutShow(header, description, actionBox);
 
+						$('#descriptionInput').val("<?php echo $image['alt']; ?>");
+
 						$("#descriptionConfirm").submit(function(event) {
 							event.preventDefault();
 							var descriptionInput = $("#descriptionInput").val();
@@ -307,6 +309,8 @@
 				<button id='tagsSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit tags</button>\
 				</form>";
 						flyoutShow(header, description, actionBox);
+
+        				$('#tagsInput').val("<?php echo $image['tags']; ?>");
 
 						$("#tagsConfirm").submit(function(event) {
 							event.preventDefault();
