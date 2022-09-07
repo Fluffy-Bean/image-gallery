@@ -28,7 +28,7 @@
 */
 nav {
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
@@ -40,6 +40,7 @@ nav {
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0 auto 1rem;
+  padding: 0.5rem;
   width: calc(100% - 1.4rem);
   height: 2.5rem;
   position: -webkit-sticky;
@@ -298,7 +299,7 @@ nav .btn {
 
 .image-description {
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
@@ -326,7 +327,7 @@ nav .btn {
 
 .image-detail {
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
@@ -354,7 +355,7 @@ nav .btn {
 
 .tags-root {
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
@@ -402,7 +403,7 @@ nav .btn {
 
 .danger-zone {
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
@@ -435,7 +436,7 @@ nav .btn {
 */
 .about-root {
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
@@ -468,7 +469,7 @@ nav .btn {
 */
 .upload-root {
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
@@ -501,7 +502,7 @@ nav .btn {
 */
 .account-root {
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
@@ -534,7 +535,7 @@ nav .btn {
 */
 .signup-root {
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
@@ -568,7 +569,7 @@ nav .btn {
 */
 .login-root {
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
@@ -601,7 +602,7 @@ nav .btn {
 */
 .password-reset-root {
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
@@ -634,7 +635,7 @@ nav .btn {
 */
 .search-root {
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
