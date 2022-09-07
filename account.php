@@ -2,13 +2,13 @@
 <html>
 
 <head>
-	<?php include "../ui/header.php"; ?>
+	<?php include "ui/header.php"; ?>
 </head>
 
 <body>
 	<?php
-	include "../ui/required.php";
-	include "../ui/nav.php";
+	include "ui/required.php";
+	include "ui/nav.php";
 	?>
 
 		<?php
@@ -38,10 +38,10 @@
 				<br>
 				<h3 class='space-top'>Danger ahead</h3>
 				<p>Resetting your password regularly is a good way of keeping your account safe</p>
-				<a class='btn btn-bad' href='https://superdupersecteteuploadtest.fluffybean.gay/account/password-reset.php'><img class='svg' src='../assets/icons/password.svg'>Reset Password</a>
+				<a class='btn btn-bad' href='password-reset.php'><img class='svg' src='assets/icons/password.svg'>Reset Password</a>
 				<br>
 				<p>Don't leave! I'm with the science team!</p>
-				<a class='btn btn-bad' href='https://superdupersecteteuploadtest.fluffybean.gay/account/logout.php'><img class='svg' src='../assets/icons/sign-out.svg'>Logout</a>
+				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Logout</a>
 			</div>	
 		<?php
 		} else {
@@ -54,9 +54,9 @@
 					<input id="loginUsername" class="btn btn-neutral" type="text" name="username" placeholder="Username">
 					<input id="loginPassword" class="btn btn-neutral" type="password" name="password" placeholder="Password">
 					<br>
-					<button id="loginSubmit" class="btn btn-good" type="submit" name="login"><img class="svg" src="../assets/icons/sign-in.svg">Login</button>
+					<button id="loginSubmit" class="btn btn-good" type="submit" name="login"><img class="svg" src="assets/icons/sign-in.svg">Login</button>
 				</form>
-				<button class='btn btn-neutral' onclick="signupShow()"><img class="svg" src="../assets/icons/sign-in.svg">Need an account?</button>
+				<button class='btn btn-neutral' onclick="signupShow()"><img class="svg" src="assets/icons/sign-in.svg">Need an account?</button>
 			</div>
 			<script>
 				$("#loginForm").submit(function(event) {
@@ -64,7 +64,7 @@
 					var username = $("#loginUsername").val();
 					var password = $("#loginPassword").val();
 					var submit = $("#loginSubmit").val();
-					$("#sniffle").load("../app/account/account.php", {
+					$("#sniffle").load("app/account/account.php", {
 						username: username,
 						password: password,
 						submit_login: submit
@@ -84,9 +84,9 @@
 					<br>
 					<input id="signupToken" class="btn btn-neutral" type="text" name="token" placeholder="Invite Code">
 					<br>
-					<button id="signupSubmit" class="btn btn-good" type="submit" name="signup"><img class="svg" src="../assets/icons/sign-in.svg">Sign Up</button>
+					<button id="signupSubmit" class="btn btn-good" type="submit" name="signup"><img class="svg" src="assets/icons/sign-in.svg">Sign Up</button>
 				</form>
-				<button class='btn btn-neutral' onclick="loginShow()"><img class="svg" src="../assets/icons/sign-in.svg">I already got an account!</button>
+				<button class='btn btn-neutral' onclick="loginShow()"><img class="svg" src="assets/icons/sign-in.svg">I already got an account!</button>
 			</div>
 			<script>
 				$("#signupForm").submit(function(event) {
@@ -96,7 +96,7 @@
 					var confirm_password = $("#signupPasswordConfirm").val();
 					var token = $("#signupToken").val();
 					var submit = $("#signupSubmit").val();
-					$("#sniffle").load("../app/account/account.php", {
+					$("#sniffle").load("app/account/account.php", {
 						username: username,
 						password: password,
 						confirm_password: confirm_password,
@@ -120,7 +120,7 @@
 		}
 		?>
 
-	<?php include "../ui/footer.php"; ?>
+	<?php include "ui/footer.php"; ?>
 </body>
 
 </html>

@@ -15,9 +15,6 @@ include __DIR__."/ui/nav.php";
 	if (params.del == "true") {
 		sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)", "<?php echo $root_dir ?>assets/icons/trash.svg");
 	}
-	if (params.login == "success") {
-		sniffleAdd("Logged in", "O hi <?php echo $_SESSION['username']; ?>", "var(--green)", "<?php echo $root_dir ?>assets/icons/hand-waving.svg");
-	}
 </script>
 
 <div class="info-text">
