@@ -42,7 +42,7 @@
 					$("#alt").val("");
 					$("#submit").val("");
 				} else {
-					sniffleAdd('Gwha!', 'Pls provide image', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/file-search.svg');
+					sniffleAdd('Gwha!', 'Pls provide image', 'var(--red)', 'assets/icons/file-search.svg');
 				}
 			});
 		});
@@ -58,7 +58,7 @@
 	if (!loggedin()) {
 		echo "
     <script>
-      sniffleAdd('Who are you!', 'You must be loggedin to upload things, sowwy!', 'var(--red)', '" . $root_dir . "assets/icons/cross.svg');
+      sniffleAdd('Who are you!', 'You must be loggedin to upload things, sowwy!', 'var(--red)', 'assets/icons/cross.svg');
     </script>
     ";
 	}
