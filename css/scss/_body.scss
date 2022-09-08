@@ -214,6 +214,35 @@
 .image-detail {
     @include defaultDecoration($green);
     @include defaultFont();
+
+    &>div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+
+        &>div {
+            width: 50%;
+
+            * {
+                margin-top: 0;
+                margin-bottom: 0.5rem;
+
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+        }
+    }
+}
+@media (max-width: 669px) {
+    .image-detail {
+        &>div {
+            flex-direction: column;
+            &>div {
+                width: auto;
+            }
+        }
+    }
 }
 
 // TAGS

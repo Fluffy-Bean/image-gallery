@@ -149,40 +149,42 @@
 		</div>
 
 
-		<div class="image-detail flex-down default-window">
+		<div class="image-detail">
 			<h2>Details</h2>
+			<div>
+				<div>
+					<?php
+						// User
+						echo "<p>Author: ".$image_author."</p>";
+
+						// Image ID
+						echo "<p>ID: ".$image['id']."</p>";
+
+						// Image Upload date
+						echo "<p>Last updated: +0 ".$image['upload']."</p>";
+					?>
+				</div>
+				<div>
+					<?php
+						// File name
+						$image_pathinfo = pathinfo($image['imagename']);
+						
+						echo "<p>File Name: ".$image_pathinfo['filename']."</p>";
+
+						// File extention
+						echo "<p>File Type: ".pathinfo($image['imagename'], PATHINFO_EXTENSION)."</p>";
+
+						// Image resolution
+						list($width, $height) = getimagesize($image_path);
+						echo "<p>Image resolution: ".$width."x".$height."</p>";
+					?>
+				</div>
+			</div>
 			<?php
-			// User
-			echo "<p>Author: ".$image_author."</p>";
-
-			// Image ID
-			echo "<p>ID: ".$image['id']."</p>";
-
-			// File name
-			$image_pathinfo = pathinfo($image['imagename']);
-			if (strlen($image['imagename']) > 30) {
-				echo "<p>File Name: ".substr($image_pathinfo['filename'], 0, 30)."...</p>";
-			} else {
-				echo "<p>File Name: ".$image_pathinfo['filename']."</p>";
-			}
-
-			// File extention
-			echo "<p>File Type: ".pathinfo($image['imagename'], PATHINFO_EXTENSION)."</p>";
-
-			// Image resolution
-			list($width, $height) = getimagesize($image_path);
-			echo "<p>Image resolution: ".$width."x".$height."</p>";
-
-			// Image Upload date
-			echo "<p>Last updated: +0 ".$image['upload']."</p>";
-
-			echo "<br>";
-
-			// Image download
-			echo "<a class='btn btn-good' href='images/".$image['imagename']."' download='".$image['imagename']."'><img class='svg' src='assets/icons/download.svg'>Download image</a>";
-
-			// Copy image
+				// Image download
+				echo "<a class='btn btn-good' href='images/".$image['imagename']."' download='".$image['imagename']."'><img class='svg' src='assets/icons/download.svg'>Download image</a>";
 			?>
+			<button class='btn btn-good' onclick='copyLink()'><img class='svg' src='assets/icons/clipboard-text.svg'>Copy image link</button>
 			<script>
 				function copyLink() {
 					navigator.clipboard.writeText(window.location.href);
@@ -190,9 +192,6 @@
 					sniffleAdd("Info", "Link has been copied!", "var(--green)", "assets/icons/clipboard-text.svg");
 				}
 			</script>
-			<?php
-			echo "<button class='btn btn-good' onclick='copyLink()'><img class='svg' src='assets/icons/clipboard-text.svg'>Copy image link</button>";
-			?>
 		</div>
 
 		<div class="tags-root default-window">
