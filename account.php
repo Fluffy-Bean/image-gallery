@@ -15,34 +15,48 @@
 		if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 		?>
 			<div class="account-root">
-				<h2>Account settings</h2>
-				<br>
-				<?php
-				if ($_SESSION["id"] == 1) {
-					echo "<h3>Invite Codes</h3>";
-					$token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
-					while ($token = mysqli_fetch_array($token_request)) {
-				?>
-						<!-- Button that's displayed with the invite code -->
-						<button onclick='copyCode()' class='btn btn-neutral'><?php echo $token['code']; ?></button>
-						<script>
-							function copyCode() {
-								navigator.clipboard.writeText("<?php echo $token['code']; ?>");
-								sniffleAdd("Info", "Invite code has been copied!", "var(--green)", "<?php echo $root_dir; ?>assets/icons/clipboard-text.svg");
-							}
-						</script>
-				<?php
-					}
-				}
-				?>
-				<br>
-				<h3 class='space-top'>Danger ahead</h3>
+				<h2>Settings</h2>
+				<h3 class='space-top'>Account</h3>
 				<p>Resetting your password regularly is a good way of keeping your account safe</p>
 				<a class='btn btn-bad' href='password-reset.php'><img class='svg' src='assets/icons/password.svg'>Reset Password</a>
 				<br>
 				<p>Don't leave! I'm with the science team!</p>
 				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Logout</a>
-			</div>	
+			</div>
+			<?php
+				if ($_SESSION["id"] == 1) {
+			?>
+					<div class="admin-root">
+						<h2>Admin controlls</h2>
+						<br>
+						<h3>Invite Codes</h3>
+						<?php
+						$token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
+						while ($token = mysqli_fetch_array($token_request)) {
+						?>
+							<br>
+							<button onclick='copyCode()' class='btn btn-neutral'><?php echo $token['code']; ?></button>
+							<script>
+								function copyCode() {
+									navigator.clipboard.writeText("<?php echo $token['code']; ?>");
+									sniffleAdd("Info", "Invite code has been copied!", "var(--green)", "<?php echo $root_dir; ?>assets/icons/clipboard-text.svg");
+								}
+							</script>
+						<?php
+						}
+						?>
+						<br>
+						<h3>Database info</h3>
+						<?php
+							echo "<p>Address: ".$database['ip'].":".$database['port']."</p>";
+							echo "<p>Username: ".$database['username']."</p>";
+							echo "<p>Password: Not displayed</p>";
+							echo "<p>Database: ".$database['database']."</p>";
+						?>
+					</div>
+				<?php
+				}
+				?>
 		<?php
 		} else {
 		?>

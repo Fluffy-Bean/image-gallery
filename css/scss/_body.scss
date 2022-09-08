@@ -26,6 +26,22 @@
     }
 }
 
+.gallery-order {
+    @include defaultFont();
+
+    margin-bottom: 1rem;
+
+    display: flex;
+    flex-direction: row;
+
+    & > * {
+        margin-right: 0.5rem;
+    }
+    & > *:last-child {
+        margin-right: 0;
+    }
+}
+
 .gallery-root {
     margin-bottom: 1rem;
     padding: 0.25rem;
@@ -263,24 +279,16 @@
     @include defaultDecoration($green);
     @include defaultFont();
 }
-
-/*
- |-------------------------------------------------------------
- | SIGNUP
- |-------------------------------------------------------------
-*/
+.admin-root {
+    @include defaultDecoration($green);
+    @include defaultFont();
+}
 .signup-root {
     @include defaultDecoration($green);
     @include defaultFont();
     // By default its hidden, in place is login
     display: none;
 }
-
-/*
- |-------------------------------------------------------------
- | LOGIN
- |-------------------------------------------------------------
-*/
 .login-root {
     @include defaultDecoration($green);
     @include defaultFont();

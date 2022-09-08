@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<?php include __DIR__."/ui/header.php"; ?>
+	<?php include "ui/header.php"; ?>
 
 	<!-- Upload Script -->
 	<script>
@@ -51,8 +51,8 @@
 
 <body>
 	<?php
-	include __DIR__."/ui/required.php";
-	include __DIR__."/ui/nav.php";
+	include "ui/required.php";
+	include "ui/nav.php";
 
 	// Check if user is logged in
 	if (!loggedin()) {
@@ -76,7 +76,7 @@
 		</form>
 	</div>
 
-	<?php include __DIR__."/ui/footer.php"; ?>
+	<?php include "ui/footer.php"; ?>
 </body>
 
 </html>

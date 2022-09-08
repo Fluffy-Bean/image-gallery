@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<?php include __DIR__."/ui/header.php"; ?>
+	<?php include "ui/header.php"; ?>
 </head>
 
 
@@ -18,8 +18,13 @@
 	 | many rewrites and hours of learning....
 	 |-------------------------------------------------------------
 	*/
-	include __DIR__."/ui/required.php";
-	include __DIR__."/ui/nav.php";
+	include "ui/required.php";
+	include "ui/nav.php";
+
+	include "app/image/get_image_info.php";
+	include "app/image/image_privilage.php";
+
+	include "app/format/string_to_tags.php";
 
 
 	/*
@@ -372,7 +377,7 @@
 		}
 		?>
 
-		<?php include __DIR__."/ui/footer.php"; ?>
+		<?php include "ui/footer.php"; ?>
 </body>
 
 </html>

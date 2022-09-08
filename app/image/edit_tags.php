@@ -45,14 +45,14 @@ if (isset($_POST['submit'])) {
       if (mysqli_stmt_execute($stmt)) {
         ?>
         <script>
-          sniffleAdd('Success!!!', 'Tags have been modified successfully! You may need to refresh the page to see the new information.', 'var(--green)', '<?php echo $root_dir; ?>assets/icons/check.svg');
+          sniffleAdd('Success!!!', 'Tags have been modified successfully! You may need to refresh the page to see the new information.', 'var(--green)', 'assets/icons/check.svg');
           flyoutClose();
         </script>
         <?php
       } else {
         ?>
         <script>
-          sniffleAdd('Error :c', 'An error occured on the servers', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/cross.svg');
+          sniffleAdd('Error :c', 'An error occured on the servers', 'var(--red)', 'assets/icons/cross.svg');
           flyoutClose();
         </script>
         <?php
@@ -60,7 +60,7 @@ if (isset($_POST['submit'])) {
     } else {
       ?>
       <script>
-        sniffleAdd('Error :c', 'An error occured on the servers', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/cross.svg');
+        sniffleAdd('Error :c', 'An error occured on the servers', 'var(--red)', 'assets/icons/cross.svg');
         flyoutClose();
       </script>
       <?php
@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
   } else {
     ?>
     <script>
-      sniffleAdd('Denied', 'It seems that you do not have the right permitions to modify tags here.', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/cross.svg');
+      sniffleAdd('Denied', 'It seems that you do not have the right permitions to modify tags here.', 'var(--red)', 'assets/icons/cross.svg');
       flyoutClose();
     </script>
     <?php

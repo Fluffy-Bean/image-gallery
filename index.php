@@ -2,18 +2,18 @@
 <html>
 
 <head>
-	<?php include __DIR__."/ui/header.php"; ?>
+	<?php include "ui/header.php"; ?>
 </head>
 
 <body>
 <?php
-include __DIR__."/ui/required.php";
-include __DIR__."/ui/nav.php";
+include "ui/required.php";
+include "ui/nav.php";
 ?>
 
 <script>
 	if (params.del == "true") {
-		sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)", "<?php echo $root_dir ?>assets/icons/trash.svg");
+		sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)", "assets/icons/trash.svg");
 	}
 </script>
 
@@ -40,14 +40,19 @@ include __DIR__."/ui/nav.php";
 		}
 
 		// Random welcome message
-		$import_welcome = file_get_contents("default.json");
-		$import_decode = json_decode($import_welcome, true);
-		$welcome_message = $import_decode['welcome_msg'];
+		$welcome_message = $user_settings['website']['welcome_msg'];
 		echo "<p>".$welcome_message[array_rand($welcome_message, 1)]."</p>";
 	?>
 </div>
 
-<div class="gallery-root flex-left">
+<!--
+<div class="gallery-order">
+	<button class="btn btn-neutral">Grid</button>
+	<button class="btn btn-neutral">List</button>
+</div>
+-->
+
+<div class="gallery-root">
 	<?php
 	// Reading images from table
 	$image_request = mysqli_query($conn, "SELECT * FROM swag_table ORDER BY id DESC");
@@ -79,6 +84,6 @@ include __DIR__."/ui/nav.php";
 </div>
 
 
-<?php include __DIR__."/ui/footer.php"; ?>
+<?php include "ui/footer.php"; ?>
 </body>
 </html>

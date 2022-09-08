@@ -28,14 +28,14 @@ if (isset($_POST['submit'])) {
       if (mysqli_stmt_execute($stmt)) {
         ?>
         <script>
-          sniffleAdd('Success!!!', 'The Author has been updated successfully! You may need to refresh the page to see the new information.', 'var(--green)', '<?php echo $root_dir; ?>assets/icons/check.svg');
+          sniffleAdd('Success!!!', 'The Author has been updated successfully! You may need to refresh the page to see the new information.', 'var(--green)', 'assets/icons/check.svg');
           flyoutClose();
         </script>
         <?php
       } else {
         ?>
         <script>
-          sniffleAdd('Oopsie....', 'An error occured on the servers', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/cross.svg');
+          sniffleAdd('Oopsie....', 'An error occured on the servers', 'var(--red)', 'assets/icons/cross.svg');
           flyoutClose();
         </script>
         <?php
@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
   } else {
     ?>
     <script>
-      sniffleAdd('Denied', 'Sussy wussy.', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/cross.svg');
+      sniffleAdd('Denied', 'Sussy wussy.', 'var(--red)', 'assets/icons/cross.svg');
       flyoutClose();
     </script>
     <?php

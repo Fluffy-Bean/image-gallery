@@ -172,6 +172,31 @@ nav .btn {
   margin-bottom: 1rem;
 }
 
+.gallery-order {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+}
+.gallery-order h1,
+.gallery-order h2,
+.gallery-order h3,
+.gallery-order h4,
+.gallery-order h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.gallery-order p,
+.gallery-order a,
+.gallery-order button,
+.gallery-order input {
+  font-family: "Secular One", sans-serif;
+}
+.gallery-order > * {
+  margin-right: 0.5rem;
+}
+.gallery-order > *:last-child {
+  margin-right: 0;
+}
+
 .gallery-root {
   margin-bottom: 1rem;
   padding: 0.25rem;
@@ -528,11 +553,34 @@ nav .btn {
   font-family: "Secular One", sans-serif;
 }
 
-/*
- |-------------------------------------------------------------
- | SIGNUP
- |-------------------------------------------------------------
-*/
+.admin-root {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0rem;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+}
+.admin-root > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.admin-root h1,
+.admin-root h2,
+.admin-root h3,
+.admin-root h4,
+.admin-root h5 {
+  font-family: "Lexend Deca", sans-serif;
+}
+.admin-root p,
+.admin-root a,
+.admin-root button,
+.admin-root input {
+  font-family: "Secular One", sans-serif;
+}
+
 .signup-root {
   margin-bottom: 1rem;
   padding: 0.5rem 0.5rem 0 0.5rem;
@@ -562,11 +610,6 @@ nav .btn {
   font-family: "Secular One", sans-serif;
 }
 
-/*
- |-------------------------------------------------------------
- | LOGIN
- |-------------------------------------------------------------
-*/
 .login-root {
   margin-bottom: 1rem;
   padding: 0.5rem 0.5rem 0 0.5rem;

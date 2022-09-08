@@ -1,53 +1,39 @@
 <?php
 /*
-  Used for testing, do not use this in production
+  User defined settings
 */
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ERROR | E_PARSE | E_NOTICE);;
+include "app/settings/settings.php";
 
+if ($debug["testing"]) {
+  /*
+    Used for testing, do not use this in production
+  */
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ERROR | E_PARSE | E_NOTICE);
+  ?>
+    <script>
+				sniffleAdd('Notice', 'This website is currently in a testing state, bugs may occur', 'var(--red)', 'assets/icons/cross.svg');
+		</script>
+  <?php
+}
 
-/*
-  Start session
-
-  This is important as most pages use the PHP session and will complain if its not possible to access.
-*/
-session_start();
-
-
-/*
-  Check which directory user is in
-
-  I don't know if theres a better way of doing this? If there is please let me know
-*/
 if (is_file("index.php")) {
   $root_dir = "";
 } else {
   $root_dir = "../";
 }
 
-
-$import_json = file_get_contents($root_dir."default.json");
-$setup_json = json_decode($import_json, true);
-
 /*
   Connect to the server
 */
-include $root_dir."app/server/conn.php";
+include "app/server/conn.php";
+include "app/server/secrete.php";
 
-/*
-  Add functions
-*/
-include $root_dir."app/account/get_info.php";
-include $root_dir."app/account/is_admin.php";
-include $root_dir."app/account/login_status.php";
+include "app/account/get_info.php";
+include "app/account/is_admin.php";
+include "app/account/login_status.php";
 
-include $root_dir."app/format/string_to_tags.php";
-
-include $root_dir."app/image/get_image_info.php";
-include $root_dir."app/image/image_privilage.php";
-
-include $root_dir."app/server/secrete.php";
 ?>
 <script>
   /*

@@ -2,14 +2,14 @@
 <html>
 
 <head>
-	<?php include __DIR__."/ui/header.php"; ?>
+	<?php include "ui/header.php"; ?>
 </head>
 
 
 <body>
 	<?php
-	include __DIR__."/ui/required.php";
-	include __DIR__."/ui/nav.php";
+	include "ui/required.php";
+	include "ui/nav.php";
 	?>
 
 	<div class="about-root">
@@ -53,7 +53,7 @@
 		<p>To mrHDash...</p>
 	</div>
 
-	<?php include __DIR__."/ui/footer.php"; ?>
+	<?php include "ui/footer.php"; ?>
 </body>
 
 </html>
