@@ -9,6 +9,8 @@
 session_start();
 // Include server connection
 include "../server/conn.php";
+// Required to format tags correctly before upload
+include "../format/string_to_tags.php";
 
 if (isset($_POST['submit'])) {
   if (isset($_SESSION['id'])) {
@@ -20,6 +22,9 @@ if (isset($_POST['submit'])) {
     $file_type = pathinfo($dir.$_FILES['image']['name'],PATHINFO_EXTENSION);
     $image_newname = "IMG_".$_SESSION["username"]."_".round(microtime(true)).".".$file_type;
     $image_path = $dir.$image_newname;
+
+    // Clean tags
+    $tags = tag_clean(trim($_POST['tags']));
 
     // Allowed file types
     $allowed_types = array('jpg', 'jpeg', 'png', 'webp');
@@ -40,16 +45,17 @@ if (isset($_POST['submit'])) {
         }
 
         // Prepare sql for destruction and filtering the sus
-        $sql = "INSERT INTO swag_table (imagename, alt, author) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO swag_table (imagename, alt, tags, author) VALUES (?, ?, ?, ?)";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
           // Bind the smelly smelly
-          mysqli_stmt_bind_param($stmt, "sss", $param_image_name, $param_alt_text, $param_user_id);
+          mysqli_stmt_bind_param($stmt, "ssss", $param_image_name, $param_alt_text, $param_tags, $param_user_id);
 
           // Setting up parameters
           $param_image_name = $image_newname;
           $param_alt_text = $_POST['alt'];
           $param_user_id = $_SESSION['id'];
+          $param_tags = $tags;
 
           // Attempt to execute the prepared statement
           if (mysqli_stmt_execute($stmt)) {
