@@ -28,13 +28,11 @@
 			?>
 					<div class="admin-root">
 						<h2>Admin controlls</h2>
-						<br>
 						<h3>Invite Codes</h3>
 						<?php
 						$token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
 						while ($token = mysqli_fetch_array($token_request)) {
 						?>
-							<br>
 							<button onclick='copyCode()' class='btn btn-neutral'><?php echo $token['code']; ?></button>
 							<script>
 								function copyCode() {
@@ -44,20 +42,8 @@
 							</script>
 						<?php
 						}
-						?>
-						<br>
-						<h3>Database info</h3>
-						<?php
-							echo "<p>Address: ".$database['ip'].":".$database['port']."</p>";
-							echo "<p>Username: ".$database['username']."</p>";
-							echo "<p>Password: Not displayed</p>";
-							echo "<p>Database: ".$database['database']."</p>";
-						?>
-					</div>
-				<?php
+					echo "</div>";
 				}
-				?>
-		<?php
 		} else {
 		?>
 			<div class="login-root">

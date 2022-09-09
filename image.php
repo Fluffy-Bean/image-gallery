@@ -195,6 +195,13 @@
 						// Image resolution
 						list($width, $height) = getimagesize($image_path);
 						echo "<p>Image resolution: ".$width."x".$height."</p>";
+
+						function human_filesize($bytes, $decimals = 2) {
+							$sz = 'BKMGTP';
+							$factor = floor((strlen($bytes) - 1) / 3);
+							return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
+						}
+						echo "<p>File size: ".human_filesize(filesize($image_path), 2)."</p>";
 					?>
 				</div>
 			</div>
