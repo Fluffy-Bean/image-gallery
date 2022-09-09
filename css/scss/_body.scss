@@ -201,6 +201,37 @@
     height: auto;
 
     border-radius: $rad;
+
+    transition: opacity 0.5s;
+}
+
+.preview-button {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+
+    display: block;
+    box-sizing: border-box;
+
+    font-size: 14px;
+    font-weight: 500;
+    font-family: $font-body;
+
+    text-decoration: none;
+
+    border: none;
+    border-radius: calc($rad - (0.5rem + 3px));
+
+    transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
+
+    background-color: $black;
+
+    opacity: 0.8;
+
+    &:hover {
+        outline: $white 0.2rem solid;
+        color: $fg;
+    }
 }
 
 // DESCRIPTION

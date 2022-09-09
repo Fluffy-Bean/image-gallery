@@ -128,13 +128,31 @@
 	} else {
 		$privilaged = False;
 	}
-	?>
 
-	<div class="image-container">
-		<img class='image' id='<?php echo $image['id']; ?>' src='<?php echo $image_path; ?>' alt='<?php echo $image_alt; ?>'>
-	</div>
+	if (is_file("images/previews/".$image['imagename'])) {
+		echo "<div class='image-container'>
+		<img class='image' id='".$image['id']."' src='images/previews/".$image['imagename']."' alt='".$image_alt."'>
+		<button class='preview-button' onclick='showFull()'>Show full quality</button>
+		</div>";
+		?>
+			<script>
+				function showFull() {
+					document.querySelector(".image").style.opacity = 0;
+					document.querySelector(".preview-button").style.display = "none";
+					setTimeout(function(){
+						document.querySelector(".image").src = "<?php echo $image_path;?>";
+						document.querySelector(".image").style.opacity = 1;
+					}, 500);
+				}
+			</script>
+		<?php
+	} else {
+		echo "<div class='image-container'>
+		<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>
+		</div>";
+	}
 
-	<?php
+
 	/*
 	 |-------------------------------------------------------------
 	 | Start of displaying all info on image

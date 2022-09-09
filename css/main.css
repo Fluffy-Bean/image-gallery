@@ -320,6 +320,28 @@ nav .btn {
   max-height: inherit;
   height: auto;
   border-radius: 0rem;
+  transition: opacity 0.5s;
+}
+
+.preview-button {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  display: block;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Secular One", sans-serif;
+  text-decoration: none;
+  border: none;
+  border-radius: calc(0rem - (0.5rem + 3px));
+  transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
+  background-color: #151515;
+  opacity: 0.8;
+}
+.preview-button:hover {
+  outline: #E8E3E3 0.2rem solid;
+  color: #E8E3E3;
 }
 
 .image-description {

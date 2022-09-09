@@ -40,6 +40,10 @@ if (isset($_POST['submit_delete'])) {
         if (is_file("../../images/thumbnails/".$image_array['imagename'])) {
           unlink("../../images/thumbnails/".$image_array['imagename']);
         }
+        // Delete preview if exitsts
+        if (is_file("../../images/previews/".$image_array['imagename'])) {
+          unlink("../../images/previews/".$image_array['imagename']);
+        }
         // TP user to the homepage with a success message
         ?>
         <script>
