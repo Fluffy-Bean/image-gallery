@@ -21,7 +21,7 @@
 					// Get ALT
 					var alt = $("#alt").val();
 					formData.append("alt", alt);
-					// Get ALT
+					// Get TAGS
 					var tags = $("#tags").val();
 					formData.append("tags", tags);
 					// Submit data
@@ -43,6 +43,7 @@
 					// Empty values
 					$("#image").val("");
 					$("#alt").val("");
+					$("#tags").val("");
 					$("#submit").val("");
 				} else {
 					sniffleAdd('Gwha!', 'Pls provide image', 'var(--red)', 'assets/icons/file-search.svg');

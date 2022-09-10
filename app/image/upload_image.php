@@ -44,8 +44,8 @@ if (isset($_POST['submit'])) {
 						<?php
 					}
 				}
-				if ($width > 1000) {
-					$make_preview = make_thumbnail($image_path, $preview_dir.$image_newname, 1000);
+				if ($width > 1100) {
+					$make_preview = make_thumbnail($image_path, $preview_dir.$image_newname, 900);
 					if ($make_preview != "success") {
 						?>
 							<script>
