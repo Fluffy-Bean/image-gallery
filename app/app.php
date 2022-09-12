@@ -12,12 +12,12 @@ class Make {
     */
     function thumbnail($image_path, $thumbnail_path, $resolution) {
         try {
-            $thumbnail = new Imagick($image_path);
+            $thumbnail = new \Imagick($image_path);
             $thumbnail->resizeImage($resolution,null,null,1,null);
             $thumbnail->writeImage($thumbnail_path);
 
             return "success";
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return $e;
         }
     }

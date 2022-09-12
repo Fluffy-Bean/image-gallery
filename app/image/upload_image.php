@@ -38,8 +38,7 @@ if (isset($_POST['submit'])) {
 				// Attempt making a thumbnail
 				list($width, $height) = getimagesize($image_path);
 				if ($width > 300) {
-					$make_stuff->thumbnail($image_path, $thumb_dir.$image_newname, 300);
-					if ($make_thumbnail != "success") {
+					if ($make_stuff->thumbnail($image_path, $thumb_dir.$image_newname, 300) != "success") {
 						?>
 							<script>
 								sniffleAdd('Gwha!', 'We hit a small roadbump during making of the thumbail. We will continue anyway! \n Full Error: <?php echo $make_thumbnail; ?>', 'var(--black)', 'assets/icons/bug.svg');
@@ -48,8 +47,7 @@ if (isset($_POST['submit'])) {
 					}
 				}
 				if ($width > 1100) {
-					$make_stuff->thumbnail($image_path, $preview_dir.$image_newname, 900);
-					if ($make_preview != "success") {
+					if ($make_stuff->thumbnail($image_path, $preview_dir.$image_newname, 900) != "success") {
 						?>
 							<script>
 								sniffleAdd('Gwha!', 'We hit a small roadbump during making of the preview. We will continue anyway! \n Full Error: <?php echo $make_preview; ?>', 'var(--black)', 'assets/icons/bug.svg');
