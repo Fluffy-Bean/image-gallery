@@ -9,8 +9,11 @@
 session_start();
 // Include server connection
 include "../server/conn.php";
-include "../format/string_to_tags.php";
-include "../format/create_thumbnail.php";
+include "../app.php";
+
+use App\Make;
+
+$make_stuff = new Make();
 
 if (isset($_POST['submit'])) {
 	if (isset($_SESSION['id'])) {
@@ -25,7 +28,7 @@ if (isset($_POST['submit'])) {
 		$image_path = $dir.$image_newname;
 
 		// Clean tags
-		$tags = tag_clean(trim($_POST['tags']));
+		$tags = $make_stuff->tags(trim($_POST['tags']));
 
 		// Allowed file types
 		$allowed_types = array('jpg', 'jpeg', 'png', 'webp');
@@ -35,7 +38,7 @@ if (isset($_POST['submit'])) {
 				// Attempt making a thumbnail
 				list($width, $height) = getimagesize($image_path);
 				if ($width > 300) {
-					$make_thumbnail = make_thumbnail($image_path, $thumb_dir.$image_newname, 300);
+					$make_stuff->thumbnail($image_path, $thumb_dir.$image_newname, 300);
 					if ($make_thumbnail != "success") {
 						?>
 							<script>
@@ -45,7 +48,7 @@ if (isset($_POST['submit'])) {
 					}
 				}
 				if ($width > 1100) {
-					$make_preview = make_thumbnail($image_path, $preview_dir.$image_newname, 900);
+					$make_stuff->thumbnail($image_path, $preview_dir.$image_newname, 900);
 					if ($make_preview != "success") {
 						?>
 							<script>

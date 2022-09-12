@@ -35,15 +35,15 @@
 
 		<h2>Where to find me</h2>
 		<a class='link' href="https://gay.fluffybean.gay">
-			<img class='svg' src='<?php echo $root_dir; ?>assets/icons/link.svg'>
+			<img class='svg' src='assets/icons/link.svg'>
 			My website!
 		</a>
 		<a class='link' href="https://t.me/Fluffy_Bean">
-			<img class='svg' src='<?php echo $root_dir; ?>assets/icons/telegram-logo.svg'>
+			<img class='svg' src='assets/icons/telegram-logo.svg'>
 			Telegram
 		</a>
 		<a class='link' href="https://twitter.com/fluffybeanUwU">
-			<img class='svg' src='<?php echo $root_dir; ?>assets/icons/twitter-logo.svg'>
+			<img class='svg' src='assets/icons/twitter-logo.svg'>
 			Twitter
 		</a>
 

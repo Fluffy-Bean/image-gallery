@@ -9,10 +9,14 @@
 	<?php
 	include "ui/required.php";
 	include "ui/nav.php";
+
+	use App\Account;
+
+	$user_info = new Account();
 	?>
 
 		<?php
-		if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+		if ($user_info->is_loggedin()) {
 		?>
 			<div class="account-root">
 				<h2>Settings</h2>
@@ -24,7 +28,7 @@
 				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Logout</a>
 			</div>
 			<?php
-				if ($_SESSION["id"] == 1) {
+				if ($user_info->is_admin($_SESSION['id'])) {
 			?>
 					<div class="admin-root">
 						<h2>Admin controlls</h2>
@@ -37,7 +41,7 @@
 							<script>
 								function copyCode() {
 									navigator.clipboard.writeText("<?php echo $token['code']; ?>");
-									sniffleAdd("Info", "Invite code has been copied!", "var(--green)", "<?php echo $root_dir; ?>assets/icons/clipboard-text.svg");
+									sniffleAdd("Info", "Invite code has been copied!", "var(--green)", "assets/icons/clipboard-text.svg");
 								}
 							</script>
 						<?php

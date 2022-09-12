@@ -4,10 +4,8 @@
 */
 include "app/settings/settings.php";
 
-if ($debug["testing"]) {
-  /*
-    Used for testing, do not use this in production
-  */
+/*if ($debug["testing"]) {
+  // Used for testing, do not use this in production
   ini_set('display_errors', 1);
   ini_set('display_startup_errors', 1);
   error_reporting(E_ERROR | E_PARSE | E_NOTICE);
@@ -16,10 +14,18 @@ if ($debug["testing"]) {
 				sniffleAdd('Notice', 'This website is currently in a testing state, bugs may occur', 'var(--red)', 'assets/icons/cross.svg');
 		</script>
   <?php
-}
+}*/
 
 ini_set('post_max_size', '20M');
 ini_set('upload_max_filesize', '20M');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ERROR | E_PARSE | E_NOTICE);
+?>
+  <script>
+      sniffleAdd('Notice', 'This website is currently in a testing state, bugs may occur', 'var(--red)', 'assets/icons/cross.svg');
+  </script>
+<?php
 
 if (is_file("index.php")) {
   $root_dir = "";
@@ -33,9 +39,10 @@ if (is_file("index.php")) {
 include "app/server/conn.php";
 include "app/server/secrete.php";
 
-include "app/account/get_info.php";
-include "app/account/is_admin.php";
-include "app/account/login_status.php";
+/*
+  Classes
+*/
+include 'app/app.php';
 
 ?>
 <script>

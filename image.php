@@ -21,11 +21,11 @@
 	include "ui/required.php";
 	include "ui/nav.php";
 
-	include "app/image/get_image_info.php";
-	include "app/image/image_privilage.php";
+	use App\Account;
+	use App\Image;
 
-	include "app/format/string_to_tags.php";
-
+	$image_info = new Image;
+	$user_info = new Account;
 
 	/*
 	 |-------------------------------------------------------------
@@ -37,7 +37,7 @@
 	*/
 	if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 		// Get all image info
-		$image = get_image_info($conn, $_GET['id']);
+		$image = $image_info->get_image_info($conn, $_GET['id']);
 
 		// Check if image is avalible
 		if (isset($image['imagename'])) {
@@ -45,17 +45,17 @@
 		} else {
 	?>
 			<script>
-				sniffleAdd('Woops', 'Something happened, either image with the ID <?php echo $_GET['id']; ?> was deleted or never existed, either way it could not be found!', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/cross.svg');
+				sniffleAdd('Woops', 'Something happened, either image with the ID <?php echo $_GET['id']; ?> was deleted or never existed, either way it could not be found!', 'var(--red)', 'assets/icons/cross.svg');
 			</script>
-		<?php
+			<?php
 			$image_present = False;
 		}
 	} else {
 		?>
 		<script>
-			sniffleAdd('Where is da image?', 'The link you followed seems to be broken, or there was some other error, who knows!', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/cross.svg');
+			sniffleAdd('Where is da image?', 'The link you followed seems to be broken, or there was some other error, who knows!', 'var(--red)', 'assets/icons/cross.svg');
 		</script>
-	<?php
+		<?php
 		$image_present = False;
 	}
 
@@ -76,7 +76,7 @@
 		*/
 		if (isset($image['author'])) {
 			// Get all information on the user
-			$user = get_user_info($conn, $image['author']);
+			$user = $user_info->get_user_info($conn, $image['author']);
 
 			if (isset($user['username'])) {
 				$image_author = $user['username'];
@@ -123,7 +123,7 @@
 	 | Check user privilge
 	 |-------------------------------------------------------------
 	*/
-	if (image_privilage($image['author']) || is_admin($_SESSION['id'])) {
+	if ($image_info->image_privilage($image['author']) || $user_info->is_admin($_SESSION['id'])) {
 		$privilaged = True;
 	} else {
 		$privilaged = False;
@@ -363,7 +363,7 @@
 				|-------------------------------------------------------------
 				-->
 				<?php
-				if (is_admin($_SESSION['id'])) {
+				if ($user_info->is_admin($_SESSION['id'])) {
 				?>
 					<button id='authorButton' class='btn btn-bad'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
 					<script>

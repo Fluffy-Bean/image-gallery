@@ -2,11 +2,15 @@
 session_start();
 // Include server connection
 include "../server/conn.php";
-// Include required checks
-include "get_image_info.php";
-include "image_privilage.php";
-// Required to format tags correctly
-include "../format/string_to_tags.php";
+include "../app.php";
+
+use App\Account;
+use App\Image;
+use App\Make;
+
+$user_info = new Account();
+$image_info = new Image();
+$make_stuff = new Make();
 
 /*
  |-------------------------------------------------------------
@@ -18,10 +22,10 @@ include "../format/string_to_tags.php";
 */
 if (isset($_POST['submit_delete'])) {
   // Get all image info
-  $image_array = get_image_info($conn, $_POST['id']);
+  $image_array = $image_info->get_image_info($conn, $_POST['id']);
 
   // If user owns image or has the ID of 1
-  if (image_privilage($image_array['author']) || $_SESSION['id'] == 1) {
+  if ($image_info->image_privilage($image_array['author']) || $_SESSION['id'] == 1) {
     // Delete from table
     $sql = "DELETE FROM swag_table WHERE id = ?";
     if ($stmt = mysqli_prepare($conn, $sql)) {
@@ -92,9 +96,9 @@ if (isset($_POST['submit_delete'])) {
 */
 if (isset($_POST['submit_description'])) {
   // Get all image info
-  $image_array = get_image_info($conn, $_POST['id']);
+  $image_array = $image_info->get_image_info($conn, $_POST['id']);
   // If user owns image or has the ID of 1
-  if (image_privilage($image_array['author']) || $_SESSION['id'] == 1) {
+  if ($image_info->image_privilage($image_array['author']) || $_SESSION['id'] == 1) {
     // getting ready forSQL asky asky
     $sql = "UPDATE swag_table SET alt=? WHERE id=?";
 
@@ -150,11 +154,11 @@ if (isset($_POST['submit_description'])) {
 */
 if (isset($_POST['submit_tags'])) {
   // Get all image info
-  $image_array = get_image_info($conn, $_POST['id']);
+  $image_array = $image_info->get_image_info($conn, $_POST['id']);
   // If user owns image or has the ID of 1
-  if (image_privilage($image_array['author']) || $_SESSION['id'] == 1) {
+  if ($image_info->image_privilage($image_array['author']) || $_SESSION['id'] == 1) {
     // Clean input
-    $tags_string = tag_clean(trim($_POST['input']));
+    $tags_string = $make_stuff->tags(trim($_POST['input']));
 
     // getting ready forSQL asky asky
     $sql = "UPDATE swag_table SET tags=? WHERE id=?";
@@ -211,7 +215,7 @@ if (isset($_POST['submit_tags'])) {
 */
 if (isset($_POST['submit_author'])) {
   // If user has the ID of 1
-  if ($_SESSION['id'] == 1) {
+  if ($user_info->is_admin($_SESSION['id'])) {
     // getting ready forSQL asky asky
     $sql = "UPDATE swag_table SET author=? WHERE id=?";
 

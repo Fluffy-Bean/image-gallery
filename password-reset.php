@@ -11,8 +11,12 @@
 	include "ui/required.php";
 	include "ui/nav.php";
 
+	use App\Account;
+
+	$user_info = new Account();
+
 	// Check if the user is logged in, otherwise redirect to login page
-	if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+	if ($user_info->is_loggedin() != true) {
 		header("location: account.php");
 		exit;
 	}

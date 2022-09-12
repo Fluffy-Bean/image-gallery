@@ -27,15 +27,14 @@
         ],
         "license":"GPL 3.0",
         "database": {
-            "ip": "192.168.0.79",
-            "port": "3306",
+            "ip": "192.168.0.79:3306",
             "username": "uwu",
             "password": "fennec621",
             "database": "gallery"
         },
         "debug": {
             "testing": true,
-            "version": "22.09.08"
+            "version": "22.09.12"
         }
     },
     "plugins": {

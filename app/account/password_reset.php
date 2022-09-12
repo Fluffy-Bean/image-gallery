@@ -90,7 +90,7 @@ if (isset($_POST['submit'])) {
                 ?>
                 <script>
                     sniffleAdd('Password updated', 'Now goodbye.... you will be redirected in a moment', 'var(--green)', '../assets/icons/check.svg');
-                    setTimeout(function(){window.location.href = "../account/login.php";}, 4000);
+                    setTimeout(function(){window.location.href = "../account/login.php";}, 2000);
                 </script>
                 <?php
             } else {

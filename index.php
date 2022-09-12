@@ -83,7 +83,6 @@ include "ui/nav.php";
 	?>
 </div>
 
-
 <?php include "ui/footer.php"; ?>
 </body>
 </html>

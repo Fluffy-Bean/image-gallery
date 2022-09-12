@@ -58,13 +58,16 @@
 	include "ui/required.php";
 	include "ui/nav.php";
 
+	use App\Account;
+	$user_info = new Account();
+
 	// Check if user is logged in
-	if (!loggedin()) {
-		echo "
-    <script>
-      sniffleAdd('Who are you!', 'You must be loggedin to upload things, sowwy!', 'var(--red)', 'assets/icons/cross.svg');
-    </script>
-    ";
+	if (!$user_info->is_loggedin()) {
+	?>
+		<script>
+		sniffleAdd('Who are you!', 'You must be loggedin to upload things, sowwy!', 'var(--red)', 'assets/icons/cross.svg');
+		</script>
+	<?php
 	}
 	?>
 
