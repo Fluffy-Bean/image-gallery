@@ -42,7 +42,7 @@ include "app/server/secrete.php";
 /*
   Classes
 */
-include 'app/app.php';
+require_once 'app/app.php';
 
 ?>
 <script>

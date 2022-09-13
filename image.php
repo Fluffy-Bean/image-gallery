@@ -163,7 +163,7 @@
 
 		<div class="image-description default-window">
 			<h2>Description</h2>
-			<p><?php echo $image_alt; ?></p>
+			<p><?php echo htmlentities($image_alt, ENT_QUOTES); ?></p>
 		</div>
 
 
@@ -178,9 +178,24 @@
 						// Image ID
 						echo "<p>ID: ".$image['id']."</p>";
 
-						// Image Upload date
-						echo "<p>Last updated: +0 ".$image['upload']."</p>";
+						// Last time image was updated
+						$update_time = new DateTime($image['upload']);
+						echo "<p id='updateTime'>Last updated: ".$update_time->format('d/m/Y H:i:s T')."</p>";
 					?>
+					<script>
+						// Updating time to Viewers local
+						var updateDate = new Date('<?php echo $update_time->format('m/d/Y H:i:s T'); ?>');
+						var format = {year: 'numeric',
+									  month: 'short',
+									  day: 'numeric',
+									  hour: '2-digit',
+									  minute: '2-digit'
+									 };
+									 
+						updateDate = updateDate.toLocaleDateString('en-GB', format);
+
+						$("#updateTime").html("Last updated: "+updateDate);
+					</script>
 				</div>
 				<div>
 					<?php
@@ -304,8 +319,8 @@
 						</form>";
 						flyoutShow(header, description, actionBox);
 
-						$('#descriptionInput').val("<?php echo $image['alt']; ?>");
-
+						$('#descriptionInput').val("<?php echo str_replace('"', '\"', $image_alt); ?>");
+						
 						$("#descriptionConfirm").submit(function(event) {
 							event.preventDefault();
 							var descriptionInput = $("#descriptionInput").val();

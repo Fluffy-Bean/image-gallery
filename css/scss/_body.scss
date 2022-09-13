@@ -175,6 +175,7 @@
     width: 100%;
     max-height: 50vh;
     height: auto;
+    min-height: 30vh;
 
     display: flex;
 
@@ -193,7 +194,7 @@
 }
 
 .image {
-    margin: 0 auto;
+    margin: auto;
 
     max-width: 100%;
     width: auto;
