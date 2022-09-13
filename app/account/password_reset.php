@@ -15,7 +15,7 @@
 // Initialize the session
 session_start();
 // Include server connection
-include "../server/conn.php";
+include dirname(__DIR__)."/server/conn.php";
 
 if (isset($_POST['submit'])) {
     /*
@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
     if (empty(trim($_POST["new_password"]))) {
         ?>
         <script>
-            sniffleAdd('Meep', 'Enter a new password!', 'var(--red)', '../assets/icons/cross.svg');
+            sniffleAdd('Meep', 'Enter a new password!', 'var(--red)', 'assets/icons/cross.svg');
             flyoutClose();
         </script>
         <?php
@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
     } elseif(strlen(trim($_POST["new_password"])) < 6) {
         ?>
         <script>
-            sniffleAdd('Not long enough...', 'Password, must be 6 or more characters in length uwu', 'var(--red)', '../assets/icons/cross.svg');
+            sniffleAdd('Not long enough...', 'Password, must be 6 or more characters in length uwu', 'var(--red)', 'assets/icons/cross.svg');
             flyoutClose();
         </script>
         <?php
@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
     if (empty(trim($_POST["confirm_password"]))) {
         ?>
         <script>
-            sniffleAdd('Meep', 'You must confirm the password!!!!', 'var(--red)', '../assets/icons/cross.svg');
+            sniffleAdd('Meep', 'You must confirm the password!!!!', 'var(--red)', 'assets/icons/cross.svg');
             flyoutClose();
         </script>
         <?php
@@ -63,7 +63,7 @@ if (isset($_POST['submit'])) {
         if(empty($error) && ($new_password != $confirm_password)) {
             ?>
             <script>
-                sniffleAdd('AAAA', 'Passwords do not match!!!', 'var(--red)', '../assets/icons/cross.svg');
+                sniffleAdd('AAAA', 'Passwords do not match!!!', 'var(--red)', 'assets/icons/cross.svg');
                 flyoutClose();
             </script>
             <?php
@@ -89,14 +89,14 @@ if (isset($_POST['submit'])) {
                 session_destroy();
                 ?>
                 <script>
-                    sniffleAdd('Password updated', 'Now goodbye.... you will be redirected in a moment', 'var(--green)', '../assets/icons/check.svg');
-                    setTimeout(function(){window.location.href = "../account/login.php";}, 2000);
+                    sniffleAdd('Password updated', 'Now goodbye.... you will be redirected in a moment', 'var(--green)', 'assets/icons/check.svg');
+                    setTimeout(function(){window.location.href = "account/login.php";}, 2000);
                 </script>
                 <?php
             } else {
                 ?>
                 <script>
-                    sniffleAdd('Bruh', 'Something happened on our end, sowwy', 'var(--red)', '../assets/icons/cross.svg');
+                    sniffleAdd('Bruh', 'Something happened on our end, sowwy', 'var(--red)', 'assets/icons/cross.svg');
                     flyoutClose();
                 </script>
                 <?php

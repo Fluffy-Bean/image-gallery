@@ -9,11 +9,6 @@ $conn_username = "uwu";
 $conn_password = "fennec621";
 $conn_database = "gallery";
 
-/*
-  echo $_SERVER['DOCUMENT_ROOT'].dirname($_SERVER['SCRIPT_NAME']);
-  echo $_SERVER['PHP_SELF'];
-*/
-
 $conn = mysqli_connect($conn_ip, $conn_username, $conn_password , $conn_database);
 if ($conn->connect_error) {
   ?>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<?php include "ui/header.php"; ?>
+	<?php require_once __DIR__."/ui/header.php"; ?>
 </head>
 
 
@@ -18,8 +18,8 @@
 	 | many rewrites and hours of learning....
 	 |-------------------------------------------------------------
 	*/
-	include "ui/required.php";
-	include "ui/nav.php";
+	require_once __DIR__."/ui/required.php";
+	require_once __DIR__."/ui/nav.php";
 
 	use App\Account;
 	use App\Image;
@@ -416,7 +416,7 @@
 		}
 		?>
 
-		<?php include "ui/footer.php"; ?>
+		<?php require_once __DIR__."/ui/footer.php"; ?>
 </body>
 
 </html>

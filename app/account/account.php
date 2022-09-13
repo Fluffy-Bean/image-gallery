@@ -1,7 +1,6 @@
 <?php
 // Include server connection
-include "../server/conn.php";
-
+include dirname(__DIR__)."/server/conn.php";
 
 /*
  |-------------------------------------------------------------

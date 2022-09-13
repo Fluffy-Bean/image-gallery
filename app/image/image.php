@@ -1,8 +1,8 @@
 <?php
 session_start();
 // Include server connection
-include "../server/conn.php";
-include "../app.php";
+include dirname(__DIR__)."/server/conn.php";
+include dirname(__DIR__)."/app.php";
 
 use App\Account;
 use App\Image;
@@ -37,16 +37,16 @@ if (isset($_POST['submit_delete'])) {
       // Attempt to execute the prepared statement
       if (mysqli_stmt_execute($stmt)) {
         // See if image is in the directory
-        if (is_file("../../images/".$image_array['imagename'])) {
-          unlink("../../images/".$image_array['imagename']);
+        if (is_file(dirname(__DIR__)."/images/".$image_array['imagename'])) {
+          unlink(dirname(__DIR__)."/images/".$image_array['imagename']);
         }
         // Delete thumbnail if exitsts
-        if (is_file("../../images/thumbnails/".$image_array['imagename'])) {
-          unlink("../../images/thumbnails/".$image_array['imagename']);
+        if (is_file(dirname(__DIR__)."/images/thumbnails/".$image_array['imagename'])) {
+          unlink(dirname(__DIR__)."/images/thumbnails/".$image_array['imagename']);
         }
         // Delete preview if exitsts
-        if (is_file("../../images/previews/".$image_array['imagename'])) {
-          unlink("../../images/previews/".$image_array['imagename']);
+        if (is_file(dirname(__DIR__)."/images/previews/".$image_array['imagename'])) {
+          unlink(dirname(__DIR__)."/images/previews/".$image_array['imagename']);
         }
         // TP user to the homepage with a success message
         ?>

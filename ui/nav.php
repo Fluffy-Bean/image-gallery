@@ -11,8 +11,6 @@ $loggedin = new Account();
   <div class="nav-links flex-left">
     <a class='btn' href='index.php'><img class='svg' src='assets/icons/house.svg'><span class='nav-hide'>Home</span></a>
     <hr>
-    <a class='btn' href='search.php'><img class='svg' src='assets/icons/binoculars.svg'><span class='nav-hide'>Search</span></a>
-    <hr>
     <?php
     if ($loggedin->is_loggedin()) {
       ?>

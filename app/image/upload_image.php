@@ -8,8 +8,8 @@
 */
 session_start();
 // Include server connection
-include "../server/conn.php";
-include "../app.php";
+include dirname(__DIR__)."/server/conn.php";
+include dirname(__DIR__)."/app.php";
 
 use App\Make;
 

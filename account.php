@@ -2,13 +2,13 @@
 <html>
 
 <head>
-	<?php include "ui/header.php"; ?>
+	<?php require_once __DIR__."/ui/header.php"; ?>
 </head>
 
 <body>
 	<?php
-	include "ui/required.php";
-	include "ui/nav.php";
+	require_once __DIR__."/ui/required.php";
+	require_once __DIR__."/ui/nav.php";
 
 	use App\Account;
 
@@ -124,7 +124,7 @@
 		}
 		?>
 
-	<?php include "ui/footer.php"; ?>
+	<?php require_once __DIR__."/ui/footer.php"; ?>
 </body>
 
 </html>

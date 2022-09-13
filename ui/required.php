@@ -2,7 +2,7 @@
 /*
   User defined settings
 */
-include "app/settings/settings.php";
+require_once dirname(__DIR__)."/app/settings/settings.php";
 
 /*if ($debug["testing"]) {
   // Used for testing, do not use this in production
@@ -36,13 +36,13 @@ if (is_file("index.php")) {
 /*
   Connect to the server
 */
-include "app/server/conn.php";
-include "app/server/secrete.php";
+require_once dirname(__DIR__)."/app/server/conn.php";
+require_once dirname(__DIR__)."/app/server/secrete.php";
 
 /*
   Classes
 */
-require_once 'app/app.php';
+require_once dirname(__DIR__)."/app/app.php";
 
 ?>
 <script>
