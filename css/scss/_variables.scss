@@ -25,17 +25,19 @@ sans-serif;
 
 // Fallback for items that do not yet support the new sass stylesheet system
 :root {
-  --bg: #151515bb;
+  --bg: #{$bg-alt};
   --bg-1: #242621;
   --bg-2: #1D1E1C;
-  --bg-3: #151515;
+  --bg-3: #{$bg};
 
-  --fg: #E8E3E3;
-  --fg-dark: #151515;
+  --fg: #{$fg};
+  --fg-dark: #{$fg-alt};
 
-  --red: #B66467;
-  --orange: #FF7700;
-  --green: #8C977D;
-  --black: #151515;
-  --white: #E8E3E3;
+  --red: #{$red};
+  --orange: #{$orange};
+  --green: #{$green};
+  --black: #{$black};
+  --white: #{$white};
+
+  --accent: #{$page-accent};
 }

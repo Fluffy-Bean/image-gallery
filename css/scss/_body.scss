@@ -53,7 +53,7 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-    border: 0.2rem solid $green;
+    border: 0.2rem solid $page-accent;
 
     border-radius: $rad;
     box-shadow: $shadow;
@@ -239,14 +239,14 @@
 
 // DESCRIPTION
 .image-description {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
 
 
 // DETAILS
 .image-detail {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 
     &>div {
@@ -281,7 +281,7 @@
 
 // TAGS
 .tags-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
 
@@ -319,7 +319,7 @@
  |-------------------------------------------------------------
 */
 .about-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
 
@@ -329,7 +329,7 @@
  |-------------------------------------------------------------
 */
 .upload-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
 
@@ -339,21 +339,21 @@
  |-------------------------------------------------------------
 */
 .account-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
 .admin-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
 .signup-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
     // By default its hidden, in place is login
     display: none;
 }
 .login-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
 
@@ -373,6 +373,6 @@
  |-------------------------------------------------------------
 */
 .search-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
