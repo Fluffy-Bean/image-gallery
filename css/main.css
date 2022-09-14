@@ -20,6 +20,7 @@
   --black: #151515;
   --white: #E8E3E3;
   --accent: #8C977D;
+  --rad: 0.25rem;
 }
 
 /*
@@ -33,7 +34,7 @@ nav {
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
   display: flex;
@@ -207,7 +208,7 @@ nav .btn {
   flex-direction: row;
   flex-wrap: wrap;
   border: 0.2rem solid #8C977D;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
 
@@ -217,7 +218,7 @@ nav .btn {
   height: auto;
   max-width: calc(33.33% - 0.5rem);
   background-color: #151515;
-  border-radius: -0.5rem;
+  border-radius: -0.25rem;
   position: relative;
   overflow: hidden;
   flex: 1 0 150px;
@@ -248,7 +249,7 @@ nav .btn {
      object-fit: cover;
   -o-object-position: center;
      object-position: center;
-  border-radius: -0.5rem;
+  border-radius: -0.25rem;
 }
 
 .nsfw-blur {
@@ -306,7 +307,7 @@ nav .btn {
   background-color: rgba(21, 21, 21, 0.7333333333);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   transition: max-height 0.15s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
@@ -321,7 +322,7 @@ nav .btn {
   width: auto;
   max-height: inherit;
   height: auto;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   transition: opacity 0.5s;
 }
 
@@ -336,7 +337,7 @@ nav .btn {
   font-family: "Secular One", sans-serif;
   text-decoration: none;
   border: none;
-  border-radius: calc(0rem - (0.5rem + 3px));
+  border-radius: calc(0.25rem - (0.5rem + 3px));
   transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
   background-color: #151515;
   opacity: 0.8;
@@ -353,7 +354,7 @@ nav .btn {
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -381,7 +382,7 @@ nav .btn {
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -432,7 +433,7 @@ nav .btn {
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -467,7 +468,7 @@ nav .btn {
   padding: 0.5rem;
   display: block;
   background-color: #8C977D;
-  border-radius: 0rem;
+  border-radius: calc(0.25rem - (0.5rem + 3px));
   font-family: "Secular One", sans-serif;
 }
 .tag::before {
@@ -480,7 +481,7 @@ nav .btn {
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   border: 0.2rem solid #B66467;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -513,7 +514,7 @@ nav .btn {
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -546,7 +547,7 @@ nav .btn {
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -579,7 +580,7 @@ nav .btn {
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -607,7 +608,7 @@ nav .btn {
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -638,7 +639,7 @@ nav .btn {
   display: flex;
   flex-direction: column;
   background-color: #151515;
-  border-radius: calc(0rem - (0.5rem + 3px));
+  border-radius: calc(0.25rem - (0.5rem + 3px));
 }
 
 .log {
@@ -675,7 +676,7 @@ nav .btn {
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
   display: none;
@@ -704,7 +705,7 @@ nav .btn {
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -737,7 +738,7 @@ nav .btn {
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   border: 0.2rem solid #B66467;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -770,7 +771,7 @@ nav .btn {
   width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
@@ -871,7 +872,7 @@ body * {
   font-family: "Secular One", sans-serif;
   text-decoration: none;
   border: none;
-  border-radius: calc(0rem - (0.5rem + 3px));
+  border-radius: calc(0.25rem - (0.5rem + 3px));
   transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .btn:hover {
@@ -886,7 +887,7 @@ body * {
   text-decoration: none;
   background-color: #E8E3E3;
   border: none;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
 }
 .btn:where(input[type=file])::file-selector-button {
   margin: -0.25rem 0.5rem -0.25rem -0.25rem;
@@ -896,7 +897,7 @@ body * {
   text-decoration: none;
   background-color: #E8E3E3;
   border: none;
-  border-radius: 0rem;
+  border-radius: 0.25rem;
 }
 
 a.btn {
@@ -987,4 +988,10 @@ br {
   display: block;
   -o-object-position: center;
      object-position: center;
+}
+
+@media (prefers-reduced-motion) {
+  * {
+    transition: none !important;
+  }
 }/*# sourceMappingURL=main.css.map */

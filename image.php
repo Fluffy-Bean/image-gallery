@@ -352,7 +352,7 @@
 				<script>
 					$('#tagsButton').click(function() {
 						var header = "Tags";
-						var description = "Add image tags here! This is still being tested so your tags may be removed later on. Tags ONLY accept, letters, numbers and underscores. Hyphens will be stitched to underscores and spaces will seperate the different tags from eachother";
+						var description = "Tags are seperated by spaces, only alowed characters are a-z and underscores, all hyphens are converted to underscores. There are also special tags such as nsfw that'll blur images in the overview";
 						var actionBox = "<form id='tagsConfirm' action='app/image/edit_tags.php' method='POST'>\
 						<textarea id='tagsInput' class='btn btn-neutral space-bottom' placeholder='Tags are seperated by spaces' row='3'></textarea>\
 						<button id='tagsSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit tags</button>\

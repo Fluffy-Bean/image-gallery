@@ -203,3 +203,9 @@ br {
         object-position: center;
     }
 }
+
+@media(prefers-reduced-motion){
+    * {
+        transition: none !important;
+    }
+}

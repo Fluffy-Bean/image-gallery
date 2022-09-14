@@ -298,7 +298,7 @@
 
     background-color: $page-accent;
 
-    border-radius: $rad;
+    border-radius: calc($rad - (0.5rem + 3px));
 
     font-family: $font-body;
 
