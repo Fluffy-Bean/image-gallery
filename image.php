@@ -173,7 +173,11 @@
 				<div>
 					<?php
 						// User
-						echo "<p>Author: ".$image_author."</p>";
+						if ($user_info->is_admin($image['author'])) {
+							echo "<p>Author: ".$image_author."<img class='svg' style='margin: 0 0 0.1rem 0.2rem;' src='assets/icons/crown-simple.svg'></p>";
+						} else {
+							echo "<p>Author: ".$image_author."</p>";
+						}
 
 						// Image ID
 						echo "<p>ID: ".$image['id']."</p>";
