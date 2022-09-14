@@ -12,6 +12,8 @@ $user_info = new Account();
 $image_info = new Image();
 $make_stuff = new Make();
 
+$user_ip = $user_info->get_ip();
+
 /*
  |-------------------------------------------------------------
  | Delete image
@@ -49,6 +51,7 @@ if (isset($_POST['submit_delete'])) {
           unlink(dirname(__DIR__)."/images/previews/".$image_array['imagename']);
         }
         // TP user to the homepage with a success message
+        mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Deleted image ".$_POST['id']."')");
         ?>
         <script>
           window.location.replace("index.php?del=true&id=<?php echo $_POST['id']; ?>");

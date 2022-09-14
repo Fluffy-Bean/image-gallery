@@ -23,9 +23,9 @@ class Make {
     }
 
     /*
-    Clean up long text input and turn into an array for tags
+        Clean up long text input and turn into an array for tags
 
-    Returns clean string of words with equal white space between it
+        Returns clean string of words with equal white space between it
     */
     function tags($string) {
         // Replace hyphens
@@ -43,10 +43,10 @@ class Make {
 
 class Account {
     /*
-    Check if user is loggedin
+        Check if user is loggedin
 
-    Returns True if user is
-    Returns False if user is NOT
+        Returns True if user is
+        Returns False if user is NOT
     */
     function is_loggedin() {
         if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
@@ -56,9 +56,9 @@ class Account {
         }
     }
     /*
-    Get full user info from database
+        Get full user info from database
 
-    Returns array with user info
+        Returns array with user info
     */
     function get_user_info($conn, $id) {
         // Setting SQL query
@@ -71,10 +71,10 @@ class Account {
         return($user_array);
     }
     /*
-    Check if user is admin
+        Check if user is admin
 
-    Returns True if user is privilaged
-    Returns False if user is NOT privilaged
+        Returns True if user is privilaged
+        Returns False if user is NOT privilaged
     */
     function is_admin($id) {
         if (isset($id) || !empty($id)) {
@@ -86,6 +86,20 @@ class Account {
         } else {
             return False;
         }
+    }
+    /*
+        Get target IP, used for logging
+    */
+    function get_ip() {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $target_ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $target_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $target_ip = $_SERVER['REMOTE_ADDR'];
+        }
+
+        return $target_ip;
     }
 }
 

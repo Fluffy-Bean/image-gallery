@@ -1,6 +1,12 @@
 <?php
 // Include server connection
 include dirname(__DIR__)."/server/conn.php";
+include dirname(__DIR__)."/app.php";
+
+use App\Account;
+
+$user_info = new Account();
+$user_ip = $user_info->get_ip();
 
 /*
  |-------------------------------------------------------------
@@ -85,12 +91,15 @@ if (isset($_POST['submit_login'])) {
                                 //window.location.href = "../index.php?login=success";
                             </script>
                             <?php
+
+                            mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','New loggin to ".$_SESSION['username']."')");
                         } else {
                             ?>
                             <script>
                                 sniffleAdd('Sus', 'Username or Password WRONG, please try again :3', 'var(--red)', 'assets/icons/cross.svg');
                             </script>
                             <?php
+                            mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Failed to enter correct Password')");
                         }
                     }
                 } else {
@@ -99,6 +108,7 @@ if (isset($_POST['submit_login'])) {
                         sniffleAdd('Sus', 'Username or Password WRONG, please try again :3', 'var(--red)', 'assets/icons/cross.svg');
                     </script>
                     <?php
+                    mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Failed to enter correct Username')");
                 }
             } else {
                 ?>
@@ -237,6 +247,7 @@ if (isset($_POST['submit_signup'])) {
                 sniffleAdd('smelly', 'Enter Invite Code ;3', 'var(--red)', 'assets/icons/cross.svg');
             </script>
             <?php
+            mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Failed to enter correct Invite Code')");
             $error = $error + 1;
         } else {
             // Prepare sql for sus
@@ -324,6 +335,7 @@ if (isset($_POST['submit_signup'])) {
                     loginShow();
                 </script>
                 <?php
+                mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','New account (".$username.") has been made')");
             } else {
                 ?>
                 <script>

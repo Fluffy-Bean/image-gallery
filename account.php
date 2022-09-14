@@ -29,24 +29,48 @@
 			</div>
 			<?php
 				if ($user_info->is_admin($_SESSION['id'])) {
-			?>
+				?>
 					<div class="admin-root">
 						<h2>Admin controlls</h2>
 						<h3>Invite Codes</h3>
 						<?php
 						$token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
 						while ($token = mysqli_fetch_array($token_request)) {
-						?>
-							<button onclick='copyCode()' class='btn btn-neutral'><?php echo $token['code']; ?></button>
-							<script>
-								function copyCode() {
-									navigator.clipboard.writeText("<?php echo $token['code']; ?>");
-									sniffleAdd("Info", "Invite code has been copied!", "var(--green)", "assets/icons/clipboard-text.svg");
-								}
-							</script>
-						<?php
+							?>
+								<button onclick='copyCode()' class='btn btn-neutral'><?php echo $token['code']; ?></button>
+								<script>
+									function copyCode() {
+										navigator.clipboard.writeText("<?php echo $token['code']; ?>");
+										sniffleAdd("Info", "Invite code has been copied!", "var(--green)", "assets/icons/clipboard-text.svg");
+									}
+								</script>
+							<?php
 						}
-					echo "</div>";
+						?>
+						<br>
+						<h3>Logs</h3>
+						<div id=logs" class="logs">
+							<?php
+								// Reading images from table
+								$logs_request = mysqli_query($conn, "SELECT * FROM logs ORDER BY id DESC");
+
+								while ($log = mysqli_fetch_array($logs_request)) {
+									?>
+										<div class="log">
+											<p><?php echo $log['id']; ?></p>
+											<p><?php echo $log['ipaddress']; ?></p>
+											<p><?php echo $log['action']; ?></p>
+											<?php
+												$log_time = new DateTime($log['time']);
+												echo "<p>" . $log_time->format('d/m/Y H:i:s T') . "</p>";
+											?>
+										</div>
+									<?php
+								}
+							?>
+						</div>
+					</div>
+					<?php
 				}
 		} else {
 		?>

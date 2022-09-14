@@ -629,6 +629,46 @@ nav .btn {
   font-family: "Secular One", sans-serif;
 }
 
+.logs {
+  width: 100%;
+  max-height: 20rem;
+  min-height: 5rem;
+  padding: 0;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  background-color: #151515;
+  border-radius: calc(0rem - (0.5rem + 3px));
+}
+
+.log {
+  min-width: 769px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.log:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.0666666667);
+}
+.log > * {
+  margin: 0 0.5rem 0 0;
+  padding: 0;
+  word-wrap: break-word;
+}
+.log > *:nth-child(1) {
+  width: 5%;
+}
+.log > *:nth-child(2) {
+  width: 25%;
+}
+.log > *:nth-child(3) {
+  width: 50%;
+}
+.log > *:nth-child(4) {
+  width: 20%;
+}
+
 .signup-root {
   margin-bottom: 1rem;
   padding: 0.5rem 0.5rem 0 0.5rem;

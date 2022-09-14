@@ -346,6 +346,53 @@
     @include defaultDecoration($page-accent);
     @include defaultFont();
 }
+
+.logs {
+    width: 100%;
+    max-height: 20rem; min-height: 5rem;
+
+    padding: 0;
+
+    overflow-y: scroll;
+
+    display: flex; flex-direction: column;
+
+    background-color: $bg;
+    border-radius: calc($rad - (0.5rem + 3px));
+}
+.log {
+    min-width: 769px;
+
+    padding: 0.5rem;
+
+    display: flex; flex-direction: row;
+
+    justify-content: space-between;
+
+    &:nth-child(odd) {
+        background-color: #ffffff11;
+    }
+
+    & > * {
+        margin: 0 0.5rem 0 0;
+        padding: 0;
+        word-wrap: break-word;
+
+        &:nth-child(1) {
+            width: 5%;
+        }
+        &:nth-child(2) {
+            width: 25%;
+        }
+        &:nth-child(3) {
+            width: 50%;
+        }
+        &:nth-child(4) {
+            width: 20%;
+        }
+    }
+}
+
 .signup-root {
     @include defaultDecoration($page-accent);
     @include defaultFont();

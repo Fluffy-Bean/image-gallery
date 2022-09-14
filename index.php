@@ -54,32 +54,32 @@
 
 <div class="gallery-root">
 	<?php
-	// Reading images from table
-	$image_request = mysqli_query($conn, "SELECT * FROM images ORDER BY id DESC");
+		// Reading images from table
+		$image_request = mysqli_query($conn, "SELECT * FROM images ORDER BY id DESC");
 
-	while ($image = mysqli_fetch_array($image_request)) {
-		// Getting thumbnail
-		if (file_exists("images/thumbnails/".$image['imagename'])) {
-			$image_path = "images/thumbnails/".$image['imagename'];
-		} else {
-			$image_path = "images/".$image['imagename'];
+		while ($image = mysqli_fetch_array($image_request)) {
+			// Getting thumbnail
+			if (file_exists("images/thumbnails/".$image['imagename'])) {
+				$image_path = "images/thumbnails/".$image['imagename'];
+			} else {
+				$image_path = "images/".$image['imagename'];
+			}
+
+			// Check for NSFW tag
+			if (str_contains($image['tags'], "nsfw")) {
+				$image_nsfw = "nsfw-blur";
+				$nsfw_warning = "<a href='image.php?id=".$image['id']."' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>";
+			} else {
+				$image_nsfw = "";
+				$nsfw_warning = "";
+			}
+
+			// Image loading
+			echo "<div class='gallery-item'>";
+			echo $nsfw_warning;
+			echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image ".$image_nsfw."' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
+			echo "</div>";
 		}
-
-		// Check for NSFW tag
-		if (str_contains($image['tags'], "nsfw")) {
-			$image_nsfw = "nsfw-blur";
-			$nsfw_warning = "<a href='image.php?id=".$image['id']."' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>";
-		} else {
-			$image_nsfw = "";
-			$nsfw_warning = "";
-		}
-
-		// Image loading
-		echo "<div class='gallery-item'>";
-		echo $nsfw_warning;
-		echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image ".$image_nsfw."' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
-		echo "</div>";
-	}
 	?>
 </div>
 
