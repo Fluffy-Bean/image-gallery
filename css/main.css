@@ -761,10 +761,10 @@ nav .btn {
 
 /*
  |-------------------------------------------------------------
- | SEARCH
+ | ERROR PAGE
  |-------------------------------------------------------------
 */
-.search-root {
+.error-root {
   margin-bottom: 1rem;
   padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
@@ -774,21 +774,21 @@ nav .btn {
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
 }
-.search-root > * {
+.error-root > * {
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
-.search-root h1,
-.search-root h2,
-.search-root h3,
-.search-root h4,
-.search-root h5 {
+.error-root h1,
+.error-root h2,
+.error-root h3,
+.error-root h4,
+.error-root h5 {
   font-family: "Lexend Deca", sans-serif;
 }
-.search-root p,
-.search-root a,
-.search-root button,
-.search-root input {
+.error-root p,
+.error-root a,
+.error-root button,
+.error-root input {
   font-family: "Secular One", sans-serif;
 }
 

@@ -416,10 +416,10 @@
 
 /*
  |-------------------------------------------------------------
- | SEARCH
+ | ERROR PAGE
  |-------------------------------------------------------------
 */
-.search-root {
+.error-root {
     @include defaultDecoration($page-accent);
     @include defaultFont();
 }
