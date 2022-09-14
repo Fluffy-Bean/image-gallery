@@ -27,7 +27,7 @@ if (isset($_POST['submit_delete'])) {
   // If user owns image or has the ID of 1
   if ($image_info->image_privilage($image_array['author']) || $_SESSION['id'] == 1) {
     // Delete from table
-    $sql = "DELETE FROM swag_table WHERE id = ?";
+    $sql = "DELETE FROM images WHERE id = ?";
     if ($stmt = mysqli_prepare($conn, $sql)) {
       mysqli_stmt_bind_param($stmt, "i", $param_id);
 
@@ -100,7 +100,7 @@ if (isset($_POST['submit_description'])) {
   // If user owns image or has the ID of 1
   if ($image_info->image_privilage($image_array['author']) || $_SESSION['id'] == 1) {
     // getting ready forSQL asky asky
-    $sql = "UPDATE swag_table SET alt=? WHERE id=?";
+    $sql = "UPDATE images SET alt=? WHERE id=?";
 
     // Checking if databse is doing ok
     if ($stmt = mysqli_prepare($conn, $sql)) {
@@ -161,7 +161,7 @@ if (isset($_POST['submit_tags'])) {
     $tags_string = $make_stuff->tags(trim($_POST['input']));
 
     // getting ready forSQL asky asky
-    $sql = "UPDATE swag_table SET tags=? WHERE id=?";
+    $sql = "UPDATE images SET tags=? WHERE id=?";
 
     // Checking if databse is doing ok
     if ($stmt = mysqli_prepare($conn, $sql)) {
@@ -217,7 +217,7 @@ if (isset($_POST['submit_author'])) {
   // If user has the ID of 1
   if ($user_info->is_admin($_SESSION['id'])) {
     // getting ready forSQL asky asky
-    $sql = "UPDATE swag_table SET author=? WHERE id=?";
+    $sql = "UPDATE images SET author=? WHERE id=?";
 
     // Checking if databse is doing ok
     if ($stmt = mysqli_prepare($conn, $sql)) {

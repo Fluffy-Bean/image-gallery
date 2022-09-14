@@ -97,7 +97,7 @@ class Image {
     */
     function get_image_info($conn, $id) {
         // Setting SQL query
-        $sql = "SELECT * FROM swag_table WHERE id = ".$id;
+        $sql = "SELECT * FROM images WHERE id = ".$id;
         // Getting results
         $query = mysqli_query($conn, $sql);
         // Fetching associated info

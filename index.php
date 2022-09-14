@@ -7,8 +7,8 @@
 
 <body>
 <?php
-require_once __DIR__."/ui/required.php";
-require_once __DIR__."/ui/nav.php";
+	require_once __DIR__."/ui/required.php";
+	require_once __DIR__."/ui/nav.php";
 ?>
 
 <script>
@@ -55,7 +55,7 @@ require_once __DIR__."/ui/nav.php";
 <div class="gallery-root">
 	<?php
 	// Reading images from table
-	$image_request = mysqli_query($conn, "SELECT * FROM swag_table ORDER BY id DESC");
+	$image_request = mysqli_query($conn, "SELECT * FROM images ORDER BY id DESC");
 
 	while ($image = mysqli_fetch_array($image_request)) {
 		// Getting thumbnail

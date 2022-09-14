@@ -57,7 +57,7 @@ if (isset($_POST['submit'])) {
 				}
 
 				// Prepare sql for destruction and filtering the sus
-				$sql = "INSERT INTO swag_table (imagename, alt, tags, author) VALUES (?, ?, ?, ?)";
+				$sql = "INSERT INTO images (imagename, alt, tags, author) VALUES (?, ?, ?, ?)";
 
 				if ($stmt = mysqli_prepare($conn, $sql)) {
 					// Bind the smelly smelly
