@@ -12,7 +12,7 @@ $white: #E8E3E3;
 
 $page-accent: #8C977D;
 
-$shadow: 6px 6px 2px #15151588;
+$shadow: 6px 6px 2px #15151566;
 $rad: 0.25rem;
 
 $weight-bold: 621;
@@ -40,6 +40,8 @@ sans-serif;
   --white: #{$white};
 
   --accent: #{$page-accent};
+
+  --shadow: #{$shadow};
 
   --rad: #{$rad};
 }

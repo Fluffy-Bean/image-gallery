@@ -224,10 +224,15 @@
 					?>
 				</div>
 			</div>
-			<?php
-				// Image download
-				echo "<a class='btn btn-good' href='images/".$image['imagename']."' download='".$image['imagename']."'><img class='svg' src='assets/icons/download.svg'>Download image</a>";
-			?>
+			<!-- Download Image -->
+			<a id='download' class='btn btn-good' href='<?php echo "images/".$image['imagename']; ?>' download='<?php echo $image['imagename']; ?>'><img class='svg' src='assets/icons/download.svg'>Download image</a>
+			<script>
+				$("#download").click(function() {
+					sniffleAdd("Info", "Image download started!", "var(--green)", "assets/icons/download.svg");
+				});
+			</script>
+
+			<!-- Copy link -->
 			<button class='btn btn-good' onclick='copyLink()'><img class='svg' src='assets/icons/clipboard-text.svg'>Copy image link</button>
 			<script>
 				function copyLink() {

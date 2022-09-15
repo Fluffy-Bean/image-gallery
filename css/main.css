@@ -20,6 +20,7 @@
   --black: #151515;
   --white: #E8E3E3;
   --accent: #8C977D;
+  --shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
   --rad: 0.25rem;
 }
 
@@ -36,7 +37,7 @@ nav {
   color: #E8E3E3;
   border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -209,7 +210,7 @@ nav .btn {
   flex-wrap: wrap;
   border: 0.2rem solid #8C977D;
   border-radius: 0.25rem;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 
 .gallery-item {
@@ -226,7 +227,7 @@ nav .btn {
 }
 .gallery-item:hover {
   transform: scale(1.1) rotate(5deg);
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
   z-index: 9;
 }
 .gallery-item:after {
@@ -341,7 +342,7 @@ nav .btn {
   transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
   background-color: #151515;
   opacity: 0.8;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 .preview-button:hover {
   outline: #E8E3E3 0.2rem solid;
@@ -356,7 +357,7 @@ nav .btn {
   color: #E8E3E3;
   border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 .image-description > * {
   margin-top: 0;
@@ -384,7 +385,7 @@ nav .btn {
   color: #E8E3E3;
   border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 .image-detail > * {
   margin-top: 0;
@@ -435,7 +436,7 @@ nav .btn {
   color: #E8E3E3;
   border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 .tags-root > * {
   margin-top: 0;
@@ -483,7 +484,7 @@ nav .btn {
   color: #E8E3E3;
   border-radius: 0.25rem;
   border: 0.2rem solid #B66467;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 .danger-zone > * {
   margin-top: 0;
@@ -516,7 +517,7 @@ nav .btn {
   color: #E8E3E3;
   border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 .about-root > * {
   margin-top: 0;
@@ -549,7 +550,7 @@ nav .btn {
   color: #E8E3E3;
   border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 .upload-root > * {
   margin-top: 0;
@@ -582,7 +583,7 @@ nav .btn {
   color: #E8E3E3;
   border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 .account-root > * {
   margin-top: 0;
@@ -610,7 +611,7 @@ nav .btn {
   color: #E8E3E3;
   border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 .admin-root > * {
   margin-top: 0;
@@ -678,7 +679,7 @@ nav .btn {
   color: #E8E3E3;
   border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
   display: none;
 }
 .signup-root > * {
@@ -707,7 +708,7 @@ nav .btn {
   color: #E8E3E3;
   border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 .login-root > * {
   margin-top: 0;
@@ -740,7 +741,7 @@ nav .btn {
   color: #E8E3E3;
   border-radius: 0.25rem;
   border: 0.2rem solid #B66467;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 .password-reset-root > * {
   margin-top: 0;
@@ -773,7 +774,7 @@ nav .btn {
   color: #E8E3E3;
   border-radius: 0.25rem;
   border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 .error-root > * {
   margin-top: 0;
@@ -974,7 +975,7 @@ br {
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
   border-radius: 50%;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.5333333333);
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
   transition: right 0.15s cubic-bezier(0.19, 1, 0.22, 1);
 }
 #back-to-top:hover {

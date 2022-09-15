@@ -37,13 +37,13 @@
 
   display: flex; flex-direction: row; overflow-y: hidden;
 
-  z-index: 999;
+  position: relative;
 
   background-color: #151515;
 
   box-shadow: var(--shadow);
 
-  transition: transform 1s cubic-bezier(.19,1,.22,1), opacity 0.2s cubic-bezier(.19,1,.22,1);
+  transition: transform 1s cubic-bezier(.19,1,.22,1), opacity 0.25s cubic-bezier(.19,1,.22,1);
 
   border-radius: var(--rad);
 }
@@ -51,6 +51,27 @@
   transform: scale(1.05);
 
   cursor: pointer;
+}
+
+.sniffle-notification:not(:nth-of-type(1), :nth-of-type(2), :nth-of-type(3)) {
+  display: none;
+  opacity: 0;
+}
+.sniffle-notification:nth-of-type(1) {
+  z-index: 1;
+  transform: scale(1);
+}
+.sniffle-notification:nth-of-type(2) {
+  z-index: -1;
+  transform: scale(0.95);
+  transition: none;
+  margin-top: -4.8rem;
+}
+.sniffle-notification:nth-of-type(3) {
+  z-index: -2;
+  transform: scale(0.9);
+  transition: none;
+  margin-top: -4.8rem;
 }
 
 /*
