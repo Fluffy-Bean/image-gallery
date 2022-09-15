@@ -64,7 +64,7 @@
 											<p><?php echo $log['action']; ?></p>
 											<?php
 												$log_time = new DateTime($log['time']);
-												echo "<p>" . $log_time->format('d/m/Y H:i:s T') . "<br>" . $diff->time($log['time']) . "</p>";
+												echo "<p>" . $log_time->format('Y-m-d H:i:s T') . " | " . $diff->time($log['time']) . "</p>";
 											?>
 										</div>
 									<?php
@@ -91,7 +91,7 @@
 											<p><?php echo $ban['length']; ?> mins</p>
 											<?php
 												$log_time = new DateTime($ban['time']);
-												echo "<p>" . $log_time->format('d/m/Y H:i:s T') . "<br>" . $diff->time($ban['time']) . "</p>";
+												echo "<p>" . $log_time->format('Y-m-d H:i:s T') . "<br>" . $diff->time($ban['time']) . "</p>";
 											?>
 										</div>
 									<?php

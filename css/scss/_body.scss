@@ -349,7 +349,7 @@
 
 .logs {
     width: 100%;
-    max-height: 20rem; min-height: 5rem;
+    max-height: 21rem; min-height: auto;
 
     padding: 0;
 
@@ -382,20 +382,20 @@
             width: 5%;
         }
         &:nth-child(2) {
-            width: 25%;
+            width: 17%;
         }
         &:nth-child(3) {
-            width: 50%;
+            width: 38%;
         }
         &:nth-child(4) {
-            width: 20%;
+            width: 40%;
         }
     }
 }
 
 .bans {
     width: 100%;
-    max-height: 20rem; min-height: 5rem;
+    max-height: 21rem; min-height: auto;
 
     padding: 0;
 
@@ -428,16 +428,16 @@
             width: 5%;
         }
         &:nth-child(2) {
-            width: 20%;
+            width: 17%;
         }
         &:nth-child(3) {
-            width: 45%;
+            width: 38%;
         }
         &:nth-child(4) {
             width: 10%;
         }
         &:nth-child(5) {
-            width: 20%;
+            width: 30%;
         }
     }
 }
