@@ -29,29 +29,71 @@ if (isset($_POST['submit_login'])) {
      */
     $error = 0;
 
-    // Checking if Username is empty
-    if (empty(trim($_POST["username"]))) {
-        ?>
-        <script>
-            sniffleAdd('Who dis?', 'You must enter a username to login!', 'var(--red)', 'assets/icons/cross.svg');
-        </script>
-        <?php
-        $error = $error + 1;
-    } else {
-        $username = trim($_POST["username"]);
-    }
+    $sql = "SELECT * FROM bans WHERE ipaddress = '$user_ip' ORDER BY id DESC LIMIT 1";
+    $query = mysqli_query($conn, $sql);
     
-    // Check if Password is empty
-    if (empty(trim($_POST["password"]))) {
-        ?>
-        <script>
-            sniffleAdd('Whats the magic word?', 'Pls enter the super duper secrete word(s) to login!', 'var(--red)', 'assets/icons/cross.svg');
-        </script>
-        <?php
-        $error = $error + 1;
-    } else {
-        $password = trim($_POST["password"]);
+    while ($ban_check = mysqli_fetch_assoc($query)) {
+        $ban_time = $ban_check['time'];
+        $ban_perm = $ban_check['permanent'];
     }
+
+    $ban_diff = time() - strtotime($ban_time);
+
+    if ($ban_perm) {
+        ?>
+            <script>
+                sniffleAdd('Bye bye!', 'You have been banned, contact the owner if you feel that this was a mistake', 'var(--red)', 'assets/icons/warning.svg');
+            </script>
+        <?php
+        $error += 1;
+    } elseif (($ban_diff / 60) <= 60) {
+        ?>
+            <script>
+                sniffleAdd('Slow down!', 'You have attempted to login too many times in the last 10 minutes. Come back in <?php echo round(60-($ban_diff/60)); ?> minutes', 'var(--red)', 'assets/icons/warning.svg');
+            </script>
+        <?php
+        $error += 1;
+    } else {
+        $attemps = 0;
+
+        $sql = "SELECT * FROM logs WHERE ipaddress = '$user_ip' ORDER BY id DESC LIMIT 5";
+        $query = mysqli_query($conn, $sql);
+
+        while ($log_array = mysqli_fetch_assoc($query)) {
+            $log_diff = time() - strtotime($log_array['time']);
+            if ($log_array['action'] == 'Failed to enter correct Password' && ($log_diff / 60) <= 10 ) {
+                $attemps += 1;
+            }
+        }
+        if ($attemps >= 5) {
+            mysqli_query($conn,"INSERT INTO bans (ipaddress, reason, length, permanent) VALUES('$user_ip','Attempted password too many times', '60', '0')");
+        } else {
+            // Checking if Username is empty
+            if (empty(trim($_POST["username"]))) {
+                ?>
+                    <script>
+                        sniffleAdd('Who dis?', 'You must enter a username to login!', 'var(--red)', 'assets/icons/cross.svg');
+                    </script>
+                <?php
+                $error += 1;
+            } else {
+                $username = trim($_POST["username"]);
+            }
+            
+            // Check if Password is empty
+            if (empty(trim($_POST["password"]))) {
+                ?>
+                    <script>
+                        sniffleAdd('Whats the magic word?', 'Pls enter the super duper secrete word(s) to login!', 'var(--red)', 'assets/icons/cross.svg');
+                    </script>
+                <?php
+                $error += 1;
+            } else {
+                $password = trim($_POST["password"]);
+            }
+        }
+    }
+
 
     if ($error <= 0) {
         // Prepare so SQL doesnt get spooked
@@ -85,36 +127,36 @@ if (isset($_POST['submit_login'])) {
             
                             // let the user know
                             ?>
-                            <script>
-                                sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in! You will be redirected in a few seconds', 'var(--green)', 'assets/icons/hand-waving.svg');
-                                setTimeout(function(){window.location.href = "index.php";}, 2000);
-                                //window.location.href = "../index.php?login=success";
-                            </script>
+                                <script>
+                                    sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in! You will be redirected in a few seconds', 'var(--green)', 'assets/icons/hand-waving.svg');
+                                    setTimeout(function(){window.location.href = "index.php";}, 2000);
+                                    //window.location.href = "../index.php?login=success";
+                                </script>
                             <?php
 
                             mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','New loggin to ".$_SESSION['username']."')");
                         } else {
                             ?>
-                            <script>
-                                sniffleAdd('Sus', 'Username or Password WRONG, please try again :3', 'var(--red)', 'assets/icons/cross.svg');
-                            </script>
+                                <script>
+                                    sniffleAdd('Sus', 'Username or Password WRONG, please try again :3', 'var(--red)', 'assets/icons/cross.svg');
+                                </script>
                             <?php
                             mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Failed to enter correct Password')");
                         }
                     }
                 } else {
                     ?>
-                    <script>
-                        sniffleAdd('Sus', 'Username or Password WRONG, please try again :3', 'var(--red)', 'assets/icons/cross.svg');
-                    </script>
+                        <script>
+                            sniffleAdd('Sus', 'Username or Password WRONG, please try again :3', 'var(--red)', 'assets/icons/cross.svg');
+                        </script>
                     <?php
                     mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Failed to enter correct Username')");
                 }
             } else {
                 ?>
-                <script>
-                    sniffleAdd('woops...', 'Sowwy, something went wrong on our end :c', 'var(--red)', 'assets/icons/cross.svg');
-                </script>
+                    <script>
+                        sniffleAdd('woops...', 'Sowwy, something went wrong on our end :c', 'var(--red)', 'assets/icons/cross.svg');
+                    </script>
                 <?php
             }
             // Close statement
@@ -145,17 +187,17 @@ if (isset($_POST['submit_signup'])) {
     if (empty(trim($_POST["username"]))) {
         // Username not entered
         ?>
-        <script>
-            sniffleAdd('Hmmm', 'You must enter a username!', 'var(--red)', 'assets/icons/cross.svg');
-        </script>
+            <script>
+                sniffleAdd('Hmmm', 'You must enter a username!', 'var(--red)', 'assets/icons/cross.svg');
+            </script>
         <?php
         $error = $error + 1;
     } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
         // Username entered contains illegal characters
         ?>
-        <script>
-            sniffleAdd('Sussy Wussy', 'Very sus. Username can only contain letters, numbers, and underscores', 'var(--red)', 'assets/icons/cross.svg');
-        </script>
+            <script>
+                sniffleAdd('Sussy Wussy', 'Very sus. Username can only contain letters, numbers, and underscores', 'var(--red)', 'assets/icons/cross.svg');
+            </script>
         <?php
         $error = $error + 1;
     } else {
@@ -174,9 +216,9 @@ if (isset($_POST['submit_signup'])) {
                 if (mysqli_stmt_num_rows($stmt) == 1) {
                     // Username taken
                     ?>
-                    <script>
-                        sniffleAdd('A clone?', 'Sorry, but username was already taken by someone else', 'var(--red)', 'assets/icons/cross.svg');
-                    </script>
+                        <script>
+                            sniffleAdd('A clone?', 'Sorry, but username was already taken by someone else', 'var(--red)', 'assets/icons/cross.svg');
+                        </script>
                     <?php
                     $error = $error + 1;
                 } else {
@@ -184,9 +226,9 @@ if (isset($_POST['submit_signup'])) {
                 }
             } else {
                 ?>
-                <script>
-                    sniffleAdd('Reee', 'We had a problem on our end, sowwy', 'var(--red)', 'assets/icons/cross.svg');
-                </script>
+                    <script>
+                        sniffleAdd('Reee', 'We had a problem on our end, sowwy', 'var(--red)', 'assets/icons/cross.svg');
+                    </script>
                 <?php
                 $error = $error + 1;
             }
@@ -199,17 +241,17 @@ if (isset($_POST['submit_signup'])) {
     if (empty(trim($_POST["password"]))) {
         // No password entered
         ?>
-        <script>
-            sniffleAdd('What', 'You must enter a password, dont want just anyone seeing your stuff uwu', 'var(--red)', 'assets/icons/cross.svg');
-        </script>
+            <script>
+                sniffleAdd('What', 'You must enter a password, dont want just anyone seeing your stuff uwu', 'var(--red)', 'assets/icons/cross.svg');
+            </script>
         <?php
         $error = $error + 1;
     } elseif(strlen(trim($_POST["password"])) < 6){
         // Password not long enough 👀
         ?>
-        <script>
-            sniffleAdd('👀', 'Nice (Password) but its not long enough 👀', 'var(--red)', 'assets/icons/cross.svg');
-        </script>
+            <script>
+                sniffleAdd('👀', 'Nice (Password) but its not long enough 👀', 'var(--red)', 'assets/icons/cross.svg');
+            </script>
         <?php
         $error = $error + 1;
     } else {
@@ -220,9 +262,9 @@ if (isset($_POST['submit_signup'])) {
     if (empty(trim($_POST["confirm_password"]))) {
         // Did not confirm passowrd
         ?>
-        <script>
-            sniffleAdd('Eh?', 'Confirm the password pls, its very important you remember what it issss', 'var(--red)', 'assets/icons/cross.svg');
-        </script>
+            <script>
+                sniffleAdd('Eh?', 'Confirm the password pls, its very important you remember what it issss', 'var(--red)', 'assets/icons/cross.svg');
+            </script>
         <?php
         $error = $error + 1;
     } else {
@@ -230,9 +272,9 @@ if (isset($_POST['submit_signup'])) {
         if (empty($error) && $confirm_password != $password) {
             // Password and re-entered Password does not match
             ?>
-            <script>
-                sniffleAdd('Try again', 'Passwords need to be the same, smelly smelly', 'var(--red)', 'assets/icons/cross.svg');
-            </script>
+                <script>
+                    sniffleAdd('Try again', 'Passwords need to be the same, smelly smelly', 'var(--red)', 'assets/icons/cross.svg');
+                </script>
             <?php
             $error = $error + 1;
         }
@@ -243,9 +285,9 @@ if (isset($_POST['submit_signup'])) {
         // Check if invite code is empty
         if (empty($_POST['token'])) {
             ?>
-            <script>
-                sniffleAdd('smelly', 'Enter Invite Code ;3', 'var(--red)', 'assets/icons/cross.svg');
-            </script>
+                <script>
+                    sniffleAdd('smelly', 'Enter Invite Code ;3', 'var(--red)', 'assets/icons/cross.svg');
+                </script>
             <?php
             mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Failed to enter correct Invite Code')");
             $error = $error + 1;
@@ -265,17 +307,17 @@ if (isset($_POST['submit_signup'])) {
                         $token = trim($_POST["token"]);
                     } else {
                         ?>
-                        <script>
-                            sniffleAdd('Argh', 'Your invite code/token did not check out, woopsie!', 'var(--red)', 'assets/icons/cross.svg');
-                        </script>
+                            <script>
+                                sniffleAdd('Argh', 'Your invite code/token did not check out, woopsie!', 'var(--red)', 'assets/icons/cross.svg');
+                            </script>
                         <?php
                         $error = $error + 1;
                     }
                 } else {
                     ?>
-                    <script>
-                        sniffleAdd('Woops', 'The server or website died inside and could not process your information, sowwy!', 'var(--red)', 'assets/icons/cross.svg');
-                    </script>
+                        <script>
+                            sniffleAdd('Woops', 'The server or website died inside and could not process your information, sowwy!', 'var(--red)', 'assets/icons/cross.svg');
+                        </script>
                     <?php
                     $error = $error + 1;
                 }
@@ -329,18 +371,18 @@ if (isset($_POST['submit_signup'])) {
         
                 // Yupeee! Account was made
                 ?>
-                <script>
-                    sniffleAdd('Success!', 'You account made for <?php echo $username; ?>!!!!! You must now login', 'var(--green)', 'assets/icons/hand-waving.svg');
-                    //setTimeout(function(){window.location.href = "../account/login.php";}, 2000);
-                    loginShow();
-                </script>
+                    <script>
+                        sniffleAdd('Success!', 'You account made for <?php echo $username; ?>!!!!! You must now login', 'var(--green)', 'assets/icons/hand-waving.svg');
+                        //setTimeout(function(){window.location.href = "../account/login.php";}, 2000);
+                        loginShow();
+                    </script>
                 <?php
                 mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','New account (".$username.") has been made')");
             } else {
                 ?>
-                <script>
-                    sniffleAdd('Bruh', 'Something went fuckywucky, please try later', 'var(--red)', 'assets/icons/cross.svg');
-                </script>
+                    <script>
+                        sniffleAdd('Bruh', 'Something went fuckywucky, please try later', 'var(--red)', 'assets/icons/cross.svg');
+                    </script>
                 <?php
             }
         }

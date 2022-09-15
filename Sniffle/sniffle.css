@@ -43,9 +43,14 @@
 
   box-shadow: var(--shadow);
 
-  transition: transform 1s cubic-bezier(.19,1,.22,1), opacity 0.25s cubic-bezier(.19,1,.22,1);
-
   border-radius: var(--rad);
+
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 .sniffle-notification:hover {
   transform: scale(1.05);
@@ -53,25 +58,36 @@
   cursor: pointer;
 }
 
-.sniffle-notification:not(:nth-of-type(1), :nth-of-type(2), :nth-of-type(3)) {
+.sniffle-notification:not(:nth-of-type(1), :nth-of-type(2), :nth-of-type(3), :nth-of-type(4)) {
   display: none;
   opacity: 0;
 }
 .sniffle-notification:nth-of-type(1) {
   z-index: 1;
   transform: scale(1);
+  opacity: 1;
+  transition: transform 1s cubic-bezier(.19,1,.22,1), opacity 0.25s cubic-bezier(.19,1,.22,1);
 }
 .sniffle-notification:nth-of-type(2) {
   z-index: -1;
   transform: scale(0.95);
-  transition: none;
   margin-top: -4.8rem;
+  opacity: 1;
+  transition: transform 1.25s, opacity 0.5s;
 }
 .sniffle-notification:nth-of-type(3) {
   z-index: -2;
   transform: scale(0.9);
-  transition: none;
   margin-top: -4.8rem;
+  opacity: 1;
+  transition: transform 1.5s, opacity 0.75s;
+}
+.sniffle-notification:nth-of-type(4) {
+  z-index: -3;
+  transform: scale(0.85);
+  margin-top: -4.8rem;
+  opacity: 0;
+  transition: transform 1.75s, opacity 1s;
 }
 
 /*

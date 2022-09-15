@@ -11,8 +11,10 @@
 	require_once __DIR__."/ui/nav.php";
 
 	use App\Account;
+	use App\Diff;
 
 	$user_info = new Account();
+	$diff = new Diff();
 	?>
 
 		<?php
@@ -62,7 +64,34 @@
 											<p><?php echo $log['action']; ?></p>
 											<?php
 												$log_time = new DateTime($log['time']);
-												echo "<p>" . $log_time->format('d/m/Y H:i:s T') . "</p>";
+												echo "<p>" . $log_time->format('d/m/Y H:i:s T') . "<br>" . $diff->time($log['time']) . "</p>";
+											?>
+										</div>
+									<?php
+								}
+							?>
+						</div>
+						<br>
+						<h3>Bans/Timeouts</h3>
+						<div id="bans" class="bans">
+							<?php
+								// Reading images from table
+								$bans_request = mysqli_query($conn, "SELECT * FROM bans ORDER BY id DESC");
+
+								while ($ban = mysqli_fetch_array($bans_request)) {
+									if ($ban['permanent']) {
+										echo "<div class='ban perm'>";
+									} else {
+										echo "<div class='ban'>";
+									}
+									?>
+											<p><?php echo $ban['id']; ?></p>
+											<p><?php echo $ban['ipaddress']; ?></p>
+											<p><?php echo $ban['reason']; ?></p>
+											<p><?php echo $ban['length']; ?></p>
+											<?php
+												$log_time = new DateTime($ban['time']);
+												echo "<p>" . $log_time->format('d/m/Y H:i:s T') . "<br>" . $diff->time($ban['time']) . "</p>";
 											?>
 										</div>
 									<?php

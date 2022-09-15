@@ -671,6 +671,53 @@ nav .btn {
   width: 20%;
 }
 
+.bans {
+  width: 100%;
+  max-height: 20rem;
+  min-height: 5rem;
+  padding: 0;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  background-color: #151515;
+  border-radius: calc(0.25rem - (0.5rem + 3px));
+}
+
+.ban {
+  min-width: 769px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.ban:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.0666666667);
+}
+.ban > * {
+  margin: 0 0.5rem 0 0;
+  padding: 0;
+  word-wrap: break-word;
+}
+.ban > *:nth-child(1) {
+  width: 5%;
+}
+.ban > *:nth-child(2) {
+  width: 20%;
+}
+.ban > *:nth-child(3) {
+  width: 45%;
+}
+.ban > *:nth-child(4) {
+  width: 10%;
+}
+.ban > *:nth-child(5) {
+  width: 20%;
+}
+
+.perm {
+  border: 1px #B66467 solid;
+}
+
 .signup-root {
   margin-bottom: 1rem;
   padding: 0.5rem 0.5rem 0 0.5rem;
