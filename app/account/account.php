@@ -19,20 +19,10 @@ $user_ip = $user_info->get_ip();
  |-------------------------------------------------------------
 */
 if (isset($_POST['submit_login'])) {
-    /*
-     |-------------------------------------------------------------
-     | Set error status to 0
-     |-------------------------------------------------------------
-     | if there are more than 0 error, then they cannot submit a
-     | request
-     |-------------------------------------------------------------   
-     */
     $error = 0;
+    $ban_query = mysqli_query($conn, "SELECT * FROM bans WHERE ipaddress = '$user_ip' ORDER BY id DESC LIMIT 1");
 
-    $sql = "SELECT * FROM bans WHERE ipaddress = '$user_ip' ORDER BY id DESC LIMIT 1";
-    $query = mysqli_query($conn, $sql);
-    
-    while ($ban_check = mysqli_fetch_assoc($query)) {
+    while ($ban_check = mysqli_fetch_assoc($ban_query)) {
         $ban_time = $ban_check['time'];
         $ban_perm = $ban_check['permanent'];
     }
@@ -45,55 +35,60 @@ if (isset($_POST['submit_login'])) {
                 sniffleAdd('Bye bye!', 'You have been banned, contact the owner if you feel that this was a mistake', 'var(--red)', 'assets/icons/warning.svg');
             </script>
         <?php
+
         $error += 1;
     } elseif (($ban_diff / 60) <= 60) {
         ?>
             <script>
-                sniffleAdd('Slow down!', 'You have attempted to login too many times in the last 10 minutes. Come back in <?php echo round(60-($ban_diff/60)); ?> minutes', 'var(--red)', 'assets/icons/warning.svg');
+                sniffleAdd('Slow down!', 'You have attempted to login/signup too many times in 10 minutes. Come back in <?php echo round(60-($ban_diff/60)); ?> minutes', 'var(--red)', 'assets/icons/warning.svg');
             </script>
         <?php
+
         $error += 1;
     } else {
         $attemps = 0;
-
-        $sql = "SELECT * FROM logs WHERE ipaddress = '$user_ip' ORDER BY id DESC LIMIT 5";
-        $query = mysqli_query($conn, $sql);
-
-        while ($log_array = mysqli_fetch_assoc($query)) {
+        $log_query = mysqli_query($conn, "SELECT * FROM logs WHERE ipaddress = '$user_ip' ORDER BY id DESC LIMIT 5");
+    
+        while ($log_array = mysqli_fetch_assoc($log_query)) {
             $log_diff = time() - strtotime($log_array['time']);
-            if ($log_array['action'] == 'Failed to enter correct Password' && ($log_diff / 60) <= 10 ) {
+
+            if ($log_array['action'] == 'Failed to enter correct Password' && ($log_diff / 60) <= 10) {
+                $attemps += 1;
+            } elseif ($log_array['action'] == 'Failed to enter correct Invite Code' && ($log_diff / 60) <= 10) {
                 $attemps += 1;
             }
         }
+
         if ($attemps >= 5) {
             mysqli_query($conn,"INSERT INTO bans (ipaddress, reason, length, permanent) VALUES('$user_ip','Attempted password too many times', '60', '0')");
-        } else {
-            // Checking if Username is empty
-            if (empty(trim($_POST["username"]))) {
-                ?>
-                    <script>
-                        sniffleAdd('Who dis?', 'You must enter a username to login!', 'var(--red)', 'assets/icons/cross.svg');
-                    </script>
-                <?php
-                $error += 1;
-            } else {
-                $username = trim($_POST["username"]);
-            }
-            
-            // Check if Password is empty
-            if (empty(trim($_POST["password"]))) {
-                ?>
-                    <script>
-                        sniffleAdd('Whats the magic word?', 'Pls enter the super duper secrete word(s) to login!', 'var(--red)', 'assets/icons/cross.svg');
-                    </script>
-                <?php
-                $error += 1;
-            } else {
-                $password = trim($_POST["password"]);
-            }
         }
     }
 
+    if ($error <= 0) {
+        // Checking if Username is empty
+        if (empty(trim($_POST["username"]))) {
+            ?>
+                <script>
+                    sniffleAdd('Who dis?', 'You must enter a username to login!', 'var(--red)', 'assets/icons/cross.svg');
+                </script>
+            <?php
+            $error += 1;
+        } else {
+            $username = trim($_POST["username"]);
+        }
+        
+        // Check if Password is empty
+        if (empty(trim($_POST["password"]))) {
+            ?>
+                <script>
+                    sniffleAdd('Whats the magic word?', 'Pls enter the super duper secrete word(s) to login!', 'var(--red)', 'assets/icons/cross.svg');
+                </script>
+            <?php
+            $error += 1;
+        } else {
+            $password = trim($_POST["password"]);
+        }
+    }
 
     if ($error <= 0) {
         // Prepare so SQL doesnt get spooked
@@ -174,155 +169,192 @@ if (isset($_POST['submit_login'])) {
  |-------------------------------------------------------------
 */
 if (isset($_POST['submit_signup'])) {
-    /*
-     |-------------------------------------------------------------
-     | Set error status to 0
-     |-------------------------------------------------------------
-     | if there are more than 0 error, then they cannot submit a
-     | request
-     |-------------------------------------------------------------   
-    */
     $error = 0;
+    $ban_query = mysqli_query($conn, "SELECT * FROM bans WHERE ipaddress = '$user_ip' ORDER BY id DESC LIMIT 1");
 
-    if (empty(trim($_POST["username"]))) {
-        // Username not entered
+    while ($ban_check = mysqli_fetch_assoc($ban_query)) {
+        $ban_time = $ban_check['time'];
+        $ban_perm = $ban_check['permanent'];
+    }
+
+    $ban_diff = time() - strtotime($ban_time);
+
+    if ($ban_perm) {
         ?>
             <script>
-                sniffleAdd('Hmmm', 'You must enter a username!', 'var(--red)', 'assets/icons/cross.svg');
+                sniffleAdd('Bye bye!', 'You have been banned, contact the owner if you feel that this was a mistake', 'var(--red)', 'assets/icons/warning.svg');
             </script>
         <?php
-        $error = $error + 1;
-    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
-        // Username entered contains illegal characters
+
+        $error += 1;
+    } elseif (($ban_diff / 60) <= 60) {
         ?>
             <script>
-                sniffleAdd('Sussy Wussy', 'Very sus. Username can only contain letters, numbers, and underscores', 'var(--red)', 'assets/icons/cross.svg');
+                sniffleAdd('Slow down!', 'You have attempted to login/signup too many times in 10 minutes. Come back in <?php echo round(60-($ban_diff/60)); ?> minutes', 'var(--red)', 'assets/icons/warning.svg');
             </script>
         <?php
-        $error = $error + 1;
+
+        $error += 1;
     } else {
-        // Prepare sql for sus
-        $sql = "SELECT id FROM users WHERE username = ?";
+        $attemps = 0;
+        $log_query = mysqli_query($conn, "SELECT * FROM logs WHERE ipaddress = '$user_ip' ORDER BY id DESC LIMIT 5");
     
-        if ($stmt = mysqli_prepare($conn, $sql)) {
-            mysqli_stmt_bind_param($stmt, "s", $username_request);
-    
-            $username_request = trim($_POST["username"]);
-    
-            if (mysqli_stmt_execute($stmt)) {
-                // Ask sql nicely if other usernames exist and store info
-                mysqli_stmt_store_result($stmt);
-        
-                if (mysqli_stmt_num_rows($stmt) == 1) {
-                    // Username taken
-                    ?>
-                        <script>
-                            sniffleAdd('A clone?', 'Sorry, but username was already taken by someone else', 'var(--red)', 'assets/icons/cross.svg');
-                        </script>
-                    <?php
-                    $error = $error + 1;
-                } else {
-                    $username = trim($_POST["username"]);
-                }
-            } else {
-                ?>
-                    <script>
-                        sniffleAdd('Reee', 'We had a problem on our end, sowwy', 'var(--red)', 'assets/icons/cross.svg');
-                    </script>
-                <?php
-                $error = $error + 1;
+        while ($log_array = mysqli_fetch_assoc($log_query)) {
+            $log_diff = time() - strtotime($log_array['time']);
+
+            if ($log_array['action'] == 'Failed to enter correct Password' && ($log_diff / 60) <= 10) {
+                $attemps += 1;
+            } elseif ($log_array['action'] == 'Failed to enter correct Invite Code' && ($log_diff / 60) <= 10) {
+                $attemps += 1;
             }
-            // Outa here with this
-            mysqli_stmt_close($stmt);
+        }
+
+        if ($attemps >= 5) {
+            mysqli_query($conn,"INSERT INTO bans (ipaddress, reason, length, permanent) VALUES('$user_ip','Attempted password too many times', '60', '0')");
         }
     }
 
-    // Validate sussness of Password
-    if (empty(trim($_POST["password"]))) {
-        // No password entered
-        ?>
-            <script>
-                sniffleAdd('What', 'You must enter a password, dont want just anyone seeing your stuff uwu', 'var(--red)', 'assets/icons/cross.svg');
-            </script>
-        <?php
-        $error = $error + 1;
-    } elseif(strlen(trim($_POST["password"])) < 6){
-        // Password not long enough 👀
-        ?>
-            <script>
-                sniffleAdd('👀', 'Nice (Password) but its not long enough 👀', 'var(--red)', 'assets/icons/cross.svg');
-            </script>
-        <?php
-        $error = $error + 1;
-    } else {
-        $password = trim($_POST["password"]);
-    }
-    
-    // Validate sussiness of the other Password
-    if (empty(trim($_POST["confirm_password"]))) {
-        // Did not confirm passowrd
-        ?>
-            <script>
-                sniffleAdd('Eh?', 'Confirm the password pls, its very important you remember what it issss', 'var(--red)', 'assets/icons/cross.svg');
-            </script>
-        <?php
-        $error = $error + 1;
-    } else {
-        $confirm_password = trim($_POST["confirm_password"]);
-        if (empty($error) && $confirm_password != $password) {
-            // Password and re-entered Password does not match
+    if ($error <= 0) {
+        if (empty(trim($_POST["username"]))) {
+            // Username not entered
             ?>
                 <script>
-                    sniffleAdd('Try again', 'Passwords need to be the same, smelly smelly', 'var(--red)', 'assets/icons/cross.svg');
+                    sniffleAdd('Hmmm', 'You must enter a username!', 'var(--red)', 'assets/icons/cross.svg');
                 </script>
             <?php
             $error = $error + 1;
-        }
-    }
-
-    // Check for invite code
-    if (isset($_POST['token'])) {
-        // Check if invite code is empty
-        if (empty($_POST['token'])) {
+        } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
+            // Username entered contains illegal characters
             ?>
                 <script>
-                    sniffleAdd('smelly', 'Enter Invite Code ;3', 'var(--red)', 'assets/icons/cross.svg');
+                    sniffleAdd('Sussy Wussy', 'Very sus. Username can only contain letters, numbers, and underscores', 'var(--red)', 'assets/icons/cross.svg');
                 </script>
             <?php
-            mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Failed to enter correct Invite Code')");
             $error = $error + 1;
         } else {
             // Prepare sql for sus
-            $sql = "SELECT id FROM tokens WHERE code = ? AND used = 0";
-    
+            $sql = "SELECT id FROM users WHERE username = ?";
+        
             if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "s", $param_code);
+                mysqli_stmt_bind_param($stmt, "s", $username_request);
         
-                $param_code = $_POST['token'];
+                $username_request = trim($_POST["username"]);
         
-                // Ask sql nicely if other usernames exist and store info
                 if (mysqli_stmt_execute($stmt)) {
+                    // Ask sql nicely if other usernames exist and store info
                     mysqli_stmt_store_result($stmt);
+            
                     if (mysqli_stmt_num_rows($stmt) == 1) {
-                        $token = trim($_POST["token"]);
-                    } else {
+                        // Username taken
                         ?>
                             <script>
-                                sniffleAdd('Argh', 'Your invite code/token did not check out, woopsie!', 'var(--red)', 'assets/icons/cross.svg');
+                                sniffleAdd('A clone?', 'Sorry, but username was already taken by someone else', 'var(--red)', 'assets/icons/cross.svg');
                             </script>
                         <?php
                         $error = $error + 1;
+                    } else {
+                        $username = trim($_POST["username"]);
                     }
                 } else {
                     ?>
                         <script>
-                            sniffleAdd('Woops', 'The server or website died inside and could not process your information, sowwy!', 'var(--red)', 'assets/icons/cross.svg');
+                            sniffleAdd('Reee', 'We had a problem on our end, sowwy', 'var(--red)', 'assets/icons/cross.svg');
                         </script>
                     <?php
                     $error = $error + 1;
                 }
                 // Outa here with this
                 mysqli_stmt_close($stmt);
+            }
+        }
+    
+        // Validate sussness of Password
+        if (empty(trim($_POST["password"]))) {
+            // No password entered
+            ?>
+                <script>
+                    sniffleAdd('What', 'You must enter a password, dont want just anyone seeing your stuff uwu', 'var(--red)', 'assets/icons/cross.svg');
+                </script>
+            <?php
+            $error = $error + 1;
+        } elseif(strlen(trim($_POST["password"])) < 6){
+            // Password not long enough 👀
+            ?>
+                <script>
+                    sniffleAdd('👀', 'Nice (Password) but its not long enough 👀', 'var(--red)', 'assets/icons/cross.svg');
+                </script>
+            <?php
+            $error = $error + 1;
+        } else {
+            $password = trim($_POST["password"]);
+        }
+        
+        // Validate sussiness of the other Password
+        if (empty(trim($_POST["confirm_password"]))) {
+            // Did not confirm passowrd
+            ?>
+                <script>
+                    sniffleAdd('Eh?', 'Confirm the password pls, its very important you remember what it issss', 'var(--red)', 'assets/icons/cross.svg');
+                </script>
+            <?php
+            $error = $error + 1;
+        } else {
+            $confirm_password = trim($_POST["confirm_password"]);
+            if (empty($error) && $confirm_password != $password) {
+                // Password and re-entered Password does not match
+                ?>
+                    <script>
+                        sniffleAdd('Try again', 'Passwords need to be the same, smelly smelly', 'var(--red)', 'assets/icons/cross.svg');
+                    </script>
+                <?php
+                $error = $error + 1;
+            }
+        }
+    
+        // Check for invite code
+        if (isset($_POST['token'])) {
+            // Check if invite code is empty
+            if (empty($_POST['token'])) {
+                ?>
+                    <script>
+                        sniffleAdd('smelly', 'Enter Invite Code ;3', 'var(--red)', 'assets/icons/cross.svg');
+                    </script>
+                <?php
+                mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Failed to enter correct Invite Code')");
+                $error = $error + 1;
+            } else {
+                // Prepare sql for sus
+                $sql = "SELECT id FROM tokens WHERE code = ? AND used = 0";
+        
+                if ($stmt = mysqli_prepare($conn, $sql)) {
+                    mysqli_stmt_bind_param($stmt, "s", $param_code);
+            
+                    $param_code = $_POST['token'];
+            
+                    // Ask sql nicely if other usernames exist and store info
+                    if (mysqli_stmt_execute($stmt)) {
+                        mysqli_stmt_store_result($stmt);
+                        if (mysqli_stmt_num_rows($stmt) == 1) {
+                            $token = trim($_POST["token"]);
+                        } else {
+                            ?>
+                                <script>
+                                    sniffleAdd('Argh', 'Your invite code/token did not check out, woopsie!', 'var(--red)', 'assets/icons/cross.svg');
+                                </script>
+                            <?php
+                            $error = $error + 1;
+                        }
+                    } else {
+                        ?>
+                            <script>
+                                sniffleAdd('Woops', 'The server or website died inside and could not process your information, sowwy!', 'var(--red)', 'assets/icons/cross.svg');
+                            </script>
+                        <?php
+                        $error = $error + 1;
+                    }
+                    // Outa here with this
+                    mysqli_stmt_close($stmt);
+                }
             }
         }
     }

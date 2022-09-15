@@ -72,7 +72,7 @@
 							?>
 						</div>
 						<br>
-						<h3>Bans/Timeouts</h3>
+						<h3>Bans</h3>
 						<div id="bans" class="bans">
 							<?php
 								// Reading images from table
@@ -88,7 +88,7 @@
 											<p><?php echo $ban['id']; ?></p>
 											<p><?php echo $ban['ipaddress']; ?></p>
 											<p><?php echo $ban['reason']; ?></p>
-											<p><?php echo $ban['length']; ?></p>
+											<p><?php echo $ban['length']; ?> mins</p>
 											<?php
 												$log_time = new DateTime($ban['time']);
 												echo "<p>" . $log_time->format('d/m/Y H:i:s T') . "<br>" . $diff->time($ban['time']) . "</p>";
