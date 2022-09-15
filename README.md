@@ -1,11 +1,38 @@
 # OnlyLegs!
-Welcome little one, this is the start of something great
+The only gallery made by a maned wolf.
 
-Hey Fluffy! Why is this open source when there could still be security issues with all of this?
-So people who know what they are doing can help me fix this shit? :'3
+## How to use
+### Downloading & installing
+#### Path
+Download this project and move it into your website(s) folder. Usually under ```/var/www/html/``` on Linux.
 
-# How do I use this!
-First of all, I don't recommend anyone using this at this time. Though I want this to get to a state where its usable for anyone to setup and host themselves, its just not anywhere near a state where this is usable. Also, security is just not upto my standards
+#### Imagik
+You will need to install the image-magik PHP plugin for thumbnail creation, on Ubuntu its as easy as ```apt install php-imagik```.
 
-# License
+#### PHP
+This project also requires PHP 8 and was made with Ubuntu 22.04 LTS in mind, so I reccommend running this gallery on such.
+
+### Database setup
+If you made it this far, congrats! We're not even close to done. Next you will need to setup your database. If you're running a seperate server for databases, that'll also work.
+
+You first need to head over to ```app/server/conn.php``` and set the correct information, if you're using localhost, this should be the following details: 
+
+    - localhost
+    - (username)
+    - (password)
+    - Gallery
+
+I recommend using a database name such as Gallery, but others should work just as well.
+
+I also recommend not using root for this and setting up a user specifically for this, but I will not go through the process of making a such user here.
+
+You will next need to setup the following 5 tables:
+
+    - images
+    - users
+    - tokens
+    - logs
+    - bans
+
+## License
 This project is under the GNU v3 License
