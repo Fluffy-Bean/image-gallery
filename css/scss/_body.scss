@@ -357,15 +357,30 @@
     @include defaultFont();
 }
 
+.tabs {
+    display: flex; flex-direction: row;
+
+    & > button {
+        margin-right: 0.5rem;
+        width: 33.33%;
+    }
+    & > button:last-child {
+        margin-right: 0;
+    }
+}
+.active-tab {
+    background-color: $page-accent !important;
+}
+
 .logs {
     width: 100%;
-    max-height: 21rem; min-height: auto;
+    height: 21rem;
 
     padding: 0;
 
     overflow-y: scroll;
 
-    display: flex; flex-direction: column;
+    display: none; flex-direction: column;
 
     background-color: $bg;
     border-radius: calc($rad - (0.5rem + 3px));
@@ -411,13 +426,13 @@
 
 .bans {
     width: 100%;
-    max-height: 21rem; min-height: auto;
+    height: 21rem;
 
     padding: 0;
 
     overflow-y: scroll;
 
-    display: flex; flex-direction: column;
+    display: none; flex-direction: column;
 
     background-color: $bg;
     border-radius: calc($rad - (0.5rem + 3px));
@@ -459,7 +474,7 @@
     }
 }
 .perm {
-    border: 3px $red solid;
+    border-left: $red 0.2rem solid;
 }
 .ban:first-of-type {
     background-color: $bg;
@@ -469,13 +484,13 @@
 
 .user-settings {
     width: 100%;
-    max-height: 21rem; min-height: auto;
+    height: 21rem;
 
     padding: 0;
 
     overflow-y: scroll;
 
-    display: flex; flex-direction: column;
+    display: none; flex-direction: column;
 
     background-color: $bg;
     border-radius: calc($rad - (0.5rem + 3px));
@@ -520,7 +535,7 @@
     }
 }
 .is-admin {
-    background-color: $green !important;
+    border-left: $page-accent 0.2rem solid;
 }
 .user:first-of-type {
     background-color: $bg;

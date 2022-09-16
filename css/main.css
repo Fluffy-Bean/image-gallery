@@ -637,13 +637,28 @@ nav .btn {
   font-family: "Secular One", sans-serif;
 }
 
+.tabs {
+  display: flex;
+  flex-direction: row;
+}
+.tabs > button {
+  margin-right: 0.5rem;
+  width: 33.33%;
+}
+.tabs > button:last-child {
+  margin-right: 0;
+}
+
+.active-tab {
+  background-color: #8C977D !important;
+}
+
 .logs {
   width: 100%;
-  max-height: 21rem;
-  min-height: auto;
+  height: 21rem;
   padding: 0;
   overflow-y: scroll;
-  display: flex;
+  display: none;
   flex-direction: column;
   background-color: #151515;
   border-radius: calc(0.25rem - (0.5rem + 3px));
@@ -687,11 +702,10 @@ nav .btn {
 
 .bans {
   width: 100%;
-  max-height: 21rem;
-  min-height: auto;
+  height: 21rem;
   padding: 0;
   overflow-y: scroll;
-  display: flex;
+  display: none;
   flex-direction: column;
   background-color: #151515;
   border-radius: calc(0.25rem - (0.5rem + 3px));
@@ -730,7 +744,7 @@ nav .btn {
 }
 
 .perm {
-  border: 3px #B66467 solid;
+  border-left: #B66467 0.2rem solid;
 }
 
 .ban:first-of-type {
@@ -742,11 +756,10 @@ nav .btn {
 
 .user-settings {
   width: 100%;
-  max-height: 21rem;
-  min-height: auto;
+  height: 21rem;
   padding: 0;
   overflow-y: scroll;
-  display: flex;
+  display: none;
   flex-direction: column;
   background-color: #151515;
   border-radius: calc(0.25rem - (0.5rem + 3px));
@@ -788,7 +801,7 @@ nav .btn {
 }
 
 .is-admin {
-  background-color: #8C977D !important;
+  border-left: #8C977D 0.2rem solid;
 }
 
 .user:first-of-type {

@@ -49,9 +49,16 @@
 							<?php
 						}
 						?>
+
 						<br>
-						<h3>Logs</h3>
-						<div id=logs" class="logs">
+
+						<div class="tabs">
+							<button class="btn btn-neutral tablinks" onclick="openTab(event, 'logs')">Logs</button>
+							<button class="btn btn-neutral tablinks" onclick="openTab(event, 'bans')">Bans</button>
+							<button class="btn btn-neutral tablinks" onclick="openTab(event, 'users')">User settings</button>
+						</div>
+
+						<div id="logs" class="logs tabcontent">
 							<div class="log">
 								<p>ID</p>
 								<p>User IP</p>
@@ -77,9 +84,8 @@
 								}
 							?>
 						</div>
-						<br>
-						<h3>Bans</h3>
-						<div id="bans" class="bans">
+						
+						<div id="bans" class="bans tabcontent">
 							<div class="ban">
 								<p>ID</p>
 								<p>User IP</p>
@@ -111,9 +117,8 @@
 								}
 							?>
 						</div>
-						<br>
-						<h3>User settings</h3>
-						<div id="user-settings" class="user-settings">
+						
+						<div id="users" class="user-settings tabcontent">
 
 							<div class="user">
 								<p>ID</p>
@@ -196,12 +201,32 @@
 										var toggleAdminSubmit = $("#toggleAdminSubmit").val();
 										$("#sniffle").load("app/account/account.php", {
 											id: toggleAdminSubmit,
+											userId: <?php echo $_SESSION['id']; ?>,
 											toggle_admin: toggleAdminSubmit
 										});
 									});
 								}
 							</script>
 						</div>
+
+						<script>
+							function openTab(evt, tabName) {
+								var i, tabcontent, tablinks;
+
+								tabcontent = document.getElementsByClassName("tabcontent");
+								for (i = 0; i < tabcontent.length; i++) {
+									tabcontent[i].style.display = "none";
+								}
+
+								tablinks = document.getElementsByClassName("tablinks");
+								for (i = 0; i < tablinks.length; i++) {
+									tablinks[i].className = tablinks[i].className.replace(" active-tab", "");
+								}
+
+								document.getElementById(tabName).style.display = "flex";
+								evt.currentTarget.className += " active-tab";
+							}
+						</script>
 					</div>
 					<?php
 				}
