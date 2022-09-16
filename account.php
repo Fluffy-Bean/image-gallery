@@ -30,7 +30,7 @@
 				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Logout</a>
 			</div>
 			<?php
-				if ($user_info->is_admin($_SESSION['id'])) {
+				if ($user_info->is_admin($conn, $_SESSION['id'])) {
 				?>
 					<div class="admin-root">
 						<h2>Admin controlls</h2>
@@ -52,6 +52,12 @@
 						<br>
 						<h3>Logs</h3>
 						<div id=logs" class="logs">
+							<div class="log">
+								<p>ID</p>
+								<p>User IP</p>
+								<p>Action</p>
+								<p>Time</p>
+							</div>
 							<?php
 								// Reading images from table
 								$logs_request = mysqli_query($conn, "SELECT * FROM logs ORDER BY id DESC");
@@ -74,6 +80,13 @@
 						<br>
 						<h3>Bans</h3>
 						<div id="bans" class="bans">
+							<div class="ban">
+								<p>ID</p>
+								<p>User IP</p>
+								<p>Reason</p>
+								<p>Lenght</p>
+								<p>Time</p>
+							</div>
 							<?php
 								// Reading images from table
 								$bans_request = mysqli_query($conn, "SELECT * FROM bans ORDER BY id DESC");
@@ -91,12 +104,103 @@
 											<p><?php echo $ban['length']; ?> mins</p>
 											<?php
 												$log_time = new DateTime($ban['time']);
-												echo "<p>" . $log_time->format('Y-m-d H:i:s T') . "<br>" . $diff->time($ban['time']) . "</p>";
+												echo "<p>" . $log_time->format('Y-m-d H:i:s T') . " | " . $diff->time($ban['time']) . "</p>";
 											?>
 										</div>
 									<?php
 								}
 							?>
+						</div>
+						<br>
+						<h3>User settings</h3>
+						<div id="user-settings" class="user-settings">
+
+							<div class="user">
+								<p>ID</p>
+								<p>Username</p>
+								<p>Last Modified</p>
+								<p>User Options</p>
+								<p></p>
+								<p></p>
+							</div>
+							<?php
+								// Reading images from table
+								$user_request = mysqli_query($conn, "SELECT * FROM users");
+
+								while ($user = mysqli_fetch_array($user_request)) {
+									if ($user['admin'] || $user['id'] == 1) {
+										echo "<div class='user is-admin'>";
+									} else {
+										echo "<div class='user'>";
+									}
+									?>
+											<p><?php echo $user['id']; ?></p>
+											<p><?php echo $user['username']; ?></p>
+											<?php
+												$user_time = new DateTime($user['created_at']);
+												echo "<p>" . $user_time->format('Y-m-d H:i:s T') . " | " . $diff->time($user['created_at']) . "</p>";
+											
+												if ($user['id'] == 1) {
+													?>
+														<button class="btn btn-neutral" style="outline: none;">Reset Password</button>
+														<button class="btn btn-neutral" style="outline: none;">Delete user</button>
+														<button class="btn btn-neutral" style="outline: none;">Toggle admin</button>
+													<?php
+												} else {
+													?>
+														<button id="userResetPassword" class="btn btn-bad">Reset Password</button>
+														<button id="userDeleteButton" class="btn btn-bad" onclick="userDelete('<?php echo $user['id']; ?>', '<?php echo $user['username']; ?>')">Delete user</button>
+														<button id="userToggleAdmin" class="btn btn-bad" onclick="userToggleAdmin('<?php echo $user['id']; ?>', '<?php echo $user['username']; ?>')">Toggle admin</button>
+													<?php
+												}
+											?>
+										</div>
+									<?php
+								}
+							?>
+							<script>
+								function userDelete(id, username) {
+									var header = "Are you very very sure?";
+									var description = "This CANNOT be undone, be very carefull with your decition...";
+									var actionBox = "<form id='' action='app/image/edit_description.php' method='POST'>\
+									<button class='btn btn-bad' type='submit' value='"+id+"'><img class='svg' src='assets/icons/trash.svg'>Delete user "+username+" (keep posts)</button>\
+									</form>\
+									<form id='' action='app/image/edit_description.php' method='POST'>\
+									<button class='btn btn-bad' type='submit' value='"+id+"'><img class='svg' src='assets/icons/trash.svg'>Delete user "+username+" (delete posts)</button>\
+									</form>";
+
+									flyoutShow(header, description, actionBox);
+									
+									/*$("#descriptionConfirm").submit(function(event) {
+										event.preventDefault();
+										var descriptionInput = $("#descriptionInput").val();
+										var descriptionSubmit = $("#descriptionSubmit").val();
+										$("#sniffle").load("app/image/image.php", {
+											id: id,
+											input: descriptionInput,
+											submit_description: descriptionSubmit
+										});
+									});*/
+								}
+								function userToggleAdmin(id, username) {
+									var header = "With great power comes great responsibility...";
+									var description = "Do you trust this user? With admin permitions they can cause a whole lot of damage to this place, so make sure you're very very sure";
+									var actionBox = "<form id='toggleAdminConfirm' action='app/image/edit_description.php' method='POST'>\
+									<button id='toggleAdminSubmit' class='btn btn-bad' type='submit' value='"+id+"'>Make "+username+" powerfull!</button>\
+									</form>";
+
+									flyoutShow(header, description, actionBox);
+									
+									$("#toggleAdminConfirm").submit(function(event) {
+										event.preventDefault();
+										var toggleAdminSubmit = $("#toggleAdminSubmit").val();
+										$("#sniffle").load("app/account/account.php", {
+											id: toggleAdminSubmit,
+											toggle_admin: toggleAdminSubmit
+										});
+									});
+								}
+							</script>
 						</div>
 					</div>
 					<?php

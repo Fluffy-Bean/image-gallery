@@ -76,9 +76,16 @@ class Account {
         Returns True if user is privilaged
         Returns False if user is NOT privilaged
     */
-    function is_admin($id) {
+    function is_admin($conn, $id) {
         if (isset($id) || !empty($id)) {
-            if ($id == 1) {
+            // Setting SQL query
+            $sql = "SELECT * FROM users WHERE id = ".$id;
+            // Getting results
+            $query = mysqli_query($conn, $sql);
+            // Fetching associated info
+            $user_array = mysqli_fetch_assoc($query);
+
+            if ($user_array['admin'] || $id == 1) {
                 return True;
             } else {
                 return False;

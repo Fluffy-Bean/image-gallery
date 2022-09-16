@@ -420,3 +420,60 @@ if (isset($_POST['submit_signup'])) {
         }
     }
 }
+
+/*
+ |-------------------------------------------------------------
+ | Toggle Admin
+ |-------------------------------------------------------------
+ | Please save me
+ |-------------------------------------------------------------
+*/
+if (isset($_POST['toggle_admin'])) {
+    $is_admin = mysqli_query($conn, "SELECT * FROM users WHERE id = " . $_POST['id'] . " ORDER BY id DESC LIMIT 1");
+
+    while ($user_info = mysqli_fetch_assoc($is_admin)) {
+        $admin_status = $user_info['admin'];
+        $username = $user_info['username'];
+    }
+
+    $sql = "UPDATE users SET admin = ? WHERE id = ?";
+
+    if ($stmt = mysqli_prepare($conn, $sql)) {
+        // Bind variables to the prepared statement as parameters
+        mysqli_stmt_bind_param($stmt, "ii", $param_admin_status, $param_user_id);
+
+        // Set parameters
+        if ($admin_status) {
+            $param_admin_status = 0;
+            $admin_update_message = "removed from the admins list";
+        } elseif (!$admin_status) {
+            $param_admin_status = 1;
+            $admin_update_message = "added to the admins list";
+        }
+        $param_user_id = $_POST['id'];
+
+        // Attempt to execute the prepared statement
+        if (mysqli_stmt_execute($stmt)) {
+            ?>
+                <script>
+                    sniffleAdd('Bap!', '<?php echo $username; ?> has been <?php echo $admin_update_message; ?>!', 'var(--green)', 'assets/icons/check.svg');
+                    flyoutClose();
+                </script>
+            <?php
+        } else {
+            ?>
+                <script>
+                    sniffleAdd('Bruh', 'Something went fuckywucky, please try later', 'var(--red)', 'assets/icons/cross.svg');
+                    flyoutClose();
+                </script>
+            <?php
+        }
+    } else {
+        ?>
+            <script>
+                sniffleAdd('Bruh', 'Something went fuckywucky, please try later', 'var(--red)', 'assets/icons/cross.svg');
+                flyoutClose();
+            </script>
+        <?php      
+    }
+}

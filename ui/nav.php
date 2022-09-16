@@ -16,7 +16,7 @@ $loggedin = new Account();
       ?>
       <a class='btn' href='upload.php'><img class='svg' src='assets/icons/upload.svg'><span class='nav-hide'>Upload</span></a>
       <hr>
-      <a class='btn' href='account.php'><img class='svg' src='assets/icons/user-circle.svg'><span class='nav-hide'><?php echo substr($_SESSION["username"], 0, 15); ?></span></a>
+      <a class='btn' href='account.php'><img class='svg' src='assets/icons/gear.svg'><span class='nav-hide'><?php echo substr($_SESSION["username"], 0, 15); ?></span></a>
       <?php
     } else {
       ?>

@@ -207,6 +207,10 @@
 }
 
 .preview-button {
+    width: 1.5rem;
+
+    padding: 0;
+
     position: absolute;
     bottom: 0.5rem;
     right: 0.5rem;
@@ -230,6 +234,12 @@
     opacity: 0.8;
 
     box-shadow: $shadow;
+
+    img {
+        width: 1.5rem;
+
+        display: block;
+    }
 
     &:hover {
         outline: $white 0.2rem solid;
@@ -369,7 +379,7 @@
 
     justify-content: space-between;
 
-    &:nth-child(odd) {
+    &:nth-child(even) {
         background-color: #ffffff11;
     }
 
@@ -389,8 +399,14 @@
         }
         &:nth-child(4) {
             width: 40%;
+            margin: 0;
         }
     }
+}
+.log:first-of-type {
+    background-color: $bg;
+    position: sticky;
+    top: 0;
 }
 
 .bans {
@@ -415,7 +431,7 @@
 
     justify-content: space-between;
 
-    &:nth-child(odd) {
+    &:nth-child(even) {
         background-color: #ffffff11;
     }
 
@@ -431,18 +447,85 @@
             width: 17%;
         }
         &:nth-child(3) {
-            width: 38%;
+            width: 34%;
         }
         &:nth-child(4) {
             width: 10%;
         }
         &:nth-child(5) {
-            width: 30%;
+            width: 34%;
+            margin: 0;
         }
     }
 }
 .perm {
-    border: 1px $red solid;
+    border: 3px $red solid;
+}
+.ban:first-of-type {
+    background-color: $bg;
+    position: sticky;
+    top: 0;
+}
+
+.user-settings {
+    width: 100%;
+    max-height: 21rem; min-height: auto;
+
+    padding: 0;
+
+    overflow-y: scroll;
+
+    display: flex; flex-direction: column;
+
+    background-color: $bg;
+    border-radius: calc($rad - (0.5rem + 3px));
+}
+.user {
+    min-width: 769px;
+
+    padding: 0.5rem;
+
+    display: flex; flex-direction: row;
+
+    justify-content: space-between;
+
+    &:nth-child(even) {
+        background-color: #ffffff11;
+    }
+
+    & > * {
+        margin: 0 0.5rem 0 0;
+        padding: 0;
+        word-wrap: break-word;
+
+        &:nth-child(1) {
+            width: 5%;
+        }
+        &:nth-child(2) {
+            width: 15%;
+        }
+        &:nth-child(3) {
+            width: 35%;
+        }
+        &:nth-child(4) {
+            width: 15%;
+        }
+        &:nth-child(5) {
+            width: 15%;
+        }
+        &:nth-child(6) {
+            width: 15%;
+            margin: 0;
+        }
+    }
+}
+.is-admin {
+    background-color: $green !important;
+}
+.user:first-of-type {
+    background-color: $bg;
+    position: sticky;
+    top: 0;
 }
 
 .signup-root {

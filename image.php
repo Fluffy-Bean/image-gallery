@@ -123,7 +123,7 @@
 	 | Check user privilge
 	 |-------------------------------------------------------------
 	*/
-	if ($image_info->image_privilage($image['author']) || $user_info->is_admin($_SESSION['id'])) {
+	if ($image_info->image_privilage($image['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
 		$privilaged = True;
 	} else {
 		$privilaged = False;
@@ -132,7 +132,7 @@
 	if (is_file("images/previews/".$image['imagename'])) {
 		echo "<div class='image-container'>
 		<img class='image' id='".$image['id']."' src='images/previews/".$image['imagename']."' alt='".$image_alt."'>
-		<button class='preview-button' onclick='showFull()'>Show full quality</button>
+		<button class='preview-button' onclick='showFull()'><img src='assets/icons/scan.svg'></button>
 		</div>";
 		?>
 			<script>
@@ -173,7 +173,7 @@
 				<div>
 					<?php
 						// User
-						if ($user_info->is_admin($image['author'])) {
+						if ($user_info->is_admin($conn, $image['author'])) {
 							echo "<p>Author: ".$image_author."<img class='svg' style='margin: 0 0 0.1rem 0.2rem;' src='assets/icons/crown-simple.svg'></p>";
 						} else {
 							echo "<p>Author: ".$image_author."</p>";
@@ -387,7 +387,7 @@
 				|-------------------------------------------------------------
 				-->
 				<?php
-				if ($user_info->is_admin($_SESSION['id'])) {
+				if ($user_info->is_admin($conn, $_SESSION['id'])) {
 				?>
 					<button id='authorButton' class='btn btn-bad'><img class='svg' src='assets/icons/edit.svg'>Edit author</button>
 					<script>

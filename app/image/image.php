@@ -27,7 +27,7 @@ if (isset($_POST['submit_delete'])) {
   $image_array = $image_info->get_image_info($conn, $_POST['id']);
 
   // If user owns image or has the ID of 1
-  if ($image_info->image_privilage($image_array['author']) || $_SESSION['id'] == 1) {
+  if ($image_info->image_privilage($image_array['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
     // Delete from table
     $sql = "DELETE FROM images WHERE id = ?";
     if ($stmt = mysqli_prepare($conn, $sql)) {
@@ -101,7 +101,7 @@ if (isset($_POST['submit_description'])) {
   // Get all image info
   $image_array = $image_info->get_image_info($conn, $_POST['id']);
   // If user owns image or has the ID of 1
-  if ($image_info->image_privilage($image_array['author']) || $_SESSION['id'] == 1) {
+  if ($image_info->image_privilage($image_array['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
     // getting ready forSQL asky asky
     $sql = "UPDATE images SET alt=? WHERE id=?";
 
@@ -159,7 +159,7 @@ if (isset($_POST['submit_tags'])) {
   // Get all image info
   $image_array = $image_info->get_image_info($conn, $_POST['id']);
   // If user owns image or has the ID of 1
-  if ($image_info->image_privilage($image_array['author']) || $_SESSION['id'] == 1) {
+  if ($image_info->image_privilage($image_array['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
     // Clean input
     $tags_string = $make_stuff->tags(trim($_POST['input']));
 
@@ -218,7 +218,7 @@ if (isset($_POST['submit_tags'])) {
 */
 if (isset($_POST['submit_author'])) {
   // If user has the ID of 1
-  if ($user_info->is_admin($_SESSION['id'])) {
+  if ($user_info->is_admin($conn, $_SESSION['id'])) {
     // getting ready forSQL asky asky
     $sql = "UPDATE images SET author=? WHERE id=?";
 
