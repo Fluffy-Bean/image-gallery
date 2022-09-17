@@ -153,7 +153,7 @@
 													<?php
 												} else {
 													?>
-														<button id="userResetPassword" class="btn btn-bad">Reset Password</button>
+														<button id="userResetPassword" class="btn btn-bad" onclick="userResetPassword('<?php echo $user['id']; ?>', '<?php echo $user['username']; ?>')">Reset Password</button>
 														<button id="userDeleteButton" class="btn btn-bad" onclick="userDelete('<?php echo $user['id']; ?>', '<?php echo $user['username']; ?>')">Delete user</button>
 														<button id="userToggleAdmin" class="btn btn-bad" onclick="userToggleAdmin('<?php echo $user['id']; ?>', '<?php echo $user['username']; ?>')">Toggle admin</button>
 													<?php
@@ -164,6 +164,32 @@
 								}
 							?>
 							<script>
+								function userResetPassword(id, username) {
+									var header = "UwU whats the new passywassy code?";
+									var description = "Do this only if "+username+" has forgotten their password, DO NOT abuse this power";
+									var actionBox = "<form id='userResetPasswordForm' method='POST'>\
+									<input id='userNewPassword' class='btn btn-neutral' type='password' name='new_password' placeholder='New Password'>\
+									<input id='userConfirmSassword' class='btn btn-neutral' type='password' name='confirm_password' placeholder='Confirm Password'>\
+									<br>\
+									<button id='userPasswordSubmit' class='btn btn-bad' type='submit' name='reset' value='"+id+"'><img class='svg' src='assets/icons/password.svg'>Reset</button>\
+									</form>";
+
+									flyoutShow(header, description, actionBox);
+									
+									$("#userResetPasswordForm").submit(function(event) {
+										event.preventDefault();
+										var new_passowrd = $("#userNewPassword").val();
+										var confirm_password = $("#userConfirmSassword").val();
+										var submit = $("#userPasswordSubmit").val();
+										var userId = $("#userPasswordSubmit").val();
+										$("#sniffle").load("app/account/password_reset.php", {
+											new_passowrd: new_passowrd,
+											confirm_password: confirm_password,
+											id: userId,
+											submit: submit
+										});
+									});
+								}
 								function userDelete(id, username) {
 									var header = "Are you very very sure?";
 									var description = "This CANNOT be undone, be very carefull with your decition...";

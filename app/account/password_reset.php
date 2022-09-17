@@ -16,6 +16,11 @@
 session_start();
 // Include server connection
 include dirname(__DIR__)."/server/conn.php";
+include dirname(__DIR__)."/app.php";
+
+use App\Account;
+
+$user_info = new Account();
 
 if (isset($_POST['submit'])) {
     /*
@@ -31,20 +36,20 @@ if (isset($_POST['submit'])) {
     // Validate new password
     if (empty(trim($_POST["new_password"]))) {
         ?>
-        <script>
-            sniffleAdd('Meep', 'Enter a new password!', 'var(--red)', 'assets/icons/cross.svg');
-            flyoutClose();
-        </script>
+            <script>
+                sniffleAdd('Meep', 'Enter a new password!', 'var(--red)', 'assets/icons/cross.svg');
+                flyoutClose();
+            </script>
         <?php
-        $error = $error + 1;
+        $error += 1;
     } elseif(strlen(trim($_POST["new_password"])) < 6) {
         ?>
-        <script>
-            sniffleAdd('Not long enough...', 'Password, must be 6 or more characters in length uwu', 'var(--red)', 'assets/icons/cross.svg');
-            flyoutClose();
-        </script>
+            <script>
+                sniffleAdd('Not long enough...', 'Password, must be 6 or more characters in length uwu', 'var(--red)', 'assets/icons/cross.svg');
+                flyoutClose();
+            </script>
         <?php
-        $error = $error + 1;
+        $error += 1;
     } else {
         $new_password = trim($_POST["new_password"]);
     }
@@ -52,23 +57,37 @@ if (isset($_POST['submit'])) {
     // Validate confirm password
     if (empty(trim($_POST["confirm_password"]))) {
         ?>
-        <script>
-            sniffleAdd('Meep', 'You must confirm the password!!!!', 'var(--red)', 'assets/icons/cross.svg');
-            flyoutClose();
-        </script>
+            <script>
+                sniffleAdd('Meep', 'You must confirm the password!!!!', 'var(--red)', 'assets/icons/cross.svg');
+                flyoutClose();
+            </script>
         <?php
-        $error = $error + 1;
+        $error += 1;
     } else {
         $confirm_password = trim($_POST["confirm_password"]);
         if(empty($error) && ($new_password != $confirm_password)) {
             ?>
+                <script>
+                    sniffleAdd('AAAA', 'Passwords do not match!!!', 'var(--red)', 'assets/icons/cross.svg');
+                    flyoutClose();
+                </script>
+            <?php
+            $error += 1;
+        }
+    }
+
+    if (isset($_POST['id']) && $user_info->is_admin($conn, $_SESSION["id"])) {
+        $user_id = $_POST['id'];
+    } elseif (empty($_POST['id'])) {
+        $user_id = $_SESSION["id"];
+    } else {
+        ?>
             <script>
-                sniffleAdd('AAAA', 'Passwords do not match!!!', 'var(--red)', 'assets/icons/cross.svg');
+                sniffleAdd('Oopsie', 'An error occured while figuring out which user to change the password of... Are you an admin?', 'var(--red)', 'assets/icons/cross.svg');
                 flyoutClose();
             </script>
-            <?php
-            $error = $error + 1;
-        }
+        <?php
+        $error += 1;
     }
 
     // Check for errors
@@ -81,24 +100,34 @@ if (isset($_POST['submit'])) {
     
             // Setting up Password parameters
             $param_password = password_hash($new_password, PASSWORD_DEFAULT);
-            $param_id = $_SESSION["id"];
+            $param_id = $user_id;
     
             // Attempt to execute (sus)
             if (mysqli_stmt_execute($stmt)) {
                 // Password updated!!!! Now goodbye
-                session_destroy();
-                ?>
-                <script>
-                    sniffleAdd('Password updated', 'Now goodbye.... you will be redirected in a moment', 'var(--green)', 'assets/icons/check.svg');
-                    setTimeout(function(){window.location.href = "account/login.php";}, 2000);
-                </script>
-                <?php
+                if ($user_id == $_SESSION["id"]) {
+                    // Check if password reset was done by user
+                    session_destroy();
+                    ?>
+                        <script>
+                            sniffleAdd('Password updated', 'Now goodbye.... you will be redirected in a moment', 'var(--green)', 'assets/icons/check.svg');
+                            setTimeout(function(){window.location.href = "account/login.php";}, 2000);
+                        </script>
+                    <?php
+                } else {
+                    // An admin has changed the password
+                    ?>
+                        <script>
+                            sniffleAdd('Password updated', 'Password has been reset for user! But their session may still be active', 'var(--green)', 'assets/icons/check.svg');
+                        </script>
+                    <?php
+                }
             } else {
                 ?>
-                <script>
-                    sniffleAdd('Bruh', 'Something happened on our end, sowwy', 'var(--red)', 'assets/icons/cross.svg');
-                    flyoutClose();
-                </script>
+                    <script>
+                        sniffleAdd('Bruh', 'Something happened on our end, sowwy', 'var(--red)', 'assets/icons/cross.svg');
+                        flyoutClose();
+                    </script>
                 <?php
             }
         }
