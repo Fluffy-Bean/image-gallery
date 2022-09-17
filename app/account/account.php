@@ -429,7 +429,7 @@ if (isset($_POST['submit_signup'])) {
  |-------------------------------------------------------------
 */
 if (isset($_POST['toggle_admin'])) {
-    if ($user_info->is_admin($conn, $_POST['userId'])) {
+    if ($user_info->is_admin($conn, $_SESSION['id'])) {
         $is_admin = mysqli_query($conn, "SELECT * FROM users WHERE id = " . $_POST['id'] . " ORDER BY id DESC LIMIT 1");
 
         while ($user_info = mysqli_fetch_assoc($is_admin)) {
