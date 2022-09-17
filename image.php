@@ -180,7 +180,11 @@
 						}
 
 						// Image ID
-						echo "<p>ID: ".$image['id']."</p>";
+						if ($image['id'] == 69) {
+							echo "<p>ID: ".$image['id']."... nice</p>";
+						} else {
+							echo "<p>ID: ".$image['id']."</p>";
+						}
 
 						// Last time image was updated
 						$update_time = new DateTime($image['upload']);
