@@ -28,7 +28,7 @@
 		<br>
 		<form id="passwordForm" method="POST" enctype="multipart/form-data">
 			<input id="newPassword" class="btn btn-neutral" type="password" name="new_password" placeholder="New Password">
-			<input id="confirmSassword" class="btn btn-neutral" type="password" name="confirm_password" placeholder="Confirm Password">
+			<input id="confirmPassword" class="btn btn-neutral" type="password" name="confirm_password" placeholder="Confirm Password">
 			<br>
 			<button id="passwordSubmit" class="btn btn-bad" type="submit" name="reset"><img class="svg" src="assets/icons/sign-in.svg">Reset</button>
 		</form>
@@ -38,7 +38,7 @@
 		$("#passwordForm").submit(function(event) {
 			event.preventDefault();
 			var new_passowrd = $("#newPassword").val();
-			var confirm_password = $("#confirmSassword").val();
+			var confirm_password = $("#confirmPassword").val();
 			var submit = $("#passwordSubmit").val();
 			$("#sniffle").load("app/account/password_reset.php", {
 				new_passowrd: new_passowrd,
