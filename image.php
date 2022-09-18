@@ -181,7 +181,7 @@
 
 						// Image ID
 						if ($image['id'] == 69) {
-							echo "<p>ID: ".$image['id']."... nice</p>";
+							echo "<p>ID: ".$image['id'].", nice</p>";
 						} else {
 							echo "<p>ID: ".$image['id']."</p>";
 						}
