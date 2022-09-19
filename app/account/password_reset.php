@@ -119,6 +119,7 @@ if (isset($_POST['submit'])) {
                     ?>
                         <script>
                             sniffleAdd('Password updated', 'Password has been reset for user! But their session may still be active', 'var(--green)', 'assets/icons/check.svg');
+                            flyoutClose();
                         </script>
                     <?php
                 }

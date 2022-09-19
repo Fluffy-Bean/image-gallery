@@ -37,11 +37,11 @@
 	<script>
 		$("#passwordForm").submit(function(event) {
 			event.preventDefault();
-			var new_passowrd = $("#newPassword").val();
+			var new_password = $("#newPassword").val();
 			var confirm_password = $("#confirmPassword").val();
 			var submit = $("#passwordSubmit").val();
 			$("#sniffle").load("app/account/password_reset.php", {
-				new_passowrd: new_passowrd,
+				new_password: new_password,
 				confirm_password: confirm_password,
 				submit: submit
 			});
