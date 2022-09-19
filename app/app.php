@@ -62,7 +62,7 @@ class Account {
     */
     function get_user_info($conn, $id) {
         // Setting SQL query
-        $sql = "SELECT * FROM users WHERE id = ".$id;
+        $sql = "SELECT id, username FROM users WHERE id = ".$id;
         // Getting results
         $query = mysqli_query($conn, $sql);
         // Fetching associated info
@@ -79,7 +79,7 @@ class Account {
     function is_admin($conn, $id) {
         if (isset($id) || !empty($id)) {
             // Setting SQL query
-            $sql = "SELECT * FROM users WHERE id = ".$id;
+            $sql = "SELECT admin FROM users WHERE id = ".$id;
             // Getting results
             $query = mysqli_query($conn, $sql);
             // Fetching associated info

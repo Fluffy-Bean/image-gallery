@@ -332,7 +332,7 @@
 						</form>";
 						flyoutShow(header, description, actionBox);
 
-						$('#descriptionInput').val("<?php echo str_replace('"', '\"', $image_alt); ?>");
+						$('#descriptionInput').val("<?php if ($image_alt != "No description avalible") echo str_replace('"', '\"', $image_alt); ?>");
 						
 						$("#descriptionConfirm").submit(function(event) {
 							event.preventDefault();
