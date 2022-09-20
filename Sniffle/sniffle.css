@@ -33,7 +33,7 @@
 .sniffle-notification {
   margin-bottom: 0.5rem; padding: 0;
 
-  max-width: calc(100% - 1rem); min-height: 2.5rem;
+  max-width: 100%; min-height: 2.5rem;
 
   display: flex; flex-direction: row; overflow-y: hidden;
 
@@ -99,7 +99,7 @@
 .sniffle-content {
   margin: 0 auto; padding: 0.5rem;
 
-  width: calc(100% - 3.5rem);
+  width: 100%;
   flex-direction: column; flex-wrap: wrap;
 
   overflow-y: hidden;
