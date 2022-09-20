@@ -2,14 +2,16 @@
 /*
 	Connect to database
 
-	Dunno what else to put here lol
+	Make sure to enter your correct database details,
+	else it may cause issues with loading the page
 */
-try {
-	$conn_ip = "192.168.0.79:3306";
-	$conn_username = "uwu";
-	$conn_password = "fennec621";
-	$conn_database = "gallery";
 
+$conn_ip = "192.168.0.79:3306";
+$conn_username = "uwu";
+$conn_password = "fennec621";
+$conn_database = "gallery";
+
+try {
 	$conn = @mysqli_connect($conn_ip, $conn_username, $conn_password , $conn_database);
 } catch (Exception $e) {
 	header("location: error.php?e=conn");

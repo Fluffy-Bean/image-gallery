@@ -1019,6 +1019,7 @@ body * {
 .btn:hover {
   outline: #E8E3E3 0.2rem solid;
   color: #E8E3E3;
+  cursor: pointer;
 }
 .btn:where(input[type=file])::-webkit-file-upload-button {
   margin: -0.25rem 0.5rem -0.25rem -0.25rem;

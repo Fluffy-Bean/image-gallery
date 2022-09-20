@@ -28,7 +28,44 @@
 				<br>
 				<p>Don't leave! I'm with the science team!</p>
 				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Logout</a>
+				<br>
+				<p>Be carefull!</p>
+				<button class="btn btn-bad" onclick="deleteAccount()">Delete account</button>
 			</div>
+			<script>
+				function deleteAccount() {
+					var header = "Are you very very sure?";
+					var description = "This CANNOT be undone, be very carefull with your decition... There is no second warning!";
+					var actionBox = "<form id='userDelete' method='POST'>\
+					<button id='accountDeleteSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete account (keep posts)</button>\
+					</form>\
+					<form id='userDeleteFull' method='POST'>\
+					<button id='accountDeleteSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete account (delete posts)</button>\
+					</form>";
+
+					flyoutShow(header, description, actionBox);
+					
+					$("#userDelete").submit(function(event) {
+						event.preventDefault();
+						var accountDeleteSubmit = $("#accountDeleteSubmit").val();
+						$("#sniffle").load("app/account/account.php", {
+							delete_id: <?php echo $_SESSION['id']; ?>,
+							full: false,
+							account_delete_submit: accountDeleteSubmit
+						});
+					});
+					$("#userDeleteFull").submit(function(event) {
+						event.preventDefault();
+						var accountDeleteSubmit = $("#accountDeleteSubmit").val();
+						$("#sniffle").load("app/account/account.php", {
+							delete_id: <?php echo $_SESSION['id']; ?>,
+							full: true,
+							account_delete_submit: accountDeleteSubmit
+						});
+					});
+				}
+			</script>
+
 			<?php
 				if ($user_info->is_admin($conn, $_SESSION['id'])) {
 				?>
@@ -55,7 +92,7 @@
 						<div class="tabs">
 							<button class="btn btn-neutral tablinks" onclick="openTab(event, 'logs')">Logs</button>
 							<button class="btn btn-neutral tablinks" onclick="openTab(event, 'bans')">Bans</button>
-							<button class="btn btn-neutral tablinks" onclick="openTab(event, 'users')">User settings</button>
+							<button class="btn btn-neutral tablinks" onclick="openTab(event, 'users')">Users</button>
 						</div>
 
 						<div id="logs" class="logs tabcontent">
@@ -182,49 +219,51 @@
 										var confirm_password = $("#userConfirmPassword").val();
 										var submit = $("#userPasswordSubmit").val();
 										var userId = $("#userPasswordSubmit").val();
-										$("#sniffle").load("app/account/password_reset.php", {
+										$("#sniffle").load("app/account/account.php", {
 											new_password: new_password,
 											confirm_password: confirm_password,
 											id: userId,
-											submit: submit
+											password_reset_submit: submit
 										});
 									});
 								}
 								function userDelete(id, username) {
 									var header = "Are you very very sure?";
-									var description = "This CANNOT be undone, be very carefull with your decition...";
-									var actionBox = "<form id='' action='app/image/edit_description.php' method='POST'>\
-									<button class='btn btn-bad' type='submit' value='"+id+"'><img class='svg' src='assets/icons/trash.svg'>Delete user "+username+" (keep posts)</button>\
+									var description = "This CANNOT be undone, be very carefull with your decition... There is no second warning!";
+									var actionBox = "<form id='userDelete' method='POST'>\
+									<button id='userDeleteSubmit' class='btn btn-bad' type='submit' value='"+id+"'><img class='svg' src='assets/icons/trash.svg'>Delete user "+username+" (keep posts)</button>\
 									</form>\
-									<form id='' action='app/image/edit_description.php' method='POST'>\
-									<button class='btn btn-bad' type='submit' value='"+id+"'><img class='svg' src='assets/icons/trash.svg'>Delete user "+username+" (delete posts)</button>\
+									<form id='userDeleteFull' method='POST'>\
+									<button id='userDeleteSubmit' class='btn btn-bad' type='submit' value='"+id+"'><img class='svg' src='assets/icons/trash.svg'>Delete user "+username+" (delete posts)</button>\
 									</form>";
 
 									flyoutShow(header, description, actionBox);
 									
-									/*$("#descriptionConfirm").submit(function(event) {
+									$("#userDelete").submit(function(event) {
 										event.preventDefault();
-										var descriptionInput = $("#descriptionInput").val();
+										var id = $("#userDeleteSubmit").val();
 										var userDeleteSubmit = $("#userDeleteSubmit").val();
-										$("#sniffle").load("path/to/.php", {
-											id: id,
-											submit_delete: userDeleteSubmit
+										$("#sniffle").load("app/account/account.php", {
+											delete_id: id,
+											full: false,
+											account_delete_submit: userDeleteSubmit
 										});
-									});*/
-									/*$("#descriptionConfirm").submit(function(event) {
+									});
+									$("#userDeleteFull").submit(function(event) {
 										event.preventDefault();
-										var descriptionInput = $("#descriptionInput").val();
+										var id = $("#userDeleteSubmit").val();
 										var userDeleteSubmit = $("#userDeleteSubmit").val();
-										$("#sniffle").load("path/to/.php", {
-											id: id,
-											submit_delete: userDeleteSubmit
+										$("#sniffle").load("app/account/account.php", {
+											delete_id: id,
+											full: true,
+											account_delete_submit: userDeleteSubmit
 										});
-									});*/
+									});
 								}
 								function userToggleAdmin(id, username) {
 									var header = "With great power comes great responsibility...";
 									var description = "Do you trust this user? With admin permitions they can cause a whole lot of damage to this place, so make sure you're very very sure";
-									var actionBox = "<form id='toggleAdminConfirm' action='app/image/edit_description.php' method='POST'>\
+									var actionBox = "<form id='toggleAdminConfirm' method='POST'>\
 									<button id='toggleAdminSubmit' class='btn btn-bad' type='submit' value='"+id+"'>Make "+username+" powerfull!</button>\
 									</form>";
 

@@ -487,3 +487,215 @@ if (isset($_POST['toggle_admin'])) {
         <?php      
     }
 }
+
+
+/*
+ |-------------------------------------------------------------
+ | Password Reset
+ |-------------------------------------------------------------
+ | I want to make it possible to reset the password without
+ | access to the account directly with an email reset link or
+ | something. I also want to confirm the password change with
+ | the old password in the future, as people forget passwords
+ | and people can get onto accounts. For now this is a shitty
+ | little system thats inplace for those who need it. Hopefully
+ | I can make something better in the future...
+ |-------------------------------------------------------------
+*/
+if (isset($_POST['password_reset_submit'])) {
+    $error = 0;
+
+    // Validate new password
+    if (empty(trim($_POST["new_password"]))) {
+        ?>
+            <script>
+                sniffleAdd('Meep', 'Enter a new password!', 'var(--red)', 'assets/icons/cross.svg');
+                flyoutClose();
+            </script>
+        <?php
+        $error += 1;
+    } elseif(strlen(trim($_POST["new_password"])) < 6) {
+        ?>
+            <script>
+                sniffleAdd('Not long enough...', 'Password, must be 6 or more characters in length uwu', 'var(--red)', 'assets/icons/cross.svg');
+                flyoutClose();
+            </script>
+        <?php
+        $error += 1;
+    } else {
+        $new_password = trim($_POST["new_password"]);
+    }
+    
+    // Validate confirm password
+    if (empty(trim($_POST["confirm_password"]))) {
+        ?>
+            <script>
+                sniffleAdd('Meep', 'You must confirm the password!!!!', 'var(--red)', 'assets/icons/cross.svg');
+                flyoutClose();
+            </script>
+        <?php
+        $error += 1;
+    } else {
+        $confirm_password = trim($_POST["confirm_password"]);
+        if(empty($error) && ($new_password != $confirm_password)) {
+            ?>
+                <script>
+                    sniffleAdd('AAAA', 'Passwords do not match!!!', 'var(--red)', 'assets/icons/cross.svg');
+                    flyoutClose();
+                </script>
+            <?php
+            $error += 1;
+        }
+    }
+
+    if (isset($_POST['id']) && $user_info->is_admin($conn, $_SESSION["id"])) {
+        $user_id = $_POST['id'];
+    } elseif (empty($_POST['id'])) {
+        $user_id = $_SESSION["id"];
+    } else {
+        ?>
+            <script>
+                sniffleAdd('Oopsie', 'An error occured while figuring out which user to change the password of... Are you an admin?', 'var(--red)', 'assets/icons/cross.svg');
+                flyoutClose();
+            </script>
+        <?php
+        $error += 1;
+    }
+
+    // Check for errors
+    if ($error <= 0) {
+        // Prepare for wack
+        $sql = "UPDATE users SET password = ? WHERE id = ?";
+    
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            mysqli_stmt_bind_param($stmt, "si", $param_password, $param_id);
+    
+            // Setting up Password parameters
+            $param_password = password_hash($new_password, PASSWORD_DEFAULT);
+            $param_id = $user_id;
+    
+            // Attempt to execute (sus)
+            if (mysqli_stmt_execute($stmt)) {
+                // Password updated!!!! Now goodbye
+                if ($user_id == $_SESSION["id"]) {
+                    // Check if password reset was done by user
+                    session_destroy();
+                    ?>
+                        <script>
+                            sniffleAdd('Password updated', 'Now goodbye.... you will be redirected in a moment', 'var(--green)', 'assets/icons/check.svg');
+                            setTimeout(function(){window.location.href = "account/login.php";}, 2000);
+                        </script>
+                    <?php
+                } else {
+                    // An admin has changed the password
+                    ?>
+                        <script>
+                            sniffleAdd('Password updated', 'Password has been reset for user! But their session may still be active', 'var(--green)', 'assets/icons/check.svg');
+                            flyoutClose();
+                        </script>
+                    <?php
+                }
+            } else {
+                ?>
+                    <script>
+                        sniffleAdd('Bruh', 'Something happened on our end, sowwy', 'var(--red)', 'assets/icons/cross.svg');
+                        flyoutClose();
+                    </script>
+                <?php
+            }
+        }
+    }
+}
+
+/*
+    Account deletion
+
+    I hate dealing with stuffs being deleted
+*/
+if (isset($_POST['account_delete_submit'])) {
+    $error = 0;
+
+    if (isset($_POST['delete_id'])) {
+        if ($_POST['delete_id'] == 1) {
+            ?>
+                <script>
+                    sniffleAdd('Sussy', 'You cannot delete the owners account!!!!!', 'var(--red)', 'assets/icons/cross.svg');
+                    flyoutClose();
+                </script>
+            <?php
+            $error += 1;
+        } elseif ($_POST['delete_id'] == $_SESSION['id']) {
+            $delete_id = $_SESSION['id'];
+        } elseif ($_POST['delete_id'] != $_SESSION['id'] && $_SESSION['id'] == 1) {
+            $delete_id = $_POST['delete_id'];
+        } else {
+            ?>
+                <script>
+                    sniffleAdd('Ono', 'You aren\'t privilaged enough to delete accounts!', 'var(--red)', 'assets/icons/cross.svg');
+                    flyoutClose();
+                </script>
+            <?php
+            $error += 1;
+        }
+    } else {
+        ?>
+            <script>
+                sniffleAdd('Oopsie', 'We couldn\'t find the account that was requested to be deleted', 'var(--red)', 'assets/icons/cross.svg');
+                flyoutClose();
+            </script>
+        <?php
+        $error += 1;
+    }
+
+    if (empty($_POST['full']) || !isset($_POST['full'])) {
+        ?>
+            <script>
+                sniffleAdd('Oopsie', 'Some error occured, unsure what to delete', 'var(--red)', 'assets/icons/cross.svg');
+                flyoutClose();
+            </script>
+        <?php
+        $error += 1;
+    }
+
+    if ($error <= 0) {
+        if ($_POST['full']) {
+            $image_request = mysqli_query($conn, "SELECT id, imagename FROM images WHERE author = '$delete_id'");
+
+            while ($image = mysqli_fetch_array($image_request)) {
+                if (is_file(dirname(__DIR__)."/images/".$image['imagename'])) {
+                    unlink(dirname(__DIR__)."/images/".$image['imagename']);
+                }
+                if (is_file(dirname(__DIR__)."/images/thumbnails/".$image['imagename'])) {
+                    unlink(dirname(__DIR__)."/images/thumbnails/".$image['imagename']);
+                }
+                if (is_file(dirname(__DIR__)."/images/previews/".$image['imagename'])) {
+                    unlink(dirname(__DIR__)."/images/previews/".$image['imagename']);
+                }
+
+                mysqli_query($conn, "DELETE FROM images WHERE id = ".$image['id']);
+            }
+
+            ?>
+                <script>
+                    sniffleAdd('Progress', 'Deleted all images from the user', 'var(--green)', 'assets/icons/warning.svg');
+                    flyoutClose();
+                </script>
+            <?php
+        }
+        
+        mysqli_query($conn, "DELETE FROM users WHERE id = ".$delete_id);
+
+        if ($_POST['full']) {
+            mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Deleted a user account and all their posts')");
+        } else {
+            mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Deleted a user account')");
+        }
+
+        ?>
+            <script>
+                sniffleAdd('Goodbye!', 'Successfully deleted the user!', 'var(--green)', 'assets/icons/check.svg');
+                flyoutClose();
+            </script>
+        <?php
+    }
+}
