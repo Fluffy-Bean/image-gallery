@@ -4,8 +4,10 @@
 */
 require_once dirname(__DIR__)."/app/settings/settings.php";
 
-/*if ($debug["testing"]) {
-  // Used for testing, do not use this in production
+ini_set('post_max_size', $user_settings['upload_max']);
+ini_set('upload_max_filesize', ($user_settings['upload_max'] + 1));
+
+if ($user_settings['is_testing']) {
   ini_set('display_errors', 1);
   ini_set('display_startup_errors', 1);
   error_reporting(E_ERROR | E_PARSE | E_NOTICE);
@@ -14,23 +16,6 @@ require_once dirname(__DIR__)."/app/settings/settings.php";
 				sniffleAdd('Notice', 'This website is currently in a testing state, bugs may occur', 'var(--red)', 'assets/icons/cross.svg');
 		</script>
   <?php
-}*/
-
-ini_set('post_max_size', '20M');
-ini_set('upload_max_filesize', '20M');
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ERROR | E_PARSE | E_NOTICE);
-?>
-  <script>
-      sniffleAdd('Notice', 'This website is currently in a testing state, bugs may occur', 'var(--red)', 'assets/icons/cross.svg');
-  </script>
-<?php
-
-if (is_file("index.php")) {
-  $root_dir = "";
-} else {
-  $root_dir = "../";
 }
 
 /*
@@ -45,16 +30,6 @@ require_once dirname(__DIR__)."/app/server/secrete.php";
 require_once dirname(__DIR__)."/app/app.php";
 
 ?>
-<script>
-  /*
-    Gets Querys from the URL the user is at
-    Used by Sniffle to display notificaions
-  */
-  const params = new Proxy(new URLSearchParams(window.location.search), {
-    get: (searchParams, prop) => searchParams.get(prop),
-  });
-</script>
-
 <!--
   Used by Sniffle to add Notifications
   Div can be displayed all time as it has no width or height initself

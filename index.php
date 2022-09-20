@@ -9,13 +9,15 @@
 <?php
 	require_once __DIR__."/ui/required.php";
 	require_once __DIR__."/ui/nav.php";
-?>
 
-<script>
-	if (params.del == "true") {
-		sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)", "assets/icons/trash.svg");
+	if ($_GET['del']) {
+		?>
+			<script>
+				sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)", "assets/icons/trash.svg");
+			</script>
+		<?php
 	}
-</script>
+?>
 
 <div class="info-text">
 	<?php
@@ -40,7 +42,7 @@
 		}
 
 		// Random welcome message
-		$welcome_message = $user_settings['website']['welcome_msg'];
+		$welcome_message = $user_settings['welcome_msg'];
 		echo "<p>".$welcome_message[array_rand($welcome_message, 1)]."</p>";
 	?>
 </div>

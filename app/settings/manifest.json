@@ -1,0 +1,33 @@
+{
+    "website_name": "Only Legs",
+    "website_description": "A simple PHP gallery with multiple users in mind",
+    "tos": "When making an account and interacting with the login/signup page, you agree to have your IP logged for banning purposes.",
+    "welcome_msg": [
+        "*internal screaming*",
+        "Don't forget to drink water!",
+        "Bruh",
+        "Fluffy made this!",
+        "maybe",
+        "I'm gay",
+        "I wish we were better strangers.",
+        "<span style='color:#ffff00;'>Just like Minecraft!</span>",
+        "If I were you, I'd run now",
+        "This is the part where I kill you",
+        "SILICA GEL \"DO NOT EAT\".",
+        "This was supposed to be a simple project",
+        "AAAAAAAAAAAAAAAAAAAA",
+        "Let me out",
+        "nice",
+        "I'm glad you're here",
+        "The weather is dry",
+        "Need me a man 👀",
+        "Gods die too.",
+        "Eat hotchip and lie",
+        "The world will not be destroyed by those who do evil, but by those who watch them and do nothing."
+    ],
+    "license":"GPL 3.0",
+    "version": "22.09.20",
+    "user_name": "Michal",
+    "is_testing": true,
+    "upload_max": "20"
+}

@@ -4,12 +4,11 @@
  |-------------------------------------------------------------
 */
 footer {
-    @include flexLeft(space-around);
-
     margin: 0 auto;
 
     width: calc(100% - 1.4rem);
 
+    text-align: center;
     p {
         margin: 0 0.5rem;
 

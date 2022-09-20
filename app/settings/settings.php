@@ -8,22 +8,13 @@
  | the default background and accent colour
  |-------------------------------------------------------------
 */
-$user_import = file_get_contents("app/settings/user_settings.json");
+$user_import = file_get_contents(__DIR__."/manifest.json");
 $user_settings = json_decode($user_import, true);
 
-foreach ($user_settings->data as $settings_list) {
-    foreach ($settings_list->website as $website) {
-        foreach ($website->database as $database) {
+foreach ($user_settings->data as $website) {
+    foreach ($website->debug as $debug) {
 
-        }
-        foreach ($website->debug as $debug) {
-
-        }
-        foreach ($website->plugins as $plugins) {
-
-        }
     }
 }
-$database = $user_settings["website"]["database"];
+
 $debug = $user_settings["website"]["debug"];
-$plugins = $user_settings["website"]["plugins"];

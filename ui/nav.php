@@ -6,7 +6,7 @@ $loggedin = new Account();
 
 <nav class="nav-root flex-left">
   <div class="nav-name flex-left">
-    <p><?php echo $user_settings['website']['name']; ?></p>
+    <p><?php echo $user_settings['website_name']; ?></p>
   </div>
   <div class="nav-links flex-left">
     <a class='btn' href='index.php'><img class='svg' src='assets/icons/house.svg'><span class='nav-hide'>Home</span></a>

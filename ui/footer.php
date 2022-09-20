@@ -1,11 +1,5 @@
-<footer class="flex-left around">
-  <a class='link' href="https://github.com/Fluffy-Bean/image-gallery">
-    <img class='svg' src='assets/icons/github-logo.svg'>
-    Github
-  </a>
-  <a class='link' href="about.php">
-    <img class='svg' src='assets/icons/scroll.svg'>
-    About
-  </a>
-
+<footer>
+  <p>Hosted by <?php echo $user_settings['user_name']; ?> under <?php echo $user_settings['license']; ?></p>
+  <p>Version <?php echo $user_settings['version']; ?></p>
+  <a class='link' href="about.php">About</a>
 </footer>

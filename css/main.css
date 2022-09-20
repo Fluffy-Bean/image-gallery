@@ -940,12 +940,9 @@ nav .btn {
  |-------------------------------------------------------------
 */
 footer {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
   margin: 0 auto;
   width: calc(100% - 1.4rem);
+  text-align: center;
 }
 footer p {
   margin: 0 0.5rem;
