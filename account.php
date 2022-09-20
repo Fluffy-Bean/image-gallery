@@ -22,11 +22,7 @@
 		?>
 			<div class="account-root">
 				<h2>Settings</h2>
-				<h3 class='space-top'>Account</h3>
-				<p>Resetting your password regularly is a good way of keeping your account safe</p>
 				<a class='btn btn-bad' href='password-reset.php'><img class='svg' src='assets/icons/password.svg'>Reset Password</a>
-				<br>
-				<p>Be carefull!</p>
 				<button class="btn btn-bad" onclick="deleteAccount()"><img class='svg' src='assets/icons/trash.svg'>Delete account</button>
 				<br>
 				<p>Don't leave! I'm with the science team!</p>
