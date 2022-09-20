@@ -624,8 +624,67 @@ if (isset($_POST['account_delete_submit'])) {
                 </script>
             <?php
             $error += 1;
-        } elseif ($_POST['delete_id'] == $_SESSION['id']) {
-            $delete_id = $_SESSION['id'];
+        } elseif ($_POST['delete_id'] == $_SESSION['id'] && $_POST['delete_id'] != 1) {
+            if (isset($_POST['account_password']) && !empty($_POST['account_password'])) {
+                $sql = "SELECT id, username, password FROM users WHERE username = ?";
+
+                if ($stmt = mysqli_prepare($conn, $sql)) {
+                    // Bind dis shit
+                    mysqli_stmt_bind_param($stmt, "s", $param_username);
+                
+                    // Set parameters
+                    $param_username = $_SESSION['username'];
+                
+                    // Attempt to execute the prepared statement
+                    if (mysqli_stmt_execute($stmt)) {
+                        // Store result
+                        mysqli_stmt_store_result($stmt);
+                
+                        // Check if username exists, if yes then verify password
+                        if (mysqli_stmt_num_rows($stmt) == 1) {
+                            // Bind result variables
+                            mysqli_stmt_bind_result($stmt, $id, $_SESSION['username'], $hashed_password);
+                            if (mysqli_stmt_fetch($stmt)) {
+                                if (password_verify($_POST['account_password'], $hashed_password)) {
+                                    $delete_id = $_SESSION['id'];
+                                } else {
+                                    ?>
+                                        <script>
+                                            sniffleAdd('Sus', 'Try again! ;3', 'var(--red)', 'assets/icons/cross.svg');
+                                            flyoutClose();
+                                        </script>
+                                    <?php
+                                    $error += 1;
+                                }
+                            }
+                        } else {
+                            ?>
+                                <script>
+                                    sniffleAdd('Sus', 'Try again! ;3', 'var(--red)', 'assets/icons/cross.svg');
+                                    flyoutClose();
+                                </script>
+                            <?php
+                            $error += 1;
+                        }
+                    } else {
+                        ?>
+                            <script>
+                                sniffleAdd('AAA', 'Something went wrong on our end, sowwy', 'var(--red)', 'assets/icons/cross.svg');
+                                flyoutClose();
+                            </script>
+                        <?php
+                        $error += 1;
+                    }
+                }
+            } else {
+                ?>
+                    <script>
+                        sniffleAdd('oof', 'You did not enter a password!', 'var(--red)', 'assets/icons/cross.svg');
+                        flyoutClose();
+                    </script>
+                <?php
+                $error += 1;
+            }
         } elseif ($_POST['delete_id'] != $_SESSION['id'] && $_SESSION['id'] == 1) {
             $delete_id = $_POST['delete_id'];
         } else {
@@ -658,7 +717,7 @@ if (isset($_POST['account_delete_submit'])) {
     }
 
     if ($error <= 0) {
-        if ($_POST['full']) {
+        if ($_POST['full'] == "true") {
             $image_request = mysqli_query($conn, "SELECT id, imagename FROM images WHERE author = '$delete_id'");
 
             while ($image = mysqli_fetch_array($image_request)) {
@@ -685,17 +744,28 @@ if (isset($_POST['account_delete_submit'])) {
         
         mysqli_query($conn, "DELETE FROM users WHERE id = ".$delete_id);
 
-        if ($_POST['full']) {
+        if ($_POST['full'] == "true") {
             mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Deleted a user account and all their posts')");
         } else {
             mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Deleted a user account')");
         }
 
-        ?>
-            <script>
-                sniffleAdd('Goodbye!', 'Successfully deleted the user!', 'var(--green)', 'assets/icons/check.svg');
-                flyoutClose();
-            </script>
-        <?php
+        if ($_POST['delete_id'] == $_SESSION['id']) {
+            ?>
+                <script>
+                    sniffleAdd('Goodbye!', 'Successfully deleted your account! You will be redirected in a few seconds...', 'var(--green)', 'assets/icons/check.svg');
+                    flyoutClose();
+
+                    setTimeout(function(){window.location.href = "app/account/logout.php";}, 2000);
+                </script>
+            <?php
+        } else {
+            ?>
+                <script>
+                    sniffleAdd('Goodbye!', 'Successfully deleted the user!', 'var(--green)', 'assets/icons/check.svg');
+                    flyoutClose();
+                </script>
+            <?php
+        }
     }
 }

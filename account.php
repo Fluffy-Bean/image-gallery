@@ -26,40 +26,63 @@
 				<p>Resetting your password regularly is a good way of keeping your account safe</p>
 				<a class='btn btn-bad' href='password-reset.php'><img class='svg' src='assets/icons/password.svg'>Reset Password</a>
 				<br>
-				<p>Don't leave! I'm with the science team!</p>
-				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Logout</a>
-				<br>
 				<p>Be carefull!</p>
 				<button class="btn btn-bad" onclick="deleteAccount()"><img class='svg' src='assets/icons/trash.svg'>Delete account</button>
+				<br>
+				<p>Don't leave! I'm with the science team!</p>
+				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Logout</a>
 			</div>
 			<script>
 				function deleteAccount() {
 					var header = "Are you very very sure?";
-					var description = "This CANNOT be undone, be very carefull with your decition... There is no second warning!";
-					var actionBox = "<form id='userDelete' method='POST'>\
+					var description = "This CANNOT be undone, be very carefull with your decition!!!";
+					var actionBox = "<button class='btn btn-bad' onclick='deleteAccountConfirm()'><img class='svg' src='assets/icons/trash.svg'>Delete account (keep posts)</button>\
+					<button class='btn btn-bad' onclick='deleteAccountConfirmFull()'><img class='svg' src='assets/icons/trash.svg'>Delete account (delete posts)</button>";
+
+					flyoutShow(header, description, actionBox);
+				}
+
+				function deleteAccountConfirm () {
+					var header = "Deleting just your account!";
+					var description = "This is your last warning, so enter your password now.";
+					var actionBox = "<form id='accountDelete' method='POST'>\
+					<input id='accountDeletePassword' class='btn btn-neutral' type='password' name='password' placeholder='Password'>\
 					<button id='accountDeleteSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete account (keep posts)</button>\
-					</form>\
-					<form id='userDeleteFull' method='POST'>\
+					</form>";
+					
+					flyoutShow(header, description, actionBox);
+
+					$("#accountDelete").submit(function(event) {
+						event.preventDefault();
+						var accountDeletePassword = $("#accountDeletePassword").val();
+						var accountDeleteSubmit = $("#accountDeleteSubmit").val();
+						$("#sniffle").load("app/account/account.php", {
+							delete_id: <?php echo $_SESSION['id']; ?>,
+							full: 'false',
+							account_password: accountDeletePassword,
+							account_delete_submit: accountDeleteSubmit
+						});
+					});
+				}
+
+				function deleteAccountConfirmFull () {
+					var header = "Deleting EVERYTHINGGGGG";
+					var description = "This is your last warning, so enter your password now.";
+					var actionBox = "<form id='accountDeleteFull' method='POST'>\
+					<input id='accountDeletePassword' class='btn btn-neutral' type='password' name='password' placeholder='Password'>\
 					<button id='accountDeleteSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete account (delete posts)</button>\
 					</form>";
 
 					flyoutShow(header, description, actionBox);
-					
-					$("#userDelete").submit(function(event) {
+
+					$("#accountDeleteFull").submit(function(event) {
 						event.preventDefault();
+						var accountDeletePassword = $("#accountDeletePassword").val();
 						var accountDeleteSubmit = $("#accountDeleteSubmit").val();
 						$("#sniffle").load("app/account/account.php", {
 							delete_id: <?php echo $_SESSION['id']; ?>,
-							full: false,
-							account_delete_submit: accountDeleteSubmit
-						});
-					});
-					$("#userDeleteFull").submit(function(event) {
-						event.preventDefault();
-						var accountDeleteSubmit = $("#accountDeleteSubmit").val();
-						$("#sniffle").load("app/account/account.php", {
-							delete_id: <?php echo $_SESSION['id']; ?>,
-							full: true,
+							full: 'true',
+							account_password: accountDeletePassword,
 							account_delete_submit: accountDeleteSubmit
 						});
 					});
@@ -227,6 +250,7 @@
 										});
 									});
 								}
+
 								function userDelete(id, username) {
 									var header = "Are you very very sure?";
 									var description = "This CANNOT be undone, be very carefull with your decition... There is no second warning!";
@@ -260,6 +284,7 @@
 										});
 									});
 								}
+
 								function userToggleAdmin(id, username) {
 									var header = "With great power comes great responsibility...";
 									var description = "Do you trust this user? With admin permitions they can cause a whole lot of damage to this place, so make sure you're very very sure";

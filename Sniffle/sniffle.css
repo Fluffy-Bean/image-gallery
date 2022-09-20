@@ -15,7 +15,7 @@
 .sniffle {
   margin: 0; padding: 0 1rem;
 
-  max-width: 621px; width: calc(100% - 1rem);
+  max-width: 569px; width: calc(100% - 1rem);
 
   top: 0.5rem; left: 50%;
   transform: translateX(-50%);
@@ -31,7 +31,7 @@
   and a text div .sniffle-content
 */
 .sniffle-notification {
-  margin-bottom: 0.5rem; padding: 0.5rem;
+  margin-bottom: 0.5rem; padding: 0;
 
   max-width: calc(100% - 1rem); min-height: 2.5rem;
 
@@ -97,7 +97,7 @@
   And to prevent text from overflowing the notification
 */
 .sniffle-content {
-  margin: 0 auto;
+  margin: 0 auto; padding: 0.5rem;
 
   width: calc(100% - 3.5rem);
   flex-direction: column; flex-wrap: wrap;
@@ -109,12 +109,14 @@
   Notification icon/image
 */
 .sniffle-img {
-  margin-right: 1rem;
+  padding: 0 0.5rem;
 
   max-width: 2.5rem; width: auto;
   height: auto;
 
   object-fit: contain;
+
+  background-color: #15151533;
 }
 /*
   Notification header
