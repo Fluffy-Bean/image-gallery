@@ -30,7 +30,7 @@
 				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Logout</a>
 				<br>
 				<p>Be carefull!</p>
-				<button class="btn btn-bad" onclick="deleteAccount()">Delete account</button>
+				<button class="btn btn-bad" onclick="deleteAccount()"><img class='svg' src='assets/icons/trash.svg'>Delete account</button>
 			</div>
 			<script>
 				function deleteAccount() {
