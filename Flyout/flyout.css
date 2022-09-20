@@ -10,7 +10,7 @@
   position: fixed; z-index: 999;
 
   background-color: var(--bg);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(15px);
 
   opacity: 0;
 
@@ -65,5 +65,11 @@
   width: 100%;
 }
 .flyout-actionbox * * * {
+  width: auto;
+}
+.flyout-actionbox > button {
+  margin-bottom: 0.5rem;
+}
+.flyout-actionbox > button > * {
   width: auto;
 }

@@ -1,64 +1,3 @@
-<?php
-/*
-  Used for testing, do not use this in production
-*/
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ERROR | E_PARSE | E_NOTICE);;
-
-
-/*
-  Start session
-
-  This is important as most pages use the PHP session and will complain if its not possible to access.
-*/
-session_start();
-
-
-/*
-  Check which directory user is in
-
-  I don't know if theres a better way of doing this? If there is please let me know
-*/
-if (is_file("index.php")) {
-  $root_dir = "";
-} else {
-  $root_dir = "../";
-}
-
-
-$import_json = file_get_contents($root_dir."default.json");
-$setup_json = json_decode($import_json, true);
-
-/*
-  Connect to the server
-*/
-include $root_dir."app/server/conn.php";
-
-/*
-  Add functions
-*/
-include $root_dir."app/account/get_info.php";
-include $root_dir."app/account/is_admin.php";
-include $root_dir."app/account/login_status.php";
-
-include $root_dir."app/format/string_to_tags.php";
-
-include $root_dir."app/image/get_image_info.php";
-include $root_dir."app/image/image_privilage.php";
-
-include $root_dir."app/server/secrete.php";
-?>
-<script>
-  /*
-    Gets Querys from the URL the user is at
-    Used by Sniffle to display notificaions
-  */
-  const params = new Proxy(new URLSearchParams(window.location.search), {
-    get: (searchParams, prop) => searchParams.get(prop),
-  });
-</script>
-
 <!--
   Used by Sniffle to add Notifications
   Div can be displayed all time as it has no width or height initself
@@ -86,7 +25,7 @@ include $root_dir."app/server/secrete.php";
   everything can always be accessed
 -->
 <a id="back-to-top" href="#">
-  <img src="<?php echo $root_dir; ?>assets/icons/caret-up.svg">
+  <img src="assets/icons/caret-up.svg">
 </a>
 <script>
   button = document.getElementById("back-to-top");
@@ -107,3 +46,36 @@ include $root_dir."app/server/secrete.php";
   is in mobile view
 -->
 <div class="nav-mobile"></div>
+
+<?php
+/*
+  User defined settings
+*/
+require_once dirname(__DIR__)."/app/settings/settings.php";
+
+ini_set('post_max_size', $user_settings['upload_max']."M");
+ini_set('upload_max_filesize', ($user_settings['upload_max'] + 1)."M");
+
+if ($user_settings['is_testing'] == "true") {
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ERROR | E_PARSE | E_NOTICE);
+  ?>
+    <script>
+				sniffleAdd('Notice', 'This website is currently in a testing state', 'var(--red)', 'assets/icons/cross.svg');
+		</script>
+  <?php
+}
+
+/*
+  Connect to the server
+*/
+require_once dirname(__DIR__)."/app/server/conn.php";
+require_once dirname(__DIR__)."/app/server/secrete.php";
+
+/*
+  Classes
+*/
+require_once dirname(__DIR__)."/app/app.php";
+
+?>

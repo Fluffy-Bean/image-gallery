@@ -26,6 +26,22 @@
     }
 }
 
+.gallery-order {
+    @include defaultFont();
+
+    margin-bottom: 1rem;
+
+    display: flex;
+    flex-direction: row;
+
+    & > * {
+        margin-right: 0.5rem;
+    }
+    & > *:last-child {
+        margin-right: 0;
+    }
+}
+
 .gallery-root {
     margin-bottom: 1rem;
     padding: 0.25rem;
@@ -37,7 +53,7 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-    border: 0.2rem solid $green;
+    border: 0.2rem solid $page-accent;
 
     border-radius: $rad;
     box-shadow: $shadow;
@@ -157,8 +173,9 @@
     padding: 0;
 
     width: 100%;
-    max-height: 69vh;
+    max-height: 50vh;
     height: auto;
+    min-height: 30vh;
 
     display: flex;
 
@@ -177,7 +194,7 @@
 }
 
 .image {
-    margin: 0 auto;
+    margin: auto;
 
     max-width: 100%;
     width: auto;
@@ -185,24 +202,96 @@
     height: auto;
 
     border-radius: $rad;
+
+    transition: opacity 0.5s;
+}
+
+.preview-button {
+    width: 1.5rem;
+
+    padding: 0;
+
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+
+    display: block;
+    box-sizing: border-box;
+
+    font-size: 14px;
+    font-weight: 500;
+    font-family: $font-body;
+
+    text-decoration: none;
+
+    border: none;
+    border-radius: calc($rad - (0.5rem + 3px));
+
+    transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
+
+    background-color: $black;
+
+    opacity: 0.8;
+
+    box-shadow: $shadow;
+
+    img {
+        width: 1.5rem;
+
+        display: block;
+    }
+
+    &:hover {
+        outline: $white 0.2rem solid;
+        color: $fg;
+    }
 }
 
 // DESCRIPTION
 .image-description {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
 
 
 // DETAILS
 .image-detail {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
+
+    &>div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+
+        &>div {
+            width: 50%;
+
+            * {
+                margin-top: 0;
+                margin-bottom: 0.5rem;
+
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+        }
+    }
+}
+@media (max-width: 669px) {
+    .image-detail {
+        &>div {
+            flex-direction: column;
+            &>div {
+                width: auto;
+            }
+        }
+    }
 }
 
 // TAGS
 .tags-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
 
@@ -219,7 +308,7 @@
 
     background-color: $page-accent;
 
-    border-radius: $rad;
+    border-radius: calc($rad - (0.5rem + 3px));
 
     font-family: $font-body;
 
@@ -240,7 +329,7 @@
  |-------------------------------------------------------------
 */
 .about-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
 
@@ -250,7 +339,7 @@
  |-------------------------------------------------------------
 */
 .upload-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
 
@@ -260,29 +349,208 @@
  |-------------------------------------------------------------
 */
 .account-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
+    @include defaultFont();
+}
+.admin-root {
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
 
-/*
- |-------------------------------------------------------------
- | SIGNUP
- |-------------------------------------------------------------
-*/
+.tabs {
+    display: flex; flex-direction: row;
+
+    & > button {
+        margin-right: 0.5rem;
+        width: 33.33%;
+    }
+    & > button:last-child {
+        margin-right: 0;
+    }
+}
+.active-tab {
+    background-color: $page-accent !important;
+}
+
+.logs {
+    width: 100%;
+    height: 21rem;
+
+    padding: 0;
+
+    overflow-y: scroll;
+
+    display: none; flex-direction: column;
+
+    background-color: $bg;
+    border-radius: calc($rad - (0.5rem + 3px));
+}
+.log {
+    min-width: 769px;
+
+    padding: 0.5rem;
+
+    display: flex; flex-direction: row;
+
+    justify-content: space-between;
+
+    &:nth-child(even) {
+        background-color: #ffffff11;
+    }
+
+    & > * {
+        margin: 0 0.5rem 0 0;
+        padding: 0;
+        word-wrap: break-word;
+
+        &:nth-child(1) {
+            width: 5%;
+        }
+        &:nth-child(2) {
+            width: 17%;
+        }
+        &:nth-child(3) {
+            width: 38%;
+        }
+        &:nth-child(4) {
+            width: 40%;
+            margin: 0;
+        }
+    }
+}
+.log:first-of-type {
+    background-color: $bg;
+    position: sticky;
+    top: 0;
+}
+
+.bans {
+    width: 100%;
+    height: 21rem;
+
+    padding: 0;
+
+    overflow-y: scroll;
+
+    display: none; flex-direction: column;
+
+    background-color: $bg;
+    border-radius: calc($rad - (0.5rem + 3px));
+}
+.ban {
+    min-width: 769px;
+
+    padding: 0.5rem;
+
+    display: flex; flex-direction: row;
+
+    justify-content: space-between;
+
+    &:nth-child(even) {
+        background-color: #ffffff11;
+    }
+
+    & > * {
+        margin: 0 0.5rem 0 0;
+        padding: 0;
+        word-wrap: break-word;
+
+        &:nth-child(1) {
+            width: 5%;
+        }
+        &:nth-child(2) {
+            width: 17%;
+        }
+        &:nth-child(3) {
+            width: 34%;
+        }
+        &:nth-child(4) {
+            width: 10%;
+        }
+        &:nth-child(5) {
+            width: 34%;
+            margin: 0;
+        }
+    }
+}
+.perm {
+    border-left: $red 0.2rem solid;
+}
+.ban:first-of-type {
+    background-color: $bg;
+    position: sticky;
+    top: 0;
+}
+
+.user-settings {
+    width: 100%;
+    height: 21rem;
+
+    padding: 0;
+
+    overflow-y: scroll;
+
+    display: none; flex-direction: column;
+
+    background-color: $bg;
+    border-radius: calc($rad - (0.5rem + 3px));
+}
+.user {
+    min-width: 769px;
+
+    padding: 0.5rem;
+
+    display: flex; flex-direction: row;
+
+    justify-content: space-between;
+
+    &:nth-child(even) {
+        background-color: #ffffff11;
+    }
+
+    & > * {
+        margin: 0 0.5rem 0 0;
+        padding: 0;
+        word-wrap: break-word;
+
+        &:nth-child(1) {
+            width: 5%;
+        }
+        &:nth-child(2) {
+            width: 15%;
+        }
+        &:nth-child(3) {
+            width: 35%;
+        }
+        &:nth-child(4) {
+            width: 15%;
+        }
+        &:nth-child(5) {
+            width: 15%;
+        }
+        &:nth-child(6) {
+            width: 15%;
+            margin: 0;
+        }
+    }
+}
+.is-admin {
+    border-left: $page-accent 0.2rem solid;
+}
+.user:first-of-type {
+    background-color: $bg;
+    position: sticky;
+    top: 0;
+}
+
 .signup-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
     // By default its hidden, in place is login
     display: none;
 }
-
-/*
- |-------------------------------------------------------------
- | LOGIN
- |-------------------------------------------------------------
-*/
 .login-root {
-    @include defaultDecoration($green);
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }
 
@@ -298,10 +566,10 @@
 
 /*
  |-------------------------------------------------------------
- | SEARCH
+ | ERROR PAGE
  |-------------------------------------------------------------
 */
-.search-root {
-    @include defaultDecoration($green);
+.error-root {
+    @include defaultDecoration($page-accent);
     @include defaultFont();
 }

@@ -4,15 +4,11 @@
  |-------------------------------------------------------------
 */
 footer {
-    @include defaultDecoration($page-accent);
-    @include flexLeft(space-around);
-
     margin: 0 auto;
-
-    bottom: 0;
 
     width: calc(100% - 1.4rem);
 
+    text-align: center;
     p {
         margin: 0 0.5rem;
 

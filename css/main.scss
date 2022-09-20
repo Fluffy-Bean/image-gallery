@@ -85,6 +85,8 @@ body {
     &:hover {
         outline: $white 0.2rem solid;
         color: $fg;
+
+        cursor: pointer;
     }
 
     &:where(input[type="file"])::file-selector-button {
@@ -109,7 +111,7 @@ a.btn {
 }
 
 .btn-good {
-    background-color: $green;
+    background-color: $page-accent;
 }
 
 .btn-bad {
@@ -134,6 +136,9 @@ form {
     }
 }
 
+textarea {
+    resize: none;
+}
 /*
  |-------------------------------------------------------------
  | SVG
@@ -198,5 +203,11 @@ br {
         display: block;
 
         object-position: center;
+    }
+}
+
+@media(prefers-reduced-motion){
+    * {
+        transition: none !important;
     }
 }

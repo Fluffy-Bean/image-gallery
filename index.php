@@ -2,23 +2,22 @@
 <html>
 
 <head>
-	<?php include __DIR__."/ui/header.php"; ?>
+	<?php require_once __DIR__."/ui/header.php"; ?>
 </head>
 
 <body>
 <?php
-include __DIR__."/ui/required.php";
-include __DIR__."/ui/nav.php";
-?>
+	require_once __DIR__."/ui/required.php";
+	require_once __DIR__."/ui/nav.php";
 
-<script>
-	if (params.del == "true") {
-		sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)", "<?php echo $root_dir ?>assets/icons/trash.svg");
+	if ($_GET['del']) {
+		?>
+			<script>
+				sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)", "assets/icons/trash.svg");
+			</script>
+		<?php
 	}
-	if (params.login == "success") {
-		sniffleAdd("Logged in", "O hi <?php echo $_SESSION['username']; ?>", "var(--green)", "<?php echo $root_dir ?>assets/icons/hand-waving.svg");
-	}
-</script>
+?>
 
 <div class="info-text">
 	<?php
@@ -43,45 +42,49 @@ include __DIR__."/ui/nav.php";
 		}
 
 		// Random welcome message
-		$import_welcome = file_get_contents("default.json");
-		$import_decode = json_decode($import_welcome, true);
-		$welcome_message = $import_decode['welcome_msg'];
+		$welcome_message = $user_settings['welcome_msg'];
 		echo "<p>".$welcome_message[array_rand($welcome_message, 1)]."</p>";
 	?>
 </div>
 
-<div class="gallery-root flex-left">
+<!--
+<div class="gallery-order">
+	<button class="btn btn-neutral">Grid</button>
+	<button class="btn btn-neutral">List</button>
+</div>
+-->
+
+<div class="gallery-root">
 	<?php
-	// Reading images from table
-	$image_request = mysqli_query($conn, "SELECT * FROM swag_table ORDER BY id DESC");
+		// Reading images from table
+		$image_request = mysqli_query($conn, "SELECT * FROM images ORDER BY id DESC");
 
-	while ($image = mysqli_fetch_array($image_request)) {
-		// Getting thumbnail
-		if (file_exists("images/thumbnails/".$image['imagename'])) {
-			$image_path = "images/thumbnails/".$image['imagename'];
-		} else {
-			$image_path = "images/".$image['imagename'];
+		while ($image = mysqli_fetch_array($image_request)) {
+			// Getting thumbnail
+			if (file_exists("images/thumbnails/".$image['imagename'])) {
+				$image_path = "images/thumbnails/".$image['imagename'];
+			} else {
+				$image_path = "images/".$image['imagename'];
+			}
+
+			// Check for NSFW tag
+			if (str_contains($image['tags'], "nsfw")) {
+				$image_nsfw = "nsfw-blur";
+				$nsfw_warning = "<a href='image.php?id=".$image['id']."' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>";
+			} else {
+				$image_nsfw = "";
+				$nsfw_warning = "";
+			}
+
+			// Image loading
+			echo "<div class='gallery-item'>";
+			echo $nsfw_warning;
+			echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image ".$image_nsfw."' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
+			echo "</div>";
 		}
-
-		// Check for NSFW tag
-		if (str_contains($image['tags'], "nsfw")) {
-			$image_nsfw = "nsfw-blur";
-			$nsfw_warning = "<a href='image.php?id=".$image['id']."' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>";
-		} else {
-			$image_nsfw = "";
-			$nsfw_warning = "";
-		}
-
-		// Image loading
-		echo "<div class='gallery-item'>";
-		echo $nsfw_warning;
-		echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image ".$image_nsfw."' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
-		echo "</div>";
-	}
 	?>
 </div>
 
-
-<?php include __DIR__."/ui/footer.php"; ?>
+<?php require_once __DIR__."/ui/footer.php"; ?>
 </body>
 </html>

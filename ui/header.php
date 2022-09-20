@@ -1,18 +1,8 @@
-<?php
-if (is_file("index.php")) {
-	$root_dir = "";
-  } else {
-	$root_dir = "../";
-  }
-?>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?php echo $setup_json['website']['name']; ?></title>
 
 <!-- Stylesheets -->
-<link rel="stylesheet" href="<?php echo $root_dir; ?>css/main.css">
-<link rel="stylesheet" href="<?php echo $root_dir; ?>css/normalise.css">
+<link rel="stylesheet" href="css/main.css">
 
 
 <!-- Google Fonts -->
@@ -27,9 +17,9 @@ if (is_file("index.php")) {
 </script>
 
 <!-- Sniffle script! -->
-<script src="<?php echo $root_dir; ?>Sniffle/sniffle.js"></script>
-<link rel='stylesheet' href='<?php echo $root_dir; ?>Sniffle/sniffle.css'>
+<script src="Sniffle/sniffle.js"></script>
+<link rel='stylesheet' href='Sniffle/sniffle.css'>
 
 <!-- Flyout script! -->
-<script src="<?php echo $root_dir; ?>Flyout/flyout.js"></script>
-<link rel='stylesheet' href='<?php echo $root_dir; ?>Flyout/flyout.css'>
+<script src="Flyout/flyout.js"></script>
+<link rel='stylesheet' href='Flyout/flyout.css'>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<?php include __DIR__."/ui/header.php"; ?>
+	<?php require_once __DIR__."/ui/header.php"; ?>
 
 	<!-- Upload Script -->
 	<script>
@@ -21,7 +21,10 @@
 					// Get ALT
 					var alt = $("#alt").val();
 					formData.append("alt", alt);
-					// Get ALT
+					// Get TAGS
+					var tags = $("#tags").val();
+					formData.append("tags", tags);
+					// Submit data
 					var submit = $("#submit").val();
 					formData.append("submit", submit);
 
@@ -40,9 +43,10 @@
 					// Empty values
 					$("#image").val("");
 					$("#alt").val("");
+					$("#tags").val("");
 					$("#submit").val("");
 				} else {
-					sniffleAdd('Gwha!', 'Pls provide image', 'var(--red)', '<?php echo $root_dir; ?>assets/icons/file-search.svg');
+					sniffleAdd('Gwha!', 'Pls provide image', 'var(--red)', 'assets/icons/file-search.svg');
 				}
 			});
 		});
@@ -51,16 +55,19 @@
 
 <body>
 	<?php
-	include __DIR__."/ui/required.php";
-	include __DIR__."/ui/nav.php";
+	require_once __DIR__."/ui/required.php";
+	require_once __DIR__."/ui/nav.php";
+
+	use App\Account;
+	$user_info = new Account();
 
 	// Check if user is logged in
-	if (!loggedin()) {
-		echo "
-    <script>
-      sniffleAdd('Who are you!', 'You must be loggedin to upload things, sowwy!', 'var(--red)', '" . $root_dir . "assets/icons/cross.svg');
-    </script>
-    ";
+	if (!$user_info->is_loggedin()) {
+	?>
+		<script>
+		sniffleAdd('Who are you!', 'You must be loggedin to upload things, sowwy!', 'var(--red)', 'assets/icons/cross.svg');
+		</script>
+	<?php
 	}
 	?>
 
@@ -70,13 +77,14 @@
 		<br>
 		<form id="uploadSubmit" class="flex-down between" method="POST" enctype="multipart/form-data">
 			<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
-			<input id="alt" class="btn btn-neutral" type="text" placeholder="Description/Alt for image">
+			<textarea id="alt" class="btn btn-neutral" placeholder="Description/Alt for image" rows="3"></textarea>
+			<textarea id="tags" class="btn btn-neutral" placeholder="Tags, seperated by white-space" rows="3"></textarea>
 			<br>
 			<button id="submit" class="btn btn-good" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
 		</form>
 	</div>
 
-	<?php include __DIR__."/ui/footer.php"; ?>
+	<?php require_once __DIR__."/ui/footer.php"; ?>
 </body>
 
 </html>

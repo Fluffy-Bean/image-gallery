@@ -15,7 +15,7 @@
 .sniffle {
   margin: 0; padding: 0 1rem;
 
-  max-width: 621px; width: calc(100% - 1rem);
+  max-width: 569px; width: calc(100% - 1rem);
 
   top: 0.5rem; left: 50%;
   transform: translateX(-50%);
@@ -31,26 +31,63 @@
   and a text div .sniffle-content
 */
 .sniffle-notification {
-  margin-bottom: 0.5rem; padding: 0.5rem;
+  margin-bottom: 0.5rem; padding: 0;
 
-  max-width: calc(100% - 1rem); min-height: 2.5rem;
+  max-width: 100%; min-height: 2.5rem;
 
   display: flex; flex-direction: row; overflow-y: hidden;
 
-  z-index: 999;
+  position: relative;
 
   background-color: #151515;
 
   box-shadow: var(--shadow);
 
-  transition: transform 1s cubic-bezier(.19,1,.22,1), opacity 0.2s cubic-bezier(.19,1,.22,1);
-
   border-radius: var(--rad);
+
+  transition: margin-top 1s cubic-bezier(.19,1,.22,1);
+
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 .sniffle-notification:hover {
-  transform: scale(1.05);
-
   cursor: pointer;
+}
+
+.sniffle-notification:not(:nth-of-type(1), :nth-of-type(2), :nth-of-type(3), :nth-of-type(4)) {
+  display: none;
+  opacity: 0;
+}
+.sniffle-notification:nth-of-type(1) {
+  z-index: 1;
+  transform: scale(1);
+  opacity: 1;
+  transition: transform 1s cubic-bezier(.19,1,.22,1), opacity 0.25s cubic-bezier(.19,1,.22,1);
+}
+.sniffle-notification:nth-of-type(2) {
+  z-index: -1;
+  transform: scale(0.95);
+  margin-top: -4.8rem;
+  opacity: 1;
+  transition: transform 1.25s, opacity 0.5s;
+}
+.sniffle-notification:nth-of-type(3) {
+  z-index: -2;
+  transform: scale(0.9);
+  margin-top: -4.8rem;
+  opacity: 1;
+  transition: transform 1.5s, opacity 0.75s;
+}
+.sniffle-notification:nth-of-type(4) {
+  z-index: -3;
+  transform: scale(0.85);
+  margin-top: -4.8rem;
+  opacity: 0;
+  transition: transform 1.75s, opacity 1s;
 }
 
 /*
@@ -60,9 +97,9 @@
   And to prevent text from overflowing the notification
 */
 .sniffle-content {
-  margin: 0 auto;
+  margin: 0 auto; padding: 0.5rem;
 
-  width: calc(100% - 3.5rem);
+  width: 100%;
   flex-direction: column; flex-wrap: wrap;
 
   overflow-y: hidden;
@@ -72,12 +109,14 @@
   Notification icon/image
 */
 .sniffle-img {
-  margin-right: 1rem;
+  padding: 0 0.5rem;
 
   max-width: 2.5rem; width: auto;
   height: auto;
 
   object-fit: contain;
+
+  background-color: #15151533;
 }
 /*
   Notification header

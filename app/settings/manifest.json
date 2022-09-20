@@ -1,6 +1,7 @@
 {
-    "name": "Only Legs",
-    "description": "A simple gallery with multiple users in mind",
+    "website_name": "Only Legs",
+    "website_description": "A simple PHP gallery with multiple users in mind",
+    "tos": "When making an account and interacting with the login/signup page, you agree to have your IP logged for banning purposes.",
     "welcome_msg": [
         "*internal screaming*",
         "Don't forget to drink water!",
@@ -21,16 +22,12 @@
         "The weather is dry",
         "Need me a man 👀",
         "Gods die too.",
-        "Eat hotchip and lie"
+        "Eat hotchip and lie",
+        "The world will not be destroyed by those who do evil, but by those who watch them and do nothing."
     ],
-    "database": {
-        "ip": "192.168.0.79",
-        "port": "3306",
-        "username": "uwu",
-        "password": "fennec621",
-        "database": "gallery"
-    },
-    "testing": true,
-    "version": "15.08.22",
-    "license":"GPL 3.0"
+    "license":"GPL 3.0",
+    "version": "22.09.20",
+    "user_name": "Michal",
+    "is_testing": "true",
+    "upload_max": "20"
 }
