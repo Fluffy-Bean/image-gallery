@@ -125,11 +125,15 @@ if (isset($_POST['submit_login'])) {
                                 <script>
                                     sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in! You will be redirected in a few seconds', 'var(--green)', 'assets/icons/hand-waving.svg');
                                     setTimeout(function(){window.location.href = "index.php";}, 2000);
-                                    //window.location.href = "../index.php?login=success";
                                 </script>
                             <?php
 
                             mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','New loggin to ".$_SESSION['username']."')");
+
+                            // This is a terrible way of doing this, but is has to be done
+                            if ($id == 1 && $user_info->is_admin($conn, $id) == false) {
+                                mysqli_query($conn,"UPDATE users SET admin = 1 WHERE id = 1");
+                            }
                         } else {
                             ?>
                                 <script>
