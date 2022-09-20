@@ -199,7 +199,7 @@
 											<p><?php echo $user['username']; ?></p>
 											<?php
 												$user_time = new DateTime($user['created_at']);
-												echo "<p>" . $user_time->format('Y-m-d H:i:s T') . " | " . $diff->time($user['created_at']) . "</p>";
+												echo "<p>" . $user_time->format('Y-m-d H:i:s T') . " | " . $diff->time($user['last_modified']) . "</p>";
 											
 												if ($user['id'] == 1) {
 													?>

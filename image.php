@@ -23,9 +23,11 @@
 
 	use App\Account;
 	use App\Image;
+	use App\Diff;
 
 	$image_info = new Image;
 	$user_info = new Account;
+	$diff = new Diff();
 
 	/*
 	 |-------------------------------------------------------------
@@ -186,13 +188,12 @@
 							echo "<p>ID: ".$image['id']."</p>";
 						}
 
-						// Last time image was updated
-						$update_time = new DateTime($image['upload']);
-						echo "<p id='updateTime'>Last updated: ".$update_time->format('d/m/Y H:i:s T')."</p>";
+						$upload_time = new DateTime($image['upload_date']);
+						echo "<p id='updateTime'>Uploaded at: ".$upload_time->format('d/m/Y H:i:s T')."</p>";
 					?>
 					<script>
 						// Updating time to Viewers local
-						var updateDate = new Date('<?php echo $update_time->format('m/d/Y H:i:s T'); ?>');
+						var updateDate = new Date('<?php echo $upload_time->format('m/d/Y H:i:s T'); ?>');
 						var format = {year: 'numeric',
 									  month: 'short',
 									  day: 'numeric',
@@ -202,8 +203,10 @@
 									 
 						updateDate = updateDate.toLocaleDateString('en-GB', format);
 
-						$("#updateTime").html("Last updated: "+updateDate);
+						$("#updateTime").html("Uploaded at: "+updateDate);
 					</script>
+
+					<p>Last Modified: <?php echo $diff->time($image['last_modified']); ?></p>
 				</div>
 				<div>
 					<?php

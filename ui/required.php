@@ -1,35 +1,3 @@
-<?php
-/*
-  User defined settings
-*/
-require_once dirname(__DIR__)."/app/settings/settings.php";
-
-ini_set('post_max_size', $user_settings['upload_max']."M");
-ini_set('upload_max_filesize', ($user_settings['upload_max'] + 1)."M");
-
-if ($user_settings['is_testing']) {
-  ini_set('display_errors', 1);
-  ini_set('display_startup_errors', 1);
-  error_reporting(E_ERROR | E_PARSE | E_NOTICE);
-  ?>
-    <script>
-				sniffleAdd('Notice', 'This website is currently in a testing state, bugs may occur', 'var(--red)', 'assets/icons/cross.svg');
-		</script>
-  <?php
-}
-
-/*
-  Connect to the server
-*/
-require_once dirname(__DIR__)."/app/server/conn.php";
-require_once dirname(__DIR__)."/app/server/secrete.php";
-
-/*
-  Classes
-*/
-require_once dirname(__DIR__)."/app/app.php";
-
-?>
 <!--
   Used by Sniffle to add Notifications
   Div can be displayed all time as it has no width or height initself
@@ -57,7 +25,7 @@ require_once dirname(__DIR__)."/app/app.php";
   everything can always be accessed
 -->
 <a id="back-to-top" href="#">
-  <img src="<?php echo $root_dir; ?>assets/icons/caret-up.svg">
+  <img src="assets/icons/caret-up.svg">
 </a>
 <script>
   button = document.getElementById("back-to-top");
@@ -78,3 +46,36 @@ require_once dirname(__DIR__)."/app/app.php";
   is in mobile view
 -->
 <div class="nav-mobile"></div>
+
+<?php
+/*
+  User defined settings
+*/
+require_once dirname(__DIR__)."/app/settings/settings.php";
+
+ini_set('post_max_size', $user_settings['upload_max']."M");
+ini_set('upload_max_filesize', ($user_settings['upload_max'] + 1)."M");
+
+if ($user_settings['is_testing'] == "true") {
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ERROR | E_PARSE | E_NOTICE);
+  ?>
+    <script>
+				sniffleAdd('Notice', 'This website is currently in a testing state', 'var(--red)', 'assets/icons/cross.svg');
+		</script>
+  <?php
+}
+
+/*
+  Connect to the server
+*/
+require_once dirname(__DIR__)."/app/server/conn.php";
+require_once dirname(__DIR__)."/app/server/secrete.php";
+
+/*
+  Classes
+*/
+require_once dirname(__DIR__)."/app/app.php";
+
+?>
