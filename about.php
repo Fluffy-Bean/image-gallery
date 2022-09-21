@@ -32,8 +32,8 @@
 		<br>
 
 		<h2>Development</h2>
-		<a href="https://github.com/Fluffy-Bean/image-gallery" class="link">Project Github</a>
-		<a href="https://twitter.com/fluffybeanUwU" class="link">Creators Twitter</a>
+		<p>This projects GitHub: <a href="https://github.com/Fluffy-Bean/image-gallery" class="link">Repo</a></p>
+		<p>My Twitter: <a href="https://twitter.com/fluffybeanUwU" class="link">Twitter</a></p>
 	</div>
 
 	<?php require_once __DIR__."/assets/ui/footer.php"; ?>

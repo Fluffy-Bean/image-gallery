@@ -30,8 +30,9 @@
 		<br>
 		<form id="uploadSubmit" class="flex-down between" method="POST" enctype="multipart/form-data">
 			<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
-			<textarea id="alt" class="btn btn-neutral" placeholder="Description/Alt for image" rows="3"></textarea>
-			<textarea id="tags" class="btn btn-neutral" placeholder="Tags, seperated by white-space" rows="3"></textarea>
+			<br>
+			<input id="alt" class="btn btn-neutral" placeholder="Description/Alt for image" type='text'>
+			<input id="tags" class="btn btn-neutral" placeholder="Tags, seperated by spaces" type='text'>
 			<br>
 			<button id="submit" class="btn btn-good" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
 		</form>

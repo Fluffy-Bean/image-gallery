@@ -102,7 +102,7 @@ body {
         background-color: $white;
 
         border: none;
-        border-radius: $rad;
+        border-radius: calc($rad - (0.5rem + 3px));
     }
 }
 
@@ -164,6 +164,20 @@ br {
     margin: 0;
 
     line-height: 0.25rem;
+}
+
+/*
+ |-------------------------------------------------------------
+ | Link text
+ |-------------------------------------------------------------
+*/
+a.link {
+    display: inline;
+    text-decoration: underline;
+
+    &:hover {
+        color: $page-accent;
+    }
 }
 
 /*

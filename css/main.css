@@ -17,7 +17,7 @@
   --red: #B66467;
   --orange: #FF7700;
   --green: #8C977D;
-  --black: #151515;
+  --black: #121212;
   --white: #E8E3E3;
   --accent: #8C977D;
   --shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
@@ -355,7 +355,7 @@ nav .btn {
   border: none;
   border-radius: calc(0.25rem - (0.5rem + 3px));
   transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
-  background-color: #151515;
+  background-color: #121212;
   opacity: 0.8;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
@@ -685,7 +685,7 @@ nav .btn {
   justify-content: space-between;
 }
 .log:nth-child(even) {
-  background-color: rgba(255, 255, 255, 0.0666666667);
+  background-color: rgba(232, 227, 227, 0.0666666667);
 }
 .log > * {
   margin: 0 0.5rem 0 0;
@@ -732,7 +732,7 @@ nav .btn {
   justify-content: space-between;
 }
 .ban:nth-child(even) {
-  background-color: rgba(255, 255, 255, 0.0666666667);
+  background-color: rgba(232, 227, 227, 0.0666666667);
 }
 .ban > * {
   margin: 0 0.5rem 0 0;
@@ -786,7 +786,7 @@ nav .btn {
   justify-content: space-between;
 }
 .user:nth-child(even) {
-  background-color: rgba(255, 255, 255, 0.0666666667);
+  background-color: rgba(232, 227, 227, 0.0666666667);
 }
 .user > * {
   margin: 0 0.5rem 0 0;
@@ -1039,7 +1039,7 @@ body * {
   text-decoration: none;
   background-color: #E8E3E3;
   border: none;
-  border-radius: 0.25rem;
+  border-radius: calc(0.25rem - (0.5rem + 3px));
 }
 .btn:where(input[type=file])::file-selector-button {
   margin: -0.25rem 0.5rem -0.25rem -0.25rem;
@@ -1049,7 +1049,7 @@ body * {
   text-decoration: none;
   background-color: #E8E3E3;
   border: none;
-  border-radius: 0.25rem;
+  border-radius: calc(0.25rem - (0.5rem + 3px));
 }
 
 a.btn {
@@ -1065,7 +1065,7 @@ a.btn {
 }
 
 .btn-neutral {
-  background-color: #151515;
+  background-color: #121212;
 }
 
 /*
@@ -1106,6 +1106,19 @@ textarea {
 br {
   margin: 0;
   line-height: 0.25rem;
+}
+
+/*
+ |-------------------------------------------------------------
+ | Link text
+ |-------------------------------------------------------------
+*/
+a.link {
+  display: inline;
+  text-decoration: underline;
+}
+a.link:hover {
+  color: #8C977D;
 }
 
 /*

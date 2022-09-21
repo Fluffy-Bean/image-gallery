@@ -320,7 +320,7 @@
 						var header = "Enter new Description/Alt";
 						var description = "Whatcha gonna put in there 👀";
 						var actionBox = "<form id='descriptionConfirm' action='app/image/edit_description.php' method='POST'>\
-						<textarea id='descriptionInput' class='btn btn-neutral space-bottom' placeholder='Description/Alt for image' rows='3'></textarea>\
+						<input id='descriptionInput' class='btn btn-neutral space-bottom' type='text' placeholder='Description/Alt for image'>\
 						<button id='descriptionSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
 						</form>";
 						flyoutShow(header, description, actionBox);
@@ -356,7 +356,7 @@
 						var header = "Tags";
 						var description = "Tags are seperated by spaces, only alowed characters are a-z and underscores, all hyphens are converted to underscores. There are also special tags such as nsfw that'll blur images in the overview";
 						var actionBox = "<form id='tagsConfirm' action='app/image/edit_tags.php' method='POST'>\
-						<textarea id='tagsInput' class='btn btn-neutral space-bottom' placeholder='Tags are seperated by spaces' row='3'></textarea>\
+						<input id='tagsInput' class='btn btn-neutral space-bottom' type='text' placeholder='Tags are seperated by spaces'>\
 						<button id='tagsSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit tags</button>\
 						</form>";
 						flyoutShow(header, description, actionBox);
