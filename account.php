@@ -321,7 +321,7 @@
 							}
 						</script>
 					</div>
-					<?php // UwU
+					<?php
 				}
 		} else {
 		?>
