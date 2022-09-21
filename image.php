@@ -121,29 +121,46 @@
 			$privilaged = False;
 		}
 
+		echo "<div class='fullscreen-image'>
+			<button onclick='closeFullScreen()'><img src='assets/icons/cross.svg'></button>
+			<img>
+			</div>";
+		
 		if (is_file("images/previews/".$image['imagename'])) {
 			echo "<div class='image-container'>
-			<img class='image' id='".$image['id']."' src='images/previews/".$image['imagename']."' alt='".$image_alt."'>
-			<button class='preview-button' onclick='showFull()'><img src='assets/icons/scan.svg'></button>
-			</div>";
-			?>
-				<script>
-					function showFull() {
-						document.querySelector(".image").style.opacity = 0;
-						document.querySelector(".preview-button").style.display = "none";
-						setTimeout(function(){
-							document.querySelector(".image").src = "<?php echo $image_path;?>";
-							document.querySelector(".image").style.opacity = 1;
-						}, 500);
-					}
-				</script>
-			<?php
+				<img class='image' id='".$image['id']."' src='images/previews/".$image['imagename']."' alt='".$image_alt."'>
+				<button class='preview-button' onclick='fullScreen()'><img src='assets/icons/scan.svg'></button>
+				</div>";
 		} else {
 			echo "<div class='image-container'>
-			<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>
-			</div>";
+				<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>
+				<button class='preview-button' onclick='fullScreen()'><img src='assets/icons/scan.svg'></button>
+				</div>";
 		}
+		
 
+		?>
+		<script>
+			function fullScreen() {
+				document.querySelector(".preview-button").style.display = "none";
+
+				document.querySelector(".fullscreen-image").style.display = "block";
+				document.querySelector(".fullscreen-image > img").src = "<?php echo $image_path;?>";
+				setTimeout(function(){
+					document.querySelector(".fullscreen-image").style.opacity = 1;
+				}, 500);
+			}
+
+			function closeFullScreen() {
+				document.querySelector(".preview-button").style.display = "block";
+				
+				document.querySelector(".fullscreen-image").style.opacity = 0;
+				setTimeout(function(){
+					document.querySelector(".fullscreen-image").style.display = "none";
+				}, 500);
+			}
+		</script>
+		<?php
 
 		/*
 		|-------------------------------------------------------------
@@ -273,7 +290,7 @@
 		if ($privilaged) {
 		?>
 			<!-- Danger zone -->
-			<div class='danger-zone flex-down default-window'>
+			<div class='danger-zone'>
 				<h2>Danger zone</h2>
 
 				<!--

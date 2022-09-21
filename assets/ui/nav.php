@@ -5,11 +5,11 @@ use App\Account;
 $loggedin = new Account();
 ?>
 
-<nav class="nav-root flex-left">
-	<div class="nav-name flex-left">
+<nav class="nav-root">
+	<div class="nav-name">
 		<p><?php echo $user_settings['website_name']; ?></p>
 	</div>
-	<div class="nav-links flex-left">
+	<div class="nav-links">
 		<a class='btn' href='index.php'><img class='svg' src='assets/icons/house.svg'><span class='nav-hide'>Home</span></a>
 		<hr>
 		<?php
