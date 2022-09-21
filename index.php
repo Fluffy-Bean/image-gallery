@@ -48,13 +48,6 @@
 	?>
 </div>
 
-<!--
-<div class="gallery-order">
-	<button class="btn btn-neutral">Grid</button>
-	<button class="btn btn-neutral">List</button>
-</div>
--->
-
 <div class="gallery-root">
 	<?php
 		// Reading images from table

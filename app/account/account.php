@@ -384,32 +384,17 @@ if (isset($_POST['submit_signup'])) {
                 $param_token = $_POST['token'];
         
                 if (mysqli_stmt_execute($stmt)) {
-                    //
-                    // Hey fluffy why didn't you do this
-                    // Hey fluffy, thats not how you do this
-                    // Thats wrong! Do this instead!!!!!!
-                    //
-                    // I DON'T KNOW HOW TO DO THIS, BUT IT WORKS
-                    // SO LEAVE ME ALONEEEEEEEEEE
-                    // anyway....
-        
                     // Generate Token
                     $token_array = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz';
                     $new_token = substr(str_shuffle($token_array), 0, 15);
-        
-                    // Prepare sql
-                    $sql = "INSERT INTO tokens (code, used) VALUES(?, False)";
-                    $stmt = mysqli_prepare($conn, $sql);
-                    mysqli_stmt_bind_param($stmt, "s", $param_new_token);
-                    $param_new_token = $new_token;
-                    mysqli_stmt_execute($stmt);
+                    
+                    mysqli_query($conn, "INSERT INTO tokens (code, used) VALUES('$new_toke', False)");
                 }
         
                 // Yupeee! Account was made
                 ?>
                     <script>
                         sniffleAdd('Success!', 'You account made for <?php echo $username; ?>!!!!! You must now login', 'var(--green)', 'assets/icons/hand-waving.svg');
-                        //setTimeout(function(){window.location.href = "../account/login.php";}, 2000);
                         loginShow();
                     </script>
                 <?php
@@ -711,12 +696,6 @@ if (isset($_POST['account_delete_submit'])) {
     }
 
     if (empty($_POST['full']) || !isset($_POST['full'])) {
-        ?>
-            <script>
-                sniffleAdd('Oopsie', 'Some error occured, unsure what to delete', 'var(--red)', 'assets/icons/cross.svg');
-                flyoutClose();
-            </script>
-        <?php
         $error += 1;
     }
 
@@ -771,5 +750,12 @@ if (isset($_POST['account_delete_submit'])) {
                 </script>
             <?php
         }
+    } else {
+        ?>
+            <script>
+                sniffleAdd('Oopsie', 'Some error occured, working on fixing these things', 'var(--red)', 'assets/icons/cross.svg');
+                flyoutClose();
+            </script>
+        <?php
     }
 }
