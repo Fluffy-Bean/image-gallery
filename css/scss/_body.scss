@@ -209,6 +209,8 @@
         transform: translateX(-050%) translateY(-50%);
 
         border-radius: $rad;
+
+        z-index: +1;
     }
 
     button {
@@ -217,22 +219,20 @@
         padding: 0;
     
         position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
+        top: 1.25rem;
+        right: 1.25rem;
     
         display: block;
         box-sizing: border-box;
     
-        text-decoration: none;
-    
         border: none;
-        border-radius: calc($rad - (0.5rem + 3px));
+        border-radius: $rad;
     
         transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
     
         background-color: $black;
-    
-        box-shadow: $shadow;
+
+        z-index: +2;
     
         img {
             width: 1.5rem;
@@ -304,7 +304,7 @@
     text-decoration: none;
 
     border: none;
-    border-radius: calc($rad - (0.5rem + 3px));
+    border-radius: calc($rad - 0.5rem);
 
     transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
 

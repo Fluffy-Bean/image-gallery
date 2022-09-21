@@ -1,7 +1,6 @@
 {
     "website_name": "Only Legs",
     "website_description": "A simple PHP gallery with multiple users in mind",
-    "tos": "When making an account and interacting with the login/signup page, you agree to have your IP logged for banning purposes.",
     "welcome_msg": [
         "*internal screaming*",
         "Don't forget to drink water!",

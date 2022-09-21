@@ -28,6 +28,7 @@
     h4,
     h5 {
         font-family: $font-header;
+        text-rendering: optimizeLegibility;
     }
 
     p,
@@ -35,6 +36,7 @@
     button,
     input {
         font-family: $font-body;
+        text-rendering: optimizeLegibility;
     }
 }
 

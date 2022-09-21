@@ -6,6 +6,12 @@
 # Only legs!
 The only gallery made by a maned wolf
 
+## Special thanks
+- Carty: Kickstarting development and SQL/PHP development
+- Jeetix: Helping patch holes in some features
+- mrHDash, Verg, Fennec, Carty, Jeetix and everyone else for helping with early bug testing
+- <a class='link' href="https://phosphoricons.com/">Phosphor</a> for providing nice SVG icons
+
 ## How to setup
 ### Downloading & installing
 #### Path
