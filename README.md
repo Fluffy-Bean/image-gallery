@@ -120,9 +120,9 @@ This'll make 3 new folders. That is where all the uploaded images will be held i
 ### Creating an account
 For now, there is no automated way of doing this, so you will have to go into your database on a terminal and type the following command:
 
-    INSERT INTO tokens (code, used) VALUES('UserToken', False) 
+    INSERT INTO tokens (code, used) VALUES('UserToken', false) 
 
-Head over to the Login section off the app and click the Need an account button, from there you can enter your own details. Once you get to the token section enter __UserToken__. And with that, you have now set up your own image gallery!
+Head over to the Login section off the app and click the __Need an account__ button, from there you can enter your own details. Once you get to the token section enter __UserToken__. And with that, you have now set up your own image gallery!
 
 
 ## Usage
