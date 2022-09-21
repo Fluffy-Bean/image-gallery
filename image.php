@@ -143,6 +143,7 @@
 		<script>
 			function fullScreen() {
 				document.querySelector(".preview-button").style.display = "none";
+				document.querySelector("html").style.overflow = "hidden";
 
 				document.querySelector(".fullscreen-image").style.display = "block";
 				document.querySelector(".fullscreen-image > img").src = "<?php echo $image_path;?>";
@@ -153,6 +154,7 @@
 
 			function closeFullScreen() {
 				document.querySelector(".preview-button").style.display = "block";
+				document.querySelector("html").style.overflow = "auto";
 				
 				document.querySelector(".fullscreen-image").style.opacity = 0;
 				setTimeout(function(){

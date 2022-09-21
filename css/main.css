@@ -361,6 +361,7 @@ nav .btn {
 .fullscreen-image button:hover {
   outline: #E8E3E3 0.2rem solid;
   color: #E8E3E3;
+  cursor: pointer;
 }
 
 .image-container {
@@ -419,6 +420,7 @@ nav .btn {
 .preview-button:hover {
   outline: #E8E3E3 0.2rem solid;
   color: #E8E3E3;
+  cursor: pointer;
 }
 
 .image-description {

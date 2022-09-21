@@ -243,6 +243,8 @@
         &:hover {
             outline: $white 0.2rem solid;
             color: $fg;
+
+            cursor: pointer;
         }
     }
 }
@@ -323,6 +325,8 @@
     &:hover {
         outline: $white 0.2rem solid;
         color: $fg;
+
+        cursor: pointer;
     }
 }
 

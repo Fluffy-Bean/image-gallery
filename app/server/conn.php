@@ -14,7 +14,7 @@ $conn_database = "gallery";
 try {
 	$conn = @mysqli_connect($conn_ip, $conn_username, $conn_password , $conn_database);
 } catch (Exception $e) {
-	header("location: error.php?e=conn");
+	die("Unable to connect to the database");
 }
 
 session_start();
