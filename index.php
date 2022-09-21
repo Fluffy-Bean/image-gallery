@@ -1,15 +1,15 @@
-<?php require_once __DIR__."/ui/required.php"; ?>
+<?php require_once __DIR__."/app/required.php"; ?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-	<?php require_once __DIR__."/ui/header.php"; ?>
+	<?php require_once __DIR__."/assets/ui/header.php"; ?>
 </head>
 
 <body>
 	<?php
-		require_once __DIR__."/ui/nav.php"; 
+		require_once __DIR__."/assets/ui/nav.php"; 
 
 		if ($_GET['del']) {
 			?>
@@ -86,6 +86,6 @@
 	?>
 </div>
 
-<?php require_once __DIR__."/ui/footer.php"; ?>
+<?php require_once __DIR__."/assets/ui/footer.php"; ?>
 </body>
 </html>

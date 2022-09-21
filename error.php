@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<?php require_once __DIR__."/ui/header.php"; ?>
+	<?php require_once __DIR__."/assets/ui/header.php"; ?>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
     ?>
 </div>
 
-<?php require_once __DIR__."/ui/footer.php"; ?>
+<?php require_once __DIR__."/assets/ui/footer.php"; ?>
 </body>
 
 </html>

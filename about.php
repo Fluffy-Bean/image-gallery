@@ -1,14 +1,14 @@
-<?php require_once __DIR__."/ui/required.php"; ?>
+<?php require_once __DIR__."/app/required.php"; ?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-	<?php require_once __DIR__."/ui/header.php"; ?>
+	<?php require_once __DIR__."/assets/ui/header.php"; ?>
 </head>
 
 <body>
-	<?php require_once __DIR__."/ui/nav.php"; ?>
+	<?php require_once __DIR__."/assets/ui/nav.php"; ?>
 
 	<div class="about-root">
 		<h1><?php echo $user_settings['website_name']; ?></h1>
@@ -36,7 +36,7 @@
 		<a href="https://twitter.com/fluffybeanUwU" class="link">Creators Twitter</a>
 	</div>
 
-	<?php require_once __DIR__."/ui/footer.php"; ?>
+	<?php require_once __DIR__."/assets/ui/footer.php"; ?>
 </body>
 
 </html>

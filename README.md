@@ -1,5 +1,10 @@
-# OnlyLegs!
-The only gallery made by a maned wolf.
+<div align="center">
+    <img src="onlylegs.jpg" width="621px" align="center">
+    <p></p>
+</div>
+
+# Only legs!
+The only gallery made by a maned wolf
 
 ## How to setup
 ### Downloading & installing
@@ -7,9 +12,12 @@ The only gallery made by a maned wolf.
 Download this project and move it into your website(s) folder. Usually under ```/var/www/html/``` on Linux.
 
 #### Imagik
-You will need to install the image-magik PHP plugin for thumbnail creation, on Ubuntu its as easy as ```apt install php-imagick```.
+You will need to install the image-magik PHP plugin for thumbnail creation, on Ubuntu its as easy as:
 
-#### PHP
+    apt install php-imagick
+
+
+#### PHP and Nginx
 This project also requires PHP 8.1 and was made with Ubuntu 22.04 LTS and Nginx in mind, so I reccommend running this gallery on such.
 
 With Nginx, you may need to configure the ```/etc/nginx/sites-available/default.conf``` for the new version on PHP. You must find the allowed index list and add index.php as such:
@@ -17,18 +25,29 @@ With Nginx, you may need to configure the ```/etc/nginx/sites-available/default.
     # Add index.php to the list if you are using PHP
     index index.php index.html index.htm index.nginx-debian.html;
 
-Then you have to find the ```fastcgi-php``` configuration, you will need to uncomment the lines and update the php version to 8.1 and now the config should look like the following: 
+Then you have to find the ```fastcgi-php``` configuration and uncomment the lines and update the php version to 8.1 and now the config should look like the following: 
 
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
         fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
     }
 
+With that, you may need to increase the ```client_max_body_size``` in the ```nginx.conf```, which should be located under ```/etc/nginx/nginx.conf```. There make sure your ```http``` looks like this:
+
+    http {
+        client_body_buffer_size 16K;
+        client_header_buffer_size 1k;
+        client_max_body_size 32M;
+
+Most important of them being ```client_max_body_size```.
+
 ### Database setup
 If you made it this far, congrats! We're not even close to done. Next you will need to setup your database. If you're running a seperate server for databases, that'll also work.
 
 #### Note:
-If you run into errors with connecting to the database, you may need to install php-mysqli, on Ubuntu that command will be ```apt install php-mysqli```.
+If you run into errors with connecting to the database, you may need to install php-mysqli, on Ubuntu that command will be:
+
+    apt install php-mysqli
 
 You first need to head over to ```app/server/conn.php``` and set the correct information, if you're using localhost, this should be the following details: 
 
@@ -94,11 +113,17 @@ Since there is currently no automated install script for this gallery, you'll ha
     mkdir images/thumbnails
     mkdir images/previews
 
-This'll make 3 new folders. That is where all the uploaded images will be held in. But before you go anywhere, you will need to ```chown``` them so Nginx can access them, a simple way of doing this is ```chown www-data:www-data -R images``` this will give Nginx access to the folder and all of its content.
-### Creating an account
-For now, there is no automated way of doing this, so you will have to go into your database on a terminal and type the following command ```INSERT INTO tokens (code, used) VALUES('UserToken', False)```. You have now made a token that you can use to make an account with.
+This'll make 3 new folders. That is where all the uploaded images will be held in. But before you go anywhere, you will need to ```chown``` the folders so Nginx can access the images within them, so do the following:
 
-Head over to the Login section off the app and click the Need an account button, from there you can enter your own details. Once you get to the token section enter ```UserToken```. And with that, you have now set up your own image gallery!
+    chown www-data:www-data -R images
+
+### Creating an account
+For now, there is no automated way of doing this, so you will have to go into your database on a terminal and type the following command:
+
+    INSERT INTO tokens (code, used) VALUES('UserToken', False) 
+
+Head over to the Login section off the app and click the Need an account button, from there you can enter your own details. Once you get to the token section enter __UserToken__. And with that, you have now set up your own image gallery!
+
 
 ## Usage
 ### Admin
@@ -109,7 +134,7 @@ If you trust someone enough, you can set them to a moderator through the setting
 ### Images
 Uploading images is as simple as choosing the image you want to upload, then clicking upload! Keep in mind that not all formats play well as this gallery uses Imagik to generate thumbnails and preview images, so images such as GIFs do not work as of now. Supported file formats include JPG, JPEG, PNG and WEBP.
 
-You should also keep in mind the file size, by default images of 20MBs should be able to get uploaded. But if you run into issues, either raise the file size in the ```manifest.json``` or locate your ```php.ini``` on your webserver and raise the ```upload_max_filesize``` and ```post_max_size``` to a same or greater value.
+You should also keep in mind the file size, by default images of 20MBs should be able to get uploaded. But if you run into issues, either raise the file size in the ```manifest.json``` or locate your ```php.ini``` on your webserver, usually under ```/etc/php/8.1/fpm/php.ini```, and modify ```upload_max_filesize```, then ```post_max_size``` to a same or greater value.
 
 ## License
 This project is under the GNU v3 License
