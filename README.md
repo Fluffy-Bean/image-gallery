@@ -61,11 +61,12 @@ You will next need to setup the following 5 tables:
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 #### Tokens
-    CREATE TABLE tokens ( id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    code VARCHAR(50) NOT NULL,
-    used BOOL,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+    CREATE TABLE tokens (
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        code VARCHAR(50) NOT NULL,
+        used BOOL,
+        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    );
 #### Logs
     CREATE TABLE logs (
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
