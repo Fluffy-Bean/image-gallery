@@ -7,13 +7,28 @@ The only gallery made by a maned wolf.
 Download this project and move it into your website(s) folder. Usually under ```/var/www/html/``` on Linux.
 
 #### Imagik
-You will need to install the image-magik PHP plugin for thumbnail creation, on Ubuntu its as easy as ```apt install php-imagik```.
+You will need to install the image-magik PHP plugin for thumbnail creation, on Ubuntu its as easy as ```apt install php-imagick```.
 
 #### PHP
-This project also requires PHP 8 and was made with Ubuntu 22.04 LTS in mind, so I reccommend running this gallery on such.
+This project also requires PHP 8.1 and was made with Ubuntu 22.04 LTS and Nginx in mind, so I reccommend running this gallery on such.
+
+With Nginx, you may need to configure the ```/etc/nginx/sites-available/default.conf``` for the new version on PHP. You must find the allowed index list and add index.php as such:
+
+    # Add index.php to the list if you are using PHP
+    index index.php index.html index.htm index.nginx-debian.html;
+
+Then you have to find the ```fastcgi-php``` configuration, you will need to uncomment the lines and update the php version to 8.1 and now the config should look like the following: 
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+    }
 
 ### Database setup
 If you made it this far, congrats! We're not even close to done. Next you will need to setup your database. If you're running a seperate server for databases, that'll also work.
+
+#### Note:
+If you run into errors with connecting to the database, you may need to install php-mysqli, on Ubuntu that command will be ```apt install php-mysqli```.
 
 You first need to head over to ```app/server/conn.php``` and set the correct information, if you're using localhost, this should be the following details: 
 
@@ -29,20 +44,56 @@ I also recommend not using root for this and setting up a user specifically for 
 You will next need to setup the following 5 tables:
 
 #### Images
-```CREATE TABLE images ( id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, imagename VARCHAR(50) UNIQUE, alt VARCHAR(255), tags VARCHAR(255), alt VARCHAR(50), last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP );```
+    CREATE TABLE images (
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        imagename VARCHAR(50) UNIQUE, alt VARCHAR(255),
+        tags VARCHAR(255),
+        author VARCHAR(50),
+        last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
 #### Users
-```CREATE TABLE users ( id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, usernname VARCHAR(50) NOT NULL UNIQUE, password VARCHAR(255) NOT NULL, admin bool, last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );```
+    CREATE TABLE users (
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        username VARCHAR(50) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL, admin bool,
+        last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
 #### Tokens
-```CREATE TABLE tokens ( id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, code VARCHAR(50) NOT NULL, used BOOL, used_at VARCHAR(50) NOT NULL );```
+    CREATE TABLE tokens ( id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(50) NOT NULL,
+    used BOOL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 #### Logs
-```CREATE TABLE logs ( id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, ipaddress VARCHAR(16) NOT NULL, action VARCHAR(255), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP );```
+    CREATE TABLE logs (
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        ipaddress VARCHAR(16) NOT NULL,
+        action VARCHAR(255),
+        time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
 #### Bans
-```CREATE TABLE bans ( id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, ipaddress VARCHAR(16) NOT NULL, reason VARCHAR(255), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, length VARCHAR(255) NOT NULL, permanent BOOL NOT NULL ); ```
-
+    CREATE TABLE bans (
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        ipaddress VARCHAR(16) NOT NULL,
+        reason VARCHAR(255),
+        time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        length VARCHAR(255) NOT NULL,
+        permanent BOOL NOT NULL
+    );
 
 ### Manifest
 In the ```app/settings/manifest.json``` you have a list of infomation about your website. You must change ```user_name``` to your prefered name, ```is_testing``` to false (or anything else) as that is used for development and ```upload_max``` to your prefered file size max in MBs.
 
+### Images Folder
+Since there is currently no automated install script for this gallery, you'll have to make your own folders to hold images in. To do that, go into the root directory of the gallery and type the following commands:
+
+    mkdir images
+    mkdir images/thumbnails
+    mkdir images/previews
+
+This'll make 3 new folders. That is where all the uploaded images will be held in. But before you go anywhere, you will need to ```chown``` them so Nginx can access them, a simple way of doing this is ```chown www-data:www-data -R images``` this will give Nginx access to the folder and all of its content.
 ### Creating an account
 For now, there is no automated way of doing this, so you will have to go into your database on a terminal and type the following command ```INSERT INTO tokens (code, used) VALUES('UserToken', False)```. You have now made a token that you can use to make an account with.
 
