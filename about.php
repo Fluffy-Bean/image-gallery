@@ -1,3 +1,5 @@
+<?php require_once __DIR__."/ui/required.php"; ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -5,12 +7,8 @@
 	<?php require_once __DIR__."/ui/header.php"; ?>
 </head>
 
-
 <body>
-	<?php
-	require_once __DIR__."/ui/required.php";
-	require_once __DIR__."/ui/nav.php";
-	?>
+	<?php require_once __DIR__."/ui/nav.php"; ?>
 
 	<div class="about-root">
 		<h1><?php echo $user_settings['website_name']; ?></h1>

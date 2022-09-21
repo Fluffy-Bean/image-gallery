@@ -1,3 +1,5 @@
+<?php require_once __DIR__."/ui/required.php"; ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -5,21 +7,19 @@
 	<?php require_once __DIR__."/ui/header.php"; ?>
 </head>
 
-
 <body>
 	<?php
-	require_once __DIR__."/ui/required.php";
-	require_once __DIR__."/ui/nav.php";
+		require_once __DIR__."/ui/nav.php";
 
-	use App\Account;
+		use App\Account;
 
-	$user_info = new Account();
+		$user_info = new Account();
 
-	// Check if the user is logged in, otherwise redirect to login page
-	if ($user_info->is_loggedin() != true) {
-		header("location: account.php");
-		exit;
-	}
+		// Check if the user is logged in, otherwise redirect to login page
+		if ($user_info->is_loggedin() != true) {
+			header("location: account.php");
+			exit;
+		}
 	?>
 
 	<div class="password-reset-root">

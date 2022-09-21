@@ -1,3 +1,5 @@
+<?php require_once __DIR__."/ui/required.php"; ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -5,162 +7,150 @@
 	<?php require_once __DIR__."/ui/header.php"; ?>
 </head>
 
-
 <body>
 	<?php
-	/*
-	 |-------------------------------------------------------------
-	 | Import Required
-	 |-------------------------------------------------------------
-	 | These are common scripts used across all pages of the
-	 | website. At some point I want the whole website to be only
-	 | one index page. But that's going to require many many many
-	 | many rewrites and hours of learning....
-	 |-------------------------------------------------------------
-	*/
-	require_once __DIR__."/ui/required.php";
-	require_once __DIR__."/ui/nav.php";
+		require_once __DIR__."/ui/nav.php";
 
-	use App\Account;
-	use App\Image;
-	use App\Diff;
+		use App\Account;
+		use App\Image;
+		use App\Diff;
 
-	$image_info = new Image;
-	$user_info = new Account;
-	$diff = new Diff();
+		$image_info = new Image;
+		$user_info = new Account;
+		$diff = new Diff();
 
-	/*
-	 |-------------------------------------------------------------
-	 | Get image ID
-	 |-------------------------------------------------------------
-	 | Image ID should be written in the URL of the page as ?id=69
-	 | If ID cannot be obtained, give error.      ID going here ^^
-	 |-------------------------------------------------------------
-	*/
-	if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-		// Get all image info
-		$image = $image_info->get_image_info($conn, $_GET['id']);
+		/*
+		|-------------------------------------------------------------
+		| Get image ID
+		|-------------------------------------------------------------
+		| Image ID should be written in the URL of the page as ?id=69
+		| If ID cannot be obtained, give error.      ID going here ^^
+		|-------------------------------------------------------------
+		*/
+		if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+			// Get all image info
+			$image = $image_info->get_image_info($conn, $_GET['id']);
 
-		// Check if image is avalible
-		if (isset($image['imagename'])) {
-			$image_present = True;
+			// Check if image is avalible
+			if (isset($image['imagename'])) {
+				$image_present = True;
+			} else {
+		?>
+				<script>
+					sniffleAdd('Woops', 'Something happened, either image with the ID <?php echo $_GET['id']; ?> was deleted or never existed, either way it could not be found!', 'var(--red)', 'assets/icons/cross.svg');
+				</script>
+				<?php
+				$image_present = False;
+			}
 		} else {
-	?>
+			?>
 			<script>
-				sniffleAdd('Woops', 'Something happened, either image with the ID <?php echo $_GET['id']; ?> was deleted or never existed, either way it could not be found!', 'var(--red)', 'assets/icons/cross.svg');
+				sniffleAdd('Where is da image?', 'The link you followed seems to be broken, or there was some other error, who knows!', 'var(--red)', 'assets/icons/cross.svg');
 			</script>
 			<?php
 			$image_present = False;
 		}
-	} else {
-		?>
-		<script>
-			sniffleAdd('Where is da image?', 'The link you followed seems to be broken, or there was some other error, who knows!', 'var(--red)', 'assets/icons/cross.svg');
-		</script>
-		<?php
-		$image_present = False;
-	}
 
-	/*
-	 |-------------------------------------------------------------
-	 | Image verification
-	 |-------------------------------------------------------------
-	 | Doublechecking if all information on images exists, if yes
-	 | display it, otherwise don't display at all or replace with
-	 | blank or filler info
-	 |-------------------------------------------------------------
-	*/
-	if ($image_present) {
 		/*
-		 |-------------------------------------------------------------
-		 | Check user details
-		 |-------------------------------------------------------------
+		|-------------------------------------------------------------
+		| Image verification
+		|-------------------------------------------------------------
+		| Doublechecking if all information on images exists, if yes
+		| display it, otherwise don't display at all or replace with
+		| blank or filler info
+		|-------------------------------------------------------------
 		*/
-		if (isset($image['author'])) {
-			// Get all information on the user
-			$user = $user_info->get_user_info($conn, $image['author']);
+		if ($image_present) {
+			/*
+			|-------------------------------------------------------------
+			| Check user details
+			|-------------------------------------------------------------
+			*/
+			if (isset($image['author'])) {
+				// Get all information on the user
+				$user = $user_info->get_user_info($conn, $image['author']);
 
-			if (isset($user['username'])) {
-				$image_author = $user['username'];
+				if (isset($user['username'])) {
+					$image_author = $user['username'];
+				} else {
+					$image_author = "Deleted User";
+				}
 			} else {
-				$image_author = "Deleted User";
+				$image_author = "No author";
+			}
+
+			/*
+			|-------------------------------------------------------------
+			| Check if image path is good
+			|-------------------------------------------------------------
+			*/
+			if (isset($image['imagename'])) {
+				$image_path = "images/".$image['imagename'];
+				$image_alt = $image['alt'];
+			} else {
+				$image_path = "assets/no_image.png";
+				$image_alt = "No image could be found, sowwy";
+			}
+
+			/*
+			|-------------------------------------------------------------
+			| If description not set or empty, replace with filler
+			|-------------------------------------------------------------
+			*/
+			if (!isset($image_alt) || empty($image_alt)) {
+				$image_alt = "No description avalible";
 			}
 		} else {
-			$image_author = "No author";
-		}
-
-		/*
-		 |-------------------------------------------------------------
-		 | Check if image path is good
-		 |-------------------------------------------------------------
-		*/
-		if (isset($image['imagename'])) {
-			$image_path = "images/".$image['imagename'];
-			$image_alt = $image['alt'];
-		} else {
+			/*
+			|-------------------------------------------------------------
+			| Image was not present
+			|-------------------------------------------------------------
+			*/
 			$image_path = "assets/no_image.png";
 			$image_alt = "No image could be found, sowwy";
 		}
 
 		/*
-		 |-------------------------------------------------------------
-		 | If description not set or empty, replace with filler
-		 |-------------------------------------------------------------
+		|-------------------------------------------------------------
+		| Check user privilge
+		|-------------------------------------------------------------
 		*/
-		if (!isset($image_alt) || empty($image_alt)) {
-			$image_alt = "No description avalible";
+		if ($image_info->image_privilage($image['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
+			$privilaged = True;
+		} else {
+			$privilaged = False;
 		}
-	} else {
+
+		if (is_file("images/previews/".$image['imagename'])) {
+			echo "<div class='image-container'>
+			<img class='image' id='".$image['id']."' src='images/previews/".$image['imagename']."' alt='".$image_alt."'>
+			<button class='preview-button' onclick='showFull()'><img src='assets/icons/scan.svg'></button>
+			</div>";
+			?>
+				<script>
+					function showFull() {
+						document.querySelector(".image").style.opacity = 0;
+						document.querySelector(".preview-button").style.display = "none";
+						setTimeout(function(){
+							document.querySelector(".image").src = "<?php echo $image_path;?>";
+							document.querySelector(".image").style.opacity = 1;
+						}, 500);
+					}
+				</script>
+			<?php
+		} else {
+			echo "<div class='image-container'>
+			<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>
+			</div>";
+		}
+
+
 		/*
-		 |-------------------------------------------------------------
-		 | Image was not present
-		 |-------------------------------------------------------------
+		|-------------------------------------------------------------
+		| Start of displaying all info on image
+		|-------------------------------------------------------------
 		*/
-		$image_path = "assets/no_image.png";
-		$image_alt = "No image could be found, sowwy";
-	}
-
-	/*
-	 |-------------------------------------------------------------
-	 | Check user privilge
-	 |-------------------------------------------------------------
-	*/
-	if ($image_info->image_privilage($image['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
-		$privilaged = True;
-	} else {
-		$privilaged = False;
-	}
-
-	if (is_file("images/previews/".$image['imagename'])) {
-		echo "<div class='image-container'>
-		<img class='image' id='".$image['id']."' src='images/previews/".$image['imagename']."' alt='".$image_alt."'>
-		<button class='preview-button' onclick='showFull()'><img src='assets/icons/scan.svg'></button>
-		</div>";
-		?>
-			<script>
-				function showFull() {
-					document.querySelector(".image").style.opacity = 0;
-					document.querySelector(".preview-button").style.display = "none";
-					setTimeout(function(){
-						document.querySelector(".image").src = "<?php echo $image_path;?>";
-						document.querySelector(".image").style.opacity = 1;
-					}, 500);
-				}
-			</script>
-		<?php
-	} else {
-		echo "<div class='image-container'>
-		<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>
-		</div>";
-	}
-
-
-	/*
-	 |-------------------------------------------------------------
-	 | Start of displaying all info on image
-	 |-------------------------------------------------------------
-	*/
-	if ($image_present) {
+		if ($image_present) {
 	?>
 
 		<div class="image-description default-window">

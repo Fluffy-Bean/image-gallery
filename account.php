@@ -1,3 +1,5 @@
+<?php require_once __DIR__."/ui/required.php"; ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -7,14 +9,13 @@
 
 <body>
 	<?php
-	require_once __DIR__."/ui/required.php";
-	require_once __DIR__."/ui/nav.php";
+		require_once __DIR__."/ui/nav.php";
 
-	use App\Account;
-	use App\Diff;
+		use App\Account;
+		use App\Diff;
 
-	$user_info = new Account();
-	$diff = new Diff();
+		$user_info = new Account();
+		$diff = new Diff();
 	?>
 
 		<?php

@@ -64,7 +64,8 @@
     padding: 0;
 
     height: auto;
-    max-width: calc(33.33% - 0.5rem);
+    max-width: calc(20% - 0.5rem);
+    min-width: calc(20% - 0.5rem);
 
     background-color: $bg;
     border-radius: calc($rad - 0.5rem);
@@ -88,6 +89,19 @@
         content: "";
         display: block;
         padding-bottom: 100%;
+    }
+}
+
+@media (max-width: 800px) {
+    .gallery-item {
+        max-width: calc(25% - 0.5rem);
+        min-width: calc(25% - 0.5rem);
+    }
+}
+@media (max-width: 550px) {
+    .gallery-item {
+        max-width: calc(33.33% - 0.5rem);
+        min-width: calc(33.33% - 0.5rem);
     }
 }
 

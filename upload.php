@@ -1,74 +1,27 @@
+<?php require_once __DIR__."/ui/required.php"; ?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
 	<?php require_once __DIR__."/ui/header.php"; ?>
-
-	<!-- Upload Script -->
-	<script>
-		$(document).ready(function() {
-			$("#uploadSubmit").submit(function(event) {
-				event.preventDefault();
-				// Check if image avalible
-				var file = $("#image").val();
-				if (file != "") {
-					// Make form
-					var formData = new FormData();
-
-					// Get image
-					var image_data = $("#image").prop("files")[0];
-					formData.append("image", image_data);
-					// Get ALT
-					var alt = $("#alt").val();
-					formData.append("alt", alt);
-					// Get TAGS
-					var tags = $("#tags").val();
-					formData.append("tags", tags);
-					// Submit data
-					var submit = $("#submit").val();
-					formData.append("submit", submit);
-
-					// Upload the information
-					$.ajax({
-						url: 'app/image/upload_image.php',
-						type: 'post',
-						data: formData,
-						contentType: false,
-						processData: false,
-						success: function(response) {
-							$("#sniffle").html(response);
-						}
-					});
-
-					// Empty values
-					$("#image").val("");
-					$("#alt").val("");
-					$("#tags").val("");
-					$("#submit").val("");
-				} else {
-					sniffleAdd('Gwha!', 'Pls provide image', 'var(--red)', 'assets/icons/file-search.svg');
-				}
-			});
-		});
-	</script>
 </head>
 
 <body>
 	<?php
-	require_once __DIR__."/ui/required.php";
-	require_once __DIR__."/ui/nav.php";
+		require_once __DIR__."/ui/nav.php";
 
-	use App\Account;
-	$user_info = new Account();
+		use App\Account;
+		$user_info = new Account();
 
-	// Check if user is logged in
-	if (!$user_info->is_loggedin()) {
-	?>
-		<script>
-		sniffleAdd('Who are you!', 'You must be loggedin to upload things, sowwy!', 'var(--red)', 'assets/icons/cross.svg');
-		</script>
-	<?php
-	}
+		// Check if user is logged in
+		if (!$user_info->is_loggedin()) {
+		?>
+			<script>
+			sniffleAdd('Who are you!', 'You must be loggedin to upload things, sowwy!', 'var(--red)', 'assets/icons/cross.svg');
+			</script>
+		<?php
+		}
 	?>
 
 	<div class="upload-root">
@@ -83,6 +36,51 @@
 			<button id="submit" class="btn btn-good" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
 		</form>
 	</div>
+
+	<script>
+		$("#uploadSubmit").submit(function(event) {
+			event.preventDefault();
+			// Check if image avalible
+			var file = $("#image").val();
+			if (file != "") {
+				// Make form
+				var formData = new FormData();
+
+				// Get image
+				var image_data = $("#image").prop("files")[0];
+				formData.append("image", image_data);
+				// Get ALT
+				var alt = $("#alt").val();
+				formData.append("alt", alt);
+				// Get TAGS
+				var tags = $("#tags").val();
+				formData.append("tags", tags);
+				// Submit data
+				var submit = $("#submit").val();
+				formData.append("submit", submit);
+
+				// Upload the information
+				$.ajax({
+					url: 'app/image/upload_image.php',
+					type: 'post',
+					data: formData,
+					contentType: false,
+					processData: false,
+					success: function(response) {
+						$("#sniffle").html(response);
+					}
+				});
+
+				// Empty values
+				$("#image").val("");
+				$("#alt").val("");
+				$("#tags").val("");
+				$("#submit").val("");
+			} else {
+				sniffleAdd('Gwha!', 'Pls provide image', 'var(--red)', 'assets/icons/file-search.svg');
+			}
+		});
+	</script>
 
 	<?php require_once __DIR__."/ui/footer.php"; ?>
 </body>

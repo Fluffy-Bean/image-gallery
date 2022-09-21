@@ -1,3 +1,5 @@
+<?php require_once __DIR__."/ui/required.php"; ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -6,18 +8,17 @@
 </head>
 
 <body>
-<?php
-	require_once __DIR__."/ui/required.php";
-	require_once __DIR__."/ui/nav.php";
+	<?php
+		require_once __DIR__."/ui/nav.php"; 
 
-	if ($_GET['del']) {
-		?>
-			<script>
-				sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)", "assets/icons/trash.svg");
-			</script>
-		<?php
-	}
-?>
+		if ($_GET['del']) {
+			?>
+				<script>
+					sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)", "assets/icons/trash.svg");
+				</script>
+			<?php
+		}
+	?>
 
 <div class="info-text">
 	<?php
