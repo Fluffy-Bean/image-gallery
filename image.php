@@ -44,9 +44,9 @@
 			}
 		} else {
 			?>
-			<script>
-				sniffleAdd('Where is da image?', 'The link you followed seems to be broken, or there was some other error, who knows!', 'var(--red)', 'assets/icons/cross.svg');
-			</script>
+				<script>
+					sniffleAdd('Where is da image?', 'The link you followed seems to be broken, or there was some other error, who knows!', 'var(--red)', 'assets/icons/cross.svg');
+				</script>
 			<?php
 			$image_present = False;
 		}
@@ -149,7 +149,7 @@
 				document.querySelector(".fullscreen-image > img").src = "<?php echo $image_path;?>";
 				setTimeout(function(){
 					document.querySelector(".fullscreen-image").style.opacity = 1;
-				}, 500);
+				}, 1);
 			}
 
 			function closeFullScreen() {
@@ -185,9 +185,9 @@
 					<?php
 						// User
 						if ($user_info->is_admin($conn, $image['author'])) {
-							echo "<p>Author: ".$image_author."<img class='svg' style='margin: 0 0 0.1rem 0.2rem;' src='assets/icons/crown-simple.svg'></p>";
+							echo "<p>Author: <a href='profile.php?user=".$image['author']."' class='link'>".$image_author."</a><img class='svg' style='margin: 0 0 0.1rem 0.2rem;' src='assets/icons/crown-simple.svg'></p>";
 						} else {
-							echo "<p>Author: ".$image_author."</p>";
+							echo "<p>Author: <a href='profile.php?user=".$image['author']."' class='link'>".$image_author."</a></p>";
 						}
 
 						// Image ID

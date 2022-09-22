@@ -315,8 +315,8 @@ nav .btn {
  |-------------------------------------------------------------
 */
 .fullscreen-image {
-  width: 100vw;
-  height: 100vh;
+  width: 101vw;
+  height: 101vh;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -325,7 +325,7 @@ nav .btn {
   -webkit-backdrop-filter: blur(15px);
           backdrop-filter: blur(15px);
   z-index: 999;
-  transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: opacity 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   display: none;
   opacity: 0;
 }
@@ -588,10 +588,10 @@ nav .btn {
 
 /*
  |-------------------------------------------------------------
- | ABOUT
+ | profile
  |-------------------------------------------------------------
 */
-.about-root {
+.profile-root {
   margin-bottom: 1rem;
   padding: 0.5rem 0.5rem 0 0.5rem;
   width: calc(100% - 1.4rem);
@@ -600,27 +600,82 @@ nav .btn {
   border-radius: 0.3rem;
   border: 0.2rem solid #8C977D;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
+  margin: 3rem auto 1rem auto;
+  min-height: 7rem;
+  position: relative;
+  text-align: center;
 }
-.about-root > * {
+.profile-root > * {
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
-.about-root h1,
-.about-root h2,
-.about-root h3,
-.about-root h4,
-.about-root h5 {
+.profile-root h1,
+.profile-root h2,
+.profile-root h3,
+.profile-root h4,
+.profile-root h5 {
   font-family: "Lexend Deca", sans-serif;
   text-rendering: optimizeLegibility;
 }
-.about-root p,
-.about-root a,
-.about-root button,
-.about-root input {
+.profile-root p,
+.profile-root a,
+.profile-root button,
+.profile-root input {
   font-family: "Secular One", sans-serif;
   text-rendering: optimizeLegibility;
 }
+.profile-root img {
+  width: 9rem;
+  height: 9rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  left: 6rem;
+  top: -3rem;
+  transform: translateX(-50%);
+  border-radius: 0.3rem;
+  border: #8C977D 0.2rem solid;
+  background-color: #151515;
+}
+.profile-root h2, .profile-root > p {
+  margin: 0 0 0.5rem 0;
+  padding-left: 11rem;
+}
 
+.profile-info {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  padding-left: 11rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.profile-info > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 669px) {
+  .profile-root img {
+    position: absolute;
+    left: 50%;
+    top: -3rem;
+    transform: translateX(-50%);
+  }
+  .profile-root h2 {
+    margin: 7rem 0 0.5rem 0;
+    padding: 0;
+  }
+  .profile-root > p {
+    padding: 0;
+  }
+  .profile-info {
+    padding: 0;
+  }
+  .profile-info > * {
+    padding: 0;
+  }
+}
 /*
  |-------------------------------------------------------------
  | UPLOAD
@@ -987,41 +1042,6 @@ nav .btn {
 .password-reset-root a,
 .password-reset-root button,
 .password-reset-root input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-
-/*
- |-------------------------------------------------------------
- | ERROR PAGE
- |-------------------------------------------------------------
-*/
-.error-root {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
-  background-color: #151515;
-  color: #E8E3E3;
-  border-radius: 0.3rem;
-  border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
-}
-.error-root > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-.error-root h1,
-.error-root h2,
-.error-root h3,
-.error-root h4,
-.error-root h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.error-root p,
-.error-root a,
-.error-root button,
-.error-root input {
   font-family: "Secular One", sans-serif;
   text-rendering: optimizeLegibility;
 }

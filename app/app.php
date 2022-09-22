@@ -61,12 +61,20 @@ class Account {
         Returns array with user info
     */
     function get_user_info($conn, $id) {
-        // Setting SQL query
-        $sql = "SELECT id, username FROM users WHERE id = ".$id;
-        // Getting results
-        $query = mysqli_query($conn, $sql);
-        // Fetching associated info
-        $user_array = mysqli_fetch_assoc($query);
+        $sql = "SELECT id, username, created_at FROM users WHERE id = ?";
+
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "i", $param_user_id);
+            
+            $param_user_id = $id;
+            
+            $stmt->execute();
+            $query = $stmt->get_result();
+            
+            // Fetching associated info
+            $user_array = mysqli_fetch_assoc($query);
+        }
     
         return($user_array);
     }
@@ -79,11 +87,21 @@ class Account {
     function is_admin($conn, $id) {
         if (isset($id) || !empty($id)) {
             // Setting SQL query
-            $sql = "SELECT admin FROM users WHERE id = ".$id;
-            // Getting results
-            $query = mysqli_query($conn, $sql);
-            // Fetching associated info
-            $user_array = mysqli_fetch_assoc($query);
+            $sql = "SELECT admin FROM users WHERE id = ?";
+
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                // Bind variables to the prepared statement as parameters
+                mysqli_stmt_bind_param($stmt, "i", $param_user_id);
+                
+                $param_user_id = $id;
+                
+                $stmt->execute();
+                $query = $stmt->get_result();
+                
+                // Fetching associated info
+                $user_array = mysqli_fetch_assoc($query);
+            }
+            
 
             if ($user_array['admin'] || $id == 1) {
                 return True;

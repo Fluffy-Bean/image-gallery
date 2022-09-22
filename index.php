@@ -63,18 +63,15 @@
 
 			// Check for NSFW tag
 			if (str_contains($image['tags'], "nsfw")) {
-				$image_nsfw = "nsfw-blur";
-				$nsfw_warning = "<a href='image.php?id=".$image['id']."' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>";
+                echo "<div class='gallery-item'>";
+                echo "<a href='image.php?id=".$image['id']."' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>";
+                echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image nsfw-blur' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
+                echo "</div>";
 			} else {
-				$image_nsfw = "";
-				$nsfw_warning = "";
+				echo "<div class='gallery-item'>";
+                echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
+                echo "</div>";
 			}
-
-			// Image loading
-			echo "<div class='gallery-item'>";
-			echo $nsfw_warning;
-			echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image ".$image_nsfw."' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
-			echo "</div>";
 		}
 	?>
 </div>
