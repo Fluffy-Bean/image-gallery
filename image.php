@@ -184,8 +184,8 @@
 				<div>
 					<?php
 						// User
-						if ($user_info->is_admin($conn, $image['author'])) {
-							echo "<p>Author: <a href='profile.php?user=".$image['author']."' class='link'>".$image_author."</a><img class='svg' style='margin: 0 0 0.1rem 0.2rem;' src='assets/icons/crown-simple.svg'></p>";
+						if (empty($image['author'])) {
+							echo "<p>Author: ".$image_author."</p>";
 						} else {
 							echo "<p>Author: <a href='profile.php?user=".$image['author']."' class='link'>".$image_author."</a></p>";
 						}

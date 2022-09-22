@@ -214,7 +214,7 @@
     }
 
     button {
-        padding: 0;
+        padding: 0.25rem;
 
         width: 2rem; height: 2rem;
     
@@ -288,6 +288,8 @@
 }
 
 .preview-button {
+    padding: 0.25rem;
+
     width: 2rem; height: 2rem;
 
     position: absolute;
@@ -302,7 +304,7 @@
 
     transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
 
-    background-color: $black;
+    background-color: $bg-alt;
 
     z-index: +2;
 
@@ -381,7 +383,7 @@
 
     background-color: $page-accent;
 
-    border-radius: calc($rad - (0.5rem + 3px));
+    border-radius: calc($rad - 0.7rem);
 
     font-family: $font-body;
 
@@ -492,22 +494,37 @@
     @include defaultFont();
 }
 .pfp-upload {
-    margin-bottom: 0;
-    
     display: flex;
     flex-direction: row;
 
     & > img {
-        margin-left: 1rem;
+        margin-left: 0.5rem;
 
-        width: 7.25rem;
-        height: 7.25rem;
+        width: 7.8rem;
+        height: 7.8rem;
 
         object-fit: cover;
 
-        border-radius: calc($rad - (0.5rem + 3px));
+        border-radius: calc($rad - 0.7rem);
 
         background-color: $black;
+    }
+
+    form > * {
+        margin: 0 0 0.5rem 0;
+    }
+    form > *:last-child {
+        margin: 0 0 0 0;
+    }
+}
+@media (max-width: 621px) {
+    .pfp-upload {
+        display: flex;
+        flex-direction: column-reverse;
+    
+        & > img {
+            margin: 0 auto 1rem;
+        }
     }
 }
 
@@ -546,7 +563,7 @@
     display: none; flex-direction: column;
 
     background-color: $bg;
-    border-radius: calc($rad - (0.5rem + 3px));
+    border-radius: calc($rad - 0.7rem);
 }
 .log {
     min-width: 769px;
@@ -598,7 +615,7 @@
     display: none; flex-direction: column;
 
     background-color: $bg;
-    border-radius: calc($rad - (0.5rem + 3px));
+    border-radius: calc($rad - 0.7rem);
 }
 .ban {
     min-width: 769px;
@@ -656,7 +673,7 @@
     display: none; flex-direction: column;
 
     background-color: $bg;
-    border-radius: calc($rad - (0.5rem + 3px));
+    border-radius: calc($rad - 0.7rem);
 }
 .user {
     min-width: 769px;

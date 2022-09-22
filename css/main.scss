@@ -78,7 +78,7 @@ body {
     text-decoration: none;
 
     border: none;
-    border-radius: calc($rad - (0.5rem + 3px));
+    border-radius: calc($rad - 0.7rem);
 
     transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
 
@@ -102,7 +102,7 @@ body {
         background-color: $white;
 
         border: none;
-        border-radius: calc($rad - (0.5rem + 3px));
+        border-radius: calc($rad - 0.7rem);
     }
 }
 

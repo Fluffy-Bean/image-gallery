@@ -24,12 +24,11 @@
 		if ($user_info->is_loggedin()) {
 		?>
 			<div class="profile-settings">
-				<h2>Profile Settings</h2>
-				<h3>Profile Picture</h3>
+				<h2>Profile</h2>
 				<div class="pfp-upload">
 					<form id="pfpForm" method="POST" enctype="multipart/form-data">
+						<h3>Profile Picture</h3>
 						<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
-						<br>
 						<button id="pfpSubmit" class="btn btn-good" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
 					</form>
 					<?php
@@ -81,7 +80,7 @@
 			</div>
 
 			<div class="account-root">
-				<h2>Account Settings</h2>
+				<h2>Account</h2>
 				<a class='btn btn-bad' href='password-reset.php'><img class='svg' src='assets/icons/password.svg'>Reset Password</a>
 				<button class="btn btn-bad" onclick="deleteAccount()"><img class='svg' src='assets/icons/trash.svg'>Delete account</button>
 				<br>
@@ -149,7 +148,7 @@
 				if ($user_info->is_admin($conn, $_SESSION['id'])) {
 				?>
 					<div class="admin-root">
-						<h2>Admin controlls</h2>
+						<h2>Admin</h2>
 						<h3>Invite Codes</h3>
 						<?php
 						$token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
