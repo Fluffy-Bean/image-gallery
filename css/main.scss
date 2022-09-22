@@ -131,7 +131,7 @@ form {
     width: 100%;
     box-sizing: content-box;
 
-    >* {
+    & > * {
         margin-bottom: 0.5rem;
     }
 }

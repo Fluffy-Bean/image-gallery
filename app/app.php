@@ -61,7 +61,7 @@ class Account {
         Returns array with user info
     */
     function get_user_info($conn, $id) {
-        $sql = "SELECT id, username, created_at FROM users WHERE id = ?";
+        $sql = "SELECT id, username, created_at, pfp_path FROM users WHERE id = ?";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
             // Bind variables to the prepared statement as parameters

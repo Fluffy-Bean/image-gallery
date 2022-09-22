@@ -759,3 +759,71 @@ if (isset($_POST['account_delete_submit'])) {
         <?php
     }
 }
+
+/*
+    Profile Picture upload
+
+    *dies of cringe*
+*/
+if (isset($_POST['pfp_submit'])) {
+	if (isset($_SESSION['id'])) {
+		// Root paths
+		$dir = "../../images/pfp/";
+
+		// File name updating
+		$file_type = pathinfo($dir.$_FILES['image']['name'],PATHINFO_EXTENSION);
+		$image_newname = "PFP_".$_SESSION["id"].".".$file_type;
+		$image_path = $dir.$image_newname;
+
+		// Allowed file types
+		$allowed_types = array('jpg', 'jpeg', 'png', 'webp');
+		if (in_array($file_type, $allowed_types)) {
+            $query = mysqli_query($conn, "SELECT pfp_path FROM users WHERE id = ".$_SESSION['id']." LIMIT 1");
+
+            while ($pfp = mysqli_fetch_assoc($query)) {
+                $old_pfp = $pfp['pfp_path'];
+            }
+
+            if (is_file($dir.$old_pfp) && !empty($old_pfp)) {
+                unlink($dir.$old_pfp);
+            }
+            
+            // Move file to server
+			if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+				$sql = "UPDATE users SET pfp_path = '$image_newname' WHERE id=".$_SESSION['id'];
+
+                if (mysqli_query($conn, $sql)) {
+                    ?>
+                        <script>
+                            sniffleAdd(':3', 'Your Image uploaded successfully!', 'var(--green)', 'assets/icons/check.svg');
+                        </script>
+                    <?php
+                } else {
+                    ?>
+                        <script>
+                            sniffleAdd(':c', 'Something went fuckywucky, please try later', 'var(--red)', 'assets/icons/cross.svg');
+                        </script>
+                    <?php
+                }
+			} else {
+				?>
+					<script>
+						sniffleAdd('Hmmff', 'Something happened when moving the file to the server. This may just been a 1-off so try again', 'var(--red)', 'assets/icons/bug.svg');
+					</script>
+				<?php
+			}
+		} else {
+			?>
+				<script>
+					sniffleAdd('Woopsie', 'The file type you are trying to upload is not supported. Supported files include: JPEG, JPG, PNG and WEBP', 'var(--red)', 'assets/icons/cross.svg');
+				</script>
+			<?php
+		}
+	} else {
+		?>
+			<script>
+				sniffleAdd('Denied!!!', 'As you are not logged in', 'var(--red)', 'assets/icons/cross.svg');
+			</script>
+		<?php
+	}
+}

@@ -340,9 +340,9 @@ nav .btn {
   z-index: 1;
 }
 .fullscreen-image button {
-  width: 1.75rem;
-  height: 1.75rem;
   padding: 0;
+  width: 2rem;
+  height: 2rem;
   position: absolute;
   top: 1.25rem;
   right: 1.25rem;
@@ -395,23 +395,18 @@ nav .btn {
 }
 
 .preview-button {
-  width: 1.5rem;
-  padding: 0;
+  width: 2rem;
+  height: 2rem;
   position: absolute;
   bottom: 0.5rem;
   right: 0.5rem;
   display: block;
   box-sizing: border-box;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: "Secular One", sans-serif;
-  text-decoration: none;
   border: none;
-  border-radius: -0.2rem;
+  border-radius: 0.3rem;
   transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
   background-color: #121212;
-  opacity: 0.8;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
+  z-index: 2;
 }
 .preview-button img {
   width: 1.5rem;
@@ -716,6 +711,51 @@ nav .btn {
  | ACCOUNT
  |-------------------------------------------------------------
 */
+.profile-settings {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0.3rem;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
+}
+.profile-settings > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.profile-settings h1,
+.profile-settings h2,
+.profile-settings h3,
+.profile-settings h4,
+.profile-settings h5 {
+  font-family: "Lexend Deca", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+.profile-settings p,
+.profile-settings a,
+.profile-settings button,
+.profile-settings input {
+  font-family: "Secular One", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+.pfp-upload {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: row;
+}
+.pfp-upload > img {
+  margin-left: 1rem;
+  width: 7.25rem;
+  height: 7.25rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: calc(0.3rem - (0.5rem + 3px));
+  background-color: #121212;
+}
+
 .account-root {
   margin-bottom: 1rem;
   padding: 0.5rem 0.5rem 0 0.5rem;

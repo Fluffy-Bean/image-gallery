@@ -16,13 +16,72 @@
 
 		$user_info = new Account();
 		$diff = new Diff();
+
+		$profile_info = $user_info->get_user_info($conn, $_SESSION['id']);
 	?>
 
 		<?php
 		if ($user_info->is_loggedin()) {
 		?>
+			<div class="profile-settings">
+				<h2>Profile Settings</h2>
+				<h3>Profile Picture</h3>
+				<div class="pfp-upload">
+					<form id="pfpForm" method="POST" enctype="multipart/form-data">
+						<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
+						<br>
+						<button id="pfpSubmit" class="btn btn-good" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
+					</form>
+					<?php
+						if (is_file("images/pfp/".$profile_info['pfp_path'])) {
+							echo "<img src='images/pfp/".$profile_info['pfp_path']."'>";
+						} else {
+							echo "<img src='assets/no_image.png'>";
+						}
+					?>
+					<script>
+						$("#pfpForm").submit(function(event) {
+							event.preventDefault();
+							// Check if image avalible
+							var file = $("#image").val();
+							if (file != "") {
+								// Make form
+								var formData = new FormData();
+
+								// Get image
+								var image_data = $("#image").prop("files")[0];
+								formData.append("image", image_data);
+								// Submit data
+								var submit = $("#pfpSubmit").val();
+								formData.append("pfp_submit", submit);
+
+								// Upload the information
+								$.ajax({
+									url: 'app/account/account.php',
+									type: 'post',
+									data: formData,
+									contentType: false,
+									processData: false,
+									success: function(response) {
+										$("#sniffle").html(response);
+									}
+								});
+
+								// Empty values
+								$("#image").val("");
+								$("#submit").val("");
+							} else {
+								sniffleAdd('Gwha!', 'Pls provide image', 'var(--red)', 'assets/icons/file-search.svg');
+							}
+						});
+					</script>
+				</div>
+				<br>
+				<a href="profile.php?user=<?php echo $_SESSION['id']; ?>" class="btn btn-neutral">Go to profile</a>
+			</div>
+
 			<div class="account-root">
-				<h2>Settings</h2>
+				<h2>Account Settings</h2>
 				<a class='btn btn-bad' href='password-reset.php'><img class='svg' src='assets/icons/password.svg'>Reset Password</a>
 				<button class="btn btn-bad" onclick="deleteAccount()"><img class='svg' src='assets/icons/trash.svg'>Delete account</button>
 				<br>

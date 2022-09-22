@@ -214,9 +214,9 @@
     }
 
     button {
-        width: 1.75rem; height: 1.75rem;
-    
         padding: 0;
+
+        width: 2rem; height: 2rem;
     
         position: absolute;
         top: 1.25rem;
@@ -288,9 +288,7 @@
 }
 
 .preview-button {
-    width: 1.5rem;
-
-    padding: 0;
+    width: 2rem; height: 2rem;
 
     position: absolute;
     bottom: 0.5rem;
@@ -299,22 +297,14 @@
     display: block;
     box-sizing: border-box;
 
-    font-size: 14px;
-    font-weight: 500;
-    font-family: $font-body;
-
-    text-decoration: none;
-
     border: none;
-    border-radius: calc($rad - 0.5rem);
+    border-radius: $rad;
 
     transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
 
     background-color: $black;
 
-    opacity: 0.8;
-
-    box-shadow: $shadow;
+    z-index: +2;
 
     img {
         width: 1.5rem;
@@ -497,6 +487,30 @@
  | ACCOUNT
  |-------------------------------------------------------------
 */
+.profile-settings {
+    @include defaultDecoration($page-accent);
+    @include defaultFont();
+}
+.pfp-upload {
+    margin-bottom: 0;
+    
+    display: flex;
+    flex-direction: row;
+
+    & > img {
+        margin-left: 1rem;
+
+        width: 7.25rem;
+        height: 7.25rem;
+
+        object-fit: cover;
+
+        border-radius: calc($rad - (0.5rem + 3px));
+
+        background-color: $black;
+    }
+}
+
 .account-root {
     @include defaultDecoration($page-accent);
     @include defaultFont();

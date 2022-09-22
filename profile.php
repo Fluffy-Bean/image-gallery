@@ -32,8 +32,12 @@
         <div class="profile-root">
             <?php
                 if (!empty($user)) {
+                    if (is_file("images/pfp/".$user['pfp_path'])) {
+                        echo "<img src='images/pfp/".$user['pfp_path']."'>";
+                    } else {
+                        echo "<img src='assets/no_image.png'>";
+                    }
                     ?>
-                        <img src='assets/no_image.png'>
                         <h2><?php echo $user['username']; ?></h2>
                         <?php if ($user_info->is_admin($conn, $user['id'])) echo "<p style='color: var(--accent);'>Admin</p>"; ?>
                         <div class="profile-info">
