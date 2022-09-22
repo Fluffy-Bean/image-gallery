@@ -18,11 +18,7 @@
 		$diff = new Diff();
 
         if (!isset($_GET['user']) || empty($_GET['user'])) {
-            ?>
-				<script>
-					sniffleAdd("Success", "Error", "var(--green)", "assets/icons/trash.svg");
-				</script>
-			<?php
+            header("Location: index.php");
         } elseif (isset($_GET['user'])) {
             $user = $user_info->get_user_info($conn, $_GET['user']);
 

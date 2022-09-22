@@ -748,8 +748,8 @@ nav .btn {
 }
 .pfp-upload > img {
   margin-left: 0.5rem;
-  width: 7.8rem;
-  height: 7.8rem;
+  width: 7.813rem;
+  height: 7.813rem;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: -0.3rem;
@@ -769,6 +769,8 @@ nav .btn {
   }
   .pfp-upload > img {
     margin: 0 auto 1rem;
+    width: 10rem;
+    height: 10rem;
   }
 }
 .account-root {
@@ -778,7 +780,7 @@ nav .btn {
   background-color: #151515;
   color: #E8E3E3;
   border-radius: 0.4rem;
-  border: 0.2rem solid #8C977D;
+  border: 0.2rem solid #B66467;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 .account-root > * {
@@ -859,7 +861,7 @@ nav .btn {
 }
 
 .log {
-  min-width: 769px;
+  min-width: 850px;
   padding: 0.5rem;
   display: flex;
   flex-direction: row;
@@ -906,7 +908,7 @@ nav .btn {
 }
 
 .ban {
-  min-width: 769px;
+  min-width: 900px;
   padding: 0.5rem;
   display: flex;
   flex-direction: row;
@@ -960,7 +962,7 @@ nav .btn {
 }
 
 .user {
-  min-width: 769px;
+  min-width: 950px;
   padding: 0.5rem;
   display: flex;
   flex-direction: row;

@@ -500,8 +500,8 @@
     & > img {
         margin-left: 0.5rem;
 
-        width: 7.8rem;
-        height: 7.8rem;
+        width: 7.813rem;
+        height: 7.813rem;
 
         object-fit: cover;
 
@@ -524,12 +524,15 @@
     
         & > img {
             margin: 0 auto 1rem;
+
+            width: 10rem;
+            height: 10rem;
         }
     }
 }
 
 .account-root {
-    @include defaultDecoration($page-accent);
+    @include defaultDecoration($red);
     @include defaultFont();
 }
 .admin-root {
@@ -566,7 +569,7 @@
     border-radius: calc($rad - 0.7rem);
 }
 .log {
-    min-width: 769px;
+    min-width: 850px;
 
     padding: 0.5rem;
 
@@ -618,7 +621,7 @@
     border-radius: calc($rad - 0.7rem);
 }
 .ban {
-    min-width: 769px;
+    min-width: 900px;
 
     padding: 0.5rem;
 
@@ -676,7 +679,7 @@
     border-radius: calc($rad - 0.7rem);
 }
 .user {
-    min-width: 769px;
+    min-width: 950px;
 
     padding: 0.5rem;
 

@@ -4,7 +4,9 @@ include dirname(__DIR__)."/server/conn.php";
 include dirname(__DIR__)."/app.php";
 
 use App\Account;
+use App\Make;
 
+$make_stuff = new Make();
 $user_info = new Account();
 $user_ip = $user_info->get_ip();
 
@@ -790,6 +792,14 @@ if (isset($_POST['pfp_submit'])) {
             
             // Move file to server
 			if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+                if ($make_stuff->thumbnail($image_path, $image_path, 300) != "success") {
+                    ?>
+                        <script>
+                            sniffleAdd('Gwha!', 'We hit a small roadbump while compressing your profile picture', 'var(--black)', 'assets/icons/bug.svg');
+                        </script>
+                    <?php
+                }
+
 				$sql = "UPDATE users SET pfp_path = '$image_newname' WHERE id=".$_SESSION['id'];
 
                 if (mysqli_query($conn, $sql)) {
