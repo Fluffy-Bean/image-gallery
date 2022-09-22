@@ -71,7 +71,8 @@ You will next need to setup the following 5 tables:
 #### Images
     CREATE TABLE images (
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        imagename VARCHAR(50) UNIQUE, alt VARCHAR(255),
+        imagename VARCHAR(50) UNIQUE,
+        alt VARCHAR(255),
         tags VARCHAR(255),
         author VARCHAR(50),
         last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -81,7 +82,9 @@ You will next need to setup the following 5 tables:
     CREATE TABLE users (
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         username VARCHAR(50) NOT NULL UNIQUE,
-        password VARCHAR(255) NOT NULL, admin bool,
+        password VARCHAR(255) NOT NULL,
+        pfp_path VARCHAR(50),
+        admin bool,
         last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
@@ -118,6 +121,7 @@ Since there is currently no automated install script for this gallery, you'll ha
     mkdir images
     mkdir images/thumbnails
     mkdir images/previews
+    mkdir images/pfp
 
 This'll make 3 new folders. That is where all the uploaded images will be held in. But before you go anywhere, you will need to ```chown``` the folders so Nginx can access the images within them, so do the following:
 
