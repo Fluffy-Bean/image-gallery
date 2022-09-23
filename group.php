@@ -36,14 +36,37 @@
 
                     $group = mysqli_fetch_array($query);
 
-                    $image_list = explode(" ", $group['image_list']);
+                    $image_list = array_reverse(explode(" ", $group['image_list']));
                 }
             }
         ?>
         <h2><?php echo $group['group_name']; ?></h2>
-        <p>By: <?php echo $group['author']; ?></p>
-        <p>Made on: <?php echo $group['created_at']; ?></p>
-        <p>Updated on: <?php echo $group['last_modified']; ?></p>
+        <?php
+            $user = $user_info->get_user_info($conn, $group['author']);
+
+            if (isset($user['username'])) {
+                echo "<p>By: ".$user['username']."</p>";
+            } else {
+                echo "<p>By: Deleted User</p>";
+            }
+
+            $upload_time = new DateTime($group['created_on']);
+            echo "<p id='updateTime'>Created at: ".$upload_time->format('d/m/Y H:i:s T')."</p>";
+        ?>
+        <script>
+            // Updating time to Viewers local
+            var updateDate = new Date('<?php echo $upload_time->format('m/d/Y H:i:s T'); ?>');
+            var format = {year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                            };
+                            
+            updateDate = updateDate.toLocaleDateString('en-GB', format);
+
+            $("#updateTime").html("Created at: "+updateDate);
+        </script>
+
+        <p>Last Modified: <?php echo $diff->time($group['last_modified']); ?></p>
         <?php
             if ($_SESSION['id'] == $group['author'] || $user_info->is_admin($conn, $_SESSION['id'])) {
                 $privilaged = True;
@@ -54,7 +77,33 @@
             if (isset($_GET['mode']) && $_GET['mode'] == "edit") {
                 if (!$privilaged) header("Location: group.php?id=".$_GET['id']);
 
-                echo "<button class='btn btn-bad'>Delete Group</button>";
+                echo "<button class='btn btn-bad'>Delete</button>";
+
+                ?>
+                <button id='editTitle' class='btn btn-bad'>Update title</button>
+				<script>
+					$('#editTitle').click(function() {
+						var header = "Enter new Description/Alt";
+						var description = "Newwww photo group name!";
+						var actionBox = "<form id='titleForm' action='app/image/edit_description.php' method='POST'>\
+						<input id='titleText' class='btn btn-neutral' type='text' placeholder='New title'>\
+						<button id='titleSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update title</button>\
+						</form>";
+						flyoutShow(header, description, actionBox);
+						
+						$("#titleForm").submit(function(event) {
+							event.preventDefault();
+							var titleText = $("#titleText").val();
+							var titleSubmit = $("#titleSubmit").val();
+							$("#sniffle").load("app/image/group.php", {
+								group_id: <?php echo $_GET['id']; ?>,
+								group_title: titleText,
+								title_submit: titleSubmit
+							});
+						});
+					});
+				</script>
+                <?php
 
                 $image_request = mysqli_query($conn, "SELECT * FROM images");
                 echo "<form id='groupForm'>"; 
@@ -65,9 +114,9 @@
                         echo "<input style='display: none;' type='checkbox' id='".$image['id']."' name='".$image['id']."'/>";
                     } 
                 }
-                echo "<button id='groupSubmit' class='btn btn-good' type='submit'>Save Group</button></form>";
+                echo "<button id='groupSubmit' class='btn btn-good' type='submit'>Update Images</button></form>";
 
-                echo "<a href='group.php?id=".$_GET['id']."' class='btn btn-neutral'>Cancel</a>";
+                echo "<a href='group.php?id=".$_GET['id']."' class='btn btn-neutral'>Back</a>";
             } else {
                 if ($privilaged) echo "<a href='group.php?id=".$_GET['id']."&mode=edit' class='btn btn-neutral'>Edit</a>";
             }

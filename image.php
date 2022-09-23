@@ -327,13 +327,13 @@
 				</script>
 
 				<!--
-				|-------------------------------------------------------------
-				| Edit Description
-				|-------------------------------------------------------------
-				| Most people reading through the code will probably say how
-				| shit it is. YOU HAVE NO FUCKING CLUE HOW LONG THIS TOOK ME
-				| TO FIGURE OUT. i hate js.
-				|-------------------------------------------------------------
+					|-------------------------------------------------------------
+					| Edit Description
+					|-------------------------------------------------------------
+					| Most people reading through the code will probably say how
+					| shit it is. YOU HAVE NO FUCKING CLUE HOW LONG THIS TOOK ME
+					| TO FIGURE OUT. i hate js.
+					|-------------------------------------------------------------
 				-->
 				<button id='descriptionButton' class='btn btn-bad'><img class='svg' src='assets/icons/edit.svg'>Edit description</button>
 				<script>
