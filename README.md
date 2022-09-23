@@ -7,10 +7,10 @@
 The only gallery made by a maned wolf
 
 ## Special thanks
-- Carty: Kickstarting development and SQL/PHP development
-- Jeetix: Helping patch holes in some features
-- mrHDash, Verg, Fennec, Carty, Jeetix and everyone else for helping with early bug testing
-- <a class='link' href="https://phosphoricons.com/">Phosphor</a> for providing nice SVG icons
+* Carty: Kickstarting development and SQL/PHP development
+* Jeetix: Helping patch holes in some features
+* mrHDash, Verg, Fennec, Carty, Jeetix and everyone else for helping with early bug testing
+* <a class='link' href="https://phosphoricons.com/">Phosphor</a> for providing nice SVG icons
 
 ## How to setup
 ### Downloading & installing
@@ -57,16 +57,16 @@ If you run into errors with connecting to the database, you may need to install 
 
 You first need to head over to ```app/server/conn.php``` and set the correct information, if you're using localhost, this should be the following details: 
 
-- localhost
-- (username)
-- (password)
-- Gallery
+* localhost
+* (username)
+* (password)
+* Gallery
 
 I recommend using a database name such as Gallery, but others should work just as well.
 
 I also recommend not using root for this and setting up a user specifically for this, but I will not go through the process of making a such user here.
 
-You will next need to setup the following 5 tables:
+You will next need to setup the following 6 tables:
 
 #### Images
     CREATE TABLE images (
@@ -110,6 +110,15 @@ You will next need to setup the following 5 tables:
         time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         length VARCHAR(255) NOT NULL,
         permanent BOOL NOT NULL
+    );
+
+### Groups
+    CREATE TABLE groups (
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        image_list VARCHAR(255),
+        author VARCHAR(50),
+        last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
 ### Manifest

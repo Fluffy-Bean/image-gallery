@@ -22,7 +22,7 @@
         } elseif (isset($_GET['user'])) {
             $user = $user_info->get_user_info($conn, $_GET['user']);
 
-            $join_date = new DateTime($user['created_at']);;
+            $join_date = new DateTime($user['created_at']);
 	?>
 
         <div class="profile-root">
@@ -74,14 +74,14 @@
     
                         // Check for NSFW tag
                         if (str_contains($image['tags'], "nsfw")) {
-                            echo "<div class='gallery-item'>";
-                            echo "<a href='image.php?id=".$image['id']."' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>";
-                            echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image nsfw-blur' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
-                            echo "</div>";
+                            echo "<div class='gallery-item'>
+                                <a href='image.php?id=".$image['id']."' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>
+                                <a href='image.php?id=".$image['id']."'><img class='gallery-image nsfw-blur' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>
+                                </div>";
                         } else {
-                            echo "<div class='gallery-item'>";
-                            echo "<a href='image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>";
-                            echo "</div>";
+                            echo "<div class='gallery-item'>
+                                <a href='image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>
+                                </div>";
                         }			
                     }
                 }

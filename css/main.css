@@ -584,6 +584,46 @@ nav .btn {
 
 /*
  |-------------------------------------------------------------
+ | Groups
+ |-------------------------------------------------------------
+*/
+.group-root {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  width: calc(100% - 1.4rem);
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0.4rem;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
+  transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1) transform 0.15s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.group-root > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.group-root h1,
+.group-root h2,
+.group-root h3,
+.group-root h4,
+.group-root h5 {
+  font-family: "Lexend Deca", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+.group-root p,
+.group-root a,
+.group-root button,
+.group-root input {
+  font-family: "Secular One", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+.selectedImage {
+  outline: #8C977D solid 0.3rem;
+}
+
+/*
+ |-------------------------------------------------------------
  | profile
  |-------------------------------------------------------------
 */

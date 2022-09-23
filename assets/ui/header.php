@@ -20,7 +20,7 @@
 <meta name="theme-color" content="#8C977D">
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:description" content="<?php echo $user_settings['website_description']; ?>">/
+<meta name="twitter:description" content="<?php echo $user_settings['website_description']; ?>"/>
 <meta name="twitter:title" content="<?php echo $user_settings['website_name']; ?>"/>
 
 
