@@ -84,6 +84,7 @@
 				});
 
 				// Empty values
+				imagePreview.src = "";
 				$("#image").val("");
 				$("#alt").val("");
 				$("#tags").val("");

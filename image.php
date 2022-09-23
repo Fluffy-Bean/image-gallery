@@ -1,4 +1,14 @@
-<?php require_once __DIR__."/app/required.php"; ?>
+<?php
+	require_once __DIR__."/app/required.php";
+
+	use App\Account;
+	use App\Image;
+	use App\Diff;
+
+	$image_info = new Image;
+	$user_info = new Account;
+	$diff = new Diff();
+?>
 
 <!DOCTYPE html>
 <html>
@@ -11,14 +21,6 @@
 	<?php
 		require_once __DIR__."/assets/ui/nav.php";
 
-		use App\Account;
-		use App\Image;
-		use App\Diff;
-
-		$image_info = new Image;
-		$user_info = new Account;
-		$diff = new Diff();
-
 		/*
 		|-------------------------------------------------------------
 		| Get image ID
@@ -27,12 +29,12 @@
 		| If ID cannot be obtained, give error.      ID going here ^^
 		|-------------------------------------------------------------
 		*/
-		if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+		if (isset($_GET['id'])) {
 			// Get all image info
 			$image = $image_info->get_image_info($conn, $_GET['id']);
 
 			// Check if image is avalible
-			if (isset($image['imagename'])) {
+			if (!empty($image['imagename']) && isset($image['imagename'])) {
 				$image_present = True;
 			} else {
 		?>
