@@ -27,6 +27,7 @@
 	<div class="upload-root">
 		<h2>Upload image</h2>
 		<p>In this world you have 2 choices, to upload a really cute picture of an animal or fursuit, or something other than those 2 things.</p>
+		<img id="imagePreview" src="">
 		<br>
 		<form id="uploadSubmit" class="flex-down between" method="POST" enctype="multipart/form-data">
 			<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
@@ -36,6 +37,16 @@
 			<br>
 			<button id="submit" class="btn btn-good" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
 		</form>
+		<script>
+			image.onchange = evt => {
+				const [file] = image.files
+				if (file) {
+					imagePreview.src = URL.createObjectURL(file);
+				} else {
+					imagePreview.src = "assets/no_image.png";
+				}
+			}
+		</script>
 	</div>
 
 	<script>

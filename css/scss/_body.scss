@@ -482,6 +482,18 @@
 .upload-root {
     @include defaultDecoration($page-accent);
     @include defaultFont();
+
+    & > img {
+        margin: 0 auto;
+
+        max-width: 100%;
+        max-height: 20rem;
+
+        border-radius: calc($rad - 0.7rem);
+
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 /*
