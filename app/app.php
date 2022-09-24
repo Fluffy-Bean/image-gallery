@@ -135,14 +135,20 @@ class Image {
     Returns array with image info
     */
     function get_image_info($conn, $id) {
-        // Setting SQL query
-        $sql = "SELECT * FROM images WHERE id = ".$id;
-        // Getting results
-        $query = mysqli_query($conn, $sql);
-        // Fetching associated info
-        $image_array = mysqli_fetch_assoc($query);
+        $sql = "SELECT * FROM images WHERE id = ?";
+
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "i", $id);
+            
+            $stmt->execute();
+            $query = $stmt->get_result();
+            
+            // Fetching associated info
+            $group_array = mysqli_fetch_assoc($query);
+        }
     
-        return($image_array);
+        return($group_array);
     }
     /*
     Check if user is image owner
@@ -161,6 +167,57 @@ class Image {
         } else {
             return False;
         }
+    }
+}
+
+class Group {
+    function get_group_info($conn, $id) {
+        // Setting SQL query
+        $sql = "SELECT * FROM groups WHERE id = ?";
+
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "i", $id);
+            
+            $stmt->execute();
+            $query = $stmt->get_result();
+            
+            // Fetching associated info
+            $group_array = mysqli_fetch_assoc($query);
+        }
+    
+        return($group_array);
+    }
+
+    function get_group_members($conn, $id){
+        $user_array = array();
+
+        $sql = "SELECT * FROM groups WHERE id = ?";
+
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "i", $id);
+            
+            $stmt->execute();
+            $query = $stmt->get_result();
+            
+            // Fetching associated info
+            $group_array = mysqli_fetch_assoc($query);
+        }
+
+        $image_list = explode(" ", $group_array['image_list']);
+
+        foreach ($image_list as $image) {
+            $image_request = mysqli_query($conn, "SELECT author FROM images WHERE id = ".$image);
+
+            while ($author = mysqli_fetch_column($image_request)) {
+                if (!in_array($author, $user_array)) {
+                    array_push($user_array, $author); 
+                }
+            }
+        }
+
+        return($user_array);
     }
 }
 
