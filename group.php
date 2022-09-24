@@ -61,7 +61,28 @@
 
             if ($_GET['mode'] == "edit") {
                 if ($_SESSION['id'] == $group['author'] || $user_info->is_admin($conn, $_SESSION['id'])) {
-                    echo "<button class='btn btn-bad'>Delete</button>";
+                    echo "<button id='deleteGroup' class='btn btn-bad'>Delete</button>";
+                    ?>
+                        <script>
+                            $('#deleteGroup').click(function() {
+                                var header = "Are you surrrrrre?";
+                                var description = "The images will still be up, but all your hard work setting this group up will be gone!";
+                                var actionBox = "<form id='titleForm' method='POST'>\
+                                <button id='deleteSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete group</button>\
+                                </form>";
+                                flyoutShow(header, description, actionBox);
+                                
+                                $("#titleForm").submit(function(event) {
+                                    event.preventDefault();
+                                    var deleteSubmit = $("#deleteSubmit").val();
+                                    $("#sniffle").load("app/image/group.php", {
+                                        group_id: <?php echo $_GET['id']; ?>,
+                                        group_delete: deleteSubmit
+                                    });
+                                });
+                            });
+                        </script>
+                    <?php
 
                     echo "<button id='editTitle' class='btn btn-bad'>Update title</button>";
                     ?>
