@@ -174,13 +174,13 @@
 		if ($image_present) {
 	?>
 
-		<div class="image-description default-window">
+		<div class="defaultDecoration defaultSpacing defaultFonts">
 			<h2>Description</h2>
 			<p><?php echo htmlentities($image_alt, ENT_QUOTES); ?></p>
 		</div>
 
 
-		<div class="image-detail">
+		<div class="image-detail defaultDecoration defaultSpacing defaultFonts">
 			<h2>Details</h2>
 			<div>
 				<div>
@@ -261,7 +261,7 @@
 			</script>
 		</div>
 
-		<div class="tags-root default-window">
+		<div class="defaultDecoration defaultSpacing defaultFonts">
 			<h2>Tags</h2>
 			<div class="tags">
 				<?php
@@ -294,7 +294,7 @@
 		if ($privilaged) {
 		?>
 			<!-- Danger zone -->
-			<div class='danger-zone'>
+			<div class='warningDecoration defaultSpacing defaultFonts'>
 				<h2>Danger zone</h2>
 
 				<!--

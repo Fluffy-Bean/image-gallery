@@ -30,9 +30,6 @@
  |-------------------------------------------------------------
 */
 nav {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
   border-radius: 0.4rem;
@@ -52,10 +49,6 @@ nav {
   top: 1rem;
   align-items: center;
   vertical-align: middle;
-}
-nav > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
 }
 nav p {
   margin: 0;
@@ -143,6 +136,53 @@ nav .btn {
 }
 /*
  |-------------------------------------------------------------
+ | DEFAULTS
+ |-------------------------------------------------------------
+*/
+.defaultSpacing {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  width: calc(100% - 1.4rem);
+}
+.defaultSpacing > * {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.defaultDecoration {
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0.4rem;
+  border: 0.2rem solid #8C977D;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
+}
+
+.warningDecoration {
+  background-color: #151515;
+  color: #E8E3E3;
+  border-radius: 0.4rem;
+  border: 0.2rem solid #B66467;
+  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
+}
+
+.defaultFonts h1,
+.defaultFonts h2,
+.defaultFonts h3,
+.defaultFonts h4,
+.defaultFonts h5 {
+  font-family: "Lexend Deca", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+.defaultFonts p,
+.defaultFonts a,
+.defaultFonts button,
+.defaultFonts input {
+  font-family: "Secular One", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+/*
+ |-------------------------------------------------------------
  | INDEX
  |-------------------------------------------------------------
 */
@@ -151,28 +191,11 @@ nav .btn {
   padding: 0;
   text-align: center;
 }
-.info-text h1,
-.info-text h2,
-.info-text h3,
-.info-text h4,
-.info-text h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.info-text p,
-.info-text a,
-.info-text button,
-.info-text input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
-}
 .info-text h1 {
-  font-family: "Lexend Deca", sans-serif;
   margin-top: 0;
   margin-bottom: 1rem;
 }
 .info-text p {
-  font-family: "Secular One", sans-serif;
   margin-top: 0;
   margin-bottom: 1rem;
 }
@@ -207,14 +230,10 @@ nav .btn {
 .gallery-root {
   margin-bottom: 1rem;
   padding: 0.25rem;
-  background-color: #151515;
-  color: #E8E3E3;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  border: 0.2rem solid #8C977D;
-  border-radius: 0.4rem;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
+  justify-content: none;
 }
 
 .gallery-item {
@@ -275,6 +294,10 @@ nav .btn {
 }
 
 .nsfw-warning {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
   top: 0;
@@ -283,10 +306,6 @@ nav .btn {
   right: 0;
   position: absolute;
   z-index: 5;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-decoration: none;
   font-family: "Secular One", sans-serif;
   background-color: rgba(21, 21, 21, 0.7333333333);
@@ -419,65 +438,6 @@ nav .btn {
   cursor: pointer;
 }
 
-.image-description {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
-  background-color: #151515;
-  color: #E8E3E3;
-  border-radius: 0.4rem;
-  border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
-}
-.image-description > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-.image-description h1,
-.image-description h2,
-.image-description h3,
-.image-description h4,
-.image-description h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.image-description p,
-.image-description a,
-.image-description button,
-.image-description input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-
-.image-detail {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
-  background-color: #151515;
-  color: #E8E3E3;
-  border-radius: 0.4rem;
-  border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
-}
-.image-detail > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-.image-detail h1,
-.image-detail h2,
-.image-detail h3,
-.image-detail h4,
-.image-detail h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.image-detail p,
-.image-detail a,
-.image-detail button,
-.image-detail input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
-}
 .image-detail > div {
   width: 100%;
   display: flex;
@@ -502,36 +462,6 @@ nav .btn {
     width: auto;
   }
 }
-.tags-root {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
-  background-color: #151515;
-  color: #E8E3E3;
-  border-radius: 0.4rem;
-  border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
-}
-.tags-root > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-.tags-root h1,
-.tags-root h2,
-.tags-root h3,
-.tags-root h4,
-.tags-root h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.tags-root p,
-.tags-root a,
-.tags-root button,
-.tags-root input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-
 .tags {
   display: flex;
   flex-direction: row;
@@ -552,72 +482,11 @@ nav .btn {
   content: "# ";
 }
 
-.danger-zone {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
-  background-color: #151515;
-  color: #E8E3E3;
-  border-radius: 0.4rem;
-  border: 0.2rem solid #B66467;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
-}
-.danger-zone > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-.danger-zone h1,
-.danger-zone h2,
-.danger-zone h3,
-.danger-zone h4,
-.danger-zone h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.danger-zone p,
-.danger-zone a,
-.danger-zone button,
-.danger-zone input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-
 /*
  |-------------------------------------------------------------
  | Groups
  |-------------------------------------------------------------
 */
-.group-root {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
-  background-color: #151515;
-  color: #E8E3E3;
-  border-radius: 0.4rem;
-  border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
-  transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1) transform 0.15s cubic-bezier(0.19, 1, 0.22, 1);
-}
-.group-root > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-.group-root h1,
-.group-root h2,
-.group-root h3,
-.group-root h4,
-.group-root h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.group-root p,
-.group-root a,
-.group-root button,
-.group-root input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-
 .selectedImage {
   outline: #8C977D solid 0.3rem;
 }
@@ -632,21 +501,8 @@ nav .btn {
   z-index: 6;
   opacity: 0;
   font-size: 17px;
-}
-.group-name h1,
-.group-name h2,
-.group-name h3,
-.group-name h4,
-.group-name h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.group-name p,
-.group-name a,
-.group-name button,
-.group-name input {
   font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
+  text-decoration: none;
 }
 
 .gallery-group {
@@ -667,7 +523,6 @@ nav .btn {
 .group-item:hover .nsfw-warning > * {
   display: none;
 }
-
 .group-item:hover .group-name {
   opacity: 1;
 }
@@ -678,37 +533,10 @@ nav .btn {
  |-------------------------------------------------------------
 */
 .profile-root {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
-  background-color: #151515;
-  color: #E8E3E3;
-  border-radius: 0.4rem;
-  border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
   margin: 3rem auto 1rem auto;
   min-height: 7rem;
   position: relative;
   text-align: center;
-}
-.profile-root > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-.profile-root h1,
-.profile-root h2,
-.profile-root h3,
-.profile-root h4,
-.profile-root h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.profile-root p,
-.profile-root a,
-.profile-root button,
-.profile-root input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
 }
 .profile-root img {
   width: 9rem;
@@ -767,35 +595,6 @@ nav .btn {
  | UPLOAD
  |-------------------------------------------------------------
 */
-.upload-root {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
-  background-color: #151515;
-  color: #E8E3E3;
-  border-radius: 0.4rem;
-  border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
-}
-.upload-root > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-.upload-root h1,
-.upload-root h2,
-.upload-root h3,
-.upload-root h4,
-.upload-root h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.upload-root p,
-.upload-root a,
-.upload-root button,
-.upload-root input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
-}
 .upload-root > img {
   margin: 0 auto;
   max-width: 100%;
@@ -810,36 +609,6 @@ nav .btn {
  | ACCOUNT
  |-------------------------------------------------------------
 */
-.profile-settings {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
-  background-color: #151515;
-  color: #E8E3E3;
-  border-radius: 0.4rem;
-  border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
-}
-.profile-settings > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-.profile-settings h1,
-.profile-settings h2,
-.profile-settings h3,
-.profile-settings h4,
-.profile-settings h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.profile-settings p,
-.profile-settings a,
-.profile-settings button,
-.profile-settings input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-
 .pfp-upload {
   display: flex;
   flex-direction: row;
@@ -871,66 +640,6 @@ nav .btn {
     height: 10rem;
   }
 }
-.account-root {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
-  background-color: #151515;
-  color: #E8E3E3;
-  border-radius: 0.4rem;
-  border: 0.2rem solid #B66467;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
-}
-.account-root > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-.account-root h1,
-.account-root h2,
-.account-root h3,
-.account-root h4,
-.account-root h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.account-root p,
-.account-root a,
-.account-root button,
-.account-root input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-
-.admin-root {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
-  background-color: #151515;
-  color: #E8E3E3;
-  border-radius: 0.4rem;
-  border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
-}
-.admin-root > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-.admin-root h1,
-.admin-root h2,
-.admin-root h3,
-.admin-root h4,
-.admin-root h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.admin-root p,
-.admin-root a,
-.admin-root button,
-.admin-root input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-
 .tabs {
   display: flex;
   flex-direction: row;
@@ -1105,85 +814,17 @@ nav .btn {
   top: 0;
 }
 
-.signup-root {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
-  background-color: #151515;
-  color: #E8E3E3;
-  border-radius: 0.4rem;
-  border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
-  display: none;
-}
-.signup-root > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-.signup-root h1,
-.signup-root h2,
-.signup-root h3,
-.signup-root h4,
-.signup-root h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.signup-root p,
-.signup-root a,
-.signup-root button,
-.signup-root input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-
-.login-root {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
-  background-color: #151515;
-  color: #E8E3E3;
-  border-radius: 0.4rem;
-  border: 0.2rem solid #8C977D;
-  box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
-}
-.login-root > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-.login-root h1,
-.login-root h2,
-.login-root h3,
-.login-root h4,
-.login-root h5 {
-  font-family: "Lexend Deca", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-.login-root p,
-.login-root a,
-.login-root button,
-.login-root input {
-  font-family: "Secular One", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-
 /*
  |-------------------------------------------------------------
  | PASSWORD RESET
  |-------------------------------------------------------------
 */
 .password-reset-root {
-  margin-bottom: 1rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
   background-color: #151515;
   color: #E8E3E3;
   border-radius: 0.4rem;
   border: 0.2rem solid #B66467;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
-}
-.password-reset-root > * {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
 }
 .password-reset-root h1,
 .password-reset-root h2,

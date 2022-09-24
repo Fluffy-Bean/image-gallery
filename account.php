@@ -23,7 +23,7 @@
 		<?php
 		if ($user_info->is_loggedin()) {
 		?>
-			<div class="profile-settings">
+			<div class="defaultDecoration defaultSpacing defaultFonts">
 				<h2>Profile</h2>
 				<div class="pfp-upload">
 					<form id="pfpForm" method="POST" enctype="multipart/form-data">
@@ -79,7 +79,7 @@
 				<a href="profile.php?user=<?php echo $_SESSION['id']; ?>" class="btn btn-neutral">Go to profile</a>
 			</div>
 
-			<div class="account-root">
+			<div class="warningDecoration defaultSpacing defaultFonts">
 				<h2>Account</h2>
 				<a class='btn btn-bad' href='password-reset.php'><img class='svg' src='assets/icons/password.svg'>Reset Password</a>
 				<button class="btn btn-bad" onclick="deleteAccount()"><img class='svg' src='assets/icons/trash.svg'>Delete account</button>
@@ -147,7 +147,7 @@
 			<?php
 				if ($user_info->is_admin($conn, $_SESSION['id'])) {
 				?>
-					<div class="admin-root">
+					<div class="defaultDecoration defaultSpacing defaultFonts">
 						<h2>Admin</h2>
 						<h3>Invite Codes</h3>
 						<?php
@@ -383,7 +383,7 @@
 				}
 		} else {
 		?>
-			<div class="login-root">
+			<div class="login-root defaultDecoration defaultSpacing defaultFonts">
 				<h2>Login</h2>
 				<p>Passwords are important to keep safe. Don't tell anyone your password, not even Fluffy!</p>
 				<br>
@@ -409,7 +409,7 @@
 				});
 			</script>
 
-			<div class="signup-root">
+			<div class="signup-root defaultDecoration defaultSpacing defaultFonts" style="display: none;">
 				<h2>Make account</h2>
 				<p>And amazing things happened here...</p>
 				<br>

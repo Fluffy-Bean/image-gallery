@@ -1,26 +1,40 @@
 /*
  |-------------------------------------------------------------
+ | DEFAULTS
+ |-------------------------------------------------------------
+*/
+.defaultSpacing {
+    @include defaultSpacing();
+}
+
+.defaultDecoration {
+    @include defaultDecoration($page-accent);
+}
+.warningDecoration {
+    @include defaultDecoration($red);
+}
+
+.defaultFonts {
+    @include defaultFont();
+}
+
+/*
+ |-------------------------------------------------------------
  | INDEX
  |-------------------------------------------------------------
 */
 .info-text {
-    @include defaultFont();
-
     margin: 1rem 0 1rem 0.5rem;
     padding: 0;
 
     text-align: center;
 
     h1 {
-        font-family: $font-header;
-
         margin-top: 0;
         margin-bottom: 1rem;
     }
 
     p {
-        font-family: $font-body;
-
         margin-top: 0;
         margin-bottom: 1rem;
     }
@@ -46,17 +60,7 @@
     margin-bottom: 1rem;
     padding: 0.25rem;
 
-    background-color: $bg;
-    color: $fg;
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    border: 0.2rem solid $page-accent;
-
-    border-radius: $rad;
-    box-shadow: $shadow;
+    @include flexLeft(none);
 }
 
 .gallery-item {
@@ -130,6 +134,9 @@
 }
 
 .nsfw-warning {
+    @include flexDown(center);
+    align-items: center;
+
     width: 100%;
     height: 100%;
 
@@ -140,11 +147,6 @@
 
     position: absolute;
     z-index: 5;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 
     text-decoration: none;
     font-family: $font-body;
@@ -322,18 +324,9 @@
     }
 }
 
-// DESCRIPTION
-.image-description {
-    @include defaultDecoration($page-accent);
-    @include defaultFont();
-}
-
 
 // DETAILS
 .image-detail {
-    @include defaultDecoration($page-accent);
-    @include defaultFont();
-
     &>div {
         width: 100%;
         display: flex;
@@ -364,12 +357,6 @@
     }
 }
 
-// TAGS
-.tags-root {
-    @include defaultDecoration($page-accent);
-    @include defaultFont();
-}
-
 .tags {
     @include flexLeft(auto);
     margin-bottom: 0;
@@ -392,29 +379,15 @@
     }
 }
 
-// DANGER ZONE
-.danger-zone {
-    @include defaultDecoration($red);
-    @include defaultFont();
-}
-
 /*
  |-------------------------------------------------------------
  | Groups
  |-------------------------------------------------------------
 */
-.group-root {
-    @include defaultDecoration($page-accent);
-    @include defaultFont();
-
-    transition: outline 0.1s cubic-bezier(.19, 1, .22, 1) transform 0.15s cubic-bezier(.19, 1, .22, 1);
-}
 .selectedImage {
     outline: $page-accent solid 0.3rem;
 }
 .group-name {
-    @include defaultFont();
-
     margin: 0;
 
     position: absolute;
@@ -428,6 +401,8 @@
 
     opacity: 0;
     font-size: 17px;
+    font-family: $font-body;
+    text-decoration: none;
 }
 
 .gallery-group {
@@ -443,16 +418,18 @@
     z-index: 5;
 }
 
-.group-item:hover {
-    & .gallery-group {
-        backdrop-filter: brightness(0.5);
+.group-item {
+    &:hover {
+        & .gallery-group {
+            backdrop-filter: brightness(0.5);
+        }
+        & .nsfw-warning > * {
+            display: none;
+        }
+        & .group-name {
+            opacity: 1;
+        }
     }
-    & .nsfw-warning > * {
-        display: none;
-    }
-}
-.group-item:hover .group-name {
-    opacity: 1;
 }
 /*
  |-------------------------------------------------------------
@@ -460,9 +437,6 @@
  |-------------------------------------------------------------
 */
 .profile-root {
-    @include defaultDecoration($page-accent);
-    @include defaultFont();
-
     margin: 3rem auto 1rem auto;
     
     min-height: 7rem;
@@ -536,9 +510,6 @@
  |-------------------------------------------------------------
 */
 .upload-root {
-    @include defaultDecoration($page-accent);
-    @include defaultFont();
-
     & > img {
         margin: 0 auto;
 
@@ -557,10 +528,6 @@
  | ACCOUNT
  |-------------------------------------------------------------
 */
-.profile-settings {
-    @include defaultDecoration($page-accent);
-    @include defaultFont();
-}
 .pfp-upload {
     display: flex;
     flex-direction: row;
@@ -597,15 +564,6 @@
             height: 10rem;
         }
     }
-}
-
-.account-root {
-    @include defaultDecoration($red);
-    @include defaultFont();
-}
-.admin-root {
-    @include defaultDecoration($page-accent);
-    @include defaultFont();
 }
 
 .tabs {
@@ -792,17 +750,6 @@
     background-color: $bg;
     position: sticky;
     top: 0;
-}
-
-.signup-root {
-    @include defaultDecoration($page-accent);
-    @include defaultFont();
-    // By default its hidden, in place is login
-    display: none;
-}
-.login-root {
-    @include defaultDecoration($page-accent);
-    @include defaultFont();
 }
 
 /*

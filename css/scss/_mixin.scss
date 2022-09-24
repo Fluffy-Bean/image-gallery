@@ -1,9 +1,4 @@
 @mixin defaultDecoration($border) {
-    margin-bottom: 1rem;
-    padding: 0.5rem 0.5rem 0 0.5rem;
-
-    width: calc(100% - 1.4rem);
-
     background-color: $bg;
     color: $fg;
 
@@ -11,8 +6,13 @@
     border: 0.2rem solid $border;
 
     box-shadow: $shadow;
+}
 
+@mixin defaultSpacing() {
+    margin-bottom: 1rem;
+    padding: 0.5rem 0.5rem 0 0.5rem;
 
+    width: calc(100% - 1.4rem);
 
     >* {
         margin-top: 0;

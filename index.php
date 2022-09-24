@@ -26,7 +26,7 @@
 		}
 	?>
 
-<div class="info-text">
+<div class="info-text defaultFonts">
 	<?php
 		// Set time for message
 		$time = date("H");
@@ -54,7 +54,7 @@
 	?>
 </div>
 
-<div class="gallery-root">
+<div class="gallery-root defaultDecoration">
 	<?php
 		// Reading images from table
 		$group_list = mysqli_query($conn, "SELECT * FROM groups ORDER BY id DESC");
@@ -75,20 +75,20 @@
 				echo "<div class='gallery-item group-item'>
 					<a href='group.php?id=".$group['id']."' class='nsfw-warning gallery-group'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>
 					<a href='group.php?id=".$group['id']."'><img class='gallery-image nsfw-blur' loading='lazy' src='".$image_path."' id='".$group['id']."'></a>
-					<p class='group-name'>".$group['group_name']."</p>
+					<a href='group.php?id=".$group['id']."' class='group-name'>".$group['group_name']."</a>
 					</div>";
 			} else {
 				echo "<div class='gallery-item group-item'>
 					<a href='group.php?id=".$group['id']."' class='gallery-group'></a>
 					<a href='group.php?id=".$group['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$group['id']."'></a>
-					<p class='group-name'>".$group['group_name']."</p>
+					<a href='group.php?id=".$group['id']."' class='group-name'>".$group['group_name']."</a>
 					</div>";
 			}
 		}
 	?>
 </div>
 
-<div class="gallery-root">
+<div class="gallery-root defaultDecoration">
 	<?php
 		// Reading images from table
 		$image_request = mysqli_query($conn, "SELECT * FROM images ORDER BY id DESC");

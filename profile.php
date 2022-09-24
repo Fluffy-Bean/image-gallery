@@ -25,7 +25,7 @@
             $join_date = new DateTime($user['created_at']);
 	?>
 
-        <div class="profile-root">
+        <div class="profile-root defaultDecoration defaultSpacing defaultFonts">
             <?php
                 if (!empty($user)) {
                     if (is_file("images/pfp/".$user['pfp_path'])) {
@@ -49,7 +49,7 @@
             ?>
         </div>
 
-        <div id="gallery" class="gallery-root">
+        <div id="gallery" class="gallery-root defaultDecoration">
             <?php
 
                 // Reading images from table

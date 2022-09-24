@@ -22,7 +22,7 @@
 		}
 	?>
 
-	<div class="password-reset-root">
+	<div class="warningDecoration defaultSpacing defaultFonts">
 		<h2>Reset Password</h2>
 		<p>After reset, you will be kicked out to login again</p>
 		<br>
@@ -32,6 +32,8 @@
 			<br>
 			<button id="passwordSubmit" class="btn btn-bad" type="submit" name="reset"><img class="svg" src="assets/icons/sign-in.svg">Reset</button>
 		</form>
+		<br>
+		<a href="account.php" class="btn btn-neutral" ><img class="svg" src="assets/icons/sign-in.svg">Cancel</a>
 	</div>
 
 	<script>

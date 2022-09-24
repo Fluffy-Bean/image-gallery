@@ -18,7 +18,7 @@
 <body>
 	<?php require_once __DIR__."/assets/ui/nav.php"; ?>
 
-    <div class="group-root">
+    <div class="defaultDecoration defaultSpacing defaultFonts">
         <?php
             if (!isset($_GET['id']) || empty($_GET['id'])) {
                 header("Location: index.php");
@@ -123,7 +123,7 @@
         ?>
     </div>
 
-    <div class="gallery-root">
+    <div class="gallery-root defaultDecoration">
         <?php
             if (isset($_GET['mode']) && $_GET['mode'] == "edit") {                
                 $image_request = mysqli_query($conn, "SELECT * FROM images ORDER BY id DESC");
