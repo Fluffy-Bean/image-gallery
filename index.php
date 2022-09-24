@@ -1,10 +1,4 @@
-<?php
-	require_once __DIR__."/app/required.php";
-	
-	use App\Image;
-
-	$image_info = new Image;
-	?>
+<?php require_once __DIR__."/app/required.php"; ?>
 
 <!DOCTYPE html>
 <html>
@@ -51,40 +45,6 @@
 		// Random welcome message
 		$welcome_message = $user_settings['welcome_msg'];
 		echo "<p>".$welcome_message[array_rand($welcome_message, 1)]."</p>";
-	?>
-</div>
-
-<div class="gallery-root defaultDecoration">
-	<?php
-		// Reading images from table
-		$group_list = mysqli_query($conn, "SELECT * FROM groups ORDER BY id DESC");
-
-		foreach ($group_list as $group) {
-			$image_list = array_reverse(explode(" ", $group['image_list']));
-			$image = $image_info->get_image_info($conn, $image_list[array_rand($image_list, 1)]);
-
-			// Getting thumbnail
-			if (file_exists("images/thumbnails/".$image['imagename'])) {
-				$image_path = "images/thumbnails/".$image['imagename'];
-			} else {
-				$image_path = "images/".$image['imagename'];
-			}
-
-			// Check for NSFW tag
-			if (str_contains($image['tags'], "nsfw")) {
-				echo "<div class='gallery-item group-item'>
-					<a href='group.php?id=".$group['id']."' class='nsfw-warning gallery-group'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>
-					<a href='group.php?id=".$group['id']."'><img class='gallery-image nsfw-blur' loading='lazy' src='".$image_path."' id='".$group['id']."'></a>
-					<a href='group.php?id=".$group['id']."' class='group-name'>".$group['group_name']."</a>
-					</div>";
-			} else {
-				echo "<div class='gallery-item group-item'>
-					<a href='group.php?id=".$group['id']."' class='gallery-group'></a>
-					<a href='group.php?id=".$group['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$group['id']."'></a>
-					<a href='group.php?id=".$group['id']."' class='group-name'>".$group['group_name']."</a>
-					</div>";
-			}
-		}
 	?>
 </div>
 

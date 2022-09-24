@@ -12,19 +12,19 @@ $loggedin = new Account();
 	<div class="nav-links">
 		<a class='btn' href='index.php'><img class='svg' src='assets/icons/house.svg'><span class='nav-hide'>Home</span></a>
 		<hr>
+		<a class='btn' href='group.php'><img class='svg' src='assets/icons/package.svg'><span class='nav-hide'>Groups</span></a>
+		<hr>
 		<?php
 		if ($loggedin->is_loggedin()) {
-		?>
-			<a class='btn' href='upload.php'><img class='svg' src='assets/icons/upload.svg'><span class='nav-hide'>Upload</span></a>
-			<hr>
-			<a class='btn' href='group.php'><img class='svg' src='assets/icons/package.svg'><span class='nav-hide'>Groups</span></a>
-			<hr>
-			<a class='btn' href='account.php'><img class='svg' src='assets/icons/gear.svg'><span class='nav-hide'><?php echo substr($_SESSION["username"], 0, 15); ?></span></a>
-		<?php
+			?>
+				<a class='btn' href='upload.php'><img class='svg' src='assets/icons/upload.svg'><span class='nav-hide'>Upload</span></a>
+				<hr>
+				<a class='btn' href='account.php'><img class='svg' src='assets/icons/gear.svg'><span class='nav-hide'><?php echo substr($_SESSION["username"], 0, 15); ?></span></a>
+			<?php
 		} else {
-		?>
-			<a class='btn' href='account.php'><img class='svg' src='assets/icons/sign-in.svg'><span class='nav-hide'>Login</span></a>
-		<?php
+			?>
+				<a class='btn' href='account.php'><img class='svg' src='assets/icons/sign-in.svg'><span class='nav-hide'>Login</span></a>
+			<?php
 		}
 		?>
 	</div>

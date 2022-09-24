@@ -141,3 +141,26 @@ if (isset($_POST['title_submit'])) {
         }
     }
 }
+
+if (isset($_POST['new_group_submit'])) {
+    if ($user_info->is_loggedin()) {        
+        $group_name = $_SESSION['username']." new image group";
+        $sql = "INSERT INTO groups (group_name, author, image_list) VALUES('$group_name', '".$_SESSION['id']."', '')";
+        
+        mysqli_query($conn, $sql);
+
+        $group_id = mysqli_insert_id($conn);
+
+        ?>
+            <script>
+                window.location.href = "group.php?id=<?php echo $group_id; ?>";
+            </script>
+        <?php
+    } else {
+        ?>
+            <script>
+                sniffleAdd('Denied', 'You must have an account to preform this action!', 'var(--red)', 'assets/icons/cross.svg');
+            </script>
+        <?php
+    }
+}

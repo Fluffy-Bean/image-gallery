@@ -1,6 +1,8 @@
 <?php
 namespace App;
 
+use Exception;
+
 class Make {
     /*
     |-------------------------------------------------------------
@@ -205,16 +207,20 @@ class Group {
             $group_array = mysqli_fetch_assoc($query);
         }
 
-        $image_list = explode(" ", $group_array['image_list']);
-
-        foreach ($image_list as $image) {
-            $image_request = mysqli_query($conn, "SELECT author FROM images WHERE id = ".$image);
-
-            while ($author = mysqli_fetch_column($image_request)) {
-                if (!in_array($author, $user_array)) {
-                    array_push($user_array, $author); 
+        try {
+            $image_list = explode(" ", $group_array['image_list']);
+            $user_array = array();
+            foreach ($image_list as $image) {
+                $image_request = mysqli_query($conn, "SELECT author FROM images WHERE id = ".$image);
+    
+                while ($author = mysqli_fetch_column($image_request)) {
+                    if (!in_array($author, $user_array)) {
+                        $user_array[] = $author;
+                    }
                 }
             }
+        } catch (Exception) {
+
         }
 
         return($user_array);

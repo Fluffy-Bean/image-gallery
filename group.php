@@ -10,6 +10,12 @@
     $image_info = new Image;
     $group_info = new Group;
     $diff = new Diff();
+
+    if (isset($_GET['id'])) {
+        $group = $group_info->get_group_info($conn, $_GET['id']);
+
+        if (!isset($group) || empty($group)) header("Location: group.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -22,8 +28,6 @@
 
     <?php
         if (isset($_GET['id'])) {
-            $group = $group_info->get_group_info($conn, $_GET['id']);
-            if (!isset($group) || empty($group)) header("Location: group.php");
             $image_list = array_reverse(explode(" ", $group['image_list']));
 
             echo "<div class='defaultDecoration defaultSpacing defaultFonts'>";
@@ -34,12 +38,14 @@
             echo "<p>By: ".$author_info['username']."</p>";
 
             $group_members = $group_info->get_group_members($conn, $_GET['id']);
-            $members_array = array();
-            foreach ($group_members as $member) {
-                $member_info = $user_info->get_user_info($conn, $member);
-                array_push($members_array, $member_info['username']);
+            if (!empty($group_members)) {
+                $members_array = array();
+                foreach ($group_members as $member) {
+                    $member_info = $user_info->get_user_info($conn, $member);
+                    if (!empty($member_info['username'])) $members_array[] = $member_info['username'];
+                }
+                echo "<p>Members: ".implode(", ", $members_array)."</p>";
             }
-            echo "<p>Members: ".implode(", ", $members_array)."</p>";
 
             $upload_time = new DateTime($group['created_on']);
             echo "<p id='updateTime'>Created at: ".$upload_time->format('d/m/Y H:i:s T')."</p;>";
@@ -167,11 +173,15 @@
                                 var groupSubmit = $("#groupSubmit").val();
                                 var images = getList();
 
-                                $("#sniffle").load("app/image/group.php", {
-                                    group_images: images,
-                                    group_id: <?php echo $_GET['id']; ?>,
-                                    group_submit: groupSubmit
-                                });
+                                if (images <= 0) {
+                                    sniffleAdd('Oppsie', 'Groups need at least 1 image in them. Alternativly, you can delete this group.', 'var(--red)', 'assets/icons/cross.svg');
+                                } else {
+                                    $("#sniffle").load("app/image/group.php", {
+                                        group_images: images,
+                                        group_id: <?php echo $_GET['id']; ?>,
+                                        group_submit: groupSubmit
+                                    });
+                                }
                             });
                         </script>
                     <?php
@@ -207,6 +217,24 @@
                     }
                 }
             } elseif (!isset($_GET['id']) && empty($_GET['id'])) {
+                if ($user_info->is_loggedin()) {
+                    echo "<div class='group-make'>
+                        <button id='createGroup'><img class='svg' src='assets/icons/plus.svg'><span>Make new group</span></button>
+                        </div>";
+
+                    ?>
+                        <script>
+                            $('#createGroup').click(function() {
+                                sniffleAdd('*Thinking*', 'Creating your group now!', 'var(--green)', 'assets/icons/package.svg');
+                                
+                                $("#sniffle").load("app/image/group.php", {
+                                    new_group_submit: "uwu"
+                                });
+                            });
+                        </script>
+                    <?php
+                }
+
                 $group_list = mysqli_query($conn, "SELECT * FROM groups ORDER BY id DESC");
 
                 foreach ($group_list as $group) {
@@ -214,11 +242,16 @@
                     $image = $image_info->get_image_info($conn, $image_list[array_rand($image_list, 1)]);
 
                     // Getting thumbnail
-                    if (file_exists("images/thumbnails/".$image['imagename'])) {
-                        $image_path = "images/thumbnails/".$image['imagename'];
+                    if (!empty($image['imagename'])) {
+                        if (file_exists("images/thumbnails/".$image['imagename'])) {
+                            $image_path = "images/thumbnails/".$image['imagename'];
+                        } else {
+                            $image_path = "images/".$image['imagename'];
+                        } 
                     } else {
-                        $image_path = "images/".$image['imagename'];
+                        $image_path = "assets/no_image.png";
                     }
+                    
 
                     // Check for NSFW tag
                     if (str_contains($image['tags'], "nsfw")) {

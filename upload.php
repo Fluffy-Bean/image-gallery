@@ -24,7 +24,7 @@
 		}
 	?>
 
-	<div class="defaultDecoration defaultSpacing defaultFonts">
+	<div class="upload-root defaultDecoration defaultSpacing defaultFonts">
 		<h2>Upload image</h2>
 		<p>In this world you have 2 choices, to upload a really cute picture of an animal or fursuit, or something other than those 2 things.</p>
 		<img id="imagePreview" src="">
