@@ -30,15 +30,24 @@ class Make {
         Returns clean string of words with equal white space between it
     */
     function tags($string) {
-        // Replace hyphens
         $string = str_replace('-', '_', $string);
-        // Regex
         $string = preg_replace('/[^A-Za-z0-9\_ ]/', '', $string);
-        // Change to lowercase
+
         $string = strtolower($string);
-        // Removing extra spaces
+
         $string = preg_replace('/ +/', ' ', $string);
-    
+
+        $string = explode(" ", $string);
+        $string_list = array();
+
+        foreach ($string as $i) {
+            if (!in_array($i, $string_list)) {
+                $string_list[] = $i;
+            }
+        }
+
+        $string = implode(" ", $string_list);
+
         return $string;
     }
 }
