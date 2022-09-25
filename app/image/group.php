@@ -116,6 +116,13 @@ if (isset($_POST['title_submit'])) {
     }
 }
 
+/*
+ |-------------------------------------------------------------
+ | New Group
+ |-------------------------------------------------------------
+ | 
+ |-------------------------------------------------------------
+*/
 if (isset($_POST['new_group_submit'])) {
     if ($user_info->is_loggedin()) {        
         $group_name = $_SESSION['username']."\'s Group";
@@ -140,6 +147,13 @@ if (isset($_POST['new_group_submit'])) {
     }
 }
 
+/*
+ |-------------------------------------------------------------
+ | Delete Group
+ |-------------------------------------------------------------
+ | 
+ |-------------------------------------------------------------
+*/
 if (isset($_POST['group_delete'])) {
     $query = $group_info->get_group_info($conn, $_POST['group_id']);
     
@@ -153,16 +167,15 @@ if (isset($_POST['group_delete'])) {
             if ($stmt->execute()) {
                 ?>
                     <script>
-                        sniffleAdd('Goodbye!', 'Successfully deleted image group! You shall be yeeted in a moment', 'var(--green)', 'assets/icons/check.svg');
                         flyoutClose();
-
-                        setTimeout(function(){window.location.href = "group.php";}, 2000);
+                        setTimeout(function(){window.location.href = "group.php";}, 500);
                     </script>
                 <?php
+                $_SESSION['msg'] = "Group successfully yeeted out";
             } else {
                 ?>
                     <script>
-                        sniffleAdd('Ouchie', 'Something went wrong while deleting the image group', 'var(--red)', 'assets/icons/cross.svg');
+                        sniffleAdd('Ouchie', 'Something went wrong while deleting the group', 'var(--red)', 'assets/icons/cross.svg');
                         flyoutClose();
                     </script>
                 <?php

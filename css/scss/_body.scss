@@ -72,7 +72,7 @@
     min-width: calc(20% - 0.5rem);
 
     background-color: $bg;
-    border-radius: calc($rad - 0.7rem);
+    border-radius: calc($rad - 0.5rem);
 
     position: relative;
 
@@ -370,7 +370,7 @@
 
     background-color: $page-accent;
 
-    border-radius: calc($rad - 0.7rem);
+    border-radius: calc($rad - 0.5rem);
 
     font-family: $font-body;
 
@@ -396,14 +396,39 @@
 
     z-index: +1;
 
+    h2 {
+        span {
+            margin-left: 0.25rem;
+
+            font-size: 16px;
+        }
+        a {
+            margin-left: 0.25rem;
+
+            font-size: 16px;
+
+            color: $page-accent;
+
+            text-decoration: none;
+        }
+    }
+
     & > * {
         margin: 0 0 0.5rem 0;
+    }
+
+    a {
+        text-decoration: none;
+
+        &:hover {
+            color: $page-accent;
+        }
     }
 }
 
 .group-cover {
     height: 100%;
-    max-width: 40%;
+    max-width: 50%;
     width: auto;
 
     position: absolute;
@@ -423,7 +448,7 @@
 
         position: absolute;
 
-        background: linear-gradient(to right, $bg, $bg-alt);
+        background: linear-gradient(to right, $bg, rgba($bg, 0.8), rgba($bg, 0.2));
 
         z-index: +1;
 
@@ -655,7 +680,7 @@
     max-width: 100%;
     max-height: 15rem;
 
-    border-radius: calc($rad - 0.7rem);
+    border-radius: calc($rad - 0.5rem);
 
     display: flex;
     flex-direction: column;
@@ -678,7 +703,7 @@
 
         object-fit: cover;
 
-        border-radius: calc($rad - 0.7rem);
+        border-radius: calc($rad - 0.5rem);
 
         background-color: $black;
     }
@@ -730,7 +755,7 @@
     display: none; flex-direction: column;
 
     background-color: $bg;
-    border-radius: calc($rad - 0.7rem);
+    border-radius: calc($rad - 0.5rem);
 }
 .log {
     min-width: 850px;
@@ -782,7 +807,7 @@
     display: none; flex-direction: column;
 
     background-color: $bg;
-    border-radius: calc($rad - 0.7rem);
+    border-radius: calc($rad - 0.5rem);
 }
 .ban {
     min-width: 900px;
@@ -840,7 +865,7 @@
     display: none; flex-direction: column;
 
     background-color: $bg;
-    border-radius: calc($rad - 0.7rem);
+    border-radius: calc($rad - 0.5rem);
 }
 .user {
     min-width: 950px;

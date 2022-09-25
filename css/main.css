@@ -243,7 +243,7 @@ nav .btn {
   max-width: calc(20% - 0.5rem);
   min-width: calc(20% - 0.5rem);
   background-color: #151515;
-  border-radius: -0.3rem;
+  border-radius: -0.1rem;
   position: relative;
   overflow: hidden;
   flex: 1 0 150px;
@@ -475,7 +475,7 @@ nav .btn {
   padding: 0.5rem;
   display: block;
   background-color: #8C977D;
-  border-radius: -0.3rem;
+  border-radius: -0.1rem;
   font-family: "Secular One", sans-serif;
 }
 .tag::before {
@@ -497,13 +497,29 @@ nav .btn {
   position: relative;
   z-index: 1;
 }
+.group-description h2 span {
+  margin-left: 0.25rem;
+  font-size: 16px;
+}
+.group-description h2 a {
+  margin-left: 0.25rem;
+  font-size: 16px;
+  color: #8C977D;
+  text-decoration: none;
+}
 .group-description > * {
   margin: 0 0 0.5rem 0;
+}
+.group-description a {
+  text-decoration: none;
+}
+.group-description a:hover {
+  color: #8C977D;
 }
 
 .group-cover {
   height: 100%;
-  max-width: 40%;
+  max-width: 50%;
   width: auto;
   position: absolute;
   display: inline-block;
@@ -516,7 +532,7 @@ nav .btn {
   width: 100%;
   height: 100%;
   position: absolute;
-  background: linear-gradient(to right, #151515, rgba(21, 21, 21, 0.7333333333));
+  background: linear-gradient(to right, #151515, rgba(21, 21, 21, 0.8), rgba(21, 21, 21, 0.2));
   z-index: 1;
   border-radius: 0.2rem;
 }
@@ -707,7 +723,7 @@ nav .btn {
   margin: 0 auto;
   max-width: 100%;
   max-height: 15rem;
-  border-radius: -0.3rem;
+  border-radius: -0.1rem;
   display: flex;
   flex-direction: column;
 }
@@ -727,7 +743,7 @@ nav .btn {
   height: 7.813rem;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: -0.3rem;
+  border-radius: -0.1rem;
   background-color: #121212;
 }
 .pfp-upload form > * {
@@ -772,7 +788,7 @@ nav .btn {
   display: none;
   flex-direction: column;
   background-color: #151515;
-  border-radius: -0.3rem;
+  border-radius: -0.1rem;
 }
 
 .log {
@@ -819,7 +835,7 @@ nav .btn {
   display: none;
   flex-direction: column;
   background-color: #151515;
-  border-radius: -0.3rem;
+  border-radius: -0.1rem;
 }
 
 .ban {
@@ -873,7 +889,7 @@ nav .btn {
   display: none;
   flex-direction: column;
   background-color: #151515;
-  border-radius: -0.3rem;
+  border-radius: -0.1rem;
 }
 
 .user {
@@ -1002,7 +1018,7 @@ body * {
   font-family: "Secular One", sans-serif;
   text-decoration: none;
   border: none;
-  border-radius: -0.3rem;
+  border-radius: -0.1rem;
   transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .btn:hover {
@@ -1018,7 +1034,7 @@ body * {
   text-decoration: none;
   background-color: #E8E3E3;
   border: none;
-  border-radius: -0.3rem;
+  border-radius: -0.1rem;
 }
 .btn:where(input[type=file])::file-selector-button {
   margin: -0.25rem 0.5rem -0.25rem -0.25rem;
@@ -1028,7 +1044,7 @@ body * {
   text-decoration: none;
   background-color: #E8E3E3;
   border: none;
-  border-radius: -0.3rem;
+  border-radius: -0.1rem;
 }
 
 a.btn {

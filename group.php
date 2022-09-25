@@ -27,37 +27,37 @@
         <?php require_once __DIR__."/assets/ui/header.php"; ?>
     </head>
 <body>
-	<?php require_once __DIR__."/assets/ui/nav.php"; ?>
+	<?php
+        require_once __DIR__."/assets/ui/nav.php";
+
+        if (isset($_SESSION['msg'])) {
+            ?>
+                <script>
+                    sniffleAdd("Info", "<?php echo $_SESSION['msg']; ?>", "var(--green)", "assets/icons/check.svg");
+                </script>
+            <?php
+            unset($_SESSION['msg']);
+        }    
+    ?>
 
     <?php
         if (isset($_GET['id'])) {
-            if (isset($_SESSION['msg'])) {
-                ?>
-                    <script>
-                        sniffleAdd("Info", "<?php echo $_SESSION['msg']; ?>", "var(--green)", "assets/icons/check.svg");
-                    </script>
-                <?php
-                unset($_SESSION['msg']);
-            }
-
             $image_list = array_reverse(explode(" ", $group['image_list']));
 
             echo "<div class='group-banner defaultDecoration defaultSpacing defaultFonts'>
             <div class='group-description'>";
 
-            echo "<h2>".$group['group_name']."</h2>";
-
             $author_info = $user_info->get_user_info($conn, $group['author']);
-            echo "<p>By: ".$author_info['username']."</p>";
+            echo "<h2>".$group['group_name']."<span>by</span><a href='profile.php?user=".$author_info['id']."'>".$author_info['username']."</a></h2>";
 
             $group_members = $group_info->get_group_members($conn, $_GET['id']);
             if (!empty($group_members)) {
                 $members_array = array();
                 foreach ($group_members as $member) {
                     $member_info = $user_info->get_user_info($conn, $member);
-                    if (!empty($member_info['username'])) $members_array[] = "<a class='link' href='profile.php?user=".$member_info['id']."'>".$member_info['username']."</a>";
+                    if (!empty($member_info['username'])) $members_array[] = "<a href='profile.php?user=".$member_info['id']."'>".$member_info['username']."</a>";
                 }
-                echo "<p>Members: ".implode(", ", $members_array)."</p>";
+                echo "<p>Featured: ".implode(", ", $members_array)."</p>";
             }
 
             if (!empty($group['image_list'])) echo "<p>Images: ".count(explode(" ", $group['image_list']))."</p>";
