@@ -11,12 +11,13 @@
 	<?php
 		require_once __DIR__."/assets/ui/nav.php"; 
 
-		if ($_GET['del']) {
+		if (isset($_SESSION['del'])) {
 			?>
 				<script>
-					sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_GET['id']; ?>", "var(--green)", "assets/icons/trash.svg");
+					sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_SESSION['del']; ?>", "var(--green)", "assets/icons/trash.svg");
 				</script>
 			<?php
+			unset($_SESSION['del']);
 		}
 	?>
 

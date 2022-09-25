@@ -31,10 +31,7 @@ if (isset($_POST['submit_delete'])) {
     // Delete from table
     $sql = "DELETE FROM images WHERE id = ?";
     if ($stmt = mysqli_prepare($conn, $sql)) {
-      mysqli_stmt_bind_param($stmt, "i", $param_id);
-
-      // Setting parameters
-      $param_id = $_POST['id'];
+      mysqli_stmt_bind_param($stmt, "i", $_POST['id']);
 
       // Attempt to execute the prepared statement
       if (mysqli_stmt_execute($stmt)) {
@@ -52,9 +49,10 @@ if (isset($_POST['submit_delete'])) {
         }
         // TP user to the homepage with a success message
         mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Deleted image ".$_POST['id']."')");
+        $_SESSION['del'] = $_POST['id'];
         ?>
         <script>
-          window.location.replace("index.php?del=true&id=<?php echo $_POST['id']; ?>");
+          window.location.replace("index.php");
         </script>
         <?php
       } else {

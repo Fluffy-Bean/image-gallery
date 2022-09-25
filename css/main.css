@@ -243,7 +243,7 @@ nav .btn {
   max-width: calc(20% - 0.5rem);
   min-width: calc(20% - 0.5rem);
   background-color: #151515;
-  border-radius: -0.1rem;
+  border-radius: -0.3rem;
   position: relative;
   overflow: hidden;
   flex: 1 0 150px;
@@ -487,6 +487,48 @@ nav .btn {
  | Groups
  |-------------------------------------------------------------
 */
+.group-banner {
+  position: relative;
+}
+
+.group-description {
+  height: auto;
+  width: auto;
+  position: relative;
+  z-index: 1;
+}
+.group-description > * {
+  margin: 0 0 0.5rem 0;
+}
+
+.group-cover {
+  height: 100%;
+  max-width: 40%;
+  width: auto;
+  position: absolute;
+  display: inline-block;
+  right: 0;
+  top: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+.group-cover span {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: linear-gradient(to right, #151515, rgba(21, 21, 21, 0.7333333333));
+  z-index: 1;
+  border-radius: 0.2rem;
+}
+.group-cover img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-left: auto;
+  border-radius: 0.2rem;
+}
+
 .selectedImage {
   outline: #8C977D solid 0.3rem;
 }
@@ -503,6 +545,7 @@ nav .btn {
   font-size: 17px;
   font-family: "Secular One", sans-serif;
   text-decoration: none;
+  text-align: center;
 }
 
 .gallery-group {
@@ -516,14 +559,14 @@ nav .btn {
   z-index: 5;
 }
 
-.group-item:hover .gallery-group {
+.group-item .gallery-group {
   -webkit-backdrop-filter: brightness(0.5);
           backdrop-filter: brightness(0.5);
 }
-.group-item:hover .nsfw-warning > * {
+.group-item .nsfw-warning > * {
   display: none;
 }
-.group-item:hover .group-name {
+.group-item .group-name {
   opacity: 1;
 }
 

@@ -72,7 +72,7 @@
     min-width: calc(20% - 0.5rem);
 
     background-color: $bg;
-    border-radius: calc($rad - 0.5rem);
+    border-radius: calc($rad - 0.7rem);
 
     position: relative;
 
@@ -384,6 +384,64 @@
  | Groups
  |-------------------------------------------------------------
 */
+.group-banner {
+    position: relative;
+}
+
+.group-description {
+    height: auto;
+    width: auto;
+
+    position: relative;
+
+    z-index: +1;
+
+    & > * {
+        margin: 0 0 0.5rem 0;
+    }
+}
+
+.group-cover {
+    height: 100%;
+    max-width: 40%;
+    width: auto;
+
+    position: absolute;
+
+    display: inline-block;
+
+    right: 0;
+    top: 0;
+
+    overflow: hidden;
+
+    z-index: 0;
+
+    span {
+        width: 100%;
+        height: 100%;
+
+        position: absolute;
+
+        background: linear-gradient(to right, $bg, $bg-alt);
+
+        z-index: +1;
+
+        border-radius: calc($rad - 0.2rem);
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        margin-left: auto;
+
+        border-radius: calc($rad - 0.2rem);
+    }
+}
+
 .selectedImage {
     outline: $page-accent solid 0.3rem;
 }
@@ -403,6 +461,7 @@
     font-size: 17px;
     font-family: $font-body;
     text-decoration: none;
+    text-align: center;
 }
 
 .gallery-group {
@@ -419,16 +478,14 @@
 }
 
 .group-item {
-    &:hover {
-        & .gallery-group {
-            backdrop-filter: brightness(0.5);
-        }
-        & .nsfw-warning > * {
-            display: none;
-        }
-        & .group-name {
-            opacity: 1;
-        }
+    & .gallery-group {
+        backdrop-filter: brightness(0.5);
+    }
+    & .nsfw-warning > * {
+        display: none;
+    }
+    & .group-name {
+        opacity: 1;
     }
 }
 

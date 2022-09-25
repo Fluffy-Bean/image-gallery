@@ -93,10 +93,7 @@
             $("#postCount").html("Posts: "+postCount);
 
             var updateDate = new Date('<?php echo $join_date->format('m/d/Y T'); ?>');
-            var format = {year: 'numeric',
-                            month: 'short',
-                            day: 'numeric'
-                            };
+            var format = {year: 'numeric', month: 'short', day: 'numeric'};
                             
             updateDate = updateDate.toLocaleDateString('en-GB', format);
 

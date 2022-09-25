@@ -30,7 +30,8 @@
         if (isset($_GET['id'])) {
             $image_list = array_reverse(explode(" ", $group['image_list']));
 
-            echo "<div class='defaultDecoration defaultSpacing defaultFonts'>";
+            echo "<div class='group-banner defaultDecoration defaultSpacing defaultFonts'>
+            <div class='group-description'>";
 
             echo "<h2>".$group['group_name']."</h2>";
 
@@ -42,10 +43,12 @@
                 $members_array = array();
                 foreach ($group_members as $member) {
                     $member_info = $user_info->get_user_info($conn, $member);
-                    if (!empty($member_info['username'])) $members_array[] = $member_info['username'];
+                    if (!empty($member_info['username'])) $members_array[] = "<a class='link' href='profile.php?user=".$member_info['id']."'>".$member_info['username']."</a>";
                 }
                 echo "<p>Members: ".implode(", ", $members_array)."</p>";
             }
+
+            if (!empty($group['image_list'])) echo "<p>Images: ".count(explode(" ", $group['image_list']))."</p>";
 
             $upload_time = new DateTime($group['created_on']);
             echo "<p id='updateTime'>Created at: ".$upload_time->format('d/m/Y H:i:s T')."</p;>";
@@ -88,8 +91,8 @@
                     ?>
                         <script>
                             $('#editTitle').click(function() {
-                                var header = "Enter new Description/Alt";
-                                var description = "Newwww photo group name!";
+                                var header = "Newwww photo group name!";
+                                var description = "What will it be? uwu";
                                 var actionBox = "<form id='titleForm' action='app/image/edit_description.php' method='POST'>\
                                 <input id='titleText' class='btn btn-neutral' type='text' placeholder='New title'>\
                                 <button id='titleSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update title</button>\
@@ -120,7 +123,7 @@
                             echo "<input style='display: none;' type='checkbox' id='".$image['id']."' name='".$image['id']."'/>";
                         } 
                     }
-                    echo "<button id='groupSubmit' class='btn btn-good' type='submit'>Update Images</button>
+                    echo "<button id='groupSubmit' class='btn btn-good' type='submit'>Save changes</button>
                     </form>";
 
                     echo "<a href='group.php?id=".$_GET['id']."' class='btn btn-neutral'>Back</a>";
@@ -132,11 +135,27 @@
             }
 
             echo "</div>";
+
+            $image_list = explode(" ", $group['image_list']);
+            $cover_image = $image_info->get_image_info($conn, $image_list[array_rand($image_list, 1)]);
+            // Getting thumbnail
+            if (!empty($cover_image['imagename'])) {
+                echo "<div class='group-cover'>
+                <span></span>
+                <img src='images/".$cover_image['imagename']."'/>
+                </div>";
+            }
+
+            echo "</div>";
         }
     ?>
 
-    <div class="gallery-root defaultDecoration">
-        <?php
+    <?php 
+    if (empty($group['image_list']) && $_GET['mode'] != "edit" && !empty($_GET['id'])) {
+        echo "<div id='gallery' class='gallery-root defaultDecoration' style='display: none;'>";
+    } else {
+        echo "<div id='gallery' class='gallery-root defaultDecoration' >";
+    }
             if (isset($_GET['id']) && !empty($_GET['id'])) {
                 if (isset($_GET['mode']) && $_GET['mode'] == "edit") {                
                     $image_request = mysqli_query($conn, "SELECT * FROM images ORDER BY id DESC");
@@ -238,7 +257,7 @@
                     }
                 }
             } elseif (!isset($_GET['id']) && empty($_GET['id'])) {
-                if ($user_info->is_loggedin()) {
+                if ($_SESSION["loggedin"]) {
                     echo "<div class='group-make'>
                         <button id='createGroup'><img class='svg' src='assets/icons/plus.svg'><span>Make new group</span></button>
                         </div>";

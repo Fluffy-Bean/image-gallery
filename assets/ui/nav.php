@@ -15,7 +15,7 @@ $loggedin = new Account();
 		<a class='btn' href='group.php'><img class='svg' src='assets/icons/package.svg'><span class='nav-hide'>Groups</span></a>
 		<hr>
 		<?php
-		if ($loggedin->is_loggedin()) {
+		if ($_SESSION["loggedin"]) {
 			?>
 				<a class='btn' href='upload.php'><img class='svg' src='assets/icons/upload.svg'><span class='nav-hide'>Upload</span></a>
 				<hr>

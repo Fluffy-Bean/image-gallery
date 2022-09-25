@@ -120,7 +120,7 @@ if (isset($_POST['title_submit'])) {
 
 if (isset($_POST['new_group_submit'])) {
     if ($user_info->is_loggedin()) {        
-        $group_name = $_SESSION['username']." new image group";
+        $group_name = $_SESSION['username']."\'s Group";
         $sql = "INSERT INTO groups (group_name, author, image_list) VALUES('$group_name', '".$_SESSION['id']."', '')";
         
         mysqli_query($conn, $sql);
