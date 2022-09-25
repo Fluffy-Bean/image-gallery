@@ -344,7 +344,7 @@
 									var header = "With great power comes great responsibility...";
 									var description = "Do you trust this user? With admin permitions they can cause a whole lot of damage to this place, so make sure you're very very sure";
 									var actionBox = "<form id='toggleAdminConfirm' method='POST'>\
-									<button id='toggleAdminSubmit' class='btn btn-bad' type='submit' value='"+id+"'>Make "+username+" powerfull!</button>\
+									<button id='toggleAdminSubmit' class='btn btn-bad' type='submit' value='"+id+"'>Toggle "+username+"'s admin status</button>\
 									</form>";
 
 									flyoutShow(header, description, actionBox);

@@ -37,7 +37,7 @@ class Make {
 
         $string = preg_replace('/ +/', ' ', $string);
 
-        $string = explode(" ", $string);
+        $string = explode(' ', $string);
         $string_list = array();
 
         foreach ($string as $i) {
@@ -46,9 +46,9 @@ class Make {
             }
         }
 
-        $string = implode(" ", $string_list);
+        $string = implode(' ', $string_list);
 
-        return $string;
+        return trim($string);
     }
 }
 

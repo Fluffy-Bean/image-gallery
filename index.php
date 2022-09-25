@@ -19,6 +19,14 @@
 			<?php
 			unset($_SESSION['del']);
 		}
+		if (isset($_SESSION['welc'])) {
+			?>
+				<script>
+					sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in, enjoy your stay!', 'var(--green)', 'assets/icons/hand-waving.svg');
+				</script>
+			<?php
+			unset($_SESSION['welc']);
+		}
 	?>
 
 <div class="info-text defaultFonts">

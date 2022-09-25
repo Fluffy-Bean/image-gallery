@@ -14,7 +14,10 @@
     if (isset($_GET['id'])) {
         $group = $group_info->get_group_info($conn, $_GET['id']);
 
-        if (!isset($group) || empty($group)) header("Location: group.php");
+        if (!isset($group) || empty($group)) {
+            header("Location: group.php");
+            $_SESSION['err'] = "You followed a broken link";
+        }
     }
 ?>
 
@@ -28,6 +31,15 @@
 
     <?php
         if (isset($_GET['id'])) {
+            if (isset($_SESSION['msg'])) {
+                ?>
+                    <script>
+                        sniffleAdd("Info", "<?php echo $_SESSION['msg']; ?>", "var(--green)", "assets/icons/check.svg");
+                    </script>
+                <?php
+                unset($_SESSION['msg']);
+            }
+
             $image_list = array_reverse(explode(" ", $group['image_list']));
 
             echo "<div class='group-banner defaultDecoration defaultSpacing defaultFonts'>
@@ -51,7 +63,7 @@
             if (!empty($group['image_list'])) echo "<p>Images: ".count(explode(" ", $group['image_list']))."</p>";
 
             $upload_time = new DateTime($group['created_on']);
-            echo "<p id='updateTime'>Created at: ".$upload_time->format('d/m/Y H:i:s T')."</p;>";
+            echo "<p id='updateTime'>Created at: ".$upload_time->format('d/m/Y H:i:s T')."</p>";
             ?>
                 <script>
                     var updateDate = new Date('<?php echo $upload_time->format('m/d/Y H:i:s T'); ?>');
@@ -138,15 +150,26 @@
 
             $image_list = explode(" ", $group['image_list']);
             $cover_image = $image_info->get_image_info($conn, $image_list[array_rand($image_list, 1)]);
-            // Getting thumbnail
+
             if (!empty($cover_image['imagename'])) {
-                echo "<div class='group-cover'>
-                <span></span>
-                <img src='images/".$cover_image['imagename']."'/>
-                </div>";
+                ?>
+                    <div class='group-cover'>
+                    <span></span>
+                    <img <?php if(str_contains($cover_image['tags'], "nsfw")) echo "class='nsfw-blur'"; ?> src='images/<?php echo $cover_image['imagename']; ?>'/>
+                    </div>
+                <?php
             }
 
             echo "</div>";
+        } else {
+            if (isset($_SESSION['err'])) {
+                ?>
+                    <script>
+                        sniffleAdd("Error", "<?php echo $_SESSION['msg']; ?>", "var(--red)", "assets/icons/trash.svg");
+                    </script>
+                <?php
+                unset($_SESSION['err']);
+            }
         }
     ?>
 
@@ -264,9 +287,7 @@
 
                     ?>
                         <script>
-                            $('#createGroup').click(function() {
-                                sniffleAdd('*Thinking*', 'Creating your group now!', 'var(--green)', 'assets/icons/package.svg');
-                                
+                            $('#createGroup').click(function() {                                
                                 $("#sniffle").load("app/image/group.php", {
                                     new_group_submit: "uwu"
                                 });

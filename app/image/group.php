@@ -39,12 +39,10 @@ if (isset($_POST['group_submit'])) {
             if (mysqli_stmt_execute($stmt)) {
                 ?>
                     <script>
-                        sniffleAdd('Success!!!', 'Updates the image group! Redirecting.... soon', 'var(--green)', 'assets/icons/check.svg');
-                        setTimeout(function() {
-                            window.location.href = "group.php?id=<?php echo $_POST['group_id']; ?>";
-                        }, 2000);
+                        window.location.href = "group.php?id=<?php echo $_POST['group_id']; ?>";
                     </script>
                 <?php
+                $_SESSION['msg'] = "Updated the image group!";
             } else {
                 ?>
                     <script>
@@ -132,6 +130,7 @@ if (isset($_POST['new_group_submit'])) {
                 window.location.href = "group.php?id=<?php echo $group_id; ?>";
             </script>
         <?php
+        $_SESSION['msg'] = "New Group successfully made!";
     } else {
         ?>
             <script>

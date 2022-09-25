@@ -125,10 +125,10 @@ if (isset($_POST['submit_login'])) {
                             // let the user know
                             ?>
                                 <script>
-                                    sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in! You will be redirected in a few seconds', 'var(--green)', 'assets/icons/hand-waving.svg');
-                                    setTimeout(function(){window.location.href = "index.php";}, 2000);
+                                    window.location.href = "index.php";
                                 </script>
                             <?php
+                            $_SESSION['welc'] = true;
 
                             mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','New loggin to ".$_SESSION['username']."')");
 
