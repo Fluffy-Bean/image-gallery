@@ -148,9 +148,7 @@
 
             echo "</div>";
 
-            $image_list = explode(" ", $group['image_list']);
             $cover_image = $image_info->get_image_info($conn, $image_list[array_rand($image_list, 1)]);
-
             if (!empty($cover_image['imagename'])) {
                 ?>
                     <div class='group-cover'>

@@ -14,6 +14,9 @@ $page-accent: #8C977D;
 
 $shadow: 6px 6px 2px #15151566;
 $rad: 0.4rem;
+$border-thickness: 0.2rem;
+
+$border: $page-accent $border-thickness solid;
 
 $weight-bold: 621;
 $weight-normal: 400;

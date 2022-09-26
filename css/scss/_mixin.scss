@@ -1,9 +1,9 @@
-@mixin defaultDecoration($border) {
+@mixin defaultDecoration($border-colour) {
     background-color: $bg;
     color: $fg;
 
     border-radius: $rad;
-    border: 0.2rem solid $border;
+    border: $border-colour $border-thickness solid;
 
     box-shadow: $shadow;
 }

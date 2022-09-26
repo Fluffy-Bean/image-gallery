@@ -1,4 +1,19 @@
-<?php require_once __DIR__."/app/required.php"; ?>
+<?php
+    require_once __DIR__."/app/required.php"; 
+
+    use App\Account;
+    use App\Diff;
+
+    $user_info = new Account();
+    $diff = new Diff();
+
+    if (!isset($_GET['user']) || empty($_GET['user'])) {
+        header("Location: index.php");
+    } elseif (isset($_GET['user'])) {
+        $user = $user_info->get_user_info($conn, $_GET['user']);
+
+    $join_date = new DateTime($user['created_at']);
+?>
 
 <!DOCTYPE html>
 <html>
@@ -8,22 +23,7 @@
 </head>
 
 <body>
-	<?php
-		require_once __DIR__."/assets/ui/nav.php";
-
-        use App\Account;
-		use App\Diff;
-
-		$user_info = new Account();
-		$diff = new Diff();
-
-        if (!isset($_GET['user']) || empty($_GET['user'])) {
-            header("Location: index.php");
-        } elseif (isset($_GET['user'])) {
-            $user = $user_info->get_user_info($conn, $_GET['user']);
-
-            $join_date = new DateTime($user['created_at']);
-	?>
+	<?php require_once __DIR__."/assets/ui/nav.php"; ?>
 
         <div class="profile-root defaultDecoration defaultSpacing defaultFonts">
             <?php
@@ -34,8 +34,12 @@
                         echo "<img src='assets/no_image.png'>";
                     }
                     ?>
-                        <h2><?php echo $user['username']; ?></h2>
-                        <?php if ($user_info->is_admin($conn, $user['id'])) echo "<p style='color: var(--accent);'>Admin</p>"; ?>
+                        <h2>
+                            <?php
+                                echo $user['username'];
+                                if ($user_info->is_admin($conn, $user['id'])) echo "<span style='color: var(--accent); font-size: 16px; margin-left: 0.5rem;'>Admin</span>";
+                            ?>
+                        </h2>
                         <div class="profile-info">
                             <p id="joinDate">Member since: <?php echo $join_date->format('d/m/Y T'); ?></p>
                             <p id="postCount"></p>

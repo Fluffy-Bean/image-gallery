@@ -424,6 +424,10 @@
             color: $page-accent;
         }
     }
+
+    .btn:hover {
+        color: $fg;
+    }
 }
 
 .group-cover {
@@ -452,7 +456,7 @@
 
         z-index: +1;
 
-        border-radius: calc($rad - 0.2rem);
+        border-radius: calc($rad - $border-thickness);
     }
 
     img {
@@ -463,7 +467,7 @@
 
         margin-left: auto;
 
-        border-radius: calc($rad - 0.2rem);
+        border-radius: calc($rad - $border-thickness);
     }
 }
 
@@ -621,7 +625,7 @@
         transform: translateX(-50%);
 
         border-radius: $rad;
-        border: $page-accent 0.2rem solid;
+        border: $border;
 
         background-color: $bg;
     }
@@ -846,7 +850,7 @@
     }
 }
 .perm {
-    border-left: $red 0.2rem solid;
+    border-left: $border;
 }
 .ban:first-of-type {
     background-color: $bg;
@@ -907,7 +911,7 @@
     }
 }
 .is-admin {
-    border-left: $page-accent 0.2rem solid;
+    border-left: $border;
 }
 .user:first-of-type {
     background-color: $bg;

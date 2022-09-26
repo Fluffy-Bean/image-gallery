@@ -33,7 +33,7 @@ nav {
   background-color: #151515;
   color: #E8E3E3;
   border-radius: 0.4rem;
-  border: 0.2rem solid #8C977D;
+  border: #8C977D 0.2rem solid;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
   display: flex;
   flex-direction: row;
@@ -109,7 +109,7 @@ nav .btn {
     -webkit-backdrop-filter: blur(8px);
             backdrop-filter: blur(8px);
     border: none;
-    border-top: 3px solid #8C977D;
+    border-top: #8C977D 0.2rem solid;
     border-radius: 0;
     -webkit-backdrop-filter: blur(16px);
             backdrop-filter: blur(16px);
@@ -153,7 +153,7 @@ nav .btn {
   background-color: #151515;
   color: #E8E3E3;
   border-radius: 0.4rem;
-  border: 0.2rem solid #8C977D;
+  border: #8C977D 0.2rem solid;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 
@@ -161,7 +161,7 @@ nav .btn {
   background-color: #151515;
   color: #E8E3E3;
   border-radius: 0.4rem;
-  border: 0.2rem solid #B66467;
+  border: #B66467 0.2rem solid;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
 }
 
@@ -515,6 +515,9 @@ nav .btn {
 }
 .group-description a:hover {
   color: #8C977D;
+}
+.group-description .btn:hover {
+  color: #E8E3E3;
 }
 
 .group-cover {
@@ -871,7 +874,7 @@ nav .btn {
 }
 
 .perm {
-  border-left: #B66467 0.2rem solid;
+  border-left: #8C977D 0.2rem solid;
 }
 
 .ban:first-of-type {
