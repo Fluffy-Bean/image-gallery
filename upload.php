@@ -18,7 +18,7 @@
 		if (!$user_info->is_loggedin()) {
 		?>
 			<script>
-			sniffleAdd('Who are you!', 'You must be loggedin to upload things, sowwy!', 'var(--red)', 'assets/icons/cross.svg');
+			sniffleAdd('Who are you!', 'You must be loggedin to upload things, sowwy!', 'var(--alert)', 'assets/icons/cross.svg');
 			</script>
 		<?php
 		}
@@ -90,7 +90,7 @@
 				$("#tags").val("");
 				$("#submit").val("");
 			} else {
-				sniffleAdd('Gwha!', 'Pls provide image', 'var(--red)', 'assets/icons/file-search.svg');
+				sniffleAdd('Gwha!', 'Pls provide image', 'var(--warning)', 'assets/icons/file-search.svg');
 			}
 		});
 	</script>

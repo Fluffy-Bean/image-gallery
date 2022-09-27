@@ -70,7 +70,7 @@
 								$("#image").val("");
 								$("#submit").val("");
 							} else {
-								sniffleAdd('Gwha!', 'Pls provide image', 'var(--red)', 'assets/icons/file-search.svg');
+								sniffleAdd('Gwha!', 'Pls provide image', 'var(--warning)', 'assets/icons/file-search.svg');
 							}
 						});
 					</script>

@@ -110,16 +110,22 @@ a.btn {
     text-align: center;
 }
 
-.btn-good {
-    background-color: $page-accent;
-}
 
 .btn-bad {
-    background-color: $red;
+    background-color: $warning;
+    /*color: darken($warning, 40%);*/
 }
-
+.btn-warning {
+    background-color: $alert;
+    /*color: darken($warning, 40%);*/
+}
+.btn-good {
+    background-color: $page-accent;
+    /*color: darken($warning, 40%);*/
+}
 .btn-neutral {
-    background-color: $black;
+    background-color: $neutral;
+    /*color: $white;*/
 }
 
 /*

@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
 		if (!in_array($file_type, $allowed_types)) {
 			?>
 				<script>
-					sniffleAdd('Woopsie', 'The file type you are trying to upload is not supported. Supported files include: JPEG, JPG, PNG and WEBP', 'var(--red)', 'assets/icons/cross.svg');
+					sniffleAdd('Woopsie', 'The file type you are trying to upload is not supported. Supported files include: JPEG, JPG, PNG and WEBP', 'var(--warning)', 'assets/icons/cross.svg');
 				</script>
 			<?php
 			$error += 1;
@@ -85,7 +85,7 @@ if (isset($_POST['submit'])) {
 			if (is_file($image_path)) {
 				?>
 					<script>
-						sniffleAdd('Woopsie', 'There was an error in your manifest.json and cause filename errors, please setup a name with a unique template', 'var(--red)', 'assets/icons/cross.svg');
+						sniffleAdd('Woopsie', 'There was an error in your manifest.json and cause filename errors, please setup a name with a unique template', 'var(--warning)', 'assets/icons/cross.svg');
 					</script>
 				<?php
 				$error += 1;
@@ -98,7 +98,7 @@ if (isset($_POST['submit'])) {
 			if (is_file($image_path)) {
 				?>
 					<script>
-						sniffleAdd('Woopsie', 'A file under that name already exists!', 'var(--red)', 'assets/icons/cross.svg');
+						sniffleAdd('Woopsie', 'A file under that name already exists!', 'var(--warning)', 'assets/icons/cross.svg');
 					</script>
 				<?php
 				$error += 1;
@@ -114,7 +114,7 @@ if (isset($_POST['submit'])) {
 					if ($make_stuff->thumbnail($image_path, $thumb_dir.$image_newname, 300) != "success") {
 						?>
 							<script>
-								sniffleAdd('Gwha!', 'We hit a small roadbump during making of the thumbail. We will continue anyway! \n Full Error: <?php echo $make_thumbnail; ?>', 'var(--black)', 'assets/icons/bug.svg');
+								sniffleAdd('Gwha!', 'We hit a small roadbump during making of the thumbail. We will continue anyway! \n Full Error: <?php echo $make_thumbnail; ?>', 'var(--allert)', 'assets/icons/bug.svg');
 							</script>
 						<?php
 					}
@@ -123,7 +123,7 @@ if (isset($_POST['submit'])) {
 					if ($make_stuff->thumbnail($image_path, $preview_dir.$image_newname, 900) != "success") {
 						?>
 							<script>
-								sniffleAdd('Gwha!', 'We hit a small roadbump during making of the preview. We will continue anyway! \n Full Error: <?php echo $make_preview; ?>', 'var(--black)', 'assets/icons/bug.svg');
+								sniffleAdd('Gwha!', 'We hit a small roadbump during making of the preview. We will continue anyway! \n Full Error: <?php echo $make_preview; ?>', 'var(--allert)', 'assets/icons/bug.svg');
 							</script>
 						<?php
 					}
@@ -146,13 +146,13 @@ if (isset($_POST['submit'])) {
 					if (mysqli_stmt_execute($stmt)) {
 						?>
 							<script>
-								sniffleAdd(':3', 'Your Image uploaded successfully!', 'var(--green)', 'assets/icons/check.svg');
+								sniffleAdd(':3', 'Your Image uploaded successfully!', 'var(--success)', 'assets/icons/check.svg');
 							</script>
 						<?php
 					} else {
 						?>
 							<script>
-								sniffleAdd(':c', 'Something went fuckywucky, please try later', 'var(--red)', 'assets/icons/cross.svg');
+								sniffleAdd(':c', 'Something went fuckywucky, please try later', 'var(--warning)', 'assets/icons/cross.svg');
 							</script>
 						<?php
 					}
@@ -160,7 +160,7 @@ if (isset($_POST['submit'])) {
 			} else {
 				?>
 					<script>
-						sniffleAdd('Hmmff', 'Something happened when moving the file to the server. This may just been a 1-off so try again', 'var(--red)', 'assets/icons/bug.svg');
+						sniffleAdd('Hmmff', 'Something happened when moving the file to the server. This may just been a 1-off so try again', 'var(--warning)', 'assets/icons/bug.svg');
 					</script>
 				<?php
 			}
@@ -168,7 +168,7 @@ if (isset($_POST['submit'])) {
 	} else {
 		?>
 			<script>
-				sniffleAdd('Denied!!!', 'As you are not loggedin, your upload has been stopped, L', 'var(--red)', 'assets/icons/cross.svg');
+				sniffleAdd('Denied!!!', 'As you are not loggedin, your upload has been stopped, L', 'var(--warning)', 'assets/icons/cross.svg');
 			</script>
 		<?php
 	}

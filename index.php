@@ -14,7 +14,7 @@
 		if (isset($_SESSION['del'])) {
 			?>
 				<script>
-					sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_SESSION['del']; ?>", "var(--green)", "assets/icons/trash.svg");
+					sniffleAdd("Image Deleted", "Successfully deleted image: <?php echo $_SESSION['del']; ?>", "var(--success)", "assets/icons/trash.svg");
 				</script>
 			<?php
 			unset($_SESSION['del']);
@@ -22,7 +22,7 @@
 		if (isset($_SESSION['welc'])) {
 			?>
 				<script>
-					sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in, enjoy your stay!', 'var(--green)', 'assets/icons/hand-waving.svg');
+					sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in, enjoy your stay!', 'var(--success)', 'assets/icons/hand-waving.svg');
 				</script>
 			<?php
 			unset($_SESSION['welc']);

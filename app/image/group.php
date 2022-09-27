@@ -46,7 +46,7 @@ if (isset($_POST['group_submit'])) {
             } else {
                 ?>
                     <script>
-                        sniffleAdd('Oopsie....', 'An error occured on the servers', 'var(--red)', 'assets/icons/cross.svg');
+                        sniffleAdd('Oopsie....', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
                     </script>
                 <?php
             }
@@ -54,7 +54,7 @@ if (isset($_POST['group_submit'])) {
     } else {
         ?>
             <script>
-                sniffleAdd('Gwa Gwa', 'You\'re not privilaged enough to do thissss!', 'var(--red)', 'assets/icons/cross.svg');
+                sniffleAdd('Gwa Gwa', 'You\'re not privilaged enough to do thissss!', 'var(--warning)', 'assets/icons/cross.svg');
             </script>
         <?php
     }
@@ -86,14 +86,14 @@ if (isset($_POST['title_submit'])) {
             if (mysqli_stmt_execute($stmt)) {
                 ?>
                     <script>
-                        sniffleAdd('Success!!!', 'The title has been updated successfully! You may need to refresh the page to see the new information.', 'var(--green)', 'assets/icons/check.svg');
+                        sniffleAdd('Success!!!', 'The title has been updated successfully! You may need to refresh the page to see the new information.', 'var(--success)', 'assets/icons/check.svg');
                         flyoutClose();
                     </script>
                 <?php
             } else {
                 ?>
                     <script>
-                        sniffleAdd('Error :c', 'An error occured on the servers', 'var(--red)', 'assets/icons/cross.svg');
+                        sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
                         flyoutClose();
                     </script>
                 <?php
@@ -101,7 +101,7 @@ if (isset($_POST['title_submit'])) {
         } else {
             ?>
                 <script>
-                    sniffleAdd('Error :c', 'An error occured on the servers', 'var(--red)', 'assets/icons/cross.svg');
+                    sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
                     flyoutClose();
                 </script>
             <?php
@@ -109,7 +109,7 @@ if (isset($_POST['title_submit'])) {
     } else {
         ?>
             <script>
-                sniffleAdd('Denied', 'It seems that you do not have the right permitions to edit this image.', 'var(--red)', 'assets/icons/cross.svg');
+                sniffleAdd('Denied', 'It seems that you do not have the right permitions to edit this image.', 'var(--warning)', 'assets/icons/cross.svg');
                 flyoutClose();
             </script>
         <?php
@@ -141,7 +141,7 @@ if (isset($_POST['new_group_submit'])) {
     } else {
         ?>
             <script>
-                sniffleAdd('Denied', 'You must have an account to preform this action!', 'var(--red)', 'assets/icons/cross.svg');
+                sniffleAdd('Denied', 'You must have an account to preform this action!', 'var(--warning)', 'assets/icons/cross.svg');
             </script>
         <?php
     }
@@ -175,7 +175,7 @@ if (isset($_POST['group_delete'])) {
             } else {
                 ?>
                     <script>
-                        sniffleAdd('Ouchie', 'Something went wrong while deleting the group', 'var(--red)', 'assets/icons/cross.svg');
+                        sniffleAdd('Ouchie', 'Something went wrong while deleting the group', 'var(--warning)', 'assets/icons/cross.svg');
                         flyoutClose();
                     </script>
                 <?php
@@ -183,7 +183,7 @@ if (isset($_POST['group_delete'])) {
         } else {
             ?>
                 <script>
-                    sniffleAdd('Ouchie', 'Something went wrong while deleting the image group', 'var(--red)', 'assets/icons/cross.svg');
+                    sniffleAdd('Ouchie', 'Something went wrong while deleting the image group', 'var(--warning)', 'assets/icons/cross.svg');
                     flyoutClose();
                 </script>
             <?php
@@ -191,7 +191,7 @@ if (isset($_POST['group_delete'])) {
     } else {
         ?>
             <script>
-                sniffleAdd('Denied!!!', 'You do not have the right permitions to delete this group', 'var(--red)', 'assets/icons/cross.svg');
+                sniffleAdd('Denied!!!', 'You do not have the right permitions to delete this group', 'var(--warning)', 'assets/icons/cross.svg');
                 flyoutClose();
             </script>
         <?php

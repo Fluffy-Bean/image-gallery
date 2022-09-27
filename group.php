@@ -22,7 +22,7 @@
     if (isset($_SESSION['err'])) {
         ?>
             <script>
-                sniffleAdd("Error", "<?php echo $_SESSION['msg']; ?>", "var(--red)", "assets/icons/trash.svg");
+                sniffleAdd("Error", "<?php echo $_SESSION['msg']; ?>", "var(--warning)", "assets/icons/trash.svg");
             </script>
         <?php
         unset($_SESSION['err']);
@@ -234,7 +234,7 @@
                                 var images = getList();
 
                                 if (images <= 0) {
-                                    sniffleAdd('Oppsie', 'Groups need at least 1 image in them. Alternativly, you can delete this group.', 'var(--red)', 'assets/icons/cross.svg');
+                                    sniffleAdd('Oppsie', 'Groups need at least 1 image in them. Alternativly, you can delete this group.', 'var(--warning)', 'assets/icons/cross.svg');
                                 } else {
                                     $("#sniffle").load("app/image/group.php", {
                                         group_images: images,

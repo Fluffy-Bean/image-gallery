@@ -39,7 +39,7 @@
 			} else {
 		?>
 				<script>
-					sniffleAdd('Woops', 'Something happened, either image with the ID <?php echo $_GET['id']; ?> was deleted or never existed, either way it could not be found!', 'var(--red)', 'assets/icons/cross.svg');
+					sniffleAdd('Woops', 'Something happened, either image with the ID <?php echo $_GET['id']; ?> was deleted or never existed, either way it could not be found!', 'var(--warning)', 'assets/icons/cross.svg');
 				</script>
 				<?php
 				$image_present = False;
@@ -47,7 +47,7 @@
 		} else {
 			?>
 				<script>
-					sniffleAdd('Where is da image?', 'The link you followed seems to be broken, or there was some other error, who knows!', 'var(--red)', 'assets/icons/cross.svg');
+					sniffleAdd('Where is da image?', 'The link you followed seems to be broken, or there was some other error, who knows!', 'var(--warning)', 'assets/icons/cross.svg');
 				</script>
 			<?php
 			$image_present = False;
@@ -246,7 +246,7 @@
 			<a id='download' class='btn btn-good' href='<?php echo "images/".$image['imagename']; ?>' download='<?php echo $image['imagename']; ?>'><img class='svg' src='assets/icons/download.svg'>Download image</a>
 			<script>
 				$("#download").click(function() {
-					sniffleAdd("Info", "Image download started!", "var(--green)", "assets/icons/download.svg");
+					sniffleAdd("Info", "Image download started!", "var(--success)", "assets/icons/download.svg");
 				});
 			</script>
 
@@ -256,7 +256,7 @@
 				function copyLink() {
 					navigator.clipboard.writeText(window.location.href);
 
-					sniffleAdd("Info", "Link has been copied!", "var(--green)", "assets/icons/clipboard-text.svg");
+					sniffleAdd("Info", "Link has been copied!", "var(--success)", "assets/icons/clipboard-text.svg");
 				}
 			</script>
 		</div>

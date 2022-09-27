@@ -58,7 +58,7 @@ if (isset($_POST['submit_delete'])) {
       } else {
         ?>
         <script>
-          sniffleAdd('Oopsie', 'The image failed to delete off of the servers, contact Fluffy about his terrible programming', 'var(--red)', 'assets/icons/cross.svg');
+          sniffleAdd('Oopsie', 'The image failed to delete off of the servers, contact Fluffy about his terrible programming', 'var(--warning)', 'assets/icons/cross.svg');
           flyoutClose();
         </script>
         <?php
@@ -66,7 +66,7 @@ if (isset($_POST['submit_delete'])) {
     } else {
       ?>
       <script>
-        sniffleAdd('Error :c', 'An error occured on the servers', 'var(--red)', 'assets/icons/cross.svg');
+        sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
         flyoutClose();
       </script>
       <?php
@@ -74,7 +74,7 @@ if (isset($_POST['submit_delete'])) {
   } else {
     ?>
     <script>
-      sniffleAdd('Denied', 'It seems that you do not have the right permitions to edit this image.', 'var(--red)', 'assets/icons/cross.svg');
+      sniffleAdd('Denied', 'It seems that you do not have the right permitions to edit this image.', 'var(--warning)', 'assets/icons/cross.svg');
       flyoutClose();
     </script>
     <?php
@@ -115,14 +115,14 @@ if (isset($_POST['submit_description'])) {
       if (mysqli_stmt_execute($stmt)) {
         ?>
         <script>
-          sniffleAdd('Success!!!', 'Description has been updated successfully! You may need to refresh the page to see the new information.', 'var(--green)', 'assets/icons/check.svg');
+          sniffleAdd('Success!!!', 'Description has been updated successfully! You may need to refresh the page to see the new information.', 'var(--success)', 'assets/icons/check.svg');
           flyoutClose();
         </script>
         <?php
       } else {
         ?>
         <script>
-          sniffleAdd('Error :c', 'An error occured on the servers', 'var(--red)', 'assets/icons/cross.svg');
+          sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
           flyoutClose();
         </script>
         <?php
@@ -130,7 +130,7 @@ if (isset($_POST['submit_description'])) {
     } else {
       ?>
       <script>
-        sniffleAdd('Error :c', 'An error occured on the servers', 'var(--red)', 'assets/icons/cross.svg');
+        sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
         flyoutClose();
       </script>
       <?php
@@ -138,7 +138,7 @@ if (isset($_POST['submit_description'])) {
   } else {
     ?>
     <script>
-      sniffleAdd('Denied', 'It seems that you do not have the right permitions to edit this image.', 'var(--red)', 'assets/icons/cross.svg');
+      sniffleAdd('Denied', 'It seems that you do not have the right permitions to edit this image.', 'var(--warning)', 'assets/icons/cross.svg');
       flyoutClose();
     </script>
     <?php
@@ -176,14 +176,14 @@ if (isset($_POST['submit_tags'])) {
       if (mysqli_stmt_execute($stmt)) {
         ?>
         <script>
-          sniffleAdd('Success!!!', 'Tags have been modified successfully! You may need to refresh the page to see the new information.', 'var(--green)', 'assets/icons/check.svg');
+          sniffleAdd('Success!!!', 'Tags have been modified successfully! You may need to refresh the page to see the new information.', 'var(--success)', 'assets/icons/check.svg');
           flyoutClose();
         </script>
         <?php
       } else {
         ?>
         <script>
-          sniffleAdd('Error :c', 'An error occured on the servers', 'var(--red)', 'assets/icons/cross.svg');
+          sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
           flyoutClose();
         </script>
         <?php
@@ -191,7 +191,7 @@ if (isset($_POST['submit_tags'])) {
     } else {
       ?>
       <script>
-        sniffleAdd('Error :c', 'An error occured on the servers', 'var(--red)', 'assets/icons/cross.svg');
+        sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
         flyoutClose();
       </script>
       <?php
@@ -199,7 +199,7 @@ if (isset($_POST['submit_tags'])) {
   } else {
     ?>
     <script>
-      sniffleAdd('Denied', 'It seems that you do not have the right permitions to modify tags here.', 'var(--red)', 'assets/icons/cross.svg');
+      sniffleAdd('Denied', 'It seems that you do not have the right permitions to modify tags here.', 'var(--warning)', 'assets/icons/cross.svg');
       flyoutClose();
     </script>
     <?php
@@ -232,14 +232,14 @@ if (isset($_POST['submit_author'])) {
       if (mysqli_stmt_execute($stmt)) {
         ?>
         <script>
-          sniffleAdd('Success!!!', 'The Author has been updated successfully! You may need to refresh the page to see the new information.', 'var(--green)', 'assets/icons/check.svg');
+          sniffleAdd('Success!!!', 'The Author has been updated successfully! You may need to refresh the page to see the new information.', 'var(--success)', 'assets/icons/check.svg');
           flyoutClose();
         </script>
         <?php
       } else {
         ?>
         <script>
-          sniffleAdd('Oopsie....', 'An error occured on the servers', 'var(--red)', 'assets/icons/cross.svg');
+          sniffleAdd('Oopsie....', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
           flyoutClose();
         </script>
         <?php
@@ -248,7 +248,7 @@ if (isset($_POST['submit_author'])) {
   } else {
     ?>
     <script>
-      sniffleAdd('Denied', 'Sussy wussy.', 'var(--red)', 'assets/icons/cross.svg');
+      sniffleAdd('Denied', 'Sussy wussy.', 'var(--warning)', 'assets/icons/cross.svg');
       flyoutClose();
     </script>
     <?php
