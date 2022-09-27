@@ -10,6 +10,7 @@ session_start();
 // Include server connection
 include dirname(__DIR__)."/server/conn.php";
 include dirname(__DIR__)."/app.php";
+include dirname(__DIR__)."/settings/settings.php";
 
 use App\Make;
 
@@ -17,23 +18,95 @@ $make_stuff = new Make();
 
 if (isset($_POST['submit'])) {
 	if (isset($_SESSION['id'])) {
+		$error = 0;
+
 		// Root paths
-		$dir = "../../images/";
-		$thumb_dir = $dir."thumbnails/";
-		$preview_dir = $dir."previews/";
+		$dir			= "../../images/";
+		$thumb_dir		= $dir."thumbnails/";
+		$preview_dir	= $dir."previews/";
 
-		// File name updating
-		$file_type = pathinfo($dir.$_FILES['image']['name'],PATHINFO_EXTENSION);
-		$image_newname = "IMG_".$_SESSION["username"]."_".round(microtime(true)).".".$file_type;
-		$image_path = $dir.$image_newname;
+		$file_type		= pathinfo($dir.$_FILES['image']['name'],PATHINFO_EXTENSION);
 
-		// Clean tags
-		$tags = $make_stuff->tags(trim($_POST['tags']));
+		$tags			= $make_stuff->tags(trim($_POST['tags']));
 
-		// Allowed file types
-		$allowed_types = array('jpg', 'jpeg', 'png', 'webp');
-		if (in_array($file_type, $allowed_types)) {
-			// Move file to server
+		// Check filetype
+		$allowed_types	= array('jpg', 'jpeg', 'png', 'webp');
+		if (!in_array($file_type, $allowed_types)) {
+			?>
+				<script>
+					sniffleAdd('Woopsie', 'The file type you are trying to upload is not supported. Supported files include: JPEG, JPG, PNG and WEBP', 'var(--red)', 'assets/icons/cross.svg');
+				</script>
+			<?php
+			$error += 1;
+		}
+
+		if ($upload_conf['rename_on_upload'] == true && $error <= 0) {
+			/* Accepted name templates includes
+
+				{{username}}	->	Uploaders username
+				{{userid}}		->	Uploaders ID
+
+				{{time}}		->	microtime of upload
+				{{date}}		->	date of upload
+
+				{{filename}}	->	takes original filename
+				{{autoinc}}		->	checks if file with name already exists
+									if so it adds a number on the end of it
+
+				"foo"			-> Text is accepted between templates
+			*/
+
+			$name_template	= $upload_conf['rename_to'];
+
+			$name_template	= str_replace('{{username}}', $_SESSION["username"], $name_template);
+			$name_template	= str_replace('{{userid}}', $_SESSION["id"], $name_template);
+
+			$name_template	= str_replace('{{time}}', round(microtime(true)), $name_template);
+			$name_template	= str_replace('{{date}}', date("Y-m-d"), $name_template);
+
+			$name_template	= str_replace('{{filename}}', pathinfo($dir.$_FILES['image']['name'],PATHINFO_FILENAME), $name_template);
+
+			if (str_contains($name_template, "{{autoinc}}")) {
+				$autoinc 			= 0;
+				$autoinc_tmp_name	= str_replace('{{autoinc}}', $autoinc, $name_template).".".$file_type;
+
+				while (is_file($dir.$autoinc_tmp_name)) {
+					$autoinc += 1;
+					$autoinc_tmp_name = str_replace('{{autoinc}}', $autoinc, $name_template).".".$file_type;
+				}
+
+				$name_template	= str_replace('{{autoinc}}', $autoinc, $name_template);
+			}
+
+			$image_newname	= $name_template.".".$file_type;
+			$image_path		= $dir.$image_newname;
+
+			// Check for conflicting names, as the config could be setup wrong
+			if (is_file($image_path)) {
+				?>
+					<script>
+						sniffleAdd('Woopsie', 'There was an error in your manifest.json and cause filename errors, please setup a name with a unique template', 'var(--red)', 'assets/icons/cross.svg');
+					</script>
+				<?php
+				$error += 1;
+			}
+		} else {
+			$image_newname	= $_FILES['image']['name'];
+			$image_path		= $dir.$image_newname;
+
+			// Check for file already existing under that name
+			if (is_file($image_path)) {
+				?>
+					<script>
+						sniffleAdd('Woopsie', 'A file under that name already exists!', 'var(--red)', 'assets/icons/cross.svg');
+					</script>
+				<?php
+				$error += 1;
+			}
+		}
+
+		// Move file to server
+		if ($error <= 0) {
 			if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
 				// Attempt making a thumbnail
 				list($width, $height) = getimagesize($image_path);
@@ -55,20 +128,20 @@ if (isset($_POST['submit'])) {
 						<?php
 					}
 				}
-
+	
 				// Prepare sql for destruction and filtering the sus
 				$sql = "INSERT INTO images (imagename, alt, tags, author) VALUES (?, ?, ?, ?)";
-
+	
 				if ($stmt = mysqli_prepare($conn, $sql)) {
 					// Bind the smelly smelly
 					mysqli_stmt_bind_param($stmt, "ssss", $param_image_name, $param_alt_text, $param_tags, $param_user_id);
-
+	
 					// Setting up parameters
 					$param_image_name = $image_newname;
 					$param_alt_text = $_POST['alt'];
 					$param_user_id = $_SESSION['id'];
 					$param_tags = $tags;
-
+	
 					// Attempt to execute the prepared statement
 					if (mysqli_stmt_execute($stmt)) {
 						?>
@@ -91,12 +164,6 @@ if (isset($_POST['submit'])) {
 					</script>
 				<?php
 			}
-		} else {
-			?>
-				<script>
-					sniffleAdd('Woopsie', 'The file type you are trying to upload is not supported. Supported files include: JPEG, JPG, PNG and WEBP', 'var(--red)', 'assets/icons/cross.svg');
-				</script>
-			<?php
 		}
 	} else {
 		?>

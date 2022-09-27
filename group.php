@@ -19,6 +19,14 @@
             $_SESSION['err'] = "You followed a broken link";
         }
     }
+    if (isset($_SESSION['err'])) {
+        ?>
+            <script>
+                sniffleAdd("Error", "<?php echo $_SESSION['msg']; ?>", "var(--red)", "assets/icons/trash.svg");
+            </script>
+        <?php
+        unset($_SESSION['err']);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -159,15 +167,6 @@
             }
 
             echo "</div>";
-        } else {
-            if (isset($_SESSION['err'])) {
-                ?>
-                    <script>
-                        sniffleAdd("Error", "<?php echo $_SESSION['msg']; ?>", "var(--red)", "assets/icons/trash.svg");
-                    </script>
-                <?php
-                unset($_SESSION['err']);
-            }
         }
     ?>
 
