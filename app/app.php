@@ -266,3 +266,92 @@ class Diff {
         return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 }
+
+class Sanity  {
+    function check_json() {
+        $results = array();
+
+        if (!is_file(__DIR__."/settings/manifest.json")) {
+            $results[] = "Critical: manifest.json is missing";
+        } else {
+            $manifest = json_decode(file_get_contents(__DIR__."/settings/manifest.json"), true);
+
+            if (!isset($manifest['user_name']) || empty($manifest['user_name']) || $manifest['user_name'] == "[your name]") {
+                $results[] = "Warning: manifest.json is missing yor name";
+            }
+            if ($manifest['upload']['rename_on_upload'] == true ) {
+                if (!isset($manifest['upload']['rename_to']) || empty($manifest['upload']['rename_to'])) {
+                    $results[] = "Critical: manifest.json is missing what you're renaming your files to";
+                } else {
+                    $rename_to = $manifest['upload']['rename_to'];
+                    $rename_rate = 0;
+
+                    if (str_contains($rename_to, '{{autoinc}}')) $rename_rate = 5;
+                    if (str_contains($rename_to, '{{time}}')) $rename_rate = 5;
+
+                    if (str_contains($rename_to, '{{date}}')) $rename_rate += 2;
+                    if (str_contains($rename_to, '{{filename}}')) $rename_rate += 2;
+
+                    if (str_contains($rename_to, '{{username}}') || str_contains($rename_to, '{{userid}}')) $rename_rate += 1;
+
+                    if ($rename_rate == 0 || $rename_rate < 2) {
+                        $results[] = "Critical: You will encounter errors when uploading images due to filenames, update your manifest.json";
+                    } elseif ($rename_rate < 5 && $rename_rate > 2) {
+                        $results[] = "Warning: You may encounter errors when uploading images due to filenames, concider update your manifest.json";
+                    }
+                }
+            }
+
+            if ($manifest['is_testing']) {
+                $results[] = "Warning: You are currently in testing mode, errors will be displayed to the user";
+            }
+        }
+
+        return $results;
+    }
+
+    function check_files() {
+        $results = array();
+
+        if (!is_dir("images")) {
+            $results[] = "Critical: You need to setup an images folder, follow the guide on the GitHub repo";
+        }
+        if (!is_dir("images/pfp")) {
+            $results[] = "Critical: You need to setup an pfp folder, follow the guide on the GitHub repo";
+        }
+        if (!is_dir("images/previews")) {
+            $results[] = "Critical: You need to setup an previews folder, follow the guide on the GitHub repo";
+        }
+        if (!is_dir("images/thumbnails")) {
+            $results[] = "Critical: You need to setup an thumbnails folder, follow the guide on the GitHub repo";
+        }
+
+        return $results;
+    }
+
+    function check_version() {
+        $results = array();
+
+        if (PHP_VERSION_ID < 50102) {
+            $results[] = "Critical: Your current version of PHP is ".PHP_VERSION.". The reccomended version is 8.1.2";
+        }
+
+        return $results;
+    }
+
+    function get_results() {
+        $results = array();
+
+        foreach ($this->check_json() as $result) {
+            $results[] = $result;
+        }
+        foreach ($this->check_files() as $result) {
+            $results[] = $result;
+        }
+        foreach ($this->check_version() as $result) {
+            $results[] = $result;
+        }
+
+        return $results;
+    }
+}

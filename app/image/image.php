@@ -23,62 +23,62 @@ $user_ip = $user_info->get_ip();
  |-------------------------------------------------------------
 */
 if (isset($_POST['submit_delete'])) {
-  // Get all image info
-  $image_array = $image_info->get_image_info($conn, $_POST['id']);
+	// Get all image info
+	$image_array = $image_info->get_image_info($conn, $_POST['id']);
 
-  // If user owns image or has the ID of 1
-  if ($image_info->image_privilage($image_array['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
-    // Delete from table
-    $sql = "DELETE FROM images WHERE id = ?";
-    if ($stmt = mysqli_prepare($conn, $sql)) {
-      mysqli_stmt_bind_param($stmt, "i", $_POST['id']);
+	// If user owns image or has the ID of 1
+	if ($image_info->image_privilage($image_array['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
+		// Delete from table
+		$sql = "DELETE FROM images WHERE id = ?";
+		if ($stmt = mysqli_prepare($conn, $sql)) {
+			mysqli_stmt_bind_param($stmt, "i", $_POST['id']);
 
-      // Attempt to execute the prepared statement
-      if (mysqli_stmt_execute($stmt)) {
-        // See if image is in the directory
-        if (is_file(dirname(__DIR__)."/images/".$image_array['imagename'])) {
-          unlink(dirname(__DIR__)."/images/".$image_array['imagename']);
-        }
-        // Delete thumbnail if exitsts
-        if (is_file(dirname(__DIR__)."/images/thumbnails/".$image_array['imagename'])) {
-          unlink(dirname(__DIR__)."/images/thumbnails/".$image_array['imagename']);
-        }
-        // Delete preview if exitsts
-        if (is_file(dirname(__DIR__)."/images/previews/".$image_array['imagename'])) {
-          unlink(dirname(__DIR__)."/images/previews/".$image_array['imagename']);
-        }
-        // TP user to the homepage with a success message
-        mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Deleted image ".$_POST['id']."')");
-        $_SESSION['del'] = $_POST['id'];
-        ?>
-        <script>
-          window.location.replace("index.php");
-        </script>
-        <?php
-      } else {
-        ?>
-        <script>
-          sniffleAdd('Oopsie', 'The image failed to delete off of the servers, contact Fluffy about his terrible programming', 'var(--warning)', 'assets/icons/cross.svg');
-          flyoutClose();
-        </script>
-        <?php
-      }
-    } else {
-      ?>
-      <script>
-        sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
-        flyoutClose();
-      </script>
-      <?php
-    }
-  } else {
-    ?>
-    <script>
-      sniffleAdd('Denied', 'It seems that you do not have the right permitions to edit this image.', 'var(--warning)', 'assets/icons/cross.svg');
-      flyoutClose();
-    </script>
-    <?php
-  }
+			// Attempt to execute the prepared statement
+			if (mysqli_stmt_execute($stmt)) {
+				// See if image is in the directory
+				if (is_file(dirname(__DIR__)."/images/".$image_array['imagename'])) {
+					unlink(dirname(__DIR__)."/images/".$image_array['imagename']);
+				}
+				// Delete thumbnail if exitsts
+				if (is_file(dirname(__DIR__)."/images/thumbnails/".$image_array['imagename'])) {
+					unlink(dirname(__DIR__)."/images/thumbnails/".$image_array['imagename']);
+				}
+				// Delete preview if exitsts
+				if (is_file(dirname(__DIR__)."/images/previews/".$image_array['imagename'])) {
+					unlink(dirname(__DIR__)."/images/previews/".$image_array['imagename']);
+				}
+				// TP user to the homepage with a success message
+				mysqli_query($conn, "INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Deleted image " . $_POST['id'] . "')");
+				$_SESSION['del'] = $_POST['id'];
+				?>
+					<script>
+						window.location.replace("index.php");
+					</script>
+				<?php
+			} else {
+				?>
+					<script>
+						sniffleAdd('Oopsie', 'The image failed to delete off of the servers, contact Fluffy about his terrible programming', 'var(--warning)', 'assets/icons/cross.svg');
+						flyoutClose();
+					</script>
+				<?php
+			}
+		} else {
+			?>
+				<script>
+					sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
+					flyoutClose();
+				</script>
+			<?php
+		}
+	} else {
+		?>
+			<script>
+				sniffleAdd('Denied', 'It seems that you do not have the right permitions to edit this image.', 'var(--warning)', 'assets/icons/cross.svg');
+				flyoutClose();
+			</script>
+		<?php
+	}
 }
 
 
@@ -96,53 +96,53 @@ if (isset($_POST['submit_delete'])) {
  |-------------------------------------------------------------
 */
 if (isset($_POST['submit_description'])) {
-  // Get all image info
-  $image_array = $image_info->get_image_info($conn, $_POST['id']);
-  // If user owns image or has the ID of 1
-  if ($image_info->image_privilage($image_array['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
-    // getting ready forSQL asky asky
-    $sql = "UPDATE images SET alt=? WHERE id=?";
+	// Get all image info
+	$image_array = $image_info->get_image_info($conn, $_POST['id']);
+	// If user owns image or has the ID of 1
+	if ($image_info->image_privilage($image_array['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
+		// getting ready forSQL asky asky
+		$sql = "UPDATE images SET alt=? WHERE id=?";
 
-    // Checking if databse is doing ok
-    if ($stmt = mysqli_prepare($conn, $sql)) {
-      mysqli_stmt_bind_param($stmt, "si", $param_alt, $param_id);
+		// Checking if databse is doing ok
+		if ($stmt = mysqli_prepare($conn, $sql)) {
+			mysqli_stmt_bind_param($stmt, "si", $param_alt, $param_id);
 
-      // Setting parameters
-      $param_alt = $_POST['input'];
-      $param_id = $_POST['id'];
+			// Setting parameters
+			$param_alt = $_POST['input'];
+			$param_id = $_POST['id'];
 
-      // Attempt to execute the prepared statement
-      if (mysqli_stmt_execute($stmt)) {
-        ?>
-        <script>
-          sniffleAdd('Success!!!', 'Description has been updated successfully! You may need to refresh the page to see the new information.', 'var(--success)', 'assets/icons/check.svg');
-          flyoutClose();
-        </script>
-        <?php
-      } else {
-        ?>
-        <script>
-          sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
-          flyoutClose();
-        </script>
-        <?php
-      }
-    } else {
-      ?>
-      <script>
-        sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
-        flyoutClose();
-      </script>
-      <?php
-    }
-  } else {
-    ?>
-    <script>
-      sniffleAdd('Denied', 'It seems that you do not have the right permitions to edit this image.', 'var(--warning)', 'assets/icons/cross.svg');
-      flyoutClose();
-    </script>
-    <?php
-  }
+			// Attempt to execute the prepared statement
+			if (mysqli_stmt_execute($stmt)) {
+				?>
+					<script>
+						sniffleAdd('Success!!!', 'Description has been updated successfully! You may need to refresh the page to see the new information.', 'var(--success)', 'assets/icons/check.svg');
+						flyoutClose();
+					</script>
+				<?php
+			} else {
+				?>
+					<script>
+						sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
+						flyoutClose();
+					</script>
+				<?php
+			}
+		} else {
+			?>
+				<script>
+					sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
+					flyoutClose();
+				</script>
+			<?php
+		}
+	} else {
+		?>
+			<script>
+				sniffleAdd('Denied', 'It seems that you do not have the right permitions to edit this image.', 'var(--warning)', 'assets/icons/cross.svg');
+				flyoutClose();
+			</script>
+		<?php
+	}
 }
 
 
@@ -154,56 +154,56 @@ if (isset($_POST['submit_description'])) {
  |-------------------------------------------------------------
 */
 if (isset($_POST['submit_tags'])) {
-  // Get all image info
-  $image_array = $image_info->get_image_info($conn, $_POST['id']);
-  // If user owns image or has the ID of 1
-  if ($image_info->image_privilage($image_array['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
-    // Clean input
-    $tags_string = $make_stuff->tags(trim($_POST['input']));
+	// Get all image info
+	$image_array = $image_info->get_image_info($conn, $_POST['id']);
+	// If user owns image or has the ID of 1
+	if ($image_info->image_privilage($image_array['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
+		// Clean input
+		$tags_string = $make_stuff->tags(trim($_POST['input']));
 
-    // getting ready forSQL asky asky
-    $sql = "UPDATE images SET tags=? WHERE id=?";
+		// getting ready forSQL asky asky
+		$sql = "UPDATE images SET tags=? WHERE id=?";
 
-    // Checking if databse is doing ok
-    if ($stmt = mysqli_prepare($conn, $sql)) {
-      mysqli_stmt_bind_param($stmt, "si", $param_tags, $param_id);
+		// Checking if databse is doing ok
+		if ($stmt = mysqli_prepare($conn, $sql)) {
+			mysqli_stmt_bind_param($stmt, "si", $param_tags, $param_id);
 
-      // Setting parameters
-      $param_tags = $tags_string;
-      $param_id = $_POST['id'];
+			// Setting parameters
+			$param_tags = $tags_string;
+			$param_id = $_POST['id'];
 
-      // Attempt to execute the prepared statement
-      if (mysqli_stmt_execute($stmt)) {
-        ?>
-        <script>
-          sniffleAdd('Success!!!', 'Tags have been modified successfully! You may need to refresh the page to see the new information.', 'var(--success)', 'assets/icons/check.svg');
-          flyoutClose();
-        </script>
-        <?php
-      } else {
-        ?>
-        <script>
-          sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
-          flyoutClose();
-        </script>
-        <?php
-      }
-    } else {
-      ?>
-      <script>
-        sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
-        flyoutClose();
-      </script>
-      <?php
-    }
-  } else {
-    ?>
-    <script>
-      sniffleAdd('Denied', 'It seems that you do not have the right permitions to modify tags here.', 'var(--warning)', 'assets/icons/cross.svg');
-      flyoutClose();
-    </script>
-    <?php
-  }
+			// Attempt to execute the prepared statement
+			if (mysqli_stmt_execute($stmt)) {
+				?>
+					<script>
+						sniffleAdd('Success!!!', 'Tags have been modified successfully! You may need to refresh the page to see the new information.', 'var(--success)', 'assets/icons/check.svg');
+						flyoutClose();
+					</script>
+				<?php
+			} else {
+				?>
+					<script>
+						sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
+						flyoutClose();
+					</script>
+				<?php
+			}
+		} else {
+			?>
+				<script>
+					sniffleAdd('Error :c', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
+					flyoutClose();
+				</script>
+			<?php
+			}
+	} else {
+		?>
+			<script>
+				sniffleAdd('Denied', 'It seems that you do not have the right permitions to modify tags here.', 'var(--warning)', 'assets/icons/cross.svg');
+				flyoutClose();
+			</script>
+		<?php
+	}
 }
 
 
@@ -215,42 +215,42 @@ if (isset($_POST['submit_tags'])) {
  |-------------------------------------------------------------
 */
 if (isset($_POST['submit_author'])) {
-  // If user has the ID of 1
-  if ($user_info->is_admin($conn, $_SESSION['id'])) {
-    // getting ready forSQL asky asky
-    $sql = "UPDATE images SET author=? WHERE id=?";
+	// If user has the ID of 1
+	if ($user_info->is_admin($conn, $_SESSION['id'])) {
+		// getting ready forSQL asky asky
+		$sql = "UPDATE images SET author=? WHERE id=?";
 
-    // Checking if databse is doing ok
-    if ($stmt = mysqli_prepare($conn, $sql)) {
-      mysqli_stmt_bind_param($stmt, "si", $param_author, $param_id);
+		// Checking if databse is doing ok
+		if ($stmt = mysqli_prepare($conn, $sql)) {
+			mysqli_stmt_bind_param($stmt, "si", $param_author, $param_id);
 
-      // Setting parameters
-      $param_author = $_POST['input'];
-      $param_id = $_POST["id"];
+			// Setting parameters
+			$param_author = $_POST['input'];
+			$param_id = $_POST["id"];
 
-      // Attempt to execute the prepared statement
-      if (mysqli_stmt_execute($stmt)) {
-        ?>
-        <script>
-          sniffleAdd('Success!!!', 'The Author has been updated successfully! You may need to refresh the page to see the new information.', 'var(--success)', 'assets/icons/check.svg');
-          flyoutClose();
-        </script>
-        <?php
-      } else {
-        ?>
-        <script>
-          sniffleAdd('Oopsie....', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
-          flyoutClose();
-        </script>
-        <?php
-      }
-    }
-  } else {
-    ?>
-    <script>
-      sniffleAdd('Denied', 'Sussy wussy.', 'var(--warning)', 'assets/icons/cross.svg');
-      flyoutClose();
-    </script>
-    <?php
-  }
+			// Attempt to execute the prepared statement
+			if (mysqli_stmt_execute($stmt)) {
+				?>
+					<script>
+						sniffleAdd('Success!!!', 'The Author has been updated successfully! You may need to refresh the page to see the new information.', 'var(--success)', 'assets/icons/check.svg');
+						flyoutClose();
+					</script>
+				<?php
+			} else {
+				?>
+					<script>
+						sniffleAdd('Oopsie....', 'An error occured on the servers', 'var(--warning)', 'assets/icons/cross.svg');
+						flyoutClose();
+					</script>
+				<?php
+			}
+		}
+	} else {
+		?>
+			<script>
+				sniffleAdd('Denied', 'Sussy wussy.', 'var(--warning)', 'assets/icons/cross.svg');
+				flyoutClose();
+			</script>
+		<?php
+	}
 }

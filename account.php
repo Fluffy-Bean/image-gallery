@@ -1,24 +1,24 @@
-<?php require_once __DIR__."/app/required.php"; ?>
+<?php
+	require_once __DIR__."/app/required.php";
+	
+	use App\Account;
+	use App\Diff;
+	use App\Sanity;
+
+	$user_info = new Account();
+	$diff = new Diff();
+	$sanity = new Sanity();
+
+	$profile_info = $user_info->get_user_info($conn, $_SESSION['id']);
+?>
 
 <!DOCTYPE html>
 <html>
-
-<head>
-	<?php require_once __DIR__."/assets/ui/header.php"; ?>
-</head>
-
+	<head>
+		<?php require_once __DIR__."/assets/ui/header.php"; ?>
+	</head>
 <body>
-	<?php
-		require_once __DIR__."/assets/ui/nav.php";
-
-		use App\Account;
-		use App\Diff;
-
-		$user_info = new Account();
-		$diff = new Diff();
-
-		$profile_info = $user_info->get_user_info($conn, $_SESSION['id']);
-	?>
+	<?php require_once __DIR__."/assets/ui/nav.php"; ?>
 
 		<?php
 		if ($user_info->is_loggedin()) {
@@ -82,10 +82,10 @@
 			<div class="warningDecoration defaultSpacing defaultFonts">
 				<h2>Account</h2>
 				<a class='btn btn-bad' href='password-reset.php'><img class='svg' src='assets/icons/password.svg'>Reset Password</a>
-				<button class="btn btn-bad" onclick="deleteAccount()"><img class='svg' src='assets/icons/trash.svg'>Delete account</button>
+				<button class="btn btn-bad" onclick="deleteAccount()"><img class='svg' src='assets/icons/trash.svg'>Forget me forever</button>
 				<br>
 				<p>Don't leave! I'm with the science team!</p>
-				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Logout</a>
+				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Forget Me</a>
 			</div>
 			<script>
 				function deleteAccount() {
@@ -378,6 +378,25 @@
 								evt.currentTarget.className += " active-tab";
 							}
 						</script>
+					</div>
+
+					<div class="warningDecoration defaultSpacing defaultFonts">
+							<h2>Sanity check</h2>
+							<?php
+								$check_sanity = $sanity->get_results();
+
+								if (empty($check_sanity) || !isset($check_sanity)) {
+									echo "<p class='btn btn-good' style='outline: none;'>No errors! Lookin' good</p>";
+								} else {
+									foreach ($check_sanity as $result) {
+										if (str_contains($result, "Critical")) {
+											echo "<p class='btn btn-bad' style='outline: none; cursor: default;'>".$result."</p>";
+										} elseif (str_contains($result, "Warning")) {
+											echo "<p class='btn btn-warning' style='outline: none; cursor: default;'>".$result."</p>";
+										}
+									}
+								}
+							?>
 					</div>
 					<?php
 				}

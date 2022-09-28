@@ -1,12 +1,18 @@
-<?php require_once __DIR__."/app/required.php"; ?>
+<?php
+	require_once __DIR__."/app/required.php";
+	
+	use App\Account;
+	use App\Sanity;
+
+	$user_info = new Account();
+	$sanity = new Sanity();
+?>
 
 <!DOCTYPE html>
 <html>
-
-<head>
-	<?php require_once __DIR__."/assets/ui/header.php"; ?>
-</head>
-
+	<head>
+		<?php require_once __DIR__."/assets/ui/header.php"; ?>
+	</head>
 <body>
 	<?php
 		require_once __DIR__."/assets/ui/nav.php"; 
@@ -26,6 +32,17 @@
 				</script>
 			<?php
 			unset($_SESSION['welc']);
+
+			if ($user_info->is_admin($conn, $_SESSION['id'])) {
+				$check_sanity = $sanity->get_results();
+				if (!empty($check_sanity) || isset($check_sanity)) {
+					?>
+						<script>
+							sniffleAdd('Uh oh', 'Website has not passed some Sanity checks, please check your settings for more information', 'var(--warning)', 'assets/icons/warning.svg');
+						</script>
+					<?php
+				}
+			}
 		}
 	?>
 
