@@ -1,10 +1,12 @@
 <?php
 	require_once __DIR__."/app/required.php";
 
+	use App\Make;
 	use App\Account;
 	use App\Image;
 	use App\Diff;
 
+	$make_stuff = new Make();
 	$image_info = new Image;
 	$user_info = new Account;
 	$diff = new Diff();
@@ -89,6 +91,20 @@
 			if (isset($image['imagename'])) {
 				$image_path = "images/".$image['imagename'];
 				$image_alt = $image['alt'];
+
+				$image_colour = $make_stuff->get_image_colour($image_path);
+				if (!empty($image_colour)) {
+					$image_colour = $image_colour;
+				} else {
+					$image_colour = "var(--bg)";
+				}
+				?>
+					<style>
+						.image-container, .fullscreen-image {
+							background-color: <?php echo $image_colour; ?>55 !important;
+						}
+					</style>
+				<?php
 			} else {
 				$image_path = "assets/no_image.png";
 				$image_alt = "No image could be found, sowwy";

@@ -22,6 +22,10 @@ You will need to install the image-magik PHP plugin for thumbnail creation, on U
 
     apt install php-imagick
 
+#### GD2
+Also install GD2 for image colour extraction, else you may get errors:
+
+    apt install php-gd
 
 #### PHP and Nginx
 This project also requires PHP 8.1 and was made with Ubuntu 22.04 LTS and Nginx in mind, so I reccommend running this gallery on such.

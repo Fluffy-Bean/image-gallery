@@ -2,6 +2,7 @@
 namespace App;
 
 use Exception;
+use Throwable;
 
 class Make {
     /*
@@ -49,6 +50,54 @@ class Make {
         $string = implode(' ', $string_list);
 
         return trim($string);
+    }
+
+    function get_image_colour($img) {
+        $img_type = pathinfo($img, PATHINFO_EXTENSION);
+
+        if ($img_type == "png") {
+            $img = imagecreatefrompng($img);
+        } elseif ($img_type == "jpg" || $img_type == "jpeg") {
+            $img = imagecreatefromjpeg($img);
+        } elseif ($img_type == "webp") {
+            $img = imagecreatefromwebp($img);
+        } else {
+            return null;
+        }
+
+        try {
+            $w = imagesx($img);
+            $h = imagesy($img);
+            $r = $g = $b = 0;
+    
+            for($y = 0; $y < $h; $y++) {
+                for($x = 0; $x < $w; $x++) {
+                    $rgb = imagecolorat($img, $x, $y);
+                    $r += $rgb >> 16;
+                    $g += $rgb >> 8 & 255;
+                    $b += $rgb & 255;
+                }
+            }
+    
+            $pxls = $w * $h;
+            $r = dechex(round($r / $pxls));
+            $g = dechex(round($g / $pxls));
+            $b = dechex(round($b / $pxls));
+    
+            if(strlen($r) < 2) {
+                $r = 0 . $r;
+            }
+            if(strlen($g) < 2) {
+                $g = 0 . $g;
+            }
+            if(strlen($b) < 2) {
+                $b = 0 . $b;
+            }
+    
+            return "#" . $r . $g . $b;
+        } catch (Throwable $e) {
+            return null;
+        }
     }
 }
 
@@ -277,11 +326,11 @@ class Sanity  {
             $manifest = json_decode(file_get_contents(__DIR__."/settings/manifest.json"), true);
 
             if (!isset($manifest['user_name']) || empty($manifest['user_name']) || $manifest['user_name'] == "[your name]") {
-                $results[] = "Warning: manifest.json is missing yor name";
+                $results[] = "Warning: manifest.json is missing your name";
             }
             if ($manifest['upload']['rename_on_upload'] == true ) {
                 if (!isset($manifest['upload']['rename_to']) || empty($manifest['upload']['rename_to'])) {
-                    $results[] = "Critical: manifest.json is missing what you're renaming your files to";
+                    $results[] = "Critical: manifest.json doesnt know what to rename your files to";
                 } else {
                     $rename_to = $manifest['upload']['rename_to'];
                     $rename_rate = 0;

@@ -152,6 +152,16 @@
                 if ($_SESSION['id'] == $group['author'] || $user_info->is_admin($conn, $_SESSION['id'])) {
                     echo "<a href='group.php?id=".$_GET['id']."&mode=edit' class='btn btn-neutral'>Edit</a>";
                 }
+                ?>
+                    <button class='btn btn-good' onclick='copyLink()'><img class='svg' src='assets/icons/clipboard-text.svg'>Copy link</button>
+                    <script>
+                        function copyLink() {
+                            navigator.clipboard.writeText(window.location.href);
+
+                            sniffleAdd("Info", "Link has been copied!", "var(--success)", "assets/icons/clipboard-text.svg");
+                        }
+                    </script>
+                <?php
             }
 
             echo "</div>";

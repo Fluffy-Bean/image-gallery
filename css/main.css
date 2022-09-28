@@ -251,7 +251,7 @@ nav .btn {
   max-width: calc(20% - 0.5rem);
   min-width: calc(20% - 0.5rem);
   background-color: #151515;
-  border-radius: -0.1rem;
+  border-radius: 3px;
   position: relative;
   overflow: hidden;
   flex: 1 0 150px;
@@ -294,7 +294,7 @@ nav .btn {
      object-fit: cover;
   -o-object-position: center;
      object-position: center;
-  border-radius: -0.1rem;
+  border-radius: 3px;
 }
 
 .nsfw-blur {
@@ -393,8 +393,8 @@ nav .btn {
 
 .image-container {
   margin: 1rem 0 2rem 0;
-  padding: 0;
-  width: 100%;
+  padding: 0.5rem;
+  width: calc(100% - 1rem);
   max-height: 50vh;
   height: auto;
   min-height: 30vh;
@@ -417,7 +417,7 @@ nav .btn {
   width: auto;
   max-height: inherit;
   height: auto;
-  border-radius: 0.4rem;
+  border-radius: 3px;
   transition: opacity 0.5s;
 }
 
@@ -431,7 +431,7 @@ nav .btn {
   display: block;
   box-sizing: border-box;
   border: none;
-  border-radius: 0.4rem;
+  border-radius: 3px;
   transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
   background-color: rgba(21, 21, 21, 0.7333333333);
   z-index: 2;
@@ -483,7 +483,7 @@ nav .btn {
   padding: 0.5rem;
   display: block;
   background-color: #8C977D;
-  border-radius: -0.1rem;
+  border-radius: 3px;
   font-family: "Secular One", sans-serif;
 }
 .tag::before {
@@ -603,7 +603,7 @@ nav .btn {
   height: auto;
   max-width: calc(20% - 0.5rem);
   min-width: calc(20% - 0.5rem);
-  border-radius: -0.1rem;
+  border-radius: 3px;
   position: relative;
   overflow: hidden;
   flex: 1 0 150px;
@@ -626,7 +626,7 @@ nav .btn {
   height: 100%;
   padding: 0;
   background-color: #121212;
-  border-radius: -0.1rem;
+  border-radius: 3px;
   border: none;
   top: 0;
   bottom: 0;
@@ -734,7 +734,7 @@ nav .btn {
   margin: 0 auto;
   max-width: 100%;
   max-height: 15rem;
-  border-radius: -0.1rem;
+  border-radius: 3px;
   display: flex;
   flex-direction: column;
 }
@@ -754,7 +754,7 @@ nav .btn {
   height: 7.813rem;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: -0.1rem;
+  border-radius: 3px;
   background-color: #121212;
 }
 .pfp-upload form > * {
@@ -799,7 +799,7 @@ nav .btn {
   display: none;
   flex-direction: column;
   background-color: #151515;
-  border-radius: -0.1rem;
+  border-radius: 3px;
 }
 
 .log {
@@ -846,7 +846,7 @@ nav .btn {
   display: none;
   flex-direction: column;
   background-color: #151515;
-  border-radius: -0.1rem;
+  border-radius: 3px;
 }
 
 .ban {
@@ -900,7 +900,7 @@ nav .btn {
   display: none;
   flex-direction: column;
   background-color: #151515;
-  border-radius: -0.1rem;
+  border-radius: 3px;
 }
 
 .user {
@@ -1029,7 +1029,7 @@ body * {
   font-family: "Secular One", sans-serif;
   text-decoration: none;
   border: none;
-  border-radius: -0.1rem;
+  border-radius: 3px;
   transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .btn:hover {
@@ -1045,7 +1045,7 @@ body * {
   text-decoration: none;
   background-color: #E8E3E3;
   border: none;
-  border-radius: -0.1rem;
+  border-radius: 3px;
 }
 .btn:where(input[type=file])::file-selector-button {
   margin: -0.25rem 0.5rem -0.25rem -0.25rem;
@@ -1055,7 +1055,7 @@ body * {
   text-decoration: none;
   background-color: #E8E3E3;
   border: none;
-  border-radius: -0.1rem;
+  border-radius: 3px;
 }
 
 a.btn {
@@ -1152,7 +1152,7 @@ a.link:hover {
   background-color: rgba(21, 21, 21, 0.7333333333);
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
-  border-radius: 50%;
+  border-radius: 3px;
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
   transition: right 0.15s cubic-bezier(0.19, 1, 0.22, 1);
 }

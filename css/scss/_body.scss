@@ -72,7 +72,11 @@
     min-width: calc(20% - 0.5rem);
 
     background-color: $bg;
-    border-radius: calc($rad - 0.5rem);
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
 
     position: relative;
 
@@ -126,7 +130,11 @@
     object-fit: cover;
     object-position: center;
 
-    border-radius: calc($rad - 0.5rem);
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
 }
 
 .nsfw-blur {
@@ -253,9 +261,9 @@
 
 .image-container {
     margin: 1rem 0 2rem 0;
-    padding: 0;
+    padding: 0.5rem;
 
-    width: 100%;
+    width: calc(100% - 1rem);
     max-height: 50vh;
     height: auto;
     min-height: 30vh;
@@ -284,7 +292,11 @@
     max-height: inherit;
     height: auto;
 
-    border-radius: $rad;
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
 
     transition: opacity 0.5s;
 }
@@ -302,7 +314,11 @@
     box-sizing: border-box;
 
     border: none;
-    border-radius: $rad;
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
 
     transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
 
@@ -370,7 +386,11 @@
 
     background-color: $page-accent;
 
-    border-radius: calc($rad - 0.5rem);
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
 
     font-family: $font-body;
 
@@ -526,7 +546,11 @@
     max-width: calc(20% - 0.5rem);
     min-width: calc(20% - 0.5rem);
 
-    border-radius: calc($rad - 0.5rem);
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
 
     position: relative;
 
@@ -556,7 +580,11 @@
         padding: 0;
 
         background-color: $black;
+        @if calc($rad - 0.5rem) > 0 {
         border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
         border: none;
 
         top: 0;
@@ -684,7 +712,11 @@
     max-width: 100%;
     max-height: 15rem;
 
-    border-radius: calc($rad - 0.5rem);
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
 
     display: flex;
     flex-direction: column;
@@ -707,7 +739,11 @@
 
         object-fit: cover;
 
+        @if calc($rad - 0.5rem) > 0 {
         border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
 
         background-color: $black;
     }
@@ -759,7 +795,11 @@
     display: none; flex-direction: column;
 
     background-color: $bg;
-    border-radius: calc($rad - 0.5rem);
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
 }
 .log {
     min-width: 850px;
@@ -811,7 +851,11 @@
     display: none; flex-direction: column;
 
     background-color: $bg;
-    border-radius: calc($rad - 0.5rem);
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
 }
 .ban {
     min-width: 900px;
@@ -869,7 +913,11 @@
     display: none; flex-direction: column;
 
     background-color: $bg;
-    border-radius: calc($rad - 0.5rem);
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
 }
 .user {
     min-width: 950px;

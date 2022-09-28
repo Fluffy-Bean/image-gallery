@@ -192,7 +192,7 @@
 											<p><?php echo $log['action']; ?></p>
 											<?php
 												$log_time = new DateTime($log['time']);
-												echo "<p>" . $log_time->format('Y-m-d H:i:s T') . " | " . $diff->time($log['time']) . "</p>";
+												echo "<p>".$log_time->format('Y-m-d H:i:s T')." (".$diff->time($log['time']).")</p>";
 											?>
 										</div>
 									<?php
@@ -225,7 +225,7 @@
 											<p><?php echo $ban['length']; ?> mins</p>
 											<?php
 												$log_time = new DateTime($ban['time']);
-												echo "<p>" . $log_time->format('Y-m-d H:i:s T') . " | " . $diff->time($ban['time']) . "</p>";
+												echo "<p>".$log_time->format('Y-m-d H:i:s T')." (".$diff->time($ban['time']).")</p>";
 											?>
 										</div>
 									<?php
@@ -258,7 +258,7 @@
 											<p><?php echo $user['username']; ?></p>
 											<?php
 												$user_time = new DateTime($user['created_at']);
-												echo "<p>" . $user_time->format('Y-m-d H:i:s T') . " | " . $diff->time($user['last_modified']) . "</p>";
+												echo "<p>".$user_time->format('Y-m-d H:i:s T')." (".$diff->time($user['last_modified']).")</p>";
 											
 												if ($user['id'] == 1) {
 													?>

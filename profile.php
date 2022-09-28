@@ -1,9 +1,11 @@
 <?php
     require_once __DIR__."/app/required.php"; 
 
-    use App\Account;
-    use App\Diff;
+    use App\Make;
+	use App\Account;
+	use App\Diff;
 
+	$make_stuff = new Make();
     $user_info = new Account();
     $diff = new Diff();
 
@@ -30,6 +32,20 @@
                 if (!empty($user)) {
                     if (is_file("images/pfp/".$user['pfp_path'])) {
                         echo "<img src='images/pfp/".$user['pfp_path']."'>";
+
+                        $pfp_colour = $make_stuff->get_image_colour("images/pfp/".$user['pfp_path']);
+                        if (!empty($pfp_colour)) {
+                            $pfp_colour = $pfp_colour;
+                        } else {
+                            $pfp_colour = "var(--bg-3)";
+                        }
+                        ?>
+                            <style>
+                                .profile-root {
+                                    background-image: linear-gradient(to right, <?php echo $pfp_colour; ?>, var(--bg-3)) !important;
+                                }
+                            </style>
+                        <?php
                     } else {
                         echo "<img src='assets/no_image.png'>";
                     }
