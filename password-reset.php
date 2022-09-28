@@ -42,7 +42,7 @@
 			var new_password = $("#newPassword").val();
 			var confirm_password = $("#confirmPassword").val();
 			var submit = $("#passwordSubmit").val();
-			$("#sniffle").load("app/account/account.php", {
+			$("#newSniff").load("app/account/account.php", {
 				new_password: new_password,
 				confirm_password: confirm_password,
 				password_reset_submit: submit

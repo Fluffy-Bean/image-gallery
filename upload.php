@@ -79,7 +79,7 @@
 					contentType: false,
 					processData: false,
 					success: function(response) {
-						$("#sniffle").html(response);
+						$("#newSniff").html(response);
 					}
 				});
 

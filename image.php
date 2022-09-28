@@ -318,7 +318,7 @@
 						$("#deleteConfirm").submit(function(event) {
 							event.preventDefault();
 							var deleteSubmit = $("#deleteSubmit").val();
-							$("#sniffle").load("app/image/image.php", {
+							$("#newSniff").load("app/image/image.php", {
 								id: <?php echo $_GET['id']; ?>,
 								submit_delete: deleteSubmit
 							});
@@ -352,7 +352,7 @@
 							event.preventDefault();
 							var descriptionInput = $("#descriptionInput").val();
 							var descriptionSubmit = $("#descriptionSubmit").val();
-							$("#sniffle").load("app/image/image.php", {
+							$("#newSniff").load("app/image/image.php", {
 								id: <?php echo $_GET['id']; ?>,
 								input: descriptionInput,
 								submit_description: descriptionSubmit
@@ -388,7 +388,7 @@
 							event.preventDefault();
 							var tagsInput = $("#tagsInput").val();
 							var tagsSubmit = $("#tagsSubmit").val();
-							$("#sniffle").load("app/image/image.php", {
+							$("#newSniff").load("app/image/image.php", {
 								id: <?php echo $_GET['id']; ?>,
 								input: tagsInput,
 								submit_tags: tagsSubmit
@@ -422,7 +422,7 @@
 								event.preventDefault();
 								var authorInput = $("#authorInput").val();
 								var authorSubmit = $("#authorSubmit").val();
-								$("#sniffle").load("app/image/image.php", {
+								$("#newSniff").load("app/image/image.php", {
 									id: <?php echo $_GET['id']; ?>,
 									input: authorInput,
 									submit_author: authorSubmit

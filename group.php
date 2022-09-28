@@ -98,7 +98,7 @@
                                 $("#titleForm").submit(function(event) {
                                     event.preventDefault();
                                     var deleteSubmit = $("#deleteSubmit").val();
-                                    $("#sniffle").load("app/image/group.php", {
+                                    $("#newSniff").load("app/image/group.php", {
                                         group_id: <?php echo $_GET['id']; ?>,
                                         group_delete: deleteSubmit
                                     });
@@ -123,7 +123,7 @@
                                     event.preventDefault();
                                     var titleText = $("#titleText").val();
                                     var titleSubmit = $("#titleSubmit").val();
-                                    $("#sniffle").load("app/image/group.php", {
+                                    $("#newSniff").load("app/image/group.php", {
                                         group_id: <?php echo $_GET['id']; ?>,
                                         group_title: titleText,
                                         title_submit: titleSubmit
@@ -236,7 +236,7 @@
                                 if (images <= 0) {
                                     sniffleAdd('Oppsie', 'Groups need at least 1 image in them. Alternativly, you can delete this group.', 'var(--warning)', 'assets/icons/cross.svg');
                                 } else {
-                                    $("#sniffle").load("app/image/group.php", {
+                                    $("#newSniff").load("app/image/group.php", {
                                         group_images: images,
                                         group_id: <?php echo $_GET['id']; ?>,
                                         group_submit: groupSubmit
@@ -285,7 +285,7 @@
                     ?>
                         <script>
                             $('#createGroup').click(function() {                                
-                                $("#sniffle").load("app/image/group.php", {
+                                $("#newSniff").load("app/image/group.php", {
                                     new_group_submit: "uwu"
                                 });
                             });

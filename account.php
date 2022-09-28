@@ -62,7 +62,7 @@
 									contentType: false,
 									processData: false,
 									success: function(response) {
-										$("#sniffle").html(response);
+										$("#newSniff").html(response);
 									}
 								});
 
@@ -111,7 +111,7 @@
 						event.preventDefault();
 						var accountDeletePassword = $("#accountDeletePassword").val();
 						var accountDeleteSubmit = $("#accountDeleteSubmit").val();
-						$("#sniffle").load("app/account/account.php", {
+						$("#newSniff").load("app/account/account.php", {
 							delete_id: <?php echo $_SESSION['id']; ?>,
 							full: 'false',
 							account_password: accountDeletePassword,
@@ -134,7 +134,7 @@
 						event.preventDefault();
 						var accountDeletePassword = $("#accountDeletePassword").val();
 						var accountDeleteSubmit = $("#accountDeleteSubmit").val();
-						$("#sniffle").load("app/account/account.php", {
+						$("#newSniff").load("app/account/account.php", {
 							delete_id: <?php echo $_SESSION['id']; ?>,
 							full: 'true',
 							account_password: accountDeletePassword,
@@ -297,7 +297,7 @@
 										var confirm_password = $("#userConfirmPassword").val();
 										var submit = $("#userPasswordSubmit").val();
 										var userId = $("#userPasswordSubmit").val();
-										$("#sniffle").load("app/account/account.php", {
+										$("#newSniff").load("app/account/account.php", {
 											new_password: new_password,
 											confirm_password: confirm_password,
 											id: userId,
@@ -322,7 +322,7 @@
 										event.preventDefault();
 										var id = $("#userDeleteSubmit").val();
 										var userDeleteSubmit = $("#userDeleteSubmit").val();
-										$("#sniffle").load("app/account/account.php", {
+										$("#newSniff").load("app/account/account.php", {
 											delete_id: id,
 											full: false,
 											account_delete_submit: userDeleteSubmit
@@ -332,7 +332,7 @@
 										event.preventDefault();
 										var id = $("#userDeleteSubmit").val();
 										var userDeleteSubmit = $("#userDeleteSubmit").val();
-										$("#sniffle").load("app/account/account.php", {
+										$("#newSniff").load("app/account/account.php", {
 											delete_id: id,
 											full: true,
 											account_delete_submit: userDeleteSubmit
@@ -352,7 +352,7 @@
 									$("#toggleAdminConfirm").submit(function(event) {
 										event.preventDefault();
 										var toggleAdminSubmit = $("#toggleAdminSubmit").val();
-										$("#sniffle").load("app/account/account.php", {
+										$("#newSniff").load("app/account/account.php", {
 											id: toggleAdminSubmit,
 											toggle_admin: toggleAdminSubmit
 										});
@@ -420,7 +420,7 @@
 					var username = $("#loginUsername").val();
 					var password = $("#loginPassword").val();
 					var submit = $("#loginSubmit").val();
-					$("#sniffle").load("app/account/account.php", {
+					$("#newSniff").load("app/account/account.php", {
 						username: username,
 						password: password,
 						submit_login: submit
@@ -452,7 +452,7 @@
 					var confirm_password = $("#signupPasswordConfirm").val();
 					var token = $("#signupToken").val();
 					var submit = $("#signupSubmit").val();
-					$("#sniffle").load("app/account/account.php", {
+					$("#newSniff").load("app/account/account.php", {
 						username: username,
 						password: password,
 						confirm_password: confirm_password,

@@ -60,6 +60,7 @@ $loggedin = new Account();
 	Div can be displayed all time as it has no width or height initself
 -->
 <div id='sniffle' class='sniffle'></div>
+<span id="newSniff" style="display: none;"></span>
 
 <!--
 	Div for information flyouts
