@@ -35,7 +35,7 @@
 
 			if ($user_info->is_admin($conn, $_SESSION['id'])) {
 				$check_sanity = $sanity->get_results();
-				if (!empty($check_sanity) || isset($check_sanity)) {
+				if (!empty($check_sanity)) {
 					?>
 						<script>
 							sniffleAdd('Uh oh', 'Website has not passed some Sanity checks, please check your settings for more information', 'var(--warning)', 'assets/icons/warning.svg');

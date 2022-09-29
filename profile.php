@@ -74,21 +74,23 @@
             ?>
         </div>
 
-        <div id="gallery" class="gallery-root defaultDecoration">
-            <?php
+        <?php
 
-                // Reading images from table
-                $sql = "SELECT * FROM images WHERE author = ? ORDER BY id DESC";
+            // Reading images from table
+            $sql = "SELECT * FROM images WHERE author = ? ORDER BY id DESC";
 
-                if ($stmt = mysqli_prepare($conn, $sql)) {
-                    // Bind variables to the prepared statement as parameters
-                    mysqli_stmt_bind_param($stmt, "i", $param_user_id);
-                    
-                    $param_user_id = $_GET['user'];
-                    
-                    $stmt->execute();
-                    $query = $stmt->get_result();
-                    
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                // Bind variables to the prepared statement as parameters
+                mysqli_stmt_bind_param($stmt, "i", $param_user_id);
+                
+                $param_user_id = $_GET['user'];
+                
+                $stmt->execute();
+                $query = $stmt->get_result();
+
+                if (mysqli_num_rows($query) != 0) {
+                    echo "<div id='gallery' class='gallery-root defaultDecoration'>";
+
                     while ($image = mysqli_fetch_array($query)) {
                         // Getting thumbnail
                         if (file_exists("images/thumbnails/".$image['imagename'])) {
@@ -109,9 +111,11 @@
                                 </div>";
                         }			
                     }
+
+                    echo "</div>";
                 }
-            ?>
-        </div>
+            }
+        ?>
 
         <script>
             var postCount = $("#gallery").children().length;
