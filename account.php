@@ -1,32 +1,91 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-	<?php require_once __DIR__."/ui/header.php"; ?>
-</head>
-
-<body>
-	<?php
-	require_once __DIR__."/ui/required.php";
-	require_once __DIR__."/ui/nav.php";
-
+<?php
+	require_once __DIR__."/app/required.php";
+	
 	use App\Account;
 	use App\Diff;
+	use App\Sanity;
 
 	$user_info = new Account();
 	$diff = new Diff();
-	?>
+	$sanity = new Sanity();
+
+	$profile_info = $user_info->get_user_info($conn, $_SESSION['id']);
+?>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<?php require_once __DIR__."/assets/ui/header.php"; ?>
+	</head>
+<body>
+	<?php require_once __DIR__."/assets/ui/nav.php"; ?>
 
 		<?php
 		if ($user_info->is_loggedin()) {
 		?>
-			<div class="account-root">
-				<h2>Settings</h2>
-				<a class='btn btn-bad' href='password-reset.php'><img class='svg' src='assets/icons/password.svg'>Reset Password</a>
-				<button class="btn btn-bad" onclick="deleteAccount()"><img class='svg' src='assets/icons/trash.svg'>Delete account</button>
+			<div class="defaultDecoration defaultSpacing defaultFonts">
+				<h2>Profile</h2>
+				<div class="pfp-upload">
+					<form id="pfpForm" method="POST" enctype="multipart/form-data">
+						<h3>Profile Picture</h3>
+						<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
+						<button id="pfpSubmit" class="btn btn-good" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
+					</form>
+					<?php
+						if (is_file("images/pfp/".$profile_info['pfp_path'])) {
+							echo "<img src='images/pfp/".$profile_info['pfp_path']."'>";
+						} else {
+							echo "<img src='assets/no_image.png'>";
+						}
+					?>
+					<script>
+						$("#pfpForm").submit(function(event) {
+							event.preventDefault();
+							// Check if image avalible
+							var file = $("#image").val();
+							if (file != "") {
+								// Make form
+								var formData = new FormData();
+
+								// Get image
+								var image_data = $("#image").prop("files")[0];
+								formData.append("image", image_data);
+								// Submit data
+								var submit = $("#pfpSubmit").val();
+								formData.append("pfp_submit", submit);
+
+								// Upload the information
+								$.ajax({
+									url: 'app/account/account.php',
+									type: 'post',
+									data: formData,
+									contentType: false,
+									processData: false,
+									success: function(response) {
+										$("#newSniff").html(response);
+									}
+								});
+
+								// Empty values
+								$("#image").val("");
+								$("#submit").val("");
+							} else {
+								sniffleAdd('Gwha!', 'Pls provide image', 'var(--warning)', 'assets/icons/file-search.svg');
+							}
+						});
+					</script>
+				</div>
 				<br>
+				<a href="profile.php?user=<?php echo $_SESSION['id']; ?>" class="btn btn-neutral">Go to profile</a>
+			</div>
+
+			<div class="warningDecoration defaultSpacing defaultFonts">
+				<h2>Account</h2>
 				<p>Don't leave! I'm with the science team!</p>
-				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Logout</a>
+				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Forget Me</a>
+				<br>
+				<a class='btn btn-bad' href='password-reset.php'><img class='svg' src='assets/icons/password.svg'>Reset Password</a>
+				<button class="btn btn-bad" onclick="deleteAccount()"><img class='svg' src='assets/icons/trash.svg'>Forget me forever</button>
 			</div>
 			<script>
 				function deleteAccount() {
@@ -52,7 +111,7 @@
 						event.preventDefault();
 						var accountDeletePassword = $("#accountDeletePassword").val();
 						var accountDeleteSubmit = $("#accountDeleteSubmit").val();
-						$("#sniffle").load("app/account/account.php", {
+						$("#newSniff").load("app/account/account.php", {
 							delete_id: <?php echo $_SESSION['id']; ?>,
 							full: 'false',
 							account_password: accountDeletePassword,
@@ -75,7 +134,7 @@
 						event.preventDefault();
 						var accountDeletePassword = $("#accountDeletePassword").val();
 						var accountDeleteSubmit = $("#accountDeleteSubmit").val();
-						$("#sniffle").load("app/account/account.php", {
+						$("#newSniff").load("app/account/account.php", {
 							delete_id: <?php echo $_SESSION['id']; ?>,
 							full: 'true',
 							account_password: accountDeletePassword,
@@ -88,8 +147,8 @@
 			<?php
 				if ($user_info->is_admin($conn, $_SESSION['id'])) {
 				?>
-					<div class="admin-root">
-						<h2>Admin controlls</h2>
+					<div class="defaultDecoration defaultSpacing defaultFonts">
+						<h2>Admin</h2>
 						<h3>Invite Codes</h3>
 						<?php
 						$token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
@@ -133,7 +192,7 @@
 											<p><?php echo $log['action']; ?></p>
 											<?php
 												$log_time = new DateTime($log['time']);
-												echo "<p>" . $log_time->format('Y-m-d H:i:s T') . " | " . $diff->time($log['time']) . "</p>";
+												echo "<p>".$log_time->format('Y-m-d H:i:s T')." (".$diff->time($log['time']).")</p>";
 											?>
 										</div>
 									<?php
@@ -166,7 +225,7 @@
 											<p><?php echo $ban['length']; ?> mins</p>
 											<?php
 												$log_time = new DateTime($ban['time']);
-												echo "<p>" . $log_time->format('Y-m-d H:i:s T') . " | " . $diff->time($ban['time']) . "</p>";
+												echo "<p>".$log_time->format('Y-m-d H:i:s T')." (".$diff->time($ban['time']).")</p>";
 											?>
 										</div>
 									<?php
@@ -199,7 +258,7 @@
 											<p><?php echo $user['username']; ?></p>
 											<?php
 												$user_time = new DateTime($user['created_at']);
-												echo "<p>" . $user_time->format('Y-m-d H:i:s T') . " | " . $diff->time($user['last_modified']) . "</p>";
+												echo "<p>".$user_time->format('Y-m-d H:i:s T')." (".$diff->time($user['last_modified']).")</p>";
 											
 												if ($user['id'] == 1) {
 													?>
@@ -238,7 +297,7 @@
 										var confirm_password = $("#userConfirmPassword").val();
 										var submit = $("#userPasswordSubmit").val();
 										var userId = $("#userPasswordSubmit").val();
-										$("#sniffle").load("app/account/account.php", {
+										$("#newSniff").load("app/account/account.php", {
 											new_password: new_password,
 											confirm_password: confirm_password,
 											id: userId,
@@ -263,7 +322,7 @@
 										event.preventDefault();
 										var id = $("#userDeleteSubmit").val();
 										var userDeleteSubmit = $("#userDeleteSubmit").val();
-										$("#sniffle").load("app/account/account.php", {
+										$("#newSniff").load("app/account/account.php", {
 											delete_id: id,
 											full: false,
 											account_delete_submit: userDeleteSubmit
@@ -273,7 +332,7 @@
 										event.preventDefault();
 										var id = $("#userDeleteSubmit").val();
 										var userDeleteSubmit = $("#userDeleteSubmit").val();
-										$("#sniffle").load("app/account/account.php", {
+										$("#newSniff").load("app/account/account.php", {
 											delete_id: id,
 											full: true,
 											account_delete_submit: userDeleteSubmit
@@ -285,7 +344,7 @@
 									var header = "With great power comes great responsibility...";
 									var description = "Do you trust this user? With admin permitions they can cause a whole lot of damage to this place, so make sure you're very very sure";
 									var actionBox = "<form id='toggleAdminConfirm' method='POST'>\
-									<button id='toggleAdminSubmit' class='btn btn-bad' type='submit' value='"+id+"'>Make "+username+" powerfull!</button>\
+									<button id='toggleAdminSubmit' class='btn btn-bad' type='submit' value='"+id+"'>Toggle "+username+"'s admin status</button>\
 									</form>";
 
 									flyoutShow(header, description, actionBox);
@@ -293,7 +352,7 @@
 									$("#toggleAdminConfirm").submit(function(event) {
 										event.preventDefault();
 										var toggleAdminSubmit = $("#toggleAdminSubmit").val();
-										$("#sniffle").load("app/account/account.php", {
+										$("#newSniff").load("app/account/account.php", {
 											id: toggleAdminSubmit,
 											toggle_admin: toggleAdminSubmit
 										});
@@ -320,11 +379,44 @@
 							}
 						</script>
 					</div>
-					<?php // UwU
+
+					<div class="sanity-check defaultDecoration defaultSpacing defaultFonts">
+							<h2>Sanity check</h2>
+							<?php
+								$check_sanity = $sanity->get_results();
+
+								if (empty($check_sanity) || !isset($check_sanity)) {
+									echo "<p class='btn btn-good' style='outline: none;'>No errors! Lookin' good</p>";
+									?>
+										<style>
+											.sanity-check {
+												border-color: var(--page-accent);
+											}
+										</style>
+									<?php
+								} else {
+									?>
+										<style>
+											.sanity-check {
+												border-color: var(--warning);
+											}
+										</style>
+									<?php
+									foreach ($check_sanity as $result) {
+										if (str_contains($result, "Critical")) {
+											echo "<p class='btn btn-bad' style='outline: none; cursor: default;'>".$result."</p>";
+										} elseif (str_contains($result, "Warning")) {
+											echo "<p class='btn btn-warning' style='outline: none; cursor: default;'>".$result."</p>";
+										}
+									}
+								}
+							?>
+					</div>
+					<?php
 				}
 		} else {
 		?>
-			<div class="login-root">
+			<div class="login-root defaultDecoration defaultSpacing defaultFonts">
 				<h2>Login</h2>
 				<p>Passwords are important to keep safe. Don't tell anyone your password, not even Fluffy!</p>
 				<br>
@@ -342,7 +434,7 @@
 					var username = $("#loginUsername").val();
 					var password = $("#loginPassword").val();
 					var submit = $("#loginSubmit").val();
-					$("#sniffle").load("app/account/account.php", {
+					$("#newSniff").load("app/account/account.php", {
 						username: username,
 						password: password,
 						submit_login: submit
@@ -350,7 +442,7 @@
 				});
 			</script>
 
-			<div class="signup-root">
+			<div class="signup-root defaultDecoration defaultSpacing defaultFonts" style="display: none;">
 				<h2>Make account</h2>
 				<p>And amazing things happened here...</p>
 				<br>
@@ -374,7 +466,7 @@
 					var confirm_password = $("#signupPasswordConfirm").val();
 					var token = $("#signupToken").val();
 					var submit = $("#signupSubmit").val();
-					$("#sniffle").load("app/account/account.php", {
+					$("#newSniff").load("app/account/account.php", {
 						username: username,
 						password: password,
 						confirm_password: confirm_password,
@@ -398,7 +490,7 @@
 		}
 		?>
 
-	<?php require_once __DIR__."/ui/footer.php"; ?>
+	<?php require_once __DIR__."/assets/ui/footer.php"; ?>
 </body>
 
 </html>

@@ -6,23 +6,28 @@
 footer {
     margin: 0 auto;
 
-    width: calc(100% - 1.4rem);
+    width: auto;
 
     text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+
+    display: flex; flex-direction: row;
+
     p {
-        margin: 0 0.5rem;
+        margin: 0.2rem;
+        padding: 0;
 
         text-decoration: none;
-        font-size: 16px;
 
         font-family: $font-body;
     }
 
     a {
-        margin: 0 0.5rem;
+        margin: 0.2rem;
+        padding: 0;
 
         text-decoration: none;
-        font-size: 16px;
 
         font-family: $font-body;
 

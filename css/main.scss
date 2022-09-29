@@ -78,7 +78,11 @@ body {
     text-decoration: none;
 
     border: none;
-    border-radius: calc($rad - (0.5rem + 3px));
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
 
     transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
 
@@ -102,7 +106,11 @@ body {
         background-color: $white;
 
         border: none;
-        border-radius: $rad;
+        @if calc($rad - 0.5rem) > 0 {
+            border-radius: calc($rad - 0.5rem);
+        } @else {
+            border-radius: 3px;
+        }
     }
 }
 
@@ -110,16 +118,22 @@ a.btn {
     text-align: center;
 }
 
-.btn-good {
-    background-color: $page-accent;
-}
 
 .btn-bad {
-    background-color: $red;
+    background-color: $warning;
+    /*color: darken($warning, 40%);*/
 }
-
+.btn-warning {
+    background-color: $alert;
+    /*color: darken($warning, 40%);*/
+}
+.btn-good {
+    background-color: $page-accent;
+    /*color: darken($warning, 40%);*/
+}
 .btn-neutral {
-    background-color: $black;
+    background-color: $neutral;
+    /*color: $white;*/
 }
 
 /*
@@ -131,7 +145,7 @@ form {
     width: 100%;
     box-sizing: content-box;
 
-    >* {
+    & > * {
         margin-bottom: 0.5rem;
     }
 }
@@ -168,6 +182,20 @@ br {
 
 /*
  |-------------------------------------------------------------
+ | Link text
+ |-------------------------------------------------------------
+*/
+a.link {
+    display: inline;
+    text-decoration: underline;
+
+    &:hover {
+        color: $page-accent;
+    }
+}
+
+/*
+ |-------------------------------------------------------------
  | BACK TO TOP
  |-------------------------------------------------------------
 */
@@ -185,7 +213,12 @@ br {
     background-color: $bg-alt;
     backdrop-filter: blur(8px);
 
-    border-radius: 50%;
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
+    
     box-shadow: $shadow;
 
     transition: right 0.15s cubic-bezier(.19, 1, .22, 1);

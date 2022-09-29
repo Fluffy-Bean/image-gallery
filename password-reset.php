@@ -1,28 +1,28 @@
+<?php require_once __DIR__."/app/required.php"; ?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-	<?php require_once __DIR__."/ui/header.php"; ?>
+	<?php require_once __DIR__."/assets/ui/header.php"; ?>
 </head>
-
 
 <body>
 	<?php
-	require_once __DIR__."/ui/required.php";
-	require_once __DIR__."/ui/nav.php";
+		require_once __DIR__."/assets/ui/nav.php";
 
-	use App\Account;
+		use App\Account;
 
-	$user_info = new Account();
+		$user_info = new Account();
 
-	// Check if the user is logged in, otherwise redirect to login page
-	if ($user_info->is_loggedin() != true) {
-		header("location: account.php");
-		exit;
-	}
+		// Check if the user is logged in, otherwise redirect to login page
+		if ($user_info->is_loggedin() != true) {
+			header("location: account.php");
+			exit;
+		}
 	?>
 
-	<div class="password-reset-root">
+	<div class="warningDecoration defaultSpacing defaultFonts">
 		<h2>Reset Password</h2>
 		<p>After reset, you will be kicked out to login again</p>
 		<br>
@@ -32,6 +32,8 @@
 			<br>
 			<button id="passwordSubmit" class="btn btn-bad" type="submit" name="reset"><img class="svg" src="assets/icons/sign-in.svg">Reset</button>
 		</form>
+		<br>
+		<a href="account.php" class="btn btn-neutral" ><img class="svg" src="assets/icons/sign-in.svg">Cancel</a>
 	</div>
 
 	<script>
@@ -40,7 +42,7 @@
 			var new_password = $("#newPassword").val();
 			var confirm_password = $("#confirmPassword").val();
 			var submit = $("#passwordSubmit").val();
-			$("#sniffle").load("app/account/account.php", {
+			$("#newSniff").load("app/account/account.php", {
 				new_password: new_password,
 				confirm_password: confirm_password,
 				password_reset_submit: submit
@@ -48,7 +50,7 @@
 		});
 	</script>
 
-	<?php require_once __DIR__."/ui/footer.php"; ?>
+	<?php require_once __DIR__."/assets/ui/footer.php"; ?>
 </body>
 
 </html>

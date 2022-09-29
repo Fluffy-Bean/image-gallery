@@ -1,184 +1,211 @@
-<!DOCTYPE html>
-<html>
+<?php
+	require_once __DIR__."/app/required.php";
 
-<head>
-	<?php require_once __DIR__."/ui/header.php"; ?>
-</head>
-
-
-<body>
-	<?php
-	/*
-	 |-------------------------------------------------------------
-	 | Import Required
-	 |-------------------------------------------------------------
-	 | These are common scripts used across all pages of the
-	 | website. At some point I want the whole website to be only
-	 | one index page. But that's going to require many many many
-	 | many rewrites and hours of learning....
-	 |-------------------------------------------------------------
-	*/
-	require_once __DIR__."/ui/required.php";
-	require_once __DIR__."/ui/nav.php";
-
+	use App\Make;
 	use App\Account;
 	use App\Image;
 	use App\Diff;
 
+	$make_stuff = new Make();
 	$image_info = new Image;
 	$user_info = new Account;
 	$diff = new Diff();
+?>
 
-	/*
-	 |-------------------------------------------------------------
-	 | Get image ID
-	 |-------------------------------------------------------------
-	 | Image ID should be written in the URL of the page as ?id=69
-	 | If ID cannot be obtained, give error.      ID going here ^^
-	 |-------------------------------------------------------------
-	*/
-	if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-		// Get all image info
-		$image = $image_info->get_image_info($conn, $_GET['id']);
+<!DOCTYPE html>
+<html>
 
-		// Check if image is avalible
-		if (isset($image['imagename'])) {
-			$image_present = True;
+<head>
+	<?php require_once __DIR__."/assets/ui/header.php"; ?>
+</head>
+
+<body>
+	<?php
+		require_once __DIR__."/assets/ui/nav.php";
+
+		/*
+		|-------------------------------------------------------------
+		| Get image ID
+		|-------------------------------------------------------------
+		| Image ID should be written in the URL of the page as ?id=69
+		| If ID cannot be obtained, give error.      ID going here ^^
+		|-------------------------------------------------------------
+		*/
+		if (isset($_GET['id'])) {
+			// Get all image info
+			$image = $image_info->get_image_info($conn, $_GET['id']);
+
+			// Check if image is avalible
+			if (!empty($image['imagename']) && isset($image['imagename'])) {
+				$image_present = True;
+			} else {
+		?>
+				<script>
+					sniffleAdd('Woops', 'Something happened, either image with the ID <?php echo $_GET['id']; ?> was deleted or never existed, either way it could not be found!', 'var(--warning)', 'assets/icons/cross.svg');
+				</script>
+				<?php
+				$image_present = False;
+			}
 		} else {
-	?>
-			<script>
-				sniffleAdd('Woops', 'Something happened, either image with the ID <?php echo $_GET['id']; ?> was deleted or never existed, either way it could not be found!', 'var(--red)', 'assets/icons/cross.svg');
-			</script>
+			?>
+				<script>
+					sniffleAdd('Where is da image?', 'The link you followed seems to be broken, or there was some other error, who knows!', 'var(--warning)', 'assets/icons/cross.svg');
+				</script>
 			<?php
 			$image_present = False;
 		}
-	} else {
-		?>
-		<script>
-			sniffleAdd('Where is da image?', 'The link you followed seems to be broken, or there was some other error, who knows!', 'var(--red)', 'assets/icons/cross.svg');
-		</script>
-		<?php
-		$image_present = False;
-	}
 
-	/*
-	 |-------------------------------------------------------------
-	 | Image verification
-	 |-------------------------------------------------------------
-	 | Doublechecking if all information on images exists, if yes
-	 | display it, otherwise don't display at all or replace with
-	 | blank or filler info
-	 |-------------------------------------------------------------
-	*/
-	if ($image_present) {
 		/*
-		 |-------------------------------------------------------------
-		 | Check user details
-		 |-------------------------------------------------------------
+		|-------------------------------------------------------------
+		| Image verification
+		|-------------------------------------------------------------
+		| Doublechecking if all information on images exists, if yes
+		| display it, otherwise don't display at all or replace with
+		| blank or filler info
+		|-------------------------------------------------------------
 		*/
-		if (isset($image['author'])) {
-			// Get all information on the user
-			$user = $user_info->get_user_info($conn, $image['author']);
+		if ($image_present) {
+			/*
+			|-------------------------------------------------------------
+			| Check user details
+			|-------------------------------------------------------------
+			*/
+			if (isset($image['author'])) {
+				// Get all information on the user
+				$user = $user_info->get_user_info($conn, $image['author']);
 
-			if (isset($user['username'])) {
-				$image_author = $user['username'];
+				if (isset($user['username'])) {
+					$image_author = $user['username'];
+				} else {
+					$image_author = "Deleted User";
+				}
 			} else {
-				$image_author = "Deleted User";
+				$image_author = "No author";
+			}
+
+			/*
+			|-------------------------------------------------------------
+			| Check if image path is good
+			|-------------------------------------------------------------
+			*/
+			if (isset($image['imagename'])) {
+				$image_path = "images/".$image['imagename'];
+				$image_alt = $image['alt'];
+
+				$image_colour = $make_stuff->get_image_colour($image_path);
+				if (!empty($image_colour)) {
+					$image_colour = $image_colour;
+				} else {
+					$image_colour = "var(--bg)";
+				}
+				?>
+					<style>
+						.image-container, .fullscreen-image {
+							background-color: <?php echo $image_colour; ?>33 !important;
+						}
+					</style>
+				<?php
+			} else {
+				$image_path = "assets/no_image.png";
+				$image_alt = "No image could be found, sowwy";
+			}
+
+			/*
+			|-------------------------------------------------------------
+			| If description not set or empty, replace with filler
+			|-------------------------------------------------------------
+			*/
+			if (!isset($image_alt) || empty($image_alt)) {
+				$image_alt = "No description avalible";
 			}
 		} else {
-			$image_author = "No author";
-		}
-
-		/*
-		 |-------------------------------------------------------------
-		 | Check if image path is good
-		 |-------------------------------------------------------------
-		*/
-		if (isset($image['imagename'])) {
-			$image_path = "images/".$image['imagename'];
-			$image_alt = $image['alt'];
-		} else {
+			/*
+			|-------------------------------------------------------------
+			| Image was not present
+			|-------------------------------------------------------------
+			*/
 			$image_path = "assets/no_image.png";
 			$image_alt = "No image could be found, sowwy";
 		}
 
 		/*
-		 |-------------------------------------------------------------
-		 | If description not set or empty, replace with filler
-		 |-------------------------------------------------------------
+		|-------------------------------------------------------------
+		| Check user privilge
+		|-------------------------------------------------------------
 		*/
-		if (!isset($image_alt) || empty($image_alt)) {
-			$image_alt = "No description avalible";
+		if ($image_info->image_privilage($image['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
+			$privilaged = True;
+		} else {
+			$privilaged = False;
 		}
-	} else {
-		/*
-		 |-------------------------------------------------------------
-		 | Image was not present
-		 |-------------------------------------------------------------
-		*/
-		$image_path = "assets/no_image.png";
-		$image_alt = "No image could be found, sowwy";
-	}
 
-	/*
-	 |-------------------------------------------------------------
-	 | Check user privilge
-	 |-------------------------------------------------------------
-	*/
-	if ($image_info->image_privilage($image['author']) || $user_info->is_admin($conn, $_SESSION['id'])) {
-		$privilaged = True;
-	} else {
-		$privilaged = False;
-	}
+		echo "<div class='fullscreen-image'>
+			<button onclick='closeFullScreen()'><img src='assets/icons/cross.svg'></button>
+			<img>
+			</div>";
+		
+		if (is_file("images/previews/".$image['imagename'])) {
+			echo "<div class='image-container'>
+				<img class='image' id='".$image['id']."' src='images/previews/".$image['imagename']."' alt='".$image_alt."'>
+				<button class='preview-button' onclick='fullScreen()'><img src='assets/icons/scan.svg'></button>
+				</div>";
+		} else {
+			echo "<div class='image-container'>
+				<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>
+				<button class='preview-button' onclick='fullScreen()'><img src='assets/icons/scan.svg'></button>
+				</div>";
+		}
+		
 
-	if (is_file("images/previews/".$image['imagename'])) {
-		echo "<div class='image-container'>
-		<img class='image' id='".$image['id']."' src='images/previews/".$image['imagename']."' alt='".$image_alt."'>
-		<button class='preview-button' onclick='showFull()'><img src='assets/icons/scan.svg'></button>
-		</div>";
 		?>
-			<script>
-				function showFull() {
-					document.querySelector(".image").style.opacity = 0;
-					document.querySelector(".preview-button").style.display = "none";
-					setTimeout(function(){
-						document.querySelector(".image").src = "<?php echo $image_path;?>";
-						document.querySelector(".image").style.opacity = 1;
-					}, 500);
-				}
-			</script>
+		<script>
+			function fullScreen() {
+				document.querySelector(".preview-button").style.display = "none";
+				document.querySelector("html").style.overflow = "hidden";
+
+				document.querySelector(".fullscreen-image").style.display = "block";
+				document.querySelector(".fullscreen-image > img").src = "<?php echo $image_path;?>";
+				setTimeout(function(){
+					document.querySelector(".fullscreen-image").style.opacity = 1;
+				}, 1);
+			}
+
+			function closeFullScreen() {
+				document.querySelector(".preview-button").style.display = "block";
+				document.querySelector("html").style.overflow = "auto";
+				
+				document.querySelector(".fullscreen-image").style.opacity = 0;
+				setTimeout(function(){
+					document.querySelector(".fullscreen-image").style.display = "none";
+				}, 500);
+			}
+		</script>
 		<?php
-	} else {
-		echo "<div class='image-container'>
-		<img class='image' id='".$image['id']."' src='".$image_path."' alt='".$image_alt."'>
-		</div>";
-	}
 
-
-	/*
-	 |-------------------------------------------------------------
-	 | Start of displaying all info on image
-	 |-------------------------------------------------------------
-	*/
-	if ($image_present) {
+		/*
+		|-------------------------------------------------------------
+		| Start of displaying all info on image
+		|-------------------------------------------------------------
+		*/
+		if ($image_present) {
 	?>
 
-		<div class="image-description default-window">
+		<div class="defaultDecoration defaultSpacing defaultFonts">
 			<h2>Description</h2>
 			<p><?php echo htmlentities($image_alt, ENT_QUOTES); ?></p>
 		</div>
 
 
-		<div class="image-detail">
+		<div class="image-detail defaultDecoration defaultSpacing defaultFonts">
 			<h2>Details</h2>
 			<div>
 				<div>
 					<?php
 						// User
-						if ($user_info->is_admin($conn, $image['author'])) {
-							echo "<p>Author: ".$image_author."<img class='svg' style='margin: 0 0 0.1rem 0.2rem;' src='assets/icons/crown-simple.svg'></p>";
-						} else {
+						if (empty($image['author'])) {
 							echo "<p>Author: ".$image_author."</p>";
+						} else {
+							echo "<p>Author: <a href='profile.php?user=".$image['author']."' class='link'>".$image_author."</a></p>";
 						}
 
 						// Image ID
@@ -235,7 +262,7 @@
 			<a id='download' class='btn btn-good' href='<?php echo "images/".$image['imagename']; ?>' download='<?php echo $image['imagename']; ?>'><img class='svg' src='assets/icons/download.svg'>Download image</a>
 			<script>
 				$("#download").click(function() {
-					sniffleAdd("Info", "Image download started!", "var(--green)", "assets/icons/download.svg");
+					sniffleAdd("Info", "Image download started!", "var(--success)", "assets/icons/download.svg");
 				});
 			</script>
 
@@ -245,12 +272,12 @@
 				function copyLink() {
 					navigator.clipboard.writeText(window.location.href);
 
-					sniffleAdd("Info", "Link has been copied!", "var(--green)", "assets/icons/clipboard-text.svg");
+					sniffleAdd("Info", "Link has been copied!", "var(--success)", "assets/icons/clipboard-text.svg");
 				}
 			</script>
 		</div>
 
-		<div class="tags-root default-window">
+		<div class="defaultDecoration defaultSpacing defaultFonts">
 			<h2>Tags</h2>
 			<div class="tags">
 				<?php
@@ -283,7 +310,7 @@
 		if ($privilaged) {
 		?>
 			<!-- Danger zone -->
-			<div class='danger-zone flex-down default-window'>
+			<div class='warningDecoration defaultSpacing defaultFonts'>
 				<h2>Danger zone</h2>
 
 				<!--
@@ -307,7 +334,7 @@
 						$("#deleteConfirm").submit(function(event) {
 							event.preventDefault();
 							var deleteSubmit = $("#deleteSubmit").val();
-							$("#sniffle").load("app/image/image.php", {
+							$("#newSniff").load("app/image/image.php", {
 								id: <?php echo $_GET['id']; ?>,
 								submit_delete: deleteSubmit
 							});
@@ -316,13 +343,13 @@
 				</script>
 
 				<!--
-				|-------------------------------------------------------------
-				| Edit Description
-				|-------------------------------------------------------------
-				| Most people reading through the code will probably say how
-				| shit it is. YOU HAVE NO FUCKING CLUE HOW LONG THIS TOOK ME
-				| TO FIGURE OUT. i hate js.
-				|-------------------------------------------------------------
+					|-------------------------------------------------------------
+					| Edit Description
+					|-------------------------------------------------------------
+					| Most people reading through the code will probably say how
+					| shit it is. YOU HAVE NO FUCKING CLUE HOW LONG THIS TOOK ME
+					| TO FIGURE OUT. i hate js.
+					|-------------------------------------------------------------
 				-->
 				<button id='descriptionButton' class='btn btn-bad'><img class='svg' src='assets/icons/edit.svg'>Edit description</button>
 				<script>
@@ -330,7 +357,7 @@
 						var header = "Enter new Description/Alt";
 						var description = "Whatcha gonna put in there 👀";
 						var actionBox = "<form id='descriptionConfirm' action='app/image/edit_description.php' method='POST'>\
-						<textarea id='descriptionInput' class='btn btn-neutral space-bottom' placeholder='Description/Alt for image' rows='3'></textarea>\
+						<input id='descriptionInput' class='btn btn-neutral space-bottom' type='text' placeholder='Description/Alt for image'>\
 						<button id='descriptionSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update information</button>\
 						</form>";
 						flyoutShow(header, description, actionBox);
@@ -341,7 +368,7 @@
 							event.preventDefault();
 							var descriptionInput = $("#descriptionInput").val();
 							var descriptionSubmit = $("#descriptionSubmit").val();
-							$("#sniffle").load("app/image/image.php", {
+							$("#newSniff").load("app/image/image.php", {
 								id: <?php echo $_GET['id']; ?>,
 								input: descriptionInput,
 								submit_description: descriptionSubmit
@@ -366,7 +393,7 @@
 						var header = "Tags";
 						var description = "Tags are seperated by spaces, only alowed characters are a-z and underscores, all hyphens are converted to underscores. There are also special tags such as nsfw that'll blur images in the overview";
 						var actionBox = "<form id='tagsConfirm' action='app/image/edit_tags.php' method='POST'>\
-						<textarea id='tagsInput' class='btn btn-neutral space-bottom' placeholder='Tags are seperated by spaces' row='3'></textarea>\
+						<input id='tagsInput' class='btn btn-neutral space-bottom' type='text' placeholder='Tags are seperated by spaces'>\
 						<button id='tagsSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Edit tags</button>\
 						</form>";
 						flyoutShow(header, description, actionBox);
@@ -377,7 +404,7 @@
 							event.preventDefault();
 							var tagsInput = $("#tagsInput").val();
 							var tagsSubmit = $("#tagsSubmit").val();
-							$("#sniffle").load("app/image/image.php", {
+							$("#newSniff").load("app/image/image.php", {
 								id: <?php echo $_GET['id']; ?>,
 								input: tagsInput,
 								submit_tags: tagsSubmit
@@ -411,7 +438,7 @@
 								event.preventDefault();
 								var authorInput = $("#authorInput").val();
 								var authorSubmit = $("#authorSubmit").val();
-								$("#sniffle").load("app/image/image.php", {
+								$("#newSniff").load("app/image/image.php", {
 									id: <?php echo $_GET['id']; ?>,
 									input: authorInput,
 									submit_author: authorSubmit
@@ -432,7 +459,7 @@
 		}
 		?>
 
-		<?php require_once __DIR__."/ui/footer.php"; ?>
+		<?php require_once __DIR__."/assets/ui/footer.php"; ?>
 </body>
 
 </html>
