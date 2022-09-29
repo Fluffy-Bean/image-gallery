@@ -84,6 +84,8 @@
 
             if ($_GET['mode'] == "edit") {
                 if ($_SESSION['id'] == $group['author'] || $user_info->is_admin($conn, $_SESSION['id'])) {
+                    echo "<br>";
+
                     echo "<button id='deleteGroup' class='btn btn-bad'>Delete</button>";
                     ?>
                         <script>
@@ -133,8 +135,9 @@
                         </script>
                     <?php
 
-                    $image_request = mysqli_query($conn, "SELECT * FROM images");
+                    echo "<br>";
 
+                    $image_request = mysqli_query($conn, "SELECT * FROM images");
                     echo "<form id='groupForm'>"; 
                     while ($image = mysqli_fetch_array($image_request)) {
                         if (in_array($image['id'], $image_list)) {

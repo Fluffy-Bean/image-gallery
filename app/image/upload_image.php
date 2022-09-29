@@ -146,13 +146,13 @@ if (isset($_POST['submit'])) {
 					if (mysqli_stmt_execute($stmt)) {
 						?>
 							<script>
-								sniffleAdd(':3', 'Your Image uploaded successfully!', 'var(--success)', 'assets/icons/check.svg');
+								sniffleAdd('Yeya :3', 'Your Image uploaded successfully!', 'var(--success)', 'assets/icons/check.svg');
 							</script>
 						<?php
 					} else {
 						?>
 							<script>
-								sniffleAdd(':c', 'Something went fuckywucky, please try later', 'var(--warning)', 'assets/icons/cross.svg');
+								sniffleAdd('Gwaaa :c', 'Something went fuckywucky, please try later', 'var(--warning)', 'assets/icons/cross.svg');
 							</script>
 						<?php
 					}
