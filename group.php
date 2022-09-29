@@ -182,7 +182,7 @@
 
     <?php 
     if (empty($group['image_list']) && $_GET['mode'] != "edit" && !empty($_GET['id'])) {
-        echo "<div class='info-text defaultFonts'>
+        echo "<div class='info-text defaultFonts' style='text-align: center !important;'>
 				<h1>Nothing here!</h1>
 				<p>There are no images in the group, add some!</p>
 			</div>";
@@ -317,7 +317,7 @@
                             }
                         </style>
                         <script>
-                            $('body').append("<div class='info-text defaultFonts'><h1>There are no groups yet</h1><p>Login to make a group!</p></div>");
+                            $('body').append("<div class='info-text defaultFonts' style='text-align: center !important;'><h1>There are no groups yet</h1><p>Login to make a group!</p></div>");
                         </script>
                     <?php
                 }

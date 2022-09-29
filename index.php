@@ -106,7 +106,7 @@
 
 			echo "</div>";
 		} else {
-			echo "<div class='info-text defaultFonts'>
+			echo "<div class='info-text defaultFonts' style='text-align: center !important;'>
 				<h1>Nothing here!</h1>
 				<p>There are no images in the gallery, upload some!</p>
 			</div>";
