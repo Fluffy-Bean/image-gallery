@@ -309,6 +309,19 @@
 
                 $group_list = mysqli_query($conn, "SELECT * FROM groups ORDER BY id DESC");
 
+                if (empty($group_list) && !$_SESSION["loggedin"]) {
+                    ?>
+                        <style>
+                            .gallery-root {
+                                display: none;
+                            }
+                        </style>
+                        <script>
+                            $('body').append("<div class='info-text defaultFonts'><h1>There are no groups yet</h1><p>Login to make a group!</p></div>");
+                        </script>
+                    <?php
+                }
+
                 foreach ($group_list as $group) {
                     $image_list = array_reverse(explode(" ", $group['image_list']));
                     $image = $image_info->get_image_info($conn, $image_list[array_rand($image_list, 1)]);
