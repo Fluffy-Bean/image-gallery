@@ -387,13 +387,6 @@
 
 								if (empty($check_sanity) || !isset($check_sanity)) {
 									echo "<p class='btn btn-good' style='outline: none;'>No errors! Lookin' good</p>";
-									?>
-										<style>
-											.sanity-check {
-												border-color: var(--page-accent);
-											}
-										</style>
-									<?php
 								} else {
 									?>
 										<style>
