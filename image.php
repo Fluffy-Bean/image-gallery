@@ -101,7 +101,7 @@
 				?>
 					<style>
 						.image-container, .fullscreen-image {
-							background-color: <?php echo $image_colour; ?>55 !important;
+							background-color: <?php echo $image_colour; ?>33 !important;
 						}
 					</style>
 				<?php

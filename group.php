@@ -182,6 +182,10 @@
 
     <?php 
     if (empty($group['image_list']) && $_GET['mode'] != "edit" && !empty($_GET['id'])) {
+        echo "<div class='info-text defaultFonts'>
+				<h1>Nothing here!</h1>
+				<p>There are no images in the group, add some!</p>
+			</div>";
         echo "<div id='gallery' class='gallery-root defaultDecoration' style='display: none;'>";
     } else {
         echo "<div id='gallery' class='gallery-root defaultDecoration' >";
