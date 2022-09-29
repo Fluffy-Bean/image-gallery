@@ -50,7 +50,7 @@ nav {
   margin: 0 auto 1rem;
   padding: 0.5rem;
   width: calc(100% - 1.4rem);
-  height: 2.5rem;
+  height: auto;
   position: -webkit-sticky;
   position: sticky;
   z-index: 99;
@@ -91,6 +91,9 @@ nav .btn {
   font-family: "Secular One", sans-serif;
   width: auto;
 }
+.nav-links a.btn {
+  padding: 0.2rem 0.5rem;
+}
 
 .nav-mobile {
   display: none;
@@ -108,6 +111,7 @@ nav .btn {
   nav {
     margin: 0;
     width: calc(100% - 1rem);
+    height: 2.5rem;
     position: fixed;
     top: auto;
     bottom: 0;
@@ -125,6 +129,9 @@ nav .btn {
   nav .svg {
     margin: 0;
     display: block;
+  }
+  .nav-links a.btn {
+    padding: 0.5rem;
   }
   .nav-hide {
     display: none;
@@ -261,6 +268,9 @@ nav .btn {
   transform: scale(1.1) rotate(5deg);
   box-shadow: 6px 6px 2px rgba(21, 21, 21, 0.4);
   z-index: 9;
+}
+.gallery-item:active {
+  transform: scale(0.8) !important;
 }
 .gallery-item:after {
   content: "";
@@ -558,6 +568,7 @@ nav .btn {
 
 .selectedImage {
   outline: #8C977D solid 0.3rem;
+  transform: scale(0.8) !important;
 }
 
 .group-name {

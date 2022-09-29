@@ -42,7 +42,7 @@
                         ?>
                             <style>
                                 .profile-root {
-                                    background-image: linear-gradient(to right, <?php echo $pfp_colour; ?>, var(--bg-3)) !important;
+                                    background-image: linear-gradient(to right, <?php echo $pfp_colour; ?>, var(--bg-3), var(--bg-3)) !important;
                                 }
                             </style>
                         <?php

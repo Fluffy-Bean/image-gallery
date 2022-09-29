@@ -93,6 +93,10 @@
         z-index: 9;
     }
 
+    &:active {
+        transform: scale(0.8) !important;
+    }
+
     &:after {
         content: "";
         display: block;
@@ -493,6 +497,7 @@
 
 .selectedImage {
     outline: $page-accent solid 0.3rem;
+    transform: scale(0.8) !important;
 }
 .group-name {
     margin: 0;

@@ -81,11 +81,11 @@
 
 			<div class="warningDecoration defaultSpacing defaultFonts">
 				<h2>Account</h2>
-				<a class='btn btn-bad' href='password-reset.php'><img class='svg' src='assets/icons/password.svg'>Reset Password</a>
-				<button class="btn btn-bad" onclick="deleteAccount()"><img class='svg' src='assets/icons/trash.svg'>Forget me forever</button>
-				<br>
 				<p>Don't leave! I'm with the science team!</p>
 				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Forget Me</a>
+				<br>
+				<a class='btn btn-bad' href='password-reset.php'><img class='svg' src='assets/icons/password.svg'>Reset Password</a>
+				<button class="btn btn-bad" onclick="deleteAccount()"><img class='svg' src='assets/icons/trash.svg'>Forget me forever</button>
 			</div>
 			<script>
 				function deleteAccount() {
@@ -380,14 +380,28 @@
 						</script>
 					</div>
 
-					<div class="warningDecoration defaultSpacing defaultFonts">
+					<div class="sanity-check defaultDecoration defaultSpacing defaultFonts">
 							<h2>Sanity check</h2>
 							<?php
 								$check_sanity = $sanity->get_results();
 
 								if (empty($check_sanity) || !isset($check_sanity)) {
 									echo "<p class='btn btn-good' style='outline: none;'>No errors! Lookin' good</p>";
+									?>
+										<style>
+											.sanity-check {
+												border-color: var(--page-accent);
+											}
+										</style>
+									<?php
 								} else {
+									?>
+										<style>
+											.sanity-check {
+												border-color: var(--warning);
+											}
+										</style>
+									<?php
 									foreach ($check_sanity as $result) {
 										if (str_contains($result, "Critical")) {
 											echo "<p class='btn btn-bad' style='outline: none; cursor: default;'>".$result."</p>";
