@@ -312,7 +312,7 @@
 
                 $group_list = mysqli_query($conn, "SELECT * FROM groups ORDER BY id DESC");
 
-                if (empty($group_list) && !$_SESSION["loggedin"]) {
+                if (mysqli_num_rows($group_list) == 0 && !$_SESSION["loggedin"]) {
                     ?>
                         <style>
                             .gallery-root {

@@ -50,7 +50,7 @@
 		// Reading images from table
 		$image_request = mysqli_query($conn, "SELECT * FROM images ORDER BY id DESC");
 
-		if (!empty($image_request)) {
+		if (mysqli_num_rows($image_request) != 0) {
 			?>
 				<div class="info-text defaultFonts">
 					<?php
