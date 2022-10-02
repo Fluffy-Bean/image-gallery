@@ -18,7 +18,7 @@
 		if (!$user_info->is_loggedin()) {
 		?>
 			<script>
-			sniffleAdd('Who are you!', 'You must be loggedin to upload things, sowwy!', 'var(--alert)', 'assets/icons/cross.svg');
+			sniffleAdd('Who are you!', 'You must be logged in to upload things, sowwy!', 'var(--alert)', 'assets/icons/cross.svg');
 			</script>
 		<?php
 		}
@@ -50,49 +50,49 @@
 	</div>
 
 	<script>
-		$("#uploadSubmit").submit(function(event) {
+		$('#uploadSubmit').submit(function(event) {
 			event.preventDefault();
-			// Check if image avalible
+			// Check if image available
 			var file = $("#image").val();
-			if (file != "") {
-				// Make form
-				var formData = new FormData();
+            if (file == "") {
+                sniffleAdd('Gwha!', 'Pls provide image', 'var(--warning)', 'assets/icons/file-search.svg');
+            } else {
+                // Make form
+                var formData = new FormData();
 
-				// Get image
-				var image_data = $("#image").prop("files")[0];
-				formData.append("image", image_data);
-				// Get ALT
-				var alt = $("#alt").val();
-				formData.append("alt", alt);
-				// Get TAGS
-				var tags = $("#tags").val();
-				formData.append("tags", tags);
-				// Submit data
-				var submit = $("#submit").val();
-				formData.append("submit", submit);
+                // Get image
+                var image_data = $("#image").prop("files")[0];
+                formData.append("image", image_data);
+                // Get ALT
+                var alt = $("#alt").val();
+                formData.append("alt", alt);
+                // Get TAGS
+                var tags = $("#tags").val();
+                formData.append("tags", tags);
+                // Submit data
+                var submit = $("#submit").val();
+                formData.append("submit", submit);
 
-				// Upload the information
-				$.ajax({
-					url: 'app/image/upload_image.php',
-					type: 'post',
-					data: formData,
-					contentType: false,
-					processData: false,
-					success: function(response) {
-						$("#newSniff").html(response);
-					}
-				});
+                // Upload the information
+                $.ajax({
+                    url: 'app/image/upload_image.php',
+                    type: 'post',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        $("#newSniff").html(response);
+                    }
+                });
 
-				// Empty values
-				imagePreview.src = "";
-				$("#image").val("");
-				$("#alt").val("");
-				$("#tags").val("");
-				$("#submit").val("");
-			} else {
-				sniffleAdd('Gwha!', 'Pls provide image', 'var(--warning)', 'assets/icons/file-search.svg');
-			}
-		});
+                // Empty values
+                imagePreview.src = "";
+                $("#image").val("");
+                $("#alt").val("");
+                $("#tags").val("");
+                $("#submit").val("");
+            }
+        });
 	</script>
 
 	<?php require_once __DIR__."/assets/ui/footer.php"; ?>

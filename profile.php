@@ -10,8 +10,8 @@
     $diff = new Diff();
 
     if (!isset($_GET['user']) || empty($_GET['user'])) {
-        header("Location: index.php");
-    } elseif (isset($_GET['user'])) {
+    header("Location: index.php");
+    } else if (isset($_GET['user'])) {
         $user = $user_info->get_user_info($conn, $_GET['user']);
 
     $join_date = new DateTime($user['created_at']);
@@ -34,11 +34,7 @@
                         echo "<img src='images/pfp/".$user['pfp_path']."'>";
 
                         $pfp_colour = $make_stuff->get_image_colour("images/pfp/".$user['pfp_path']);
-                        if (!empty($pfp_colour)) {
-                            $pfp_colour = $pfp_colour;
-                        } else {
-                            $pfp_colour = "var(--bg-3)";
-                        }
+                        if (empty($pfp_colour)) $pfp_colour = "var(--bg-3)";
                         ?>
                             <style>
                                 .profile-root {
@@ -58,7 +54,9 @@
                         <h2>
                             <?php
                                 echo $user['username'];
-                                if ($user_info->is_admin($conn, $user['id'])) echo "<span style='color: var(--accent); font-size: 16px; margin-left: 0.5rem;'>Admin</span>";
+                                if ($user_info->is_admin($conn, $user['id'])) {
+                                    echo "<span style='color: var(--accent); font-size: 16px; margin-left: 0.5rem;'>Admin</span>";
+                                }
                             ?>
                         </h2>
                         <div class="profile-info">
@@ -69,7 +67,7 @@
                     <?php
                 } else {
                     echo "<img src='assets/no_image.png'>
-                    <h2>Failed to load user info</h2>";
+                <h2>Failed to load user info</h2>";
                 }
             ?>
         </div>
@@ -94,20 +92,20 @@
                     while ($image = mysqli_fetch_array($query)) {
                         // Getting thumbnail
                         if (file_exists("images/thumbnails/".$image['imagename'])) {
-                            $image_path = "images/thumbnails/".$image['imagename'];
+                            $image_path = "images/thumbnails/" . $image['imagename'];
                         } else {
-                            $image_path = "images/".$image['imagename'];
+                            $image_path = "images/" . $image['imagename'];
                         }
     
                         // Check for NSFW tag
                         if (str_contains($image['tags'], "nsfw")) {
                             echo "<div class='gallery-item'>
-                                <a href='image.php?id=".$image['id']."' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>
-                                <a href='image.php?id=".$image['id']."'><img class='gallery-image nsfw-blur' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>
-                                </div>";
+                            <a href='image.php?id=" . $image['id'] . "' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>
+                            <a href='image.php?id=" . $image['id'] . "'><img class='gallery-image nsfw-blur' loading='lazy' src='" . $image_path . "' id='" . $image['id'] . "'></a>
+                            </div>";
                         } else {
                             echo "<div class='gallery-item'>
-                                <a href='image.php?id=".$image['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'></a>
+                                <a href='image.php?id=" . $image['id'] . "'><img class='gallery-image' loading='lazy' src='" . $image_path . "' id='" . $image['id'] . "'></a>
                                 </div>";
                         }			
                     }

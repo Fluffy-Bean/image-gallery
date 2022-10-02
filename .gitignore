@@ -3,3 +3,5 @@ images/
 
 # CSS map, I don't think its needed for upload... I think?
 *.map
+
+.idea/
