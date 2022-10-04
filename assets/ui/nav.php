@@ -69,7 +69,6 @@ $loggedin = new Account();
 <div id='flyoutDim' class='flyout-dim'></div>
 <div id='flyoutRoot' class='flyout'>
 	<p id='flyoutHeader' class='flyout-header'>Header</p>
-	<br>
 	<p id='flyoutDescription' class='flyout-description'>Description</p>
 	<br>
 	<div id='flyoutActionbox' class='flyout-actionbox'></div>

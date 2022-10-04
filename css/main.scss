@@ -121,14 +121,17 @@ a.btn {
 
 .btn-bad {
     background-color: $warning;
+    background-image: linear-gradient(to top, darken($warning, 5%), $warning);
     /*color: darken($warning, 40%);*/
 }
 .btn-warning {
     background-color: $alert;
+    background-image: linear-gradient(to top, darken($alert, 5%), $alert);
     /*color: darken($warning, 40%);*/
 }
 .btn-good {
     background-color: $page-accent;
+    background-image: linear-gradient(to top, darken($page-accent, 5%), $page-accent);
     /*color: darken($warning, 40%);*/
 }
 .btn-neutral {
