@@ -136,6 +136,7 @@ a.btn {
 }
 .btn-neutral {
     background-color: $neutral;
+    background-image: linear-gradient(to top, darken($neutral, 0.5%), $neutral);
     /*color: $white;*/
 }
 

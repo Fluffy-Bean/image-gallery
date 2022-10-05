@@ -787,6 +787,7 @@
 }
 .active-tab {
     background-color: $page-accent !important;
+    background-image: linear-gradient(to top, darken($page-accent, 5%), $page-accent) !important;
 }
 
 .logs {

@@ -800,6 +800,7 @@ nav .btn {
 
 .active-tab {
   background-color: #8C977D !important;
+  background-image: linear-gradient(to top, #7f8b6f, #8C977D) !important;
 }
 
 .logs {
@@ -1093,6 +1094,7 @@ a.btn {
 
 .btn-neutral {
   background-color: #121212;
+  background-image: linear-gradient(to top, #111111, #121212);
   /*color: $white;*/
 }
 

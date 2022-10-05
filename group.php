@@ -30,6 +30,11 @@
 
         $group['created_at'] = new DateTime($group['created_at']);
     }
+
+    if ($_GET['mode'] == "edit" && $_SESSION['id'] != $group['author'] && !$user_info->is_admin($conn, $_SESSION['id'])) {
+        $_SESSION['err'] = "You do not have permission to view this page";
+        header("Location: group.php?id=".$_GET['id']);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -86,78 +91,77 @@
             echo "<p>Last Modified: ".$diff->time($group['last_modified'])."</p>";
 
             if ($_GET['mode'] == "edit") {
-                if ($_SESSION['id'] == $group['author'] || $user_info->is_admin($conn, $_SESSION['id'])) {
-                    echo "<br>";
+                echo "<br>";
 
-                    echo "<button id='deleteGroup' class='btn btn-bad'>Delete</button>";
-                    ?>
-                        <script>
-                            $('#deleteGroup').click(function() {
-                                var header = "Are you surrrrrre?";
-                                var description = "The images will still be up, but all your hard work setting this group up will be gone!";
-                                var actionBox = "<form id='titleForm' method='POST'>\
-                                <button id='deleteSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete group</button>\
-                                </form>";
-                                flyoutShow(header, description, actionBox);
-                                
-                                $("#titleForm").submit(function(event) {
-                                    event.preventDefault();
-                                    var deleteSubmit = $("#deleteSubmit").val();
-                                    $("#newSniff").load("app/image/group.php", {
-                                        group_id: <?php echo $_GET['id']; ?>,
-                                        group_delete: deleteSubmit
-                                    });
+                echo "<button id='deleteGroup' class='btn btn-bad'>Delete</button>";
+                ?>
+                    <script>
+                        $('#deleteGroup').click(function() {
+                            var header = "Are you surrrrrre?";
+                            var description = "The images will still be up, but all your hard work setting this group up will be gone!";
+                            var actionBox = "<form id='titleForm' method='POST'>\
+                            <button id='deleteSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete group</button>\
+                            </form>";
+                            flyoutShow(header, description, actionBox);
+                            
+                            $("#titleForm").submit(function(event) {
+                                event.preventDefault();
+                                var deleteSubmit = $("#deleteSubmit").val();
+                                $("#newSniff").load("app/image/group.php", {
+                                    group_id: <?php echo $_GET['id']; ?>,
+                                    group_delete: deleteSubmit
                                 });
                             });
-                        </script>
-                    <?php
+                        });
+                    </script>
+                <?php
 
-                    echo "<button id='editTitle' class='btn btn-bad'>Update title</button>";
-                    ?>
-                        <script>
-                            $('#editTitle').click(function() {
-                                var header = "Newwww photo group name!";
-                                var description = "What will it be? uwu";
-                                var actionBox = "<form id='titleForm' action='app/image/edit_description.php' method='POST'>\
-                                <input id='titleText' class='btn btn-neutral' type='text' placeholder='New title'>\
-                                <button id='titleSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update title</button>\
-                                </form>";
-                                flyoutShow(header, description, actionBox);
-                                
-                                $("#titleForm").submit(function(event) {
-                                    event.preventDefault();
-                                    var titleText = $("#titleText").val();
-                                    var titleSubmit = $("#titleSubmit").val();
-                                    $("#newSniff").load("app/image/group.php", {
-                                        group_id: <?php echo $_GET['id']; ?>,
-                                        group_title: titleText,
-                                        title_submit: titleSubmit
-                                    });
+                echo "<button id='editTitle' class='btn btn-bad'>Update title</button>";
+                ?>
+                    <script>
+                        $('#editTitle').click(function() {
+                            var header = "Newwww photo group name!";
+                            var description = "What will it be? uwu";
+                            var actionBox = "<form id='titleForm' action='app/image/edit_description.php' method='POST'>\
+                            <input id='titleText' class='btn btn-neutral' type='text' placeholder='New title'>\
+                            <button id='titleSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update title</button>\
+                            </form>";
+                            flyoutShow(header, description, actionBox);
+                            
+                            $("#titleForm").submit(function(event) {
+                                event.preventDefault();
+                                var titleText = $("#titleText").val();
+                                var titleSubmit = $("#titleSubmit").val();
+                                $("#newSniff").load("app/image/group.php", {
+                                    group_id: <?php echo $_GET['id']; ?>,
+                                    group_title: titleText,
+                                    title_submit: titleSubmit
                                 });
                             });
-                        </script>
-                    <?php
+                        });
+                    </script>
+                <?php
 
-                    echo "<br>";
+                echo "<br>";
 
-                    $image_request = mysqli_query($conn, "SELECT * FROM images");
-                    echo "<form id='groupForm'>"; 
-                    while ($image = mysqli_fetch_array($image_request)) {
-                        if (in_array($image['id'], $image_list)) {
-                            echo "<input style='display: none;' type='checkbox' id='".$image['id']."' name='".$image['id']."' checked/>";
-                        } else {
-                            echo "<input style='display: none;' type='checkbox' id='".$image['id']."' name='".$image['id']."'/>";
-                        } 
-                    }
-                    echo "<button id='groupSubmit' class='btn btn-good' type='submit'>Save changes</button>
-                    </form>";
-
-                    echo "<a href='group.php?id=".$_GET['id']."' class='btn btn-neutral'>Back</a>";
+                $image_request = mysqli_query($conn, "SELECT * FROM images");
+                echo "<form id='groupForm'>"; 
+                while ($image = mysqli_fetch_array($image_request)) {
+                    if (in_array($image['id'], $image_list)) {
+                        echo "<input style='display: none;' type='checkbox' id='".$image['id']."' name='".$image['id']."' checked/>";
+                    } else {
+                        echo "<input style='display: none;' type='checkbox' id='".$image['id']."' name='".$image['id']."'/>";
+                    } 
                 }
+                echo "<button id='groupSubmit' class='btn btn-good' type='submit'>Save changes</button>
+                </form>";
+
+                echo "<a href='group.php?id=".$_GET['id']."' class='btn btn-neutral'>Back</a>";
             } else {
                 if ($_SESSION['id'] == $group['author'] || $user_info->is_admin($conn, $_SESSION['id'])) {
                     echo "<a href='group.php?id=".$_GET['id']."&mode=edit' class='btn btn-neutral'>Edit</a>";
                 }
+
                 ?>
                     <button class='btn btn-good' onclick='copyLink()'><img class='svg' src='assets/icons/clipboard-text.svg'>Copy link</button>
                     <script>
