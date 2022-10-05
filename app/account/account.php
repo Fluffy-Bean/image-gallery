@@ -7,8 +7,8 @@ use App\Account;
 use App\Make;
 
 $make_stuff = new Make();
-$user_info = new Account();
-$user_ip = $user_info->get_ip();
+$user_info  = new Account();
+$user_ip    = $user_info->get_ip();
 
 /*
  |-------------------------------------------------------------

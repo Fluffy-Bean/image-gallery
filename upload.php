@@ -1,28 +1,24 @@
-<?php require_once __DIR__."/app/required.php"; ?>
+<?php
+	require __DIR__."/app/required.php";
+	
+	use App\Account;
+	$user_info = new Account();
+
+	// Check if user is logged in
+	if (!$user_info->is_loggedin()) {
+		header("location: account.php");
+	}
+?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-	<?php require_once __DIR__."/assets/ui/header.php"; ?>
+	<?php include __DIR__."/assets/ui/header.php"; ?>
 </head>
 
 <body>
-	<?php
-		require_once __DIR__."/assets/ui/nav.php";
-
-		use App\Account;
-		$user_info = new Account();
-
-		// Check if user is logged in
-		if (!$user_info->is_loggedin()) {
-		?>
-			<script>
-			sniffleAdd('Who are you!', 'You must be logged in to upload things, sowwy!', 'var(--alert)', 'assets/icons/cross.svg');
-			</script>
-		<?php
-		}
-	?>
+	<?php include __DIR__."/assets/ui/nav.php"; ?>
 
 	<div class="upload-root defaultDecoration defaultSpacing defaultFonts">
 		<h2>Upload image</h2>
@@ -42,8 +38,6 @@
 				const [file] = image.files
 				if (file) {
 					imagePreview.src = URL.createObjectURL(file);
-				} else {
-					imagePreview.src = "assets/no_image.png";
 				}
 			}
 		</script>
@@ -95,7 +89,7 @@
         });
 	</script>
 
-	<?php require_once __DIR__."/assets/ui/footer.php"; ?>
+	<?php include __DIR__."/assets/ui/footer.php"; ?>
 </body>
 
 </html>

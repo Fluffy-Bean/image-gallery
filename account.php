@@ -1,13 +1,13 @@
 <?php
-	require_once __DIR__."/app/required.php";
+	require __DIR__."/app/required.php";
 	
 	use App\Account;
 	use App\Diff;
 	use App\Sanity;
 
-	$user_info = new Account();
-	$diff = new Diff();
-	$sanity = new Sanity();
+	$user_info	= new Account();
+	$diff		= new Diff();
+	$sanity		= new Sanity();
 
 	$profile_info = $user_info->get_user_info($conn, $_SESSION['id']);
 ?>
@@ -15,10 +15,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php require_once __DIR__."/assets/ui/header.php"; ?>
+		<?php include __DIR__."/assets/ui/header.php"; ?>
 	</head>
 <body>
-	<?php require_once __DIR__."/assets/ui/nav.php"; ?>
+	<?php include __DIR__."/assets/ui/nav.php"; ?>
 
 		<?php
 		if ($user_info->is_loggedin()) {
@@ -43,35 +43,37 @@
 							event.preventDefault();
 							// Check if image avalible
 							var file = $("#image").val();
-							if (file != "") {
-								// Make form
-								var formData = new FormData();
 
-								// Get image
-								var image_data = $("#image").prop("files")[0];
-								formData.append("image", image_data);
-								// Submit data
-								var submit = $("#pfpSubmit").val();
-								formData.append("pfp_submit", submit);
-
-								// Upload the information
-								$.ajax({
-									url: 'app/account/account.php',
-									type: 'post',
-									data: formData,
-									contentType: false,
-									processData: false,
-									success: function(response) {
-										$("#newSniff").html(response);
-									}
-								});
-
-								// Empty values
-								$("#image").val("");
-								$("#submit").val("");
-							} else {
+							if (file == "") {
 								sniffleAdd('Gwha!', 'Pls provide image', 'var(--warning)', 'assets/icons/file-search.svg');
+								return;
 							}
+
+							// Make form
+							var formData = new FormData();
+
+							// Get image
+							var image_data = $("#image").prop("files")[0];
+							formData.append("image", image_data);
+							// Submit data
+							var submit = $("#pfpSubmit").val();
+							formData.append("pfp_submit", submit);
+
+							// Upload the information
+							$.ajax({
+								url: 'app/account/account.php',
+								type: 'post',
+								data: formData,
+								contentType: false,
+								processData: false,
+								success: function(response) {
+									$("#newSniff").html(response);
+								}
+							});
+
+							// Empty values
+							$("#image").val("");
+							$("#submit").val("");
 						});
 					</script>
 				</div>
@@ -89,18 +91,18 @@
 			</div>
 			<script>
 				function deleteAccount() {
-					var header = "Are you very very sure?";
-					var description = "This CANNOT be undone, be very carefull with your decition!!!";
-					var actionBox = "<button class='btn btn-bad' onclick='deleteAccountConfirm()'><img class='svg' src='assets/icons/trash.svg'>Delete account (keep posts)</button>\
+					var header		= "Are you very very sure?";
+					var description	= "This CANNOT be undone, be very carefull with your decition!!!";
+					var actionBox	= "<button class='btn btn-bad' onclick='deleteAccountConfirm()'><img class='svg' src='assets/icons/trash.svg'>Delete account (keep posts)</button>\
 					<button class='btn btn-bad' onclick='deleteAccountConfirmFull()'><img class='svg' src='assets/icons/trash.svg'>Delete account (delete posts)</button>";
 
 					flyoutShow(header, description, actionBox);
 				}
 
 				function deleteAccountConfirm () {
-					var header = "Deleting just your account!";
-					var description = "This is your last warning, so enter your password now.";
-					var actionBox = "<form id='accountDelete' method='POST'>\
+					var header		= "Deleting just your account!";
+					var description	= "This is your last warning, so enter your password now.";
+					var actionBox	= "<form id='accountDelete' method='POST'>\
 					<input id='accountDeletePassword' class='btn btn-neutral' type='password' name='password' placeholder='Password'>\
 					<button id='accountDeleteSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete account (keep posts)</button>\
 					</form>";
@@ -109,8 +111,8 @@
 
 					$("#accountDelete").submit(function(event) {
 						event.preventDefault();
-						var accountDeletePassword = $("#accountDeletePassword").val();
-						var accountDeleteSubmit = $("#accountDeleteSubmit").val();
+						var accountDeletePassword	= $("#accountDeletePassword").val();
+						var accountDeleteSubmit		= $("#accountDeleteSubmit").val();
 						$("#newSniff").load("app/account/account.php", {
 							delete_id: <?php echo $_SESSION['id']; ?>,
 							full: 'false',
@@ -121,9 +123,9 @@
 				}
 
 				function deleteAccountConfirmFull () {
-					var header = "Deleting EVERYTHINGGGGG";
-					var description = "This is your last warning, so enter your password now.";
-					var actionBox = "<form id='accountDeleteFull' method='POST'>\
+					var header		= "Deleting EVERYTHINGGGGG";
+					var description	= "This is your last warning, so enter your password now.";
+					var actionBox	= "<form id='accountDeleteFull' method='POST'>\
 					<input id='accountDeletePassword' class='btn btn-neutral' type='password' name='password' placeholder='Password'>\
 					<button id='accountDeleteSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete account (delete posts)</button>\
 					</form>";
@@ -132,8 +134,8 @@
 
 					$("#accountDeleteFull").submit(function(event) {
 						event.preventDefault();
-						var accountDeletePassword = $("#accountDeletePassword").val();
-						var accountDeleteSubmit = $("#accountDeleteSubmit").val();
+						var accountDeletePassword	= $("#accountDeletePassword").val();
+						var accountDeleteSubmit		= $("#accountDeleteSubmit").val();
 						$("#newSniff").load("app/account/account.php", {
 							delete_id: <?php echo $_SESSION['id']; ?>,
 							full: 'true',
@@ -175,10 +177,7 @@
 
 						<div id="logs" class="logs tabcontent">
 							<div class="log">
-								<p>ID</p>
-								<p>User IP</p>
-								<p>Action</p>
-								<p>Time</p>
+								<p>ID</p> <p>User IP</p> <p>Action</p> <p>Time</p>
 							</div>
 							<?php
 								// Reading images from table
@@ -202,11 +201,7 @@
 						
 						<div id="bans" class="bans tabcontent">
 							<div class="ban">
-								<p>ID</p>
-								<p>User IP</p>
-								<p>Reason</p>
-								<p>Lenght</p>
-								<p>Time</p>
+								<p>ID</p> <p>User IP</p> <p>Reason</p> <p>Lenght</p> <p>Time</p>
 							</div>
 							<?php
 								// Reading images from table
@@ -236,12 +231,7 @@
 						<div id="users" class="user-settings tabcontent">
 
 							<div class="user">
-								<p>ID</p>
-								<p>Username</p>
-								<p>Last Modified</p>
-								<p>User Options</p>
-								<p></p>
-								<p></p>
+								<p>ID</p> <p>Username</p> <p>Last Modified</p> <p>User Options</p> <p></p> <p></p>
 							</div>
 							<?php
 								// Reading images from table
@@ -280,9 +270,9 @@
 							?>
 							<script>
 								function userResetPassword(id, username) {
-									var header = "UwU whats the new passywassy code?";
-									var description = "Do this only if "+username+" has forgotten their password, DO NOT abuse this power";
-									var actionBox = "<form id='userResetPasswordForm' method='POST' enctype='multipart/form-data'>\
+									var header		= "UwU whats the new passywassy code?";
+									var description	= "Do this only if "+username+" has forgotten their password, DO NOT abuse this power";
+									var actionBox	= "<form id='userResetPasswordForm' method='POST' enctype='multipart/form-data'>\
 									<input id='userNewPassword' class='btn btn-neutral' type='password' name='new_password' placeholder='New Password'>\
 									<input id='userConfirmPassword' class='btn btn-neutral' type='password' name='confirm_password' placeholder='Confirm Password'>\
 									<br>\
@@ -293,10 +283,10 @@
 									
 									$("#userResetPasswordForm").submit(function(event) {
 										event.preventDefault();
-										var new_password = $("#userNewPassword").val();
-										var confirm_password = $("#userConfirmPassword").val();
-										var submit = $("#userPasswordSubmit").val();
-										var userId = $("#userPasswordSubmit").val();
+										var new_password		= $("#userNewPassword").val();
+										var confirm_password	= $("#userConfirmPassword").val();
+										var submit				= $("#userPasswordSubmit").val();
+										var userId				= $("#userPasswordSubmit").val();
 										$("#newSniff").load("app/account/account.php", {
 											new_password: new_password,
 											confirm_password: confirm_password,
@@ -307,9 +297,9 @@
 								}
 
 								function userDelete(id, username) {
-									var header = "Are you very very sure?";
-									var description = "This CANNOT be undone, be very carefull with your decition... There is no second warning!";
-									var actionBox = "<form id='userDelete' method='POST'>\
+									var header		= "Are you very very sure?";
+									var description	= "This CANNOT be undone, be very carefull with your decition... There is no second warning!";
+									var actionBox	= "<form id='userDelete' method='POST'>\
 									<button id='userDeleteSubmit' class='btn btn-bad' type='submit' value='"+id+"'><img class='svg' src='assets/icons/trash.svg'>Delete user "+username+" (keep posts)</button>\
 									</form>\
 									<form id='userDeleteFull' method='POST'>\
@@ -320,8 +310,8 @@
 									
 									$("#userDelete").submit(function(event) {
 										event.preventDefault();
-										var id = $("#userDeleteSubmit").val();
-										var userDeleteSubmit = $("#userDeleteSubmit").val();
+										var id					= $("#userDeleteSubmit").val();
+										var userDeleteSubmit	= $("#userDeleteSubmit").val();
 										$("#newSniff").load("app/account/account.php", {
 											delete_id: id,
 											full: false,
@@ -341,9 +331,9 @@
 								}
 
 								function userToggleAdmin(id, username) {
-									var header = "With great power comes great responsibility...";
-									var description = "Do you trust this user? With admin permitions they can cause a whole lot of damage to this place, so make sure you're very very sure";
-									var actionBox = "<form id='toggleAdminConfirm' method='POST'>\
+									var header		= "With great power comes great responsibility...";
+									var description	= "Do you trust this user? With admin permitions they can cause a whole lot of damage to this place, so make sure you're very very sure";
+									var actionBox	= "<form id='toggleAdminConfirm' method='POST'>\
 									<button id='toggleAdminSubmit' class='btn btn-bad' type='submit' value='"+id+"'>Toggle "+username+"'s admin status</button>\
 									</form>";
 
@@ -424,9 +414,9 @@
 			<script>
 				$("#loginForm").submit(function(event) {
 					event.preventDefault();
-					var username = $("#loginUsername").val();
-					var password = $("#loginPassword").val();
-					var submit = $("#loginSubmit").val();
+					var username	= $("#loginUsername").val();
+					var password	= $("#loginPassword").val();
+					var submit		= $("#loginSubmit").val();
 					$("#newSniff").load("app/account/account.php", {
 						username: username,
 						password: password,
@@ -454,11 +444,11 @@
 			<script>
 				$("#signupForm").submit(function(event) {
 					event.preventDefault();
-					var username = $("#signupUsername").val();
-					var password = $("#signupPassword").val();
-					var confirm_password = $("#signupPasswordConfirm").val();
-					var token = $("#signupToken").val();
-					var submit = $("#signupSubmit").val();
+					var username			= $("#signupUsername").val();
+					var password			= $("#signupPassword").val();
+					var confirm_password	= $("#signupPasswordConfirm").val();
+					var token				= $("#signupToken").val();
+					var submit				= $("#signupSubmit").val();
 					$("#newSniff").load("app/account/account.php", {
 						username: username,
 						password: password,
@@ -483,7 +473,7 @@
 		}
 		?>
 
-	<?php require_once __DIR__."/assets/ui/footer.php"; ?>
+	<?php include __DIR__."/assets/ui/footer.php"; ?>
 </body>
 
 </html>

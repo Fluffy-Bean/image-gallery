@@ -1,24 +1,16 @@
 <?php
-    require_once __DIR__."/app/required.php";
+    require __DIR__."/app/required.php";
     
     use App\Account;
     use App\Image;
     use App\Group;
 	use App\Diff;
 
-	$user_info = new Account;
+	$user_info  = new Account;
     $image_info = new Image;
     $group_info = new Group;
-    $diff = new Diff();
+    $diff       = new Diff();
 
-    if (isset($_GET['id'])) {
-        $group = $group_info->get_group_info($conn, $_GET['id']);
-
-        if (!isset($group) || empty($group)) {
-            header("Location: group.php");
-            $_SESSION['err'] = "You followed a broken link";
-        }
-    }
     if (isset($_SESSION['err'])) {
         ?>
             <script>
@@ -27,16 +19,27 @@
         <?php
         unset($_SESSION['err']);
     }
+
+    if (!empty($_GET['id']) && isset($_GET['id']) && $_GET['id'] != null) {
+        $group = $group_info->get_group_info($conn, $_GET['id']);
+
+        if (empty($group) || !isset($group)) {
+            $_SESSION['err'] = "You followed a broken link";
+            header("Location: group.php");
+        }
+
+        $group['created_at'] = new DateTime($group['created_at']);
+    }
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <?php require_once __DIR__."/assets/ui/header.php"; ?>
+        <?php include __DIR__."/assets/ui/header.php"; ?>
     </head>
 <body>
 	<?php
-        require_once __DIR__."/assets/ui/nav.php";
+        include __DIR__."/assets/ui/nav.php";
 
         if (isset($_SESSION['msg'])) {
             ?>
@@ -49,7 +52,7 @@
     ?>
 
     <?php
-        if (isset($_GET['id'])) {
+        if (isset($_GET['id']) && !empty($_GET['id'])) {
             $image_list = array_reverse(explode(" ", $group['image_list']));
 
             echo "<div class='group-banner defaultDecoration defaultSpacing defaultFonts'>
@@ -168,33 +171,19 @@
             }
 
             echo "</div>";
-
-            $cover_image = $image_info->get_image_info($conn, $image_list[array_rand($image_list, 1)]);
-            if (!empty($cover_image['imagename'])) {
-                ?>
-                    <div class='group-cover'>
-                    <span></span>
-                    <img <?php if(str_contains($cover_image['tags'], "nsfw")) echo "class='nsfw-blur'"; ?> src='images/<?php echo $cover_image['imagename']; ?>'/>
-                    </div>
-                <?php
-            }
-
+                $cover_image = $image_info->get_image_info($conn, $image_list[array_rand($image_list, 1)]);
+                if (!empty($cover_image['imagename'])) {
+                    ?>
+                        <div class='group-cover'>
+                        <span></span>
+                        <img <?php if(str_contains($cover_image['tags'], "nsfw")) echo "class='nsfw-blur'"; ?> src='images/<?php echo $cover_image['imagename']; ?>'/>
+                        </div>
+                    <?php
+                }
             echo "</div>";
-        }
-    ?>
 
-    <?php 
-    if (empty($group['image_list']) && $_GET['mode'] != "edit" && !empty($_GET['id'])) {
-        echo "<div class='info-text defaultFonts' style='text-align: center !important;'>
-				<h1>Nothing here!</h1>
-				<p>There are no images in the group, add some!</p>
-			</div>";
-        echo "<div id='gallery' class='gallery-root defaultDecoration' style='display: none;'>";
-    } else {
-        echo "<div id='gallery' class='gallery-root defaultDecoration' >";
-    }
-            if (isset($_GET['id']) && !empty($_GET['id'])) {
-                if (isset($_GET['mode']) && $_GET['mode'] == "edit") {                
+            if ($_GET['mode'] == "edit") {
+                echo "<div class='gallery-root defaultDecoration'>";                
                     $image_request = mysqli_query($conn, "SELECT * FROM images ORDER BY id DESC");
 
                     while ($image = mysqli_fetch_array($image_request)) {
@@ -262,7 +251,14 @@
                             });
                         </script>
                     <?php
-                } else {
+                echo "</div>";
+            } elseif (empty($image_list)) {
+                echo "<div class='info-text defaultFonts' style='text-align: center !important;'>
+                    <h1>Nothing here!</h1>
+                    <p>There are no images in the group, add some!</p>
+                </div>";
+            } else {
+                echo "<div class='gallery-root defaultDecoration'>";
                     foreach ($image_list as $image) {
                         // Reading images from table
                         try {
@@ -292,74 +288,76 @@
                             $e;
                         }
                     }
-                }
-            } elseif (!isset($_GET['id']) && empty($_GET['id'])) {
-                if ($_SESSION["loggedin"]) {
-                    echo "<div class='group-make'>
-                        <button id='createGroup'><img class='svg' src='assets/icons/plus.svg'><span>Make new group</span></button>
-                        </div>";
+                echo "</div>";
+            }
+        } else {
+            echo "<div class='gallery-root defaultDecoration'>";
+            if ($_SESSION["loggedin"]) {
+                echo "<div class='group-make'>
+                    <button id='createGroup'><img class='svg' src='assets/icons/plus.svg'><span>Make new group</span></button>
+                    </div>";
 
-                    ?>
-                        <script>
-                            $('#createGroup').click(function() {                                
-                                $("#newSniff").load("app/image/group.php", {
-                                    new_group_submit: "uwu"
-                                });
+                ?>
+                    <script>
+                        $('#createGroup').click(function() {                                
+                            $("#newSniff").load("app/image/group.php", {
+                                new_group_submit: "uwu"
                             });
-                        </script>
-                    <?php
-                }
+                        });
+                    </script>
+                <?php
+            }
 
-                $group_list = mysqli_query($conn, "SELECT * FROM groups ORDER BY id DESC");
+            $group_list = mysqli_query($conn, "SELECT * FROM groups ORDER BY id DESC");
 
-                if (mysqli_num_rows($group_list) == 0 && !$_SESSION["loggedin"]) {
-                    ?>
-                        <style>
-                            .gallery-root {
-                                display: none;
-                            }
-                        </style>
-                        <script>
-                            $('body').append("<div class='info-text defaultFonts' style='text-align: center !important;'><h1>There are no groups yet</h1><p>Login to make a group!</p></div>");
-                        </script>
-                    <?php
-                }
+            if (mysqli_num_rows($group_list) == 0 && !$_SESSION["loggedin"]) {
+                ?>
+                    <style>
+                        .gallery-root {
+                            display: none;
+                        }
+                    </style>
+                    <script>
+                        $('body').append("<div class='info-text defaultFonts' style='text-align: center !important;'><h1>There are no groups yet</h1><p>Login to make a group!</p></div>");
+                    </script>
+                <?php
+            }
 
-                foreach ($group_list as $group) {
-                    $image_list = array_reverse(explode(" ", $group['image_list']));
-                    $image = $image_info->get_image_info($conn, $image_list[array_rand($image_list, 1)]);
+            foreach ($group_list as $group) {
+                $image_list = array_reverse(explode(" ", $group['image_list']));
+                $image = $image_info->get_image_info($conn, $image_list[array_rand($image_list, 1)]);
 
-                    // Getting thumbnail
-                    if (!empty($image['imagename'])) {
-                        if (file_exists("images/thumbnails/".$image['imagename'])) {
-                            $image_path = "images/thumbnails/".$image['imagename'];
-                        } else {
-                            $image_path = "images/".$image['imagename'];
-                        } 
+                // Getting thumbnail
+                if (!empty($image['imagename'])) {
+                    if (file_exists("images/thumbnails/".$image['imagename'])) {
+                        $image_path = "images/thumbnails/".$image['imagename'];
                     } else {
-                        $image_path = "assets/no_image.png";
-                    }
-                    
+                        $image_path = "images/".$image['imagename'];
+                    } 
+                } else {
+                    $image_path = "assets/no_image.png";
+                }
+                
 
-                    // Check for NSFW tag
-                    if (str_contains($image['tags'], "nsfw")) {
-                        echo "<div class='gallery-item group-item'>
-                            <a href='group.php?id=".$group['id']."' class='nsfw-warning gallery-group'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>
-                            <a href='group.php?id=".$group['id']."'><img class='gallery-image nsfw-blur' loading='lazy' src='".$image_path."' id='".$group['id']."'></a>
-                            <a href='group.php?id=".$group['id']."' class='group-name'>".$group['group_name']."</a>
-                            </div>";
-                    } else {
-                        echo "<div class='gallery-item group-item'>
-                            <a href='group.php?id=".$group['id']."' class='gallery-group'></a>
-                            <a href='group.php?id=".$group['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$group['id']."'></a>
-                            <a href='group.php?id=".$group['id']."' class='group-name'>".$group['group_name']."</a>
-                            </div>";
-                    }
+                // Check for NSFW tag
+                if (str_contains($image['tags'], "nsfw")) {
+                    echo "<div class='gallery-item group-item'>
+                        <a href='group.php?id=".$group['id']."' class='nsfw-warning gallery-group'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>
+                        <a href='group.php?id=".$group['id']."'><img class='gallery-image nsfw-blur' loading='lazy' src='".$image_path."' id='".$group['id']."'></a>
+                        <a href='group.php?id=".$group['id']."' class='group-name'>".$group['group_name']."</a>
+                        </div>";
+                } else {
+                    echo "<div class='gallery-item group-item'>
+                        <a href='group.php?id=".$group['id']."' class='gallery-group'></a>
+                        <a href='group.php?id=".$group['id']."'><img class='gallery-image' loading='lazy' src='".$image_path."' id='".$group['id']."'></a>
+                        <a href='group.php?id=".$group['id']."' class='group-name'>".$group['group_name']."</a>
+                        </div>";
                 }
             }
-        ?>
-    </div>
+            echo "</div>";
+        }
+    ?>
 
-    <?php require_once __DIR__."/assets/ui/footer.php"; ?>
+    <?php include __DIR__."/assets/ui/footer.php"; ?>
 </body>
 </html>

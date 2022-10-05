@@ -1,26 +1,25 @@
-<?php require_once __DIR__."/app/required.php"; ?>
+<?php
+	require __DIR__."/app/required.php";
+	
+	use App\Account;
+
+	$user_info = new Account();
+
+	// Check if the user is logged in, otherwise redirect to login page
+	if ($user_info->is_loggedin() != true) {
+		header("location: account.php");
+	}
+?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-	<?php require_once __DIR__."/assets/ui/header.php"; ?>
+	<?php include __DIR__."/assets/ui/header.php"; ?>
 </head>
 
 <body>
-	<?php
-		require_once __DIR__."/assets/ui/nav.php";
-
-		use App\Account;
-
-		$user_info = new Account();
-
-		// Check if the user is logged in, otherwise redirect to login page
-		if ($user_info->is_loggedin() != true) {
-			header("location: account.php");
-			exit;
-		}
-	?>
+	<?php include __DIR__."/assets/ui/nav.php"; ?>
 
 	<div class="warningDecoration defaultSpacing defaultFonts">
 		<h2>Reset Password</h2>
@@ -39,9 +38,10 @@
 	<script>
 		$("#passwordForm").submit(function(event) {
 			event.preventDefault();
-			var new_password = $("#newPassword").val();
-			var confirm_password = $("#confirmPassword").val();
-			var submit = $("#passwordSubmit").val();
+			var new_password		= $("#newPassword").val();
+			var confirm_password	= $("#confirmPassword").val();
+			var submit				= $("#passwordSubmit").val();
+			
 			$("#newSniff").load("app/account/account.php", {
 				new_password: new_password,
 				confirm_password: confirm_password,
@@ -50,7 +50,7 @@
 		});
 	</script>
 
-	<?php require_once __DIR__."/assets/ui/footer.php"; ?>
+	<?php include __DIR__."/assets/ui/footer.php"; ?>
 </body>
 
 </html>

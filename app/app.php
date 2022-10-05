@@ -3,6 +3,7 @@ namespace App;
 
 use Exception;
 use Throwable;
+use Imagick;
 
 class Make {
     /*
@@ -15,12 +16,12 @@ class Make {
     */
     function thumbnail($image_path, $thumbnail_path, $resolution) {
         try {
-            $thumbnail = new \Imagick($image_path);
+            $thumbnail = new Imagick($image_path);
             $thumbnail->resizeImage($resolution,null,null,1,null);
             $thumbnail->writeImage($thumbnail_path);
 
             return "success";
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $e;
         }
     }
@@ -31,15 +32,12 @@ class Make {
         Returns clean string of words with equal white space between it
     */
     function tags($string) {
-        $string = str_replace('-', '_', $string);
-        $string = preg_replace('/[^A-Za-z0-9\_ ]/', '', $string);
-
-        $string = strtolower($string);
-
-        $string = preg_replace('/ +/', ' ', $string);
-
-        $string = explode(' ', $string);
-        $string_list = array();
+        $string         = str_replace('-', '_', $string);
+        $string         = preg_replace('/[^A-Za-z0-9\_ ]/', '', $string);
+        $string         = strtolower($string);
+        $string         = preg_replace('/ +/', ' ', $string);
+        $string         = explode(' ', $string);
+        $string_list    = array();
 
         foreach ($string as $i) {
             if (!in_array($i, $string_list)) {
@@ -287,9 +285,9 @@ class Group {
 
 class Diff {
     function time($past_time, $full_date = false) {
-        $now = new \DateTime;
-        $ago = new \DateTime($past_time);
-        $diff = $now->diff($ago);
+        $now    = new \DateTime;
+        $ago    = new \DateTime($past_time);
+        $diff   = $now->diff($ago);
 
         $diff->w = floor($diff->d / 7);
         $diff->d -= $diff->w * 7;
@@ -332,8 +330,8 @@ class Sanity  {
                 if (!isset($manifest['upload']['rename_to']) || empty($manifest['upload']['rename_to'])) {
                     $results[] = "Critical: manifest.json doesnt know what to rename your files to";
                 } else {
-                    $rename_to = $manifest['upload']['rename_to'];
-                    $rename_rate = 0;
+                    $rename_to      = $manifest['upload']['rename_to'];
+                    $rename_rate    = 0;
 
                     if (str_contains($rename_to, '{{autoinc}}')) $rename_rate = 5;
                     if (str_contains($rename_to, '{{time}}')) $rename_rate = 5;
@@ -381,7 +379,26 @@ class Sanity  {
     function check_version() {
         $results = array();
 
-        if (PHP_VERSION_ID < 50102) {
+        $url = "https://raw.githubusercontent.com/Fluffy-Bean/image-gallery/main/app/settings/manifest.json";
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $manifest_repo  = json_decode($result, true);
+        $manifest_local = json_decode(file_get_contents(__DIR__."/settings/manifest.json"), true);
+
+        if ($manifest_local['version'] < $manifest_repo['version']) {
+            $results[] = "Critical: You are not running the latest version of the app v".$manifest_repo['version']."";
+        } else if ($manifest_local['version'] > $manifest_repo['version']) {
+            $results[] = "Warning: You are running a version of the app that is newer than the latest release v".$manifest_repo['version']."";
+        }
+
+        if (PHP_VERSION_ID < 80100) {
             $results[] = "Critical: Your current version of PHP is ".PHP_VERSION.". The reccomended version is 8.1.2";
         }
 

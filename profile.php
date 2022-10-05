@@ -1,18 +1,21 @@
 <?php
-    require_once __DIR__."/app/required.php"; 
+    require __DIR__."/app/required.php"; 
 
     use App\Make;
 	use App\Account;
 	use App\Diff;
 
 	$make_stuff = new Make();
-    $user_info = new Account();
-    $diff = new Diff();
+    $user_info  = new Account();
+    $diff       = new Diff();
 
-    if (!isset($_GET['user']) || empty($_GET['user'])) {
-    header("Location: index.php");
-    } else if (isset($_GET['user'])) {
-        $user = $user_info->get_user_info($conn, $_GET['user']);
+    if (!isset($_GET['user']) || empty($_GET['user'])) header("Location: index.php");
+        
+    $user = $user_info->get_user_info($conn, $_GET['user']);
+    if (empty($user) || !isset($user)) {
+        $_SESSION['err'] = "You have followed a broken link to a profile that does not exist!";
+        header("Location: index.php");
+    }
 
     $join_date = new DateTime($user['created_at']);
 ?>
@@ -21,55 +24,45 @@
 <html>
 
 <head>
-	<?php require_once __DIR__."/assets/ui/header.php"; ?>
+	<?php include __DIR__."/assets/ui/header.php"; ?>
 </head>
 
 <body>
-	<?php require_once __DIR__."/assets/ui/nav.php"; ?>
+	<?php include __DIR__."/assets/ui/nav.php"; ?>
 
         <div class="profile-root defaultDecoration defaultSpacing defaultFonts">
             <?php
-                if (!empty($user)) {
-                    if (is_file("images/pfp/".$user['pfp_path'])) {
-                        echo "<img src='images/pfp/".$user['pfp_path']."'>";
+                if (is_file("images/pfp/".$user['pfp_path'])) {
+                    echo "<img src='images/pfp/".$user['pfp_path']."'>";
 
-                        $pfp_colour = $make_stuff->get_image_colour("images/pfp/".$user['pfp_path']);
-                        if (empty($pfp_colour)) $pfp_colour = "var(--bg-3)";
-                        ?>
-                            <style>
-                                .profile-root {
-                                    background-image: linear-gradient(to right, <?php echo $pfp_colour; ?>, var(--bg-3), var(--bg-3)) !important;
-                                }
-                                @media (max-width: 669px) {
-                                    .profile-root {
-                                        background-image: linear-gradient(to bottom, <?php echo $pfp_colour; ?>, var(--bg-3)) !important;
-                                    }
-                                }
-                            </style>
-                        <?php
-                    } else {
-                        echo "<img src='assets/no_image.png'>";
-                    }
+                    $pfp_colour = $make_stuff->get_image_colour("images/pfp/".$user['pfp_path']);
+                    if (empty($pfp_colour)) $pfp_colour = "var(--bg-3)";
                     ?>
-                        <h2>
-                            <?php
-                                echo $user['username'];
-                                if ($user_info->is_admin($conn, $user['id'])) {
-                                    echo "<span style='color: var(--accent); font-size: 16px; margin-left: 0.5rem;'>Admin</span>";
+                        <style>
+                            .profile-root {
+                                background-image: linear-gradient(to right, <?php echo $pfp_colour; ?>, var(--bg-3), var(--bg-3)) !important;
+                            }
+                            @media (max-width: 669px) {
+                                .profile-root {
+                                    background-image: linear-gradient(to bottom, <?php echo $pfp_colour; ?>, var(--bg-3)) !important;
                                 }
-                            ?>
-                        </h2>
-                        <div class="profile-info">
-                            <p id="joinDate">Member since: <?php echo $join_date->format('d/m/Y T'); ?></p>
-                            <p id="postCount"></p>
-                        </div>
-                        
+                            }
+                        </style>
                     <?php
                 } else {
-                    echo "<img src='assets/no_image.png'>
-                <h2>Failed to load user info</h2>";
+                    echo "<img src='assets/no_image.png'>";
                 }
             ?>
+            <h2>
+                <?php
+                    echo $user['username'];
+                    if ($user_info->is_admin($conn, $user['id'])) echo "<span style='color: var(--accent); font-size: 16px; margin-left: 0.5rem;'>Admin</span>";
+                ?>
+            </h2>
+            <div class="profile-info">
+                <p id="joinDate">Member since: <?php echo $join_date->format('d/m/Y T'); ?></p>
+                <p id="postCount"></p>
+            </div>
         </div>
 
         <?php
@@ -100,12 +93,12 @@
                         // Check for NSFW tag
                         if (str_contains($image['tags'], "nsfw")) {
                             echo "<div class='gallery-item'>
-                            <a href='image.php?id=" . $image['id'] . "' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>
-                            <a href='image.php?id=" . $image['id'] . "'><img class='gallery-image nsfw-blur' loading='lazy' src='" . $image_path . "' id='" . $image['id'] . "'></a>
-                            </div>";
+                                    <a href='image.php?id=" . $image['id'] . "' class='nsfw-warning'><img class='svg' src='assets/icons/warning_red.svg'><span>NSFW</span></a>
+                                    <a href='image.php?id=" . $image['id'] . "'><img class='gallery-image nsfw-blur' loading='lazy' src='" . $image_path . "' id='" . $image['id'] . "'></a>
+                                </div>";
                         } else {
                             echo "<div class='gallery-item'>
-                                <a href='image.php?id=" . $image['id'] . "'><img class='gallery-image' loading='lazy' src='" . $image_path . "' id='" . $image['id'] . "'></a>
+                                    <a href='image.php?id=" . $image['id'] . "'><img class='gallery-image' loading='lazy' src='" . $image_path . "' id='" . $image['id'] . "'></a>
                                 </div>";
                         }			
                     }
@@ -128,9 +121,7 @@
         </script>
 
     <?php
-        }
-
-        require_once __DIR__."/assets/ui/footer.php";
+        include __DIR__."/assets/ui/footer.php";
     ?>
 </body>
 </html>
