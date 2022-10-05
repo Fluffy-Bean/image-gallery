@@ -47,7 +47,7 @@
 		if (isset($_SESSION['err'])) {
 			?>
 				<script>
-					sniffleAdd('Error', '<?php echo $_SESSION["err"]; ?>', 'var(--warning)', 'assets/icons/cross.svg');
+					sniffleAdd('Woopsie', '<?php echo $_SESSION["err"]; ?>', 'var(--warning)', 'assets/icons/cross.svg');
 				</script>
 			<?php
 			unset($_SESSION['err']);

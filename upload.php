@@ -6,6 +6,7 @@
 
 	// Check if user is logged in
 	if (!$user_info->is_loggedin()) {
+		$_SESSION['err'] = "You must be logged in to upload images!!!!!!!!";
 		header("location: account.php");
 	}
 ?>

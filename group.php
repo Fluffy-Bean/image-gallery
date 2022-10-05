@@ -11,15 +11,6 @@
     $group_info = new Group;
     $diff       = new Diff();
 
-    if (isset($_SESSION['err'])) {
-        ?>
-            <script>
-                sniffleAdd("Error", "<?php echo $_SESSION['msg']; ?>", "var(--warning)", "assets/icons/trash.svg");
-            </script>
-        <?php
-        unset($_SESSION['err']);
-    }
-
     if (!empty($_GET['id']) && isset($_GET['id']) && $_GET['id'] != null) {
         $group = $group_info->get_group_info($conn, $_GET['id']);
 
@@ -46,6 +37,15 @@
 	<?php
         include __DIR__."/assets/ui/nav.php";
 
+        if (isset($_SESSION['err'])) {
+            ?>
+                <script>
+                    sniffleAdd("Error", "<?php echo $_SESSION['msg']; ?>", "var(--warning)", "assets/icons/trash.svg");
+                </script>
+            <?php
+            unset($_SESSION['err']);
+        }
+
         if (isset($_SESSION['msg'])) {
             ?>
                 <script>
@@ -54,9 +54,7 @@
             <?php
             unset($_SESSION['msg']);
         }    
-    ?>
 
-    <?php
         if (isset($_GET['id']) && !empty($_GET['id'])) {
             $image_list = array_reverse(explode(" ", $group['image_list']));
 

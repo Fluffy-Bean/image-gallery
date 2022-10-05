@@ -94,10 +94,10 @@
 		<div class="defaultDecoration defaultSpacing defaultFonts">
 			<h2>Description</h2>
 			<?php
-				if (empty($image['description'])) {
+				if (empty($image['alt'])) {
 					echo "<p>No description provided.</p>";
 				} else {
-					echo "<p>".$image['description']."</p>";
+					echo "<p>".$image['alt']."</p>";
 				}
 			?>
 		</div>
@@ -109,13 +109,13 @@
 					<?php
 						// User
 						if (empty($image['author'])) {
-							if (isset($author['username'])) {
-								echo "<p>Author: ".$author['username']."</p>";
-							} else {
-								echo "<p>Author: Deleted user</p>";
-							}
+							echo "<p>Author: No author</p>";
 						} else {
-							echo "<p>Author: <a href='profile.php?user=".$image['author']."' class='link'>".$author['username']."</a></p>";
+							if (isset($author['username'])) {
+								echo "<p>Author: <a href='profile.php?user=".$image['author']."' class='link'>".$author['username']."</a></p>";
+							} else {
+								echo "<p>Author: <a href='profile.php?user=".$image['author']."' class='link'>Deleted user</a></p>";
+							}
 						}
 
 						// Image ID

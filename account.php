@@ -18,9 +18,18 @@
 		<?php include __DIR__."/assets/ui/header.php"; ?>
 	</head>
 <body>
-	<?php include __DIR__."/assets/ui/nav.php"; ?>
+	<?php 
+		include __DIR__."/assets/ui/nav.php";
+		
+		if (isset($_SESSION['err'])) {
+			?>
+				<script>
+					sniffleAdd('Woopsie', '<?php echo $_SESSION["err"]; ?>', 'var(--warning)', 'assets/icons/cross.svg');
+				</script>
+			<?php
+			unset($_SESSION['err']);
+		}
 
-		<?php
 		if ($user_info->is_loggedin()) {
 		?>
 			<div class="defaultDecoration defaultSpacing defaultFonts">
