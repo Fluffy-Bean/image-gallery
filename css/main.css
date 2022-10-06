@@ -1054,6 +1054,7 @@ body * {
   padding: 0.5rem;
   display: inline-block;
   font-size: 16px;
+  font-family: "Secular One", sans-serif;
   text-decoration: none;
   background-color: #E8E3E3;
   border: none;
@@ -1064,10 +1065,16 @@ body * {
   padding: 0.5rem;
   display: inline-block;
   font-size: 16px;
+  font-family: "Secular One", sans-serif;
   text-decoration: none;
   background-color: #E8E3E3;
   border: none;
   border-radius: 3px;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  outline: none;
 }
 
 a.btn {

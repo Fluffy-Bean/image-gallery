@@ -30,7 +30,7 @@
 			unset($_SESSION['err']);
 		}
 
-		if ($user_info->is_loggedin()) {
+		if ($user_info->is_loggedin($conn)) {
 		?>
 			<div class="defaultDecoration defaultSpacing defaultFonts">
 				<h2>Profile</h2>

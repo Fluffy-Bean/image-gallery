@@ -26,12 +26,21 @@
 			unset($_SESSION['del']);
 		}
 		if (isset($_SESSION['welc'])) {
-			?>
-				<script>
-					sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in, enjoy your stay!', 'var(--success)', 'assets/icons/hand-waving.svg');
-				</script>
-			<?php
-			unset($_SESSION['welc']);
+			$user = $user_info->get_user_info($conn, $_SESSION['id']);
+
+			if (isset($user['pfp_path'])) {
+				?>
+					<script>
+						sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in, enjoy your stay!', 'var(--success)', 'images/pfp/<?php echo $user["pfp_path"]; ?>');
+					</script>
+				<?php
+			} else {
+				?>
+					<script>
+						sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in, enjoy your stay!', 'var(--success)', 'assets/icons/hand-waving.svg');
+					</script>
+				<?php
+			}
 
 			if ($user_info->is_admin($conn, $_SESSION['id'])) {
 				$check_sanity = $sanity->get_results();
@@ -43,6 +52,8 @@
 					<?php
 				}
 			}
+			
+			unset($_SESSION['welc']);
 		}
 		if (isset($_SESSION['err'])) {
 			?>

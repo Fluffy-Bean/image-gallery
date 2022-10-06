@@ -345,7 +345,7 @@ if (isset($_POST['submit_signup'])) {
                         } else {
                             ?>
                                 <script>
-                                    sniffleAdd('Argh', 'Your invite code/token did not check out, woopsie!', 'var(--warning)', 'assets/icons/cross.svg');
+                                    sniffleAdd('Argh', 'Your invite code did not check out, woopsie!', 'var(--warning)', 'assets/icons/cross.svg');
                                 </script>
                             <?php
                             $error = $error + 1;
@@ -353,7 +353,7 @@ if (isset($_POST['submit_signup'])) {
                     } else {
                         ?>
                             <script>
-                                sniffleAdd('Woops', 'The server or website died inside and could not process your information, sowwy!', 'var(--warning)', 'assets/icons/cross.svg');
+                                sniffleAdd('Woops', 'The server or website died inside and could not process your request, sowwy!', 'var(--warning)', 'assets/icons/cross.svg');
                             </script>
                         <?php
                         $error = $error + 1;
@@ -390,7 +390,7 @@ if (isset($_POST['submit_signup'])) {
                     $token_array = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz';
                     $new_token = substr(str_shuffle($token_array), 0, 15);
                     
-                    mysqli_query($conn, "INSERT INTO tokens (code, used) VALUES('$new_toke', False)");
+                    mysqli_query($conn, "INSERT INTO tokens (code, used) VALUES('$new_toke', 0)");
                 }
         
                 // Yupeee! Account was made
@@ -400,7 +400,7 @@ if (isset($_POST['submit_signup'])) {
                         loginShow();
                     </script>
                 <?php
-                mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','New account (".$username.") has been made')");
+                mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','New account ($username) has been made')");
             } else {
                 ?>
                     <script>
@@ -501,7 +501,6 @@ if (isset($_POST['password_reset_submit'])) {
         ?>
             <script>
                 sniffleAdd('Meep', 'Enter a new password!', 'var(--warning)', 'assets/icons/cross.svg');
-                flyoutClose();
             </script>
         <?php
         $error += 1;
@@ -509,7 +508,6 @@ if (isset($_POST['password_reset_submit'])) {
         ?>
             <script>
                 sniffleAdd('Not long enough...', 'Password, must be 6 or more characters in length uwu', 'var(--warning)', 'assets/icons/cross.svg');
-                flyoutClose();
             </script>
         <?php
         $error += 1;
@@ -522,7 +520,6 @@ if (isset($_POST['password_reset_submit'])) {
         ?>
             <script>
                 sniffleAdd('Meep', 'You must confirm the password!!!!', 'var(--warning)', 'assets/icons/cross.svg');
-                flyoutClose();
             </script>
         <?php
         $error += 1;
@@ -532,7 +529,6 @@ if (isset($_POST['password_reset_submit'])) {
             ?>
                 <script>
                     sniffleAdd('AAAA', 'Passwords do not match!!!', 'var(--warning)', 'assets/icons/cross.svg');
-                    flyoutClose();
                 </script>
             <?php
             $error += 1;
@@ -547,7 +543,6 @@ if (isset($_POST['password_reset_submit'])) {
         ?>
             <script>
                 sniffleAdd('Oopsie', 'An error occured while figuring out which user to change the password of... Are you an admin?', 'var(--warning)', 'assets/icons/cross.svg');
-                flyoutClose();
             </script>
         <?php
         $error += 1;
@@ -582,7 +577,6 @@ if (isset($_POST['password_reset_submit'])) {
                     ?>
                         <script>
                             sniffleAdd('Password updated', 'Password has been reset for user! But their session may still be active', 'var(--success)', 'assets/icons/check.svg');
-                            flyoutClose();
                         </script>
                     <?php
                 }
@@ -590,7 +584,6 @@ if (isset($_POST['password_reset_submit'])) {
                 ?>
                     <script>
                         sniffleAdd('Bruh', 'Something happened on our end, sowwy', 'var(--warning)', 'assets/icons/cross.svg');
-                        flyoutClose();
                     </script>
                 <?php
             }
