@@ -106,11 +106,17 @@ class Account {
         Returns True if user is
         Returns False if user is NOT
     */
-    function is_loggedin() {
-        if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-            return True;
+    function is_loggedin($conn) {
+        $error = 0;
+
+        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) $error += 1;
+
+        if (empty($this->get_user_info($conn, $_SESSION["id"])) || $this->get_user_info($conn, $_SESSION["id"]) == null) $error += 1;
+
+        if ($error > 0) {
+            return false;
         } else {
-            return False;
+            return true;
         }
     }
     /*
@@ -143,7 +149,7 @@ class Account {
         Returns False if user is NOT privilaged
     */
     function is_admin($conn, $id) {
-        if (isset($id) || !empty($id)) {
+        if (isset($id) && !empty($id)) {
             // Setting SQL query
             $sql = "SELECT admin FROM users WHERE id = ?";
 
