@@ -68,7 +68,9 @@
         <?php
 
             // Reading images from table
+            $sql_start = microtime(true);
             $sql = "SELECT * FROM images WHERE author = ? ORDER BY id DESC";
+		    $sql_end = microtime(true);
 
             if ($stmt = mysqli_prepare($conn, $sql)) {
                 // Bind variables to the prepared statement as parameters
@@ -104,6 +106,11 @@
                     }
 
                     echo "</div>";
+                } else {
+                    echo "<div class='info-text defaultFonts' style='text-align: center !important;'>
+                        <h1>Nothing here!</h1>
+                        <p>Come back later when the user uploads something!</p>
+                    </div>";
                 }
             }
         ?>

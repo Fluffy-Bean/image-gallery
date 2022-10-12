@@ -1,4 +1,6 @@
 <?php
+$exec_start = microtime(true); 
+
 require_once dirname(__DIR__)."/app/server/conn.php";
 require_once dirname(__DIR__)."/app/app.php";
 require_once dirname(__DIR__)."/app/settings/settings.php";

@@ -67,7 +67,9 @@
 
 	<?php
 		// Reading images from table
+		$sql_start = microtime(true);
 		$image_request = mysqli_query($conn, "SELECT * FROM images ORDER BY id DESC");
+		$sql_end = microtime(true);
 
 		if (mysqli_num_rows($image_request) != 0) {
 			?>

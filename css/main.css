@@ -270,7 +270,7 @@ nav .btn {
   z-index: 9;
 }
 .gallery-item:active {
-  transform: scale(0.8) !important;
+  transform: scale(0.9) !important;
 }
 .gallery-item:after {
   content: "";
@@ -1015,7 +1015,7 @@ html {
 body {
   margin: 0 auto;
   padding: 1rem;
-  max-width: 1000px;
+  max-width: 1200px;
   min-height: calc(100vh - 2rem);
   display: flex;
   flex-direction: column;
@@ -1084,25 +1084,21 @@ a.btn {
 .btn-bad {
   background-color: #B66467;
   background-image: linear-gradient(to top, #ae5356, #B66467);
-  /*color: darken($warning, 40%);*/
 }
 
 .btn-warning {
   background-color: #D8A657;
   background-image: linear-gradient(to top, #d39b42, #D8A657);
-  /*color: darken($warning, 40%);*/
 }
 
 .btn-good {
   background-color: #8C977D;
   background-image: linear-gradient(to top, #7f8b6f, #8C977D);
-  /*color: darken($warning, 40%);*/
 }
 
 .btn-neutral {
   background-color: #121212;
   background-image: linear-gradient(to top, #111111, #121212);
-  /*color: $white;*/
 }
 
 /*

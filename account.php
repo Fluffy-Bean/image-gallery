@@ -157,6 +157,7 @@
 
 			<?php
 				if ($user_info->is_admin($conn, $_SESSION['id'])) {
+					$sql_start = microtime(true);
 				?>
 					<div class="defaultDecoration defaultSpacing defaultFonts">
 						<h2>Admin</h2>
@@ -396,8 +397,10 @@
 									<?php
 									foreach ($check_sanity as $result) {
 										if (str_contains($result, "Critical")) {
+											$result = str_replace("Critical:", "<img class='svg' src='assets/icons/warning.svg'>", $result);
 											echo "<p class='btn btn-bad' style='outline: none; cursor: default;'>".$result."</p>";
 										} elseif (str_contains($result, "Warning")) {
+											$result = str_replace("Warning:", "<img class='svg' src='assets/icons/warning.svg'>", $result);
 											echo "<p class='btn btn-warning' style='outline: none; cursor: default;'>".$result."</p>";
 										}
 									}
@@ -405,6 +408,7 @@
 							?>
 					</div>
 					<?php
+					$sql_end = microtime(true);
 				}
 		} else {
 		?>
@@ -482,7 +486,9 @@
 		}
 		?>
 
-	<?php include __DIR__."/assets/ui/footer.php"; ?>
+	<?php
+		include __DIR__."/assets/ui/footer.php";
+	?>
 </body>
 
 </html>
