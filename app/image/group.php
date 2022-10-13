@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Include server connection
-include dirname(__DIR__) . "/server/conn.php";
+include dirname(__DIR__) . "/conn.php";
 include dirname(__DIR__) . "/app.php";
 
 use App\Account;

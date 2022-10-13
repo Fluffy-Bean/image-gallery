@@ -31,7 +31,7 @@
 			if (isset($user['pfp_path'])) {
 				?>
 					<script>
-						sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in, enjoy your stay!', 'var(--success)', 'images/pfp/<?php echo $user["pfp_path"]; ?>');
+						sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in, enjoy your stay!', 'var(--success)', 'usr/images/pfp/<?php echo $user["pfp_path"]; ?>');
 					</script>
 				<?php
 			} else {
@@ -106,10 +106,10 @@
 
 			while ($image = mysqli_fetch_array($image_request)) {
 				// Getting thumbnail
-				if (file_exists("images/thumbnails/".$image['imagename'])) {
-					$image_path = "images/thumbnails/".$image['imagename'];
+				if (file_exists("usr/images/thumbnails/".$image['imagename'])) {
+					$image_path = "usr/images/thumbnails/".$image['imagename'];
 				} else {
-					$image_path = "images/".$image['imagename'];
+					$image_path = "usr/images/".$image['imagename'];
 				}
 	
 				// Check for NSFW tag

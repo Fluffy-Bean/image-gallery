@@ -12,7 +12,7 @@
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="">
 
 <head>
 	<?php include __DIR__."/assets/ui/header.php"; ?>
@@ -29,8 +29,8 @@
 		<form id="uploadSubmit" class="flex-down between" method="POST" enctype="multipart/form-data">
 			<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
 			<br>
-			<input id="alt" class="btn btn-neutral" placeholder="Description/Alt for image" type='text'>
-			<input id="tags" class="btn btn-neutral" placeholder="Tags, seperated by spaces" type='text'>
+            <input id="alt" class="btn btn-neutral" placeholder="Description/Alt for image" type='text'>
+            <input id="tags" class="btn btn-neutral" placeholder="Tags, seperated by spaces" type='text'>
 			<br>
 			<button id="submit" class="btn btn-good" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
 		</form>

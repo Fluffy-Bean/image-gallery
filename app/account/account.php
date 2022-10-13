@@ -1,6 +1,6 @@
 <?php
 // Include server connection
-include dirname(__DIR__)."/server/conn.php";
+include dirname(__DIR__)."/conn.php";
 include dirname(__DIR__)."/app.php";
 
 use App\Account;
@@ -131,11 +131,6 @@ if (isset($_POST['submit_login'])) {
                             $_SESSION['welc'] = true;
 
                             mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','New loggin to ".$_SESSION['username']."')");
-
-                            // This is a terrible way of doing this, but is has to be done
-                            if ($id == 1 && $user_info->is_admin($conn, $id) == false) {
-                                mysqli_query($conn,"UPDATE users SET admin = 1 WHERE id = 1");
-                            }
                         } else {
                             ?>
                                 <script>
@@ -379,6 +374,11 @@ if (isset($_POST['submit_signup'])) {
     
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
+                // If first user, set as admin
+                if (mysqli_insert_id($conn) == 1) {
+                    mysqli_query($conn,"UPDATE users SET admin = 1 WHERE id = 1");
+                }
+
                 // Prepare sql
                 $sql = "UPDATE tokens SET used = True WHERE code = ?";
                 $stmt = mysqli_prepare($conn, $sql);
@@ -438,7 +438,7 @@ if (isset($_POST['toggle_admin'])) {
             if ($admin_status) {
                 $param_admin_status = 0;
                 $admin_update_message = "removed from the admins list";
-            } elseif (!$admin_status) {
+            } else {
                 $param_admin_status = 1;
                 $admin_update_message = "added to the admins list";
             }

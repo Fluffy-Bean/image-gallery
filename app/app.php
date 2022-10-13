@@ -14,7 +14,8 @@ class Make {
     | ** Not yet implemented **
     |-------------------------------------------------------------
     */
-    function thumbnail($image_path, $thumbnail_path, $resolution) {
+    function thumbnail($image_path, $thumbnail_path, $resolution): Exception|string
+    {
         try {
             $thumbnail = new Imagick($image_path);
             $thumbnail->resizeImage($resolution,null,null,1,null);
@@ -31,7 +32,8 @@ class Make {
 
         Returns clean string of words with equal white space between it
     */
-    function tags($string) {
+    function tags($string): string
+    {
         $string         = str_replace('-', '_', $string);
         $string         = preg_replace('/[^A-Za-z0-9\_ ]/', '', $string);
         $string         = strtolower($string);
@@ -50,7 +52,8 @@ class Make {
         return trim($string);
     }
 
-    function get_image_colour($img) {
+    function get_image_colour($img): ?string
+    {
         $img_type = pathinfo($img, PATHINFO_EXTENSION);
 
         if ($img_type == "png") {
@@ -106,10 +109,11 @@ class Account {
         Returns True if user is
         Returns False if user is NOT
     */
-    function is_loggedin($conn) {
+    function is_loggedin($conn): bool
+    {
         $error = 0;
 
-        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) $error += 1;
+        if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"]) $error += 1;
 
         if (empty($this->get_user_info($conn, $_SESSION["id"])) || $this->get_user_info($conn, $_SESSION["id"]) == null) $error += 1;
 
@@ -124,7 +128,8 @@ class Account {
 
         Returns array with user info
     */
-    function get_user_info($conn, $id) {
+    function get_user_info($conn, $id): bool|array|null
+    {
         $sql = "SELECT id, username, created_at, pfp_path FROM users WHERE id = ?";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
@@ -148,7 +153,8 @@ class Account {
         Returns True if user is privilaged
         Returns False if user is NOT privilaged
     */
-    function is_admin($conn, $id) {
+    function is_admin($conn, $id): bool
+    {
         if (isset($id) && !empty($id)) {
             // Setting SQL query
             $sql = "SELECT admin FROM users WHERE id = ?";
@@ -179,7 +185,8 @@ class Account {
     /*
         Get target IP, used for logging
     */
-    function get_ip() {
+    function get_ip(): mixed
+    {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $target_ip = $_SERVER['HTTP_CLIENT_IP'];
         } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -198,7 +205,8 @@ class Image {
 
     Returns array with image info
     */
-    function get_image_info($conn, $id) {
+    function get_image_info($conn, $id): bool|array|null
+    {
         $sql = "SELECT * FROM images WHERE id = ?";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
@@ -220,7 +228,8 @@ class Image {
     Returns True if user is privilaged
     Returns False if user is NOT privilaged
     */
-    function image_privilage($id) {
+    function image_privilage($id): bool
+    {
         $session_id = $_SESSION['id'];
         if (isset($session_id) || !empty($session_id)) {
             if ($session_id == $id) {
@@ -235,7 +244,8 @@ class Image {
 }
 
 class Group {
-    function get_group_info($conn, $id) {
+    function get_group_info($conn, $id): bool|array|null
+    {
         // Setting SQL query
         $sql = "SELECT * FROM groups WHERE id = ?";
 
@@ -253,7 +263,8 @@ class Group {
         return($group_array);
     }
 
-    function get_group_members($conn, $id){
+    function get_group_members($conn, $id): array
+    {
         $user_array = array();
 
         $sql = "SELECT * FROM groups WHERE id = ?";
@@ -290,7 +301,8 @@ class Group {
 }
 
 class Diff {
-    function time($past_time, $full_date = false) {
+    function time($past_time, $full_date = false): string
+    {
         $now    = new \DateTime;
         $ago    = new \DateTime($past_time);
         $diff   = $now->diff($ago);
@@ -321,19 +333,20 @@ class Diff {
 }
 
 class Sanity  {
-    function check_json() {
+    function check_json(): array
+    {
         $results = array();
 
-        if (!is_file(__DIR__."/settings/manifest.json")) {
+        if (!is_file(__DIR__."/../usr/conf/manifest.json")) {
             $results[] = "Critical: manifest.json is missing";
         } else {
-            $manifest = json_decode(file_get_contents(__DIR__."/settings/manifest.json"), true);
+            $manifest = json_decode(file_get_contents(__DIR__."/../usr/conf/manifest.json"), true);
 
-            if (!isset($manifest['user_name']) || empty($manifest['user_name']) || $manifest['user_name'] == "[your name]") {
+            if (empty($manifest['user_name']) || $manifest['user_name'] == "[your name]") {
                 $results[] = "Warning: manifest.json is missing your name";
             }
-            if ($manifest['upload']['rename_on_upload'] == true ) {
-                if (!isset($manifest['upload']['rename_to']) || empty($manifest['upload']['rename_to'])) {
+            if ($manifest['upload']['rename_on_upload']) {
+                if (empty($manifest['upload']['rename_to'])) {
                     $results[] = "Critical: manifest.json doesnt know what to rename your files to";
                 } else {
                     $rename_to      = $manifest['upload']['rename_to'];
@@ -347,7 +360,7 @@ class Sanity  {
 
                     if (str_contains($rename_to, '{{username}}') || str_contains($rename_to, '{{userid}}')) $rename_rate += 1;
 
-                    if ($rename_rate == 0 || $rename_rate < 2) {
+                    if ($rename_rate < 2) {
                         $results[] = "Critical: You will encounter errors when uploading images due to filenames, update your manifest.json";
                     } elseif ($rename_rate < 5 && $rename_rate > 2) {
                         $results[] = "Warning: You may encounter errors when uploading images due to filenames, concider update your manifest.json";
@@ -363,26 +376,28 @@ class Sanity  {
         return $results;
     }
 
-    function check_files() {
+    function check_files(): array
+    {
         $results = array();
 
-        if (!is_dir("images")) {
+        if (!is_dir("usr/images")) {
             $results[] = "Critical: You need to setup an images folder, follow the guide on the GitHub repo";
         }
-        if (!is_dir("images/pfp")) {
+        if (!is_dir("usr/images/pfp")) {
             $results[] = "Critical: You need to setup an pfp folder, follow the guide on the GitHub repo";
         }
-        if (!is_dir("images/previews")) {
+        if (!is_dir("usr/images/previews")) {
             $results[] = "Critical: You need to setup an previews folder, follow the guide on the GitHub repo";
         }
-        if (!is_dir("images/thumbnails")) {
+        if (!is_dir("usr/images/thumbnails")) {
             $results[] = "Critical: You need to setup an thumbnails folder, follow the guide on the GitHub repo";
         }
 
         return $results;
     }
 
-    function check_version() {
+    function check_version(): array
+    {
         $results = array();
 
         $url = "https://raw.githubusercontent.com/Fluffy-Bean/image-gallery/main/app/settings/manifest.json";
@@ -396,7 +411,7 @@ class Sanity  {
         curl_close($ch);
 
         $manifest_repo  = json_decode($result, true);
-        $manifest_local = json_decode(file_get_contents(__DIR__."/settings/manifest.json"), true);
+        $manifest_local = json_decode(file_get_contents(__DIR__."/../usr/conf/manifest.json"), true);
 
         if ($manifest_local['version'] < $manifest_repo['version']) {
             $results[] = "Critical: You are not running the latest version of the app v".$manifest_repo['version']."";
@@ -404,14 +419,15 @@ class Sanity  {
             $results[] = "Warning: You are running a version of the app that is newer than the latest release v".$manifest_repo['version']."";
         }
 
-        if (PHP_VERSION_ID < 80100) {
-            $results[] = "Critical: Your current version of PHP is ".PHP_VERSION.". The reccomended version is 8.1.2";
+        if (PHP_VERSION_ID < 80000) {
+            $results[] = "Critical: Your current version of PHP is ".PHP_VERSION.". The reccomended version is 8.0.0 or higher";
         }
 
         return $results;
     }
 
-    function get_results() {
+    function get_results(): array
+    {
         $results = array();
 
         foreach ($this->check_json() as $result) {

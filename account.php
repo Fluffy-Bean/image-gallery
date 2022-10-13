@@ -41,8 +41,8 @@
 						<button id="pfpSubmit" class="btn btn-good" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
 					</form>
 					<?php
-						if (is_file("images/pfp/".$profile_info['pfp_path'])) {
-							echo "<img src='images/pfp/".$profile_info['pfp_path']."'>";
+						if (is_file("usr/images/pfp/".$profile_info['pfp_path'])) {
+							echo "<img src='usr/images/pfp/".$profile_info['pfp_path']."'>";
 						} else {
 							echo "<img src='assets/no_image.png'>";
 						}
@@ -251,8 +251,8 @@
 									if ($user['admin'] || $user['id'] == 1) {
 										echo "<div class='user is-admin'>";
 									} else {
-										echo "<div class='user'>";
-									}
+                                        echo "<div class='user'>";
+                                    }
 									?>
 											<p><?php echo $user['id']; ?></p>
 											<p><?php echo $user['username']; ?></p>

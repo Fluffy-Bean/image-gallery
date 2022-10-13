@@ -8,9 +8,9 @@
 */
 session_start();
 // Include server connection
-include dirname(__DIR__)."/server/conn.php";
+include dirname(__DIR__)."/conn.php";
 include dirname(__DIR__)."/app.php";
-include dirname(__DIR__)."/settings/settings.php";
+include dirname(__DIR__)."/settings.php";
 
 use App\Make;
 
@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
 		$error = 0;
 
 		// Root paths
-		$dir			= "../../images/";
+		$dir			= "../../usr/images/";
 		$thumb_dir		= $dir."thumbnails/";
 		$preview_dir	= $dir."previews/";
 

@@ -11,10 +11,10 @@
     $group_info = new Group;
     $diff       = new Diff();
 
-    if (!empty($_GET['id']) && isset($_GET['id']) && $_GET['id'] != null) {
+    if (isset($_GET['id'])) {
         $group = $group_info->get_group_info($conn, $_GET['id']);
 
-        if (empty($group) || !isset($group)) {
+        if (!isset($group)) {
             $_SESSION['err'] = "You followed a broken link";
             header("Location: group.php");
         }
@@ -53,7 +53,7 @@
                 </script>
             <?php
             unset($_SESSION['msg']);
-        }    
+        }
 
         if (isset($_GET['id']) && !empty($_GET['id'])) {
             $image_list = array_reverse(explode(" ", $group['image_list']));
@@ -77,10 +77,10 @@
             if (!empty($group['image_list'])) echo "<p>Images: ".count(explode(" ", $group['image_list']))."</p>";
 
             $upload_time = new DateTime($group['created_on']);
-            echo "<p id='updateTime'>Created at: ".$upload_time->format('d/m/Y H:i:s T')."</p>";
+            echo "<p id='updateTime'>Created at: ".$upload_time->format(format: 'd/m/Y H:i:s T')."</p>";
             ?>
                 <script>
-                    var updateDate = new Date('<?php echo $upload_time->format('m/d/Y H:i:s T'); ?>');
+                    var updateDate = new Date('<?php echo $upload_time->format(format: 'm/d/Y H:i:s T'); ?>');
                     updateDate = updateDate.toLocaleDateString('en-GB', {year: 'numeric', month: 'short', day: 'numeric'});
                     $("#updateTime").html("Created at: "+updateDate);
                 </script>
@@ -101,7 +101,7 @@
                             <button id='deleteSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/trash.svg'>Delete group</button>\
                             </form>";
                             flyoutShow(header, description, actionBox);
-                            
+
                             $("#titleForm").submit(function(event) {
                                 event.preventDefault();
                                 var deleteSubmit = $("#deleteSubmit").val();
@@ -125,7 +125,7 @@
                             <button id='titleSubmit' class='btn btn-bad' type='submit'><img class='svg' src='assets/icons/edit.svg'>Update title</button>\
                             </form>";
                             flyoutShow(header, description, actionBox);
-                            
+
                             $("#titleForm").submit(function(event) {
                                 event.preventDefault();
                                 var titleText = $("#titleText").val();
@@ -143,13 +143,13 @@
                 echo "<br>";
 
                 $image_request = mysqli_query($conn, "SELECT * FROM images");
-                echo "<form id='groupForm'>"; 
+                echo "<form id='groupForm'>";
                 while ($image = mysqli_fetch_array($image_request)) {
                     if (in_array($image['id'], $image_list)) {
                         echo "<input style='display: none;' type='checkbox' id='".$image['id']."' name='".$image['id']."' checked/>";
                     } else {
                         echo "<input style='display: none;' type='checkbox' id='".$image['id']."' name='".$image['id']."'/>";
-                    } 
+                    }
                 }
                 echo "<button id='groupSubmit' class='btn btn-good' type='submit'>Save changes</button>
                 </form>";
@@ -178,24 +178,24 @@
                     ?>
                         <div class='group-cover'>
                         <span></span>
-                        <img <?php if(str_contains($cover_image['tags'], "nsfw")) echo "class='nsfw-blur'"; ?> src='images/<?php echo $cover_image['imagename']; ?>'/>
+                        <img <?php if(str_contains($cover_image['tags'], "nsfw")) echo "class='nsfw-blur'"; ?> src='usr/images/<?php echo $cover_image['imagename']; ?>'/>
                         </div>
                     <?php
                 }
             echo "</div>";
 
             if ($_GET['mode'] == "edit") {
-                echo "<div class='gallery-root defaultDecoration'>";                
+                echo "<div class='gallery-root defaultDecoration'>";
                     $image_request = mysqli_query($conn, "SELECT * FROM images ORDER BY id DESC");
 
                     while ($image = mysqli_fetch_array($image_request)) {
                         // Getting thumbnail
-                        if (file_exists("images/thumbnails/".$image['imagename'])) {
-                            $image_path = "images/thumbnails/".$image['imagename'];
+                        if (file_exists("usr/images/thumbnails/".$image['imagename'])) {
+                            $image_path = "usr/images/thumbnails/".$image['imagename'];
                         } else {
-                            $image_path = "images/".$image['imagename'];
+                            $image_path = "usr/images/".$image['imagename'];
                         }
-                        
+
                         if (in_array($image['id'], $image_list)) {
                             echo "<div id='".$image['id']."' class='gallery-item selectedImage'>
                                 <img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'>
@@ -204,7 +204,7 @@
                             echo "<div id='".$image['id']."' class='gallery-item'>
                                 <img class='gallery-image' loading='lazy' src='".$image_path."' id='".$image['id']."'>
                                 </div>";
-                        } 
+                        }
                     }
 
                     ?>
@@ -265,15 +265,15 @@
                         // Reading images from table
                         try {
                             $image_request = mysqli_query($conn, "SELECT * FROM images WHERE id = ".$image);
-            
+
                             while ($image = mysqli_fetch_array($image_request)) {
                                 // Getting thumbnail
-                                if (file_exists("images/thumbnails/".$image['imagename'])) {
-                                    $image_path = "images/thumbnails/".$image['imagename'];
+                                if (file_exists("usr/images/thumbnails/".$image['imagename'])) {
+                                    $image_path = "usr/images/thumbnails/".$image['imagename'];
                                 } else {
-                                    $image_path = "images/".$image['imagename'];
+                                    $image_path = "usr/images/".$image['imagename'];
                                 }
-                
+
                                 // Check for NSFW tag
                                 if (str_contains($image['tags'], "nsfw")) {
                                     echo "<div class='gallery-item'>
@@ -301,7 +301,7 @@
 
                 ?>
                     <script>
-                        $('#createGroup').click(function() {                                
+                        $('#createGroup').click(function() {
                             $("#newSniff").load("app/image/group.php", {
                                 new_group_submit: "uwu"
                             });
@@ -331,15 +331,15 @@
 
                 // Getting thumbnail
                 if (!empty($image['imagename'])) {
-                    if (file_exists("images/thumbnails/".$image['imagename'])) {
-                        $image_path = "images/thumbnails/".$image['imagename'];
+                    if (file_exists("usr/images/thumbnails/".$image['imagename'])) {
+                        $image_path = "usr/images/thumbnails/".$image['imagename'];
                     } else {
-                        $image_path = "images/".$image['imagename'];
-                    } 
+                        $image_path = "usr/images/".$image['imagename'];
+                    }
                 } else {
                     $image_path = "assets/no_image.png";
                 }
-                
+
 
                 // Check for NSFW tag
                 if (str_contains($image['tags'], "nsfw")) {

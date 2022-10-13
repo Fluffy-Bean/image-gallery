@@ -22,7 +22,7 @@
 		header("Location: index.php");
 	}
 
-	$image_path		= "images/".$image['imagename'];
+	$image_path		= "usr/images/".$image['imagename'];
 	$image_alt		= $image['alt'];
 	$image_colour	= $make_stuff->get_image_colour($image_path);
 
@@ -54,9 +54,9 @@
 			<img>
 			</div>";
 		
-		if (is_file("images/previews/".$image['imagename'])) {
+		if (is_file("usr/images/previews/".$image['imagename'])) {
 			echo "<div class='image-container'>
-					<img class='image' id='".$image['id']."' src='images/previews/".$image['imagename']."' alt='".$image_alt."'>
+					<img class='image' id='".$image['id']."' src='usr/images/previews/".$image['imagename']."' alt='".$image_alt."'>
 					<button class='preview-button' onclick='fullScreen()'><img src='assets/icons/scan.svg'></button>
 				</div>";
 		} else {
@@ -164,7 +164,7 @@
 				</div>
 			</div>
 			<!-- Download Image -->
-			<a id='download' class='btn btn-good' href='<?php echo "images/".$image['imagename']; ?>' download='<?php echo $image['imagename']; ?>'><img class='svg' src='assets/icons/download.svg'>Download image</a>
+			<a id='download' class='btn btn-good' href='<?php echo "usr/images/".$image['imagename']; ?>' download='<?php echo $image['imagename']; ?>'><img class='svg' src='assets/icons/download.svg'>Download image</a>
 			<script>
 				$("#download").click(function() {
 					sniffleAdd("Info", "Image download started!", "var(--success)", "assets/icons/download.svg");

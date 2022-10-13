@@ -32,10 +32,10 @@
 
         <div class="profile-root defaultDecoration defaultSpacing defaultFonts">
             <?php
-                if (is_file("images/pfp/".$user['pfp_path'])) {
-                    echo "<img src='images/pfp/".$user['pfp_path']."'>";
+                if (is_file("usr/images/pfp/".$user['pfp_path'])) {
+                    echo "<img src='usr/images/pfp/".$user['pfp_path']."'>";
 
-                    $pfp_colour = $make_stuff->get_image_colour("images/pfp/".$user['pfp_path']);
+                    $pfp_colour = $make_stuff->get_image_colour("usr/images/pfp/".$user['pfp_path']);
                     if (empty($pfp_colour)) $pfp_colour = "var(--bg-3)";
                     ?>
                         <style>
@@ -86,10 +86,10 @@
 
                     while ($image = mysqli_fetch_array($query)) {
                         // Getting thumbnail
-                        if (file_exists("images/thumbnails/".$image['imagename'])) {
-                            $image_path = "images/thumbnails/" . $image['imagename'];
+                        if (file_exists("usr/images/thumbnails/".$image['imagename'])) {
+                            $image_path = "usr/images/thumbnails/" . $image['imagename'];
                         } else {
-                            $image_path = "images/" . $image['imagename'];
+                            $image_path = "usr/images/" . $image['imagename'];
                         }
     
                         // Check for NSFW tag
