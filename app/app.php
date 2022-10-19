@@ -332,6 +332,71 @@ class Diff {
     }
 }
 
+class Setup {
+    function create_tables($conn, $sql): bool
+    {
+        /*
+        $sql = "CREATE TABLE IF NOT EXISTS users ()";
+        if ($conn->query($sql) === TRUE) {
+            echo "Table users created successfully";
+        }
+
+        $sql = "CREATE TABLE IF NOT EXISTS images ()";
+        if ($conn->query($sql) === TRUE) {
+            echo "Table images created successfully";
+        }
+
+        $sql = "CREATE TABLE IF NOT EXISTS groups ()";
+        if ($conn->query($sql) === TRUE) {
+            echo "Table groups created successfully";
+        }
+
+        $sql = "CREATE TABLE IF NOT EXISTS logs ()";
+        if ($conn->query($sql) === TRUE) {
+            echo "Table logs created successfully";
+        }
+        */
+        return True;
+    }
+
+    function create_usr() {
+        if (!is_dir(__DIR__."/../usr")) {
+            mkdir("usr");
+        }
+
+        if (!is_dir(__DIR__."/../usr/images")) {
+            mkdir("usr/images");
+        }
+        if (!is_dir(__DIR__."/../usr/images/thumbnails")) {
+            mkdir("usr/images/thumbnails");
+        }
+        if (!is_dir(__DIR__."/../usr/images/previews")) {
+            mkdir("usr/images/previews");
+        }
+
+        if (!is_dir(__DIR__."/../usr/conf")) {
+            mkdir("usr/conf");
+        }
+
+        if (!is_file(__DIR__."/../usr/conf/manifest.json")) {
+            $manifest = array(
+                "website_name" => "Only Legs",
+                "website_description" => "A simple PHP gallery with multiple users in mind",
+                "welcome_message" => array("*internal screaming*", "Welcome to Only Legs!"),
+                "user_name" => "[your name]",
+                "is_test" => true,
+                "upload" => array(
+                    "max_filesize" => 35,
+                    "rename_on_upload" => true,
+                    "rename_to" => "IMG_{{username}}_{{time}}",
+                    "allowed_extensions" => array("jpg", "jpeg", "png", "webp")
+                )
+            );
+            file_put_contents(__DIR__."/../usr/conf/manifest.json", json_encode($manifest));
+        }
+    }
+}
+
 class Sanity  {
     function check_json(): array
     {
@@ -398,25 +463,22 @@ class Sanity  {
 
     function check_version(): array
     {
-        $results = array();
+        $results    = array();
+        $app_local  = json_decode(file_get_contents(__DIR__."/app.json"), true);
 
-        $url = "https://raw.githubusercontent.com/Fluffy-Bean/image-gallery/main/app/settings/manifest.json";
+        $curl_url   = "https://raw.githubusercontent.com/Fluffy-Bean/image-gallery/".$app_local['branch']."/app/settings/manifest.json";
+        $curl       = curl_init();
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_URL, $curl_url);
+        $result     = curl_exec($curl);
+        curl_close($curl);
 
-        $ch = curl_init();
+        $app_repo   = json_decode($result, true);
 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        $result = curl_exec($ch);
-        curl_close($ch);
-
-        $manifest_repo  = json_decode($result, true);
-        $manifest_local = json_decode(file_get_contents(__DIR__."/../usr/conf/manifest.json"), true);
-
-        if ($manifest_local['version'] < $manifest_repo['version']) {
-            $results[] = "Critical: You are not running the latest version of the app v".$manifest_repo['version']."";
-        } else if ($manifest_local['version'] > $manifest_repo['version']) {
-            $results[] = "Warning: You are running a version of the app that is newer than the latest release v".$manifest_repo['version']."";
+        if ($app_local['version'] < $app_repo['version']) {
+            $results[] = "Critical: You are not running the latest version of the app v".$app_repo['version']."";
+        } elseif ($app_local['version'] > $app_repo['version']) {
+            $results[] = "Warning: You are running a version of the app that is newer than the latest release v".$app_repo['version']."";
         }
 
         if (PHP_VERSION_ID < 80000) {

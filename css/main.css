@@ -759,20 +759,21 @@ nav .btn {
   display: flex;
   flex-direction: row;
 }
-.pfp-upload > img {
-  margin-left: 0.5rem;
-  width: 7.813rem;
-  height: 7.813rem;
-  -o-object-fit: cover;
-     object-fit: cover;
-  border-radius: 3px;
-  background-color: #121212;
-}
 .pfp-upload form > * {
   margin: 0 0 0.5rem 0;
 }
 .pfp-upload form > *:last-child {
   margin: 0 0 0 0;
+}
+.pfp-upload > img {
+  margin-left: 0.5rem;
+  width: 8rem;
+  height: 8rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  float: right;
+  border-radius: 3px;
+  background-color: #121212;
 }
 
 @media (max-width: 621px) {
@@ -782,8 +783,8 @@ nav .btn {
   }
   .pfp-upload > img {
     margin: 0 auto 1rem;
-    width: 10rem;
-    height: 10rem;
+    width: 12rem;
+    height: 12rem;
   }
 }
 .tabs {
@@ -959,6 +960,25 @@ nav .btn {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+}
+
+.btn-code {
+  color: rgba(0, 0, 0, 0);
+  position: relative;
+}
+.btn-code::after {
+  content: "Hover to show code";
+  color: #E8E3E3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.btn-code:hover {
+  color: #E8E3E3;
+}
+.btn-code:hover::after {
+  content: "";
 }
 
 /*

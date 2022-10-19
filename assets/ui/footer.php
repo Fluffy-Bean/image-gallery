@@ -27,7 +27,7 @@
 	<hr>
 	<a class='link' href="https://github.com/Fluffy-Bean/image-gallery">Made by Fluffy</a>
 	<hr>
-	<p>V<?php echo $user_settings['version']; ?></p>
+	<p>V<?php echo $web_info['version']; ?></p>
 	<?php
 		if ($exec_time != 0) {
 			echo "<hr>

@@ -8,6 +8,7 @@
  | the default background and accent colour
  |-------------------------------------------------------------
 */
-$user_import    = file_get_contents(__DIR__."/../usr/conf/manifest.json");
-$user_settings  = json_decode($user_import, true);
+$user_settings  = json_decode(file_get_contents(__DIR__."/../usr/conf/manifest.json"), true);
+$web_info       = json_decode(file_get_contents(__DIR__."/app.json"), true);
+
 $upload_conf    = $user_settings["upload"];

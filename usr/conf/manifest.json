@@ -23,13 +23,17 @@
         "Gods die too.",
         "Eat hotchip and lie"
     ],
-    "license":"GPL 3.0",
-    "version": "22.10.13",
     "user_name": "[your name]",
     "is_testing": true,
     "upload": {
         "max_filesize": "32",
         "rename_on_upload": true,
-        "rename_to": "IMG_{{username}}_{{time}}"
+        "rename_to": "IMG_{{username}}_{{time}}",
+        "allowed_extentions": [
+            "jpg",
+            "jpeg",
+            "png",
+            "webp"
+        ]
     }
 }

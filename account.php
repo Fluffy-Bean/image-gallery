@@ -42,9 +42,9 @@
 					</form>
 					<?php
 						if (is_file("usr/images/pfp/".$profile_info['pfp_path'])) {
-							echo "<img src='usr/images/pfp/".$profile_info['pfp_path']."'>";
+							echo "<img alt='profile picture' src='usr/images/pfp/".$profile_info['pfp_path']."'>";
 						} else {
-							echo "<img src='assets/no_image.png'>";
+							echo "<img alt='profile picture' src='assets/no_image.png'>";
 						}
 					?>
 					<script>
@@ -166,7 +166,7 @@
 						$token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
 						while ($token = mysqli_fetch_array($token_request)) {
 							?>
-								<button onclick='copyCode()' class='btn btn-neutral'><?php echo $token['code']; ?></button>
+								<button onclick='copyCode()' class='btn btn-neutral btn-code'><?php echo $token['code']; ?></button>
 								<script>
 									function copyCode() {
 										navigator.clipboard.writeText("<?php echo $token['code']; ?>");

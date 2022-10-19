@@ -30,7 +30,12 @@ if (isset($_POST['submit'])) {
 		$tags			= $make_stuff->tags(trim($_POST['tags']));
 
 		// Check filetype
-		$allowed_types	= array('jpg', 'jpeg', 'png', 'webp');
+		if (isset($upload_conf['allowed_extentions'])) {
+			$allowed_types = $upload_conf['allowed_extentions'];
+		} else {
+			$allowed_types = array('jpg', 'jpeg', 'png', 'webp');
+		}
+		
 		if (!in_array($file_type, $allowed_types)) {
 			?>
 				<script>
