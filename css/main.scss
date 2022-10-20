@@ -115,9 +115,16 @@ body {
     }
 
     &:disabled {
-        opacity: 0.5;
         cursor: not-allowed;
         outline: none;
+
+        z-index: 1;
+
+        filter: brightness(0.5) grayscale(0.3);
+
+        img {
+            display: none;
+        }
     }
 }
 
@@ -296,4 +303,26 @@ a.link {
     * {
         transition: none !important;
     }
+}
+
+.hr {
+    margin: 0.5rem 0;
+
+    border: none;
+    border-top: $border-thickness solid $fg;
+}
+
+.hr-full {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+}
+
+.hr-bad {
+    border-color: $warning;
+}
+.hr-warning {
+    border-color: $alert;
+}
+.hr-good {
+    border-color: $page-accent;
 }

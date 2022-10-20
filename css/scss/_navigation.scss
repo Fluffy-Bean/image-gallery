@@ -10,11 +10,13 @@ nav {
     margin: 0 auto 1rem;
     padding: 0.5rem;
 
-    width: calc(100% - 1.4rem);
+    width: 100%;
     height: auto;
 
     background-color: $bg-alt;
     backdrop-filter: blur(69px) saturate(100%) brightness(100%);
+
+    box-sizing: border-box;
 
     position: sticky;
     z-index: 99;

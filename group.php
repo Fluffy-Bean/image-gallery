@@ -76,11 +76,11 @@
 
             if (!empty($group['image_list'])) echo "<p>Images: ".count(explode(" ", $group['image_list']))."</p>";
 
-            $upload_time = new DateTime($group['created_on']);
-            echo "<p id='updateTime'>Created at: ".$upload_time->format(format: 'd/m/Y H:i:s T')."</p>";
+            
+            echo "<p id='updateTime'>Created at: ".$group['created_at']->format('d/m/Y H:i:s T')."</p>";
             ?>
                 <script>
-                    var updateDate = new Date('<?php echo $upload_time->format(format: 'm/d/Y H:i:s T'); ?>');
+                    var updateDate = new Date('<?php echo $group['created_at']->format('m/d/Y H:i:s T'); ?>');
                     updateDate = updateDate.toLocaleDateString('en-GB', {year: 'numeric', month: 'short', day: 'numeric'});
                     $("#updateTime").html("Created at: "+updateDate);
                 </script>
@@ -254,7 +254,7 @@
                         </script>
                     <?php
                 echo "</div>";
-            } elseif (empty($image_list[0])) {
+            } elseif ($image_list == null) {
                 echo "<div class='info-text defaultFonts' style='text-align: center !important;'>
                     <h1>Nothing here!</h1>
                     <p>There are no images in the group, add some!</p>

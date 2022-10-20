@@ -49,11 +49,12 @@ nav {
   justify-content: space-between;
   margin: 0 auto 1rem;
   padding: 0.5rem;
-  width: calc(100% - 1.4rem);
+  width: 100%;
   height: auto;
   background-color: rgba(21, 21, 21, 0.7333333333);
   -webkit-backdrop-filter: blur(69px) saturate(100%) brightness(100%);
           backdrop-filter: blur(69px) saturate(100%) brightness(100%);
+  box-sizing: border-box;
   position: -webkit-sticky;
   position: sticky;
   z-index: 99;
@@ -157,7 +158,8 @@ nav .btn {
 .defaultSpacing {
   margin-bottom: 1rem;
   padding: 0.5rem 0.5rem 0 0.5rem;
-  width: calc(100% - 1.4rem);
+  width: 100%;
+  box-sizing: border-box;
 }
 .defaultSpacing > * {
   margin-top: 0;
@@ -814,6 +816,7 @@ nav .btn {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  z-index: 2;
 }
 
 .bans {
@@ -868,6 +871,7 @@ nav .btn {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  z-index: 2;
 }
 
 .user-settings {
@@ -925,6 +929,7 @@ nav .btn {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  z-index: 2;
 }
 
 .btn-code {
@@ -1057,9 +1062,13 @@ body * {
   border-radius: 3px;
 }
 .btn:disabled {
-  opacity: 0.5;
   cursor: not-allowed;
   outline: none;
+  z-index: 1;
+  filter: brightness(0.5) grayscale(0.3);
+}
+.btn:disabled img {
+  display: none;
 }
 
 a.btn {
@@ -1212,4 +1221,26 @@ a.link:hover {
   * {
     transition: none !important;
   }
+}
+.hr {
+  margin: 0.5rem 0;
+  border: none;
+  border-top: 0.2rem solid #E8E3E3;
+}
+
+.hr-full {
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+}
+
+.hr-bad {
+  border-color: #B66467;
+}
+
+.hr-warning {
+  border-color: #D8A657;
+}
+
+.hr-good {
+  border-color: #8C977D;
 }/*# sourceMappingURL=main.css.map */

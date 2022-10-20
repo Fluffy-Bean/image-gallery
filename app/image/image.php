@@ -113,10 +113,13 @@ if (isset($_POST['submit_description'])) {
 
 			// Attempt to execute the prepared statement
 			if (mysqli_stmt_execute($stmt)) {
+				$_SESSION['msg'] = "Description has been updated successfully!";
 				?>
 					<script>
-						sniffleAdd('Success!!!', 'Description has been updated successfully! You may need to refresh the page to see the new information.', 'var(--success)', 'assets/icons/check.svg');
 						flyoutClose();
+						setTimeout(function(){
+							location.reload();
+						}, 500);
 					</script>
 				<?php
 			} else {
@@ -174,10 +177,13 @@ if (isset($_POST['submit_tags'])) {
 
 			// Attempt to execute the prepared statement
 			if (mysqli_stmt_execute($stmt)) {
+				$_SESSION['msg'] = "Tags have been modified successfully!";
 				?>
 					<script>
-						sniffleAdd('Success!!!', 'Tags have been modified successfully! You may need to refresh the page to see the new information.', 'var(--success)', 'assets/icons/check.svg');
 						flyoutClose();
+						setTimeout(function(){
+							location.reload();
+						}, 500);
 					</script>
 				<?php
 			} else {
@@ -230,10 +236,13 @@ if (isset($_POST['submit_author'])) {
 
 			// Attempt to execute the prepared statement
 			if (mysqli_stmt_execute($stmt)) {
+				$_SESSION['msg'] = "The Author has been updated successfully!";
 				?>
 					<script>
-						sniffleAdd('Success!!!', 'The Author has been updated successfully! You may need to refresh the page to see the new information.', 'var(--success)', 'assets/icons/check.svg');
 						flyoutClose();
+						setTimeout(function(){
+							location.reload();
+						}, 500);
 					</script>
 				<?php
 			} else {

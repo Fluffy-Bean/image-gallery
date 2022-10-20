@@ -49,6 +49,15 @@
 	<?php
 		include __DIR__."/assets/ui/nav.php";
 
+		if (isset($_SESSION['msg'])) {
+			?>
+				<script>
+					sniffleAdd("Gwa Gwa", "<?php echo $_SESSION['msg']; ?>", "var(--success)", "assets/icons/trash.svg");
+				</script>
+			<?php
+			unset($_SESSION['msg']);
+		}
+
 		echo "<div class='fullscreen-image'>
 			<button onclick='closeFullScreen()'><img src='assets/icons/cross.svg'></button>
 			<img>
@@ -125,7 +134,7 @@
 							echo "<p>ID: ".$image['id']."</p>";
 						}
 
-						$upload_time = new DateTime($image['upload_date']);
+						$upload_time = new DateTime();
 						echo "<p id='updateTime'>Uploaded at: ".$upload_time->format('d/m/Y H:i:s T')."</p>";
 					?>
 					<script>
