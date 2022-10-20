@@ -1,8 +1,7 @@
 # Dont include user generated content in github repo
 images/
 conf/
-
-# CSS map, I don't think its needed for upload... I think?
 *.map
 
+# Dont include PHPStorm project files
 .idea/

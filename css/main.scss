@@ -148,6 +148,49 @@ a.btn {
 
 /*
  |-------------------------------------------------------------
+ | ALERTS
+ |-------------------------------------------------------------
+*/
+.alert {
+    padding: 0.75rem;
+
+    width: 100%;
+
+    display: block;
+    box-sizing: border-box;
+
+    font-size: 16px;
+    font-weight: 500;
+    font-family: $font-body;
+
+    text-decoration: none;
+
+    border-left: $border-thickness solid $fg;
+    background-color: $bg;
+    background-repeat: no-repeat;
+
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.3rem);
+    } @else {
+        border-radius: 3px;
+    }
+}
+
+.alert-bad {
+    border-color: $warning;
+    background-image: linear-gradient(to right, rgba($warning, 0.3), rgba($bg, 0));
+}
+.alert-warning {
+    border-color: $alert;
+    background-image: linear-gradient(to right, rgba($alert, 0.3), rgba($bg, 0));
+}
+.alert-good {
+    border-color: $page-accent;
+    background-image: linear-gradient(to right, rgba($page-accent, 0.3), rgba($bg, 0));
+}
+
+/*
+ |-------------------------------------------------------------
  | FORM SIZING
  |-------------------------------------------------------------
 */

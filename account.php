@@ -262,9 +262,9 @@
 											
 												if ($user['id'] == 1) {
 													?>
-														<button class="btn btn-neutral" style="outline: none;">Reset Password</button>
-														<button class="btn btn-neutral" style="outline: none;">Delete user</button>
-														<button class="btn btn-neutral" style="outline: none;">Toggle admin</button>
+														<button class="btn btn-bad" disabled>Reset Password</button>
+														<button class="btn btn-bad" disabled>Delete user</button>
+														<button class="btn btn-bad" disabled>Toggle admin</button>
 													<?php
 												} else {
 													?>
@@ -385,8 +385,8 @@
 							<?php
 								$check_sanity = $sanity->get_results();
 
-								if (empty($check_sanity) || !isset($check_sanity)) {
-									echo "<p class='btn btn-good' style='outline: none;'>No errors! Lookin' good</p>";
+								if (empty($check_sanity)) {
+									echo "<p class='alert alert-good'>No errors! Lookin' good :3</p>";
 								} else {
 									?>
 										<style>
@@ -396,14 +396,28 @@
 										</style>
 									<?php
 									foreach ($check_sanity as $result) {
-										if (str_contains($result, "Critical")) {
-											$result = str_replace("Critical:", "<img class='svg' src='assets/icons/warning.svg'>", $result);
-											echo "<p class='btn btn-bad' style='outline: none; cursor: default;'>".$result."</p>";
-										} elseif (str_contains($result, "Warning")) {
-											$result = str_replace("Warning:", "<img class='svg' src='assets/icons/warning.svg'>", $result);
-											echo "<p class='btn btn-warning' style='outline: none; cursor: default;'>".$result."</p>";
+										if ($result['type'] == 'critical') {
+											echo "<p class='alert alert-bad'>
+													<img class='svg' src='assets/icons/warning.svg'>
+													".$result['message']."
+												</p>";
+										} elseif ($result['type'] == 'warning') {
+											echo "<p class='alert alert-warning'>
+													<img class='svg' src='assets/icons/warning.svg'>
+													".$result['message']."
+												</p>";
+										} else {
+											echo "<p class='alert alert-warning'>
+													<img class='svg' src='assets/icons/warning.svg'>
+													".$result['message']."
+												</p>";
 										}
 									}
+
+									echo "<br> <button class='btn btn-bad' disabled>
+											<img class='svg' src='assets/icons/wrench.svg'>
+											Attemp Autofix
+										</button>";
 								}
 							?>
 					</div>

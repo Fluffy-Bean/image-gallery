@@ -124,7 +124,7 @@ if (isset($_POST['title_submit'])) {
  |-------------------------------------------------------------
 */
 if (isset($_POST['new_group_submit'])) {
-    if ($user_info->is_loggedin()) {        
+    if ($user_info->is_loggedin($conn)) {        
         $group_name = "New Group";
         $sql = "INSERT INTO groups (group_name, author, image_list) VALUES('$group_name', '".$_SESSION['id']."', '')";
         

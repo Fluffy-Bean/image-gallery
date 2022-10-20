@@ -254,7 +254,7 @@
                         </script>
                     <?php
                 echo "</div>";
-            } elseif (empty($image_list)) {
+            } elseif (empty($image_list[0])) {
                 echo "<div class='info-text defaultFonts' style='text-align: center !important;'>
                     <h1>Nothing here!</h1>
                     <p>There are no images in the group, add some!</p>

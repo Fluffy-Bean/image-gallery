@@ -403,16 +403,16 @@ class Sanity  {
         $results = array();
 
         if (!is_file(__DIR__."/../usr/conf/manifest.json")) {
-            $results[] = "Critical: manifest.json is missing";
+            $results[] = array('type'=>'critical', 'message'=>'manifest.json is missing');
         } else {
             $manifest = json_decode(file_get_contents(__DIR__."/../usr/conf/manifest.json"), true);
 
             if (empty($manifest['user_name']) || $manifest['user_name'] == "[your name]") {
-                $results[] = "Warning: manifest.json is missing your name";
+                $results[] = array('type'=>'warning', 'message'=>'manifest.json is missing your name');
             }
             if ($manifest['upload']['rename_on_upload']) {
                 if (empty($manifest['upload']['rename_to'])) {
-                    $results[] = "Critical: manifest.json doesnt know what to rename your files to";
+                    $results[] = array('type'=>'critical', 'message'=>'manifest.json doesnt know what to rename your files to');
                 } else {
                     $rename_to      = $manifest['upload']['rename_to'];
                     $rename_rate    = 0;
@@ -426,15 +426,15 @@ class Sanity  {
                     if (str_contains($rename_to, '{{username}}') || str_contains($rename_to, '{{userid}}')) $rename_rate += 1;
 
                     if ($rename_rate < 2) {
-                        $results[] = "Critical: You will encounter errors when uploading images due to filenames, update your manifest.json";
+                        $results[] = array('type'=>'critical', 'message'=>'You will encounter errors when uploading images due to filenames, update your manifest.json');
                     } elseif ($rename_rate < 5 && $rename_rate > 2) {
-                        $results[] = "Warning: You may encounter errors when uploading images due to filenames, concider update your manifest.json";
+                        $results[] = array('type'=>'warning', 'message'=>'You may encounter errors when uploading images due to filenames, concider modifying your manifest.json');
                     }
                 }
             }
 
             if ($manifest['is_testing']) {
-                $results[] = "Warning: You are currently in testing mode, errors will be displayed to the user";
+                $results[] = array('type'=>'warning', 'message'=>'You are currently in testing mode, errors will be displayed to the user');
             }
         }
 
@@ -446,16 +446,16 @@ class Sanity  {
         $results = array();
 
         if (!is_dir("usr/images")) {
-            $results[] = "Critical: You need to setup an images folder, follow the guide on the GitHub repo";
+            $results[] = array('type'=>'critical', 'message'=>'You need to setup an images folder, follow the guide on the GitHub repo');
         }
         if (!is_dir("usr/images/pfp")) {
-            $results[] = "Critical: You need to setup an pfp folder, follow the guide on the GitHub repo";
+            $results[] = array('type'=>'critical', 'message'=>'You need to setup an pfp folder, follow the guide on the GitHub repo');
         }
         if (!is_dir("usr/images/previews")) {
-            $results[] = "Critical: You need to setup an previews folder, follow the guide on the GitHub repo";
+            $results[] = array('type'=>'critical', 'message'=>'You need to setup an previews folder, follow the guide on the GitHub repo');
         }
         if (!is_dir("usr/images/thumbnails")) {
-            $results[] = "Critical: You need to setup an thumbnails folder, follow the guide on the GitHub repo";
+            $results[] = array('type'=>'critical', 'message'=>'You need to setup an thumbnails folder, follow the guide on the GitHub repo');
         }
 
         return $results;
@@ -476,13 +476,13 @@ class Sanity  {
         $app_repo   = json_decode($result, true);
 
         if ($app_local['version'] < $app_repo['version']) {
-            $results[] = "Critical: You are not running the latest version of the app v".$app_repo['version']."";
+            $results[] = array('type'=>'critical', 'message'=>'You are not running the latest version of the app v'.$app_repo['version']);
         } elseif ($app_local['version'] > $app_repo['version']) {
-            $results[] = "Warning: You are running a version of the app that is newer than the latest release v".$app_repo['version']."";
+            $results[] = array('type'=>'critical', 'message'=>'You are running a version of the app that is newer than the latest release v'.$app_repo['version']);
         }
 
         if (PHP_VERSION_ID < 80000) {
-            $results[] = "Critical: Your current version of PHP is ".PHP_VERSION.". The reccomended version is 8.0.0 or higher";
+            $results[] = array('type'=>'warning', 'message'=>'Your current version of PHP is '.PHP_VERSION.' The reccomended version is 8.0.0 or higher');
         }
 
         return $results;
