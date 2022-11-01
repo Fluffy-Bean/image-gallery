@@ -10,13 +10,13 @@
 */
 $user_settings  = json_decode(file_get_contents(__DIR__."/../usr/conf/conf.json"), true);
 
-if (!is_file(__DIR__."/../usr/conf/conf.json")) {
+if (is_file(__DIR__."/../usr/conf/conf.json")) {
     $settings = json_decode(file_get_contents(__DIR__."/../usr/conf/conf.json"), true);
 } else {
     $settings = json_decode(file_get_contents(__DIR__."/../usr/conf.default.json"), true);
 }
 
-if (!is_file(__DIR__."/../usr/conf/msg.json")) {
+if (is_file(__DIR__."/../usr/conf/msg.json")) {
     $user_welcome   = json_decode(file_get_contents(__DIR__."/../usr/conf/msg.json"), true);
     $user_welcome   = $user_welcome['welcome'];
 } else {
