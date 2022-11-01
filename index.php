@@ -96,7 +96,9 @@
 						}
 
 						// Random welcome message	
-						echo "<p>".$user_welcome[array_rand($user_welcome, 1)]."</p>";
+						if (isset($user_welcome)) {
+							echo "<p>".$user_welcome[array_rand($user_welcome, 1)]."</p>";
+						}
 					?>
 				</div>
 			<?php

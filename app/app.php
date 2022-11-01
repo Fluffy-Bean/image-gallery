@@ -6,15 +6,7 @@ use Throwable;
 use Imagick;
 
 class Make {
-    /*
-    |-------------------------------------------------------------
-    | Create Thumbnails
-    |-------------------------------------------------------------
-    | Default resolution for a preview image is 300px (max-width)
-    | ** Not yet implemented **
-    |-------------------------------------------------------------
-    */
-    function thumbnail($image_path, $thumbnail_path, $resolution): Exception|string
+    function thumbnail($image_path, $thumbnail_path, $resolution = 300): Exception|string
     {
         try {
             $thumbnail = new Imagick($image_path);
@@ -336,26 +328,76 @@ class Setup {
     function create_tables($conn, $sql): bool
     {
         /*
-        $sql = "CREATE TABLE IF NOT EXISTS users ()";
+        $sql = "CREATE TABLE IF NOT EXISTS users ( 
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(255) NOT NULL UNIQUE,
+            password VARCHAR(255) NOT NULL,
+            pfp_path VARCHAR(255) NOT NULL,
+            admin BOOLEAN NOT NULL DEFAULT FALSE, 
+            last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )";
         if ($conn->query($sql) === TRUE) {
             echo "Table users created successfully";
         }
 
-        $sql = "CREATE TABLE IF NOT EXISTS images ()";
+        $sql = "CREATE TABLE IF NOT EXISTS images ( 
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            imagename VARCHAR(255) NOT NULL,
+            alt VARCHAR(text) NOT NULL,
+            tags VARCHAR(text) NOT NULL,
+            author INT(11) NOT NULL,
+            last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )";
         if ($conn->query($sql) === TRUE) {
             echo "Table images created successfully";
         }
 
-        $sql = "CREATE TABLE IF NOT EXISTS groups ()";
+        $sql = "CREATE TABLE IF NOT EXISTS groups (
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            group_name VARCHAR(255) NOT NULL,
+            image_list VARCHAR(text) NOT NULL,
+            last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )";
         if ($conn->query($sql) === TRUE) {
             echo "Table groups created successfully";
         }
 
-        $sql = "CREATE TABLE IF NOT EXISTS logs ()";
+        $sql = "CREATE TABLE IF NOT EXISTS logs (
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            ipaddress VARCHAR(16) NOT NULL,
+            action VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )";
         if ($conn->query($sql) === TRUE) {
             echo "Table logs created successfully";
         }
+
+        $sql = "CREATE TABLE IF NOT EXISTS bans (
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            ipaddress VARCHAR(16) NOT NULL,
+            reason VARCHAR(255) NOT NULL,
+            time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            length VARCHAR(255) NOT NULL,
+            permanent BOOLEAN NOT NULL DEFAULT FALSE
+        )";
+        if ($conn->query($sql) === TRUE) {
+            echo "Table bans created successfully";
+        }
+
+        $sql = "CREATE TABLE IF NOT EXISTS tokens (
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            code VARCHAR(59) NOT NULL,
+            used BOOLEAN NOT NULL DEFAULT FALSE,
+            timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )";
+        if ($conn->query($sql) === TRUE) {
+            echo "Table tokens created successfully";
+        }
         */
+        
         return True;
     }
 
@@ -379,20 +421,8 @@ class Setup {
         }
 
         if (!is_file(__DIR__."/../usr/conf/conf.json")) {
-            $manifest = array(
-                "website_name" => "Only Legs",
-                "website_description" => "A simple PHP gallery with multiple users in mind",
-                "welcome_message" => array("*internal screaming*", "Welcome to Only Legs!"),
-                "user_name" => "[your name]",
-                "is_test" => true,
-                "upload" => array(
-                    "max_filesize" => 35,
-                    "rename_on_upload" => true,
-                    "rename_to" => "IMG_{{username}}_{{time}}",
-                    "allowed_extensions" => array("jpg", "jpeg", "png", "webp")
-                )
-            );
-            file_put_contents(__DIR__."/../usr/conf/conf.json", json_encode($manifest));
+            $manifest = file_get_contents(__DIR__."/../usr/conf.default.json");
+            file_put_contents(__DIR__."/../usr/conf/conf.json", $manifest);
         }
     }
 }

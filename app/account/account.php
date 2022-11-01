@@ -47,7 +47,9 @@ if (isset($_POST['submit_login'])) {
         <?php
 
         $error += 1;
-    } else {
+    }
+    
+    if ($error <= 0) {
         $attemps = 0;
         $log_query = mysqli_query($conn, "SELECT * FROM logs WHERE ipaddress = '$user_ip' ORDER BY id DESC LIMIT 5");
     
