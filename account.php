@@ -159,8 +159,9 @@
 				if ($user_info->is_admin($conn, $_SESSION['id'])) {
 					$sql_start = microtime(true);
 				?>
-					<div class="defaultDecoration defaultSpacing defaultFonts">
-						<h2>Admin</h2>
+					<div class="sanity-check defaultDecoration defaultSpacing defaultFonts">
+						<h2>Website</h2>
+
 						<h3>Invite Codes</h3>
 						<?php
 						$token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
@@ -177,8 +178,7 @@
 						}
 						?>
 
-						<br>
-
+						<br><h3>Admin</h3>
 						<div class="tabs">
 							<button class="btn btn-neutral tablinks" onclick="openTab(event, 'logs')">Logs</button>
 							<button class="btn btn-neutral tablinks" onclick="openTab(event, 'bans')">Bans</button>
@@ -378,48 +378,46 @@
 								evt.currentTarget.className += " active-tab";
 							}
 						</script>
-					</div>
 
-					<div class="sanity-check defaultDecoration defaultSpacing defaultFonts">
-							<h2>Sanity check</h2>
-							<?php
-								$check_sanity = $sanity->get_results();
+						<br><h3>Sanity check</h3>
+						<?php
+							$check_sanity = $sanity->get_results();
 
-								if (empty($check_sanity)) {
-									echo "<p class='alert alert-good'>No errors! Lookin' good :3</p>";
-								} else {
-									?>
-										<style>
-											.sanity-check {
-												border-color: var(--warning);
-											}
-										</style>
-									<?php
-									foreach ($check_sanity as $result) {
-										if ($result['type'] == 'critical') {
-											echo "<p class='alert alert-bad'>
-													<img class='svg' src='assets/icons/warning.svg'>
-													".$result['message']."
-												</p>";
-										} elseif ($result['type'] == 'warning') {
-											echo "<p class='alert alert-warning'>
-													<img class='svg' src='assets/icons/warning.svg'>
-													".$result['message']."
-												</p>";
-										} else {
-											echo "<p class='alert alert-warning'>
-													<img class='svg' src='assets/icons/warning.svg'>
-													".$result['message']."
-												</p>";
+							if (empty($check_sanity)) {
+								echo "<p class='alert alert-good'>No errors! Lookin' good :3</p>";
+							} else {
+								?>
+									<style>
+										.sanity-check {
+											border-color: var(--warning);
 										}
+									</style>
+								<?php
+								foreach ($check_sanity as $result) {
+									if ($result['type'] == 'critical') {
+										echo "<p class='alert alert-bad'>
+												<img class='svg' src='assets/icons/warning.svg'>
+												".$result['message']."
+											</p>";
+									} elseif ($result['type'] == 'warning') {
+										echo "<p class='alert alert-warning'>
+												<img class='svg' src='assets/icons/warning.svg'>
+												".$result['message']."
+											</p>";
+									} else {
+										echo "<p class='alert alert-warning'>
+												<img class='svg' src='assets/icons/warning.svg'>
+												".$result['message']."
+											</p>";
 									}
-
-									echo "<br> <button class='btn btn-bad' disabled>
-											<img class='svg' src='assets/icons/wrench.svg'>
-											Attemp Autofix
-										</button>";
 								}
-							?>
+
+								echo "<button class='btn btn-bad' disabled>
+										<img class='svg' src='assets/icons/wrench.svg'>
+										Attempt Autofix
+									</button>";
+							}
+						?>
 					</div>
 					<?php
 					$sql_end = microtime(true);

@@ -5,8 +5,8 @@ require_once dirname(__DIR__)."/app/conn.php";
 require_once dirname(__DIR__)."/app/app.php";
 require_once dirname(__DIR__)."/app/settings.php";
 
-ini_set('post_max_size', $upload_conf['max_filesize']."M");
-ini_set('upload_max_filesize', ($upload_conf['upload_max'] + 1)."M");
+ini_set('post_max_size', $upload_conf['max_filesize']);
+ini_set('upload_max_filesize', $upload_conf['max_filesize']);
 
 if ($user_settings['is_testing']) {
   ini_set('display_errors', 1);

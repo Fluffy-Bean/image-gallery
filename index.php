@@ -95,9 +95,8 @@
 							echo "<h1>".$time_welc."!</h1>";
 						}
 
-						// Random welcome message
-						$welcome_message = $user_settings['welcome_msg'];
-						echo "<p>".$welcome_message[array_rand($welcome_message, 1)]."</p>";
+						// Random welcome message	
+						echo "<p>".$user_welcome[array_rand($user_welcome, 1)]."</p>";
 					?>
 				</div>
 			<?php

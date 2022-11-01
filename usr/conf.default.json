@@ -1,0 +1,17 @@
+{
+    "website_name": "Only Legs",
+    "website_description": "A simple PHP gallery with multiple users in mind",
+    "user_name": "[your name]",
+    "is_testing": true,
+    "upload": {
+        "max_filesize": "32M",
+        "rename_on_upload": true,
+        "rename_to": "IMG_{{username}}_{{time}}",
+        "allowed_extentions": [
+            "jpg",
+            "jpeg",
+            "png",
+            "webp"
+        ]
+    }
+}

@@ -378,7 +378,7 @@ class Setup {
             mkdir("usr/conf");
         }
 
-        if (!is_file(__DIR__."/../usr/conf/manifest.json")) {
+        if (!is_file(__DIR__."/../usr/conf/conf.json")) {
             $manifest = array(
                 "website_name" => "Only Legs",
                 "website_description" => "A simple PHP gallery with multiple users in mind",
@@ -392,7 +392,7 @@ class Setup {
                     "allowed_extensions" => array("jpg", "jpeg", "png", "webp")
                 )
             );
-            file_put_contents(__DIR__."/../usr/conf/manifest.json", json_encode($manifest));
+            file_put_contents(__DIR__."/../usr/conf/conf.json", json_encode($manifest));
         }
     }
 }
@@ -402,17 +402,25 @@ class Sanity  {
     {
         $results = array();
 
-        if (!is_file(__DIR__."/../usr/conf/manifest.json")) {
-            $results[] = array('type'=>'critical', 'message'=>'manifest.json is missing');
+        if (!is_file(__DIR__."/../usr/conf/msg.json")) {
+            $results[] = array('type'=>'warning', 'message'=>'msg.json is missing');
+        }
+
+        if (!is_file(__DIR__."/../usr/conf/conf.json")) {
+            if (is_file(__DIR__."/../usr/conf/manifest.json")) {
+                $results[] = array('type'=>'critical', 'message'=>'manifest.json is deprecated, please rename it to conf.json');
+            } else {
+                $results[] = array('type'=>'critical', 'message'=>'conf.json is missing, using conf.default.json instead');
+            }
         } else {
-            $manifest = json_decode(file_get_contents(__DIR__."/../usr/conf/manifest.json"), true);
+            $manifest = json_decode(file_get_contents(__DIR__."/../usr/conf/conf.json"), true);
 
             if (empty($manifest['user_name']) || $manifest['user_name'] == "[your name]") {
-                $results[] = array('type'=>'warning', 'message'=>'manifest.json is missing your name');
+                $results[] = array('type'=>'warning', 'message'=>'conf.json is missing your name');
             }
             if ($manifest['upload']['rename_on_upload']) {
                 if (empty($manifest['upload']['rename_to'])) {
-                    $results[] = array('type'=>'critical', 'message'=>'manifest.json doesnt know what to rename your files to');
+                    $results[] = array('type'=>'critical', 'message'=>'conf.json doesnt know what to rename your files to');
                 } else {
                     $rename_to      = $manifest['upload']['rename_to'];
                     $rename_rate    = 0;
@@ -426,9 +434,9 @@ class Sanity  {
                     if (str_contains($rename_to, '{{username}}') || str_contains($rename_to, '{{userid}}')) $rename_rate += 1;
 
                     if ($rename_rate < 2) {
-                        $results[] = array('type'=>'critical', 'message'=>'You will encounter errors when uploading images due to filenames, update your manifest.json');
+                        $results[] = array('type'=>'critical', 'message'=>'You will encounter errors when uploading images due to filenames, update your conf.json');
                     } elseif ($rename_rate < 5 && $rename_rate > 2) {
-                        $results[] = array('type'=>'warning', 'message'=>'You may encounter errors when uploading images due to filenames, concider modifying your manifest.json');
+                        $results[] = array('type'=>'warning', 'message'=>'You may encounter errors when uploading images due to filenames, concider modifying your conf.json');
                     }
                 }
             }

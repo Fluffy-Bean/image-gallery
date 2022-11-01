@@ -114,8 +114,6 @@ nav .btn {
 @media (max-width: 550px) {
   nav {
     margin: 0;
-    width: calc(100% - 1rem);
-    height: 2.5rem;
     position: fixed;
     top: auto;
     bottom: 0;
@@ -542,6 +540,7 @@ nav .btn {
 
 .group-name {
   margin: 0;
+  max-width: 90%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -553,6 +552,8 @@ nav .btn {
   font-family: "Secular One", sans-serif;
   text-decoration: none;
   text-align: center;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
 }
 
 .gallery-group {
@@ -585,6 +586,7 @@ nav .btn {
   position: relative;
   overflow: hidden;
   flex: 1 0 150px;
+  text-overflow: ellipsis;
   transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .group-make:hover {
@@ -620,7 +622,9 @@ nav .btn {
   cursor: pointer;
 }
 .group-make button span {
+  max-width: 90%;
   text-align: center;
+  text-overflow: ellipsis;
 }
 .group-make button img {
   margin: 0.25rem;
@@ -628,16 +632,9 @@ nav .btn {
   height: 2.5rem;
 }
 
-@media (max-width: 800px) {
-  .group-make {
-    max-width: calc(25% - 0.5rem);
-    min-width: calc(25% - 0.5rem);
-  }
-}
 @media (max-width: 550px) {
-  .group-make {
-    max-width: calc(33.33% - 0.5rem);
-    min-width: calc(33.33% - 0.5rem);
+  .group-make > button > span {
+    display: none;
   }
 }
 /*
