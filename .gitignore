@@ -1,6 +1,7 @@
 # Dont include user generated content in github repo
 images/
 conf/
+usr/logo.*
 *.map
 
 # Dont include PHPStorm project files

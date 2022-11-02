@@ -196,6 +196,16 @@ a.btn {
     background-image: linear-gradient(120deg, rgba($page-accent, 0.3), rgba($bg, 0));
 }
 
+.alert-box {
+    > * {
+        margin: 0 0 0.5rem 0;
+    }
+
+    > *:last-child {
+        margin: 0;
+    }
+}
+
 /*
  |-------------------------------------------------------------
  | BADGES
@@ -216,14 +226,15 @@ a.btn {
     //margin: 0 0.25rem;
     padding: 0.2em 0.4em;
     border: $black $border-thickness solid;
-    @if $rad <= 0 {
-        border-radius: 3px;
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.3rem);
     } @else {
-        border-radius: $rad;
+        border-radius: 3px;
     }
     color: $fg;
     font-size: 0.8em;
     font-weight: bold;
+    font-family: $font-body;
     line-height: 1;
     vertical-align: baseline;
     white-space: nowrap;

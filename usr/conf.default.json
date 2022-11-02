@@ -1,6 +1,7 @@
 {
     "website_name": "Only Legs",
     "website_description": "A simple PHP gallery with multiple users in mind",
+    "logo": "",
     "user_name": "[your name]",
     "is_testing": true,
     "upload": {

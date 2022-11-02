@@ -48,9 +48,26 @@ nav {
 
     font-family: $font-header;
 
-    font-size: 22px;
+    font-size: 1.5rem;
+    line-height: 1.69rem;
 
-    display: block;
+    img {
+        margin: 0 0.5rem 0 0;
+        padding: 0;
+
+        width: 1.69rem;
+        height: 1.69rem;
+
+        //vertical-align: middle;
+
+        display: inline;
+
+        @if calc($rad - 0.5rem) > 0 {
+            border-radius: calc($rad - 0.3rem);
+        } @else {
+            border-radius: 3px;
+        }
+    }
 }
 
 .nav-links {

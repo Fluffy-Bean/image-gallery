@@ -7,6 +7,11 @@ $loggedin = new Account();
 
 <nav class="nav-root">
 	<div class="nav-name">
+		<?php
+			if (isset($user_settings['logo']) && $user_settings['logo'] != "") {
+				echo "<img src='usr/".$user_settings['logo']."' alt='Logo'>";
+			}
+		?>
 		<p><?php echo $user_settings['website_name']; ?></p>
 	</div>
 	<div class="nav-links">

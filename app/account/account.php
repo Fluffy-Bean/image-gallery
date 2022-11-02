@@ -242,7 +242,7 @@ if (isset($_POST['submit_signup'])) {
             $error = $error + 1;
         } elseif(strlen(trim($_POST["password"])) < 6){
             // Password not long enough 👀
-            echo "<p class='alert alert-warning'>Not long enough for my taste 👀</p>";
+            echo "<p class='alert alert-warning'>(Password) Not long enough for my taste 👀</p>";
             $error = $error + 1;
         } else {
             $password = trim($_POST["password"]);

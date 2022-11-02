@@ -82,8 +82,16 @@ nav .btn {
   justify-content: space-around;
   margin: 0;
   font-family: "Lexend Deca", sans-serif;
-  font-size: 22px;
-  display: block;
+  font-size: 1.5rem;
+  line-height: 1.69rem;
+}
+.nav-name img {
+  margin: 0 0.5rem 0 0;
+  padding: 0;
+  width: 1.69rem;
+  height: 1.69rem;
+  display: inline;
+  border-radius: 3px;
 }
 
 .nav-links {
@@ -1131,6 +1139,13 @@ a.btn {
   background-image: linear-gradient(120deg, rgba(140, 151, 125, 0.3), rgba(21, 21, 21, 0));
 }
 
+.alert-box > * {
+  margin: 0 0 0.5rem 0;
+}
+.alert-box > *:last-child {
+  margin: 0;
+}
+
 /*
  |-------------------------------------------------------------
  | BADGES
@@ -1141,10 +1156,11 @@ a.btn {
   box-sizing: border-box;
   padding: 0.2em 0.4em;
   border: #121212 0.2rem solid;
-  border-radius: 0.4rem;
+  border-radius: 3px;
   color: #E8E3E3;
   font-size: 0.8em;
   font-weight: bold;
+  font-family: "Secular One", sans-serif;
   line-height: 1;
   vertical-align: baseline;
   white-space: nowrap;
