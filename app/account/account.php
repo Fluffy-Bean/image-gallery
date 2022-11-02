@@ -71,11 +71,7 @@ if (isset($_POST['submit_login'])) {
     if ($error <= 0) {
         // Checking if Username is empty
         if (empty(trim($_POST["username"]))) {
-            ?>
-                <script>
-                    sniffleAdd('Who dis?', 'You must enter a username to login!', 'var(--warning)', 'assets/icons/cross.svg');
-                </script>
-            <?php
+            echo "<p class='alert alert-bad'>You must enter a username to login!</p>";
             $error += 1;
         } else {
             $username = trim($_POST["username"]);
@@ -83,11 +79,7 @@ if (isset($_POST['submit_login'])) {
         
         // Check if Password is empty
         if (empty(trim($_POST["password"]))) {
-            ?>
-                <script>
-                    sniffleAdd('Whats the magic word?', 'Pls enter the super duper secrete word(s) to login!', 'var(--warning)', 'assets/icons/cross.svg');
-                </script>
-            <?php
+            echo "<p class='alert alert-bad'>Pls enter the super duper secrete word(s) to login!</p>";
             $error += 1;
         } else {
             $password = trim($_POST["password"]);
@@ -134,28 +126,16 @@ if (isset($_POST['submit_login'])) {
 
                             mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','New loggin to ".$_SESSION['username']."')");
                         } else {
-                            ?>
-                                <script>
-                                    sniffleAdd('Sus', 'Username or Password WRONG, please try again :3', 'var(--warning)', 'assets/icons/cross.svg');
-                                </script>
-                            <?php
+                            echo "<p class='alert alert-bad'>Sussy wussy, Username or Password WRONG, please try again :3</p>";
                             mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Failed to enter correct Password')");
                         }
                     }
                 } else {
-                    ?>
-                        <script>
-                            sniffleAdd('Sus', 'Username or Password WRONG, please try again :3', 'var(--warning)', 'assets/icons/cross.svg');
-                        </script>
-                    <?php
+                    echo "<p class='alert alert-bad'>Sussy wussy, Username or Password WRONG, please try again :3</p>";
                     mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Failed to enter correct Username')");
                 }
             } else {
-                ?>
-                    <script>
-                        sniffleAdd('woops...', 'Sowwy, something went wrong on our end :c', 'var(--warning)', 'assets/icons/cross.svg');
-                    </script>
-                <?php
+                echo "<p class='alert alert-bad'>Sowwy, something went wrong on our end :c</p>";
             }
             // Close statement
             mysqli_stmt_close($stmt);
@@ -220,19 +200,11 @@ if (isset($_POST['submit_signup'])) {
     if ($error <= 0) {
         if (empty(trim($_POST["username"]))) {
             // Username not entered
-            ?>
-                <script>
-                    sniffleAdd('Hmmm', 'You must enter a username!', 'var(--warning)', 'assets/icons/cross.svg');
-                </script>
-            <?php
-            $error = $error + 1;
+            echo "<p class='alert alert-warning'>Username is empty!!!!!</p>";
+            $error += 1;
         } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
             // Username entered contains illegal characters
-            ?>
-                <script>
-                    sniffleAdd('Sussy Wussy', 'Very sus. Username can only contain letters, numbers, and underscores', 'var(--warning)', 'assets/icons/cross.svg');
-                </script>
-            <?php
+            echo "<p class='alert alert-warning'>Very sus. Username can only contain letters, numbers, and underscores</p>";
             $error = $error + 1;
         } else {
             // Prepare sql for sus
@@ -249,21 +221,13 @@ if (isset($_POST['submit_signup'])) {
             
                     if (mysqli_stmt_num_rows($stmt) == 1) {
                         // Username taken
-                        ?>
-                            <script>
-                                sniffleAdd('A clone?', 'Sorry, but username was already taken by someone else', 'var(--warning)', 'assets/icons/cross.svg');
-                            </script>
-                        <?php
+                        echo "<p class='alert alert-warning'>Sorry, but username was already taken by someone else</p>";
                         $error = $error + 1;
                     } else {
                         $username = trim($_POST["username"]);
                     }
                 } else {
-                    ?>
-                        <script>
-                            sniffleAdd('Reee', 'We had a problem on our end, sowwy', 'var(--warning)', 'assets/icons/cross.svg');
-                        </script>
-                    <?php
+                    echo "<p class='alert alert-bad'>We had a problem on our end, sowwy</p>";
                     $error = $error + 1;
                 }
                 // Outa here with this
@@ -274,19 +238,11 @@ if (isset($_POST['submit_signup'])) {
         // Validate sussness of Password
         if (empty(trim($_POST["password"]))) {
             // No password entered
-            ?>
-                <script>
-                    sniffleAdd('What', 'You must enter a password, dont want just anyone seeing your stuff uwu', 'var(--warning)', 'assets/icons/cross.svg');
-                </script>
-            <?php
+            echo "<p class='alert alert-warning'>You must enter a password, dont want just anyone seeing your stuff uwu</p>";
             $error = $error + 1;
         } elseif(strlen(trim($_POST["password"])) < 6){
             // Password not long enough 👀
-            ?>
-                <script>
-                    sniffleAdd('👀', 'Nice (Password) but its not long enough 👀', 'var(--warning)', 'assets/icons/cross.svg');
-                </script>
-            <?php
+            echo "<p class='alert alert-warning'>Not long enough for my taste 👀</p>";
             $error = $error + 1;
         } else {
             $password = trim($_POST["password"]);
@@ -295,21 +251,13 @@ if (isset($_POST['submit_signup'])) {
         // Validate sussiness of the other Password
         if (empty(trim($_POST["confirm_password"]))) {
             // Did not confirm passowrd
-            ?>
-                <script>
-                    sniffleAdd('Eh?', 'Confirm the password pls, its very important you remember what it issss', 'var(--warning)', 'assets/icons/cross.svg');
-                </script>
-            <?php
+            echo "<p class='alert alert-warning'>Confirm the password pls, its very important you remember what it issss</p>";
             $error = $error + 1;
         } else {
             $confirm_password = trim($_POST["confirm_password"]);
             if (empty($error) && $confirm_password != $password) {
                 // Password and re-entered Password does not match
-                ?>
-                    <script>
-                        sniffleAdd('Try again', 'Passwords need to be the same, smelly smelly', 'var(--warning)', 'assets/icons/cross.svg');
-                    </script>
-                <?php
+                echo "<p class='alert alert-warning'>Passwords need to be the same, smelly smelly</p>";
                 $error = $error + 1;
             }
         }
@@ -318,11 +266,8 @@ if (isset($_POST['submit_signup'])) {
         if (isset($_POST['token'])) {
             // Check if invite code is empty
             if (empty($_POST['token'])) {
-                ?>
-                    <script>
-                        sniffleAdd('smelly', 'Enter Invite Code ;3', 'var(--warning)', 'assets/icons/cross.svg');
-                    </script>
-                <?php
+                echo "<p class='alert alert-warning'>Enter Invite Code ;3</p>";
+
                 mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','Failed to enter correct Invite Code')");
                 $error = $error + 1;
             } else {
@@ -340,19 +285,11 @@ if (isset($_POST['submit_signup'])) {
                         if (mysqli_stmt_num_rows($stmt) == 1) {
                             $token = trim($_POST["token"]);
                         } else {
-                            ?>
-                                <script>
-                                    sniffleAdd('Argh', 'Your invite code did not check out, woopsie!', 'var(--warning)', 'assets/icons/cross.svg');
-                                </script>
-                            <?php
+                            echo "<p class='alert alert-bad'>Your invite code did not check out, woopsie!</p>";
                             $error = $error + 1;
                         }
                     } else {
-                        ?>
-                            <script>
-                                sniffleAdd('Woops', 'The server or website died inside and could not process your request, sowwy!', 'var(--warning)', 'assets/icons/cross.svg');
-                            </script>
-                        <?php
+                        echo "<p class='alert alert-bad'>The server or website died inside and could not process your request, sowwy!</p>";
                         $error = $error + 1;
                     }
                     // Outa here with this
@@ -404,11 +341,7 @@ if (isset($_POST['submit_signup'])) {
                 <?php
                 mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','New account ($username) has been made')");
             } else {
-                ?>
-                    <script>
-                        sniffleAdd('Bruh', 'Something went fuckywucky, please try later', 'var(--warning)', 'assets/icons/cross.svg');
-                    </script>
-                <?php
+                echo "<p class='alert alert-bad'>Something went fuckywucky, please try later</p>";
             }
         }
     }

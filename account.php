@@ -95,6 +95,7 @@
 				<p>Don't leave! I'm with the science team!</p>
 				<a class='btn btn-bad' href='app/account/logout.php'><img class='svg' src='assets/icons/sign-out.svg'>Forget Me</a>
 				<br>
+				<p>Scawwy</p>
 				<a class='btn btn-bad' href='password-reset.php'><img class='svg' src='assets/icons/password.svg'>Reset Password</a>
 				<button class="btn btn-bad" onclick="deleteAccount()"><img class='svg' src='assets/icons/trash.svg'>Forget me forever</button>
 			</div>
@@ -366,7 +367,8 @@
 
 								tabcontent = document.getElementsByClassName("tabcontent");
 								for (i = 0; i < tabcontent.length; i++) {
-									tabcontent[i].style.display = "none";
+									tabcontent[i].style.height = "0";
+									tabcontent[i].style.overflow = "hidden";
 								}
 
 								tablinks = document.getElementsByClassName("tablinks");
@@ -374,7 +376,8 @@
 									tablinks[i].className = tablinks[i].className.replace(" active-tab", "");
 								}
 
-								document.getElementById(tabName).style.display = "flex";
+								document.getElementById(tabName).style.height = "21rem";
+								document.getElementById(tabName).style.overflow = "scroll";
 								evt.currentTarget.className += " active-tab";
 							}
 						</script>
@@ -395,31 +398,39 @@
 								<?php
 								foreach ($check_sanity as $result) {
 									if ($result['type'] == 'critical') {
-										echo "<p class='alert alert-bad'>
-											<img class='svg' src='assets/icons/warning.svg'>
-											".$result['message'];
+										echo "<p class='alert alert-bad'>";
 
-										if (isset($result['link'])) echo " <a class='link' href='".$result['link']."'>Link</a>";
+										echo "<span class='badge badge-critical'>Critical</span> ";
 
 										if ($result['fix'] == 'auto') {
-											echo "<span class='badge badge-primary'>Auto fix available</span>";	
+											echo "<span class='badge badge-primary'>Auto fix available</span> ";	
 										} elseif ($result['fix'] == 'manual') {
-											echo "<span class='badge badge-critical'>Manual fix required</span>";
+											echo "<span class='badge badge-critical'>Manual fix required</span> ";
 										}
+
+										if (isset($result['link'])) {
+											echo "<a class='link badge badge-primary' href='".$result['link']."'>Recources</a> ";
+										}
+										
+										echo $result['message'];
 										
 										echo "</p>";
 									} else {
-										echo "<p class='alert alert-warning'>
-											<img class='svg' src='assets/icons/warning.svg'>
-											".$result['message'];
+										echo "<p class='alert alert-warning'>";
 
-										if (isset($result['link'])) echo " <a class='link' href='".$result['link']."'>Link</a>";
+										echo "<span class='badge badge-warning'>Warning</span> ";
 
 										if ($result['fix'] == 'auto') {
-											echo "<span class='badge badge-primary'>Auto fix available</span>";	
+											echo "<span class='badge badge-primary'>Auto fix available</span> ";	
 										} elseif ($result['fix'] == 'manual') {
-											echo "<span class='badge badge-critical'>Manual fix required</span>";
+											echo "<span class='badge badge-critical'>Manual fix required</span> ";
 										}
+
+										if (isset($result['link'])) {
+											echo "<a class='link badge badge-primary' href='".$result['link']."'>Recources</a> ";
+										}
+										
+										echo $result['message'];
 										
 										echo "</p>";
 									}
@@ -440,6 +451,7 @@
 			<div class="login-root defaultDecoration defaultSpacing defaultFonts">
 				<h2>Login</h2>
 				<p>Passwords are important to keep safe. Don't tell anyone your password, not even Fluffy!</p>
+				<div id="alertsLogin" class="alert-box"></div>
 				<br>
 				<form id="loginForm" method="POST" enctype="multipart/form-data">
 					<input id="loginUsername" class="btn btn-neutral" type="text" name="username" placeholder="Username">
@@ -455,7 +467,7 @@
 					var username	= $("#loginUsername").val();
 					var password	= $("#loginPassword").val();
 					var submit		= $("#loginSubmit").val();
-					$("#newSniff").load("app/account/account.php", {
+					$("#alertsLogin").load("app/account/account.php", {
 						username: username,
 						password: password,
 						submit_login: submit
@@ -466,6 +478,7 @@
 			<div class="signup-root defaultDecoration defaultSpacing defaultFonts" style="display: none;">
 				<h2>Make account</h2>
 				<p>And amazing things happened here...</p>
+				<div id="alertsSignup" class="alert-box"></div>
 				<br>
 				<form id="signupForm" method="POST" action="signup.php" enctype="multipart/form-data">
 					<input id="signupUsername" class="btn btn-neutral" type="text" name="username" placeholder="Username">
@@ -487,7 +500,7 @@
 					var confirm_password	= $("#signupPasswordConfirm").val();
 					var token				= $("#signupToken").val();
 					var submit				= $("#signupSubmit").val();
-					$("#newSniff").load("app/account/account.php", {
+					$("#alertsSignup").load("app/account/account.php", {
 						username: username,
 						password: password,
 						confirm_password: confirm_password,

@@ -771,13 +771,14 @@ nav .btn {
 
 .logs {
   width: 100%;
-  height: 21rem;
+  height: 0;
   padding: 0;
-  overflow-y: scroll;
-  display: none;
+  overflow-y: hidden;
+  display: flex;
   flex-direction: column;
   background-color: #151515;
   border-radius: 3px;
+  transition: height 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .log {
@@ -819,13 +820,14 @@ nav .btn {
 
 .bans {
   width: 100%;
-  height: 21rem;
+  height: 0;
   padding: 0;
-  overflow-y: scroll;
-  display: none;
+  overflow-y: hidden;
+  display: flex;
   flex-direction: column;
   background-color: #151515;
   border-radius: 3px;
+  transition: height 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .ban {
@@ -874,13 +876,14 @@ nav .btn {
 
 .user-settings {
   width: 100%;
-  height: 21rem;
+  height: 0;
   padding: 0;
-  overflow-y: scroll;
-  display: none;
+  overflow-y: hidden;
+  display: flex;
   flex-direction: column;
   background-color: #151515;
   border-radius: 3px;
+  transition: height 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .user {
@@ -1115,17 +1118,17 @@ a.btn {
 
 .alert-bad {
   border-color: #B66467;
-  background-image: linear-gradient(to right, rgba(182, 100, 103, 0.3), rgba(21, 21, 21, 0));
+  background-image: linear-gradient(120deg, rgba(182, 100, 103, 0.3), rgba(21, 21, 21, 0));
 }
 
 .alert-warning {
   border-color: #D8A657;
-  background-image: linear-gradient(to right, rgba(216, 166, 87, 0.3), rgba(21, 21, 21, 0));
+  background-image: linear-gradient(120deg, rgba(216, 166, 87, 0.3), rgba(21, 21, 21, 0));
 }
 
 .alert-good {
   border-color: #8C977D;
-  background-image: linear-gradient(to right, rgba(140, 151, 125, 0.3), rgba(21, 21, 21, 0));
+  background-image: linear-gradient(120deg, rgba(140, 151, 125, 0.3), rgba(21, 21, 21, 0));
 }
 
 /*
@@ -1136,7 +1139,6 @@ a.btn {
 .badge {
   display: inline-block;
   box-sizing: border-box;
-  margin: 0 0.25rem;
   padding: 0.2em 0.4em;
   border: #121212 0.2rem solid;
   border-radius: 0.4rem;
@@ -1148,17 +1150,31 @@ a.btn {
   white-space: nowrap;
   text-align: center;
 }
+.badge.link {
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
 .badge.badge-primary {
   background: rgba(140, 151, 125, 0.3);
   border: #8C977D 0.2rem solid;
+}
+.badge.badge-primary.link:hover {
+  color: #8C977D;
 }
 .badge.badge-critical {
   background: rgba(182, 100, 103, 0.3);
   border: #B66467 0.2rem solid;
 }
+.badge.badge-critical.link:hover {
+  color: #B66467;
+}
 .badge.badge-warning {
   background: rgba(216, 166, 87, 0.3);
   border: #D8A657 0.2rem solid;
+}
+.badge.badge-warning.link:hover {
+  color: #D8A657;
 }
 
 /*

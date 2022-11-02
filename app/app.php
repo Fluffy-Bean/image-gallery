@@ -433,24 +433,44 @@ class Sanity  {
         $results = array();
 
         if (!is_file(__DIR__."/../usr/conf/msg.json")) {
-            $results[] = array('type'=>'warning', 'message'=>'msg.json is missing', 'fix'=>'auto');
+            $results[] = array(
+                'type'=>'warning', 
+                'message'=>'msg.json is missing', 
+                'fix'=>'auto'
+            );
         }
 
         if (!is_file(__DIR__."/../usr/conf/conf.json")) {
             if (is_file(__DIR__."/../usr/conf/manifest.json")) {
-                $results[] = array('type'=>'critical', 'message'=>'manifest.json is deprecated, please rename it to conf.json', 'fix'=>'manual');
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=>'manifest.json is deprecated, please rename it to conf.json', 
+                    'fix'=>'manual'
+                );
             } else {
-                $results[] = array('type'=>'critical', 'message'=>'conf.json is missing, using conf.default.json instead', 'fix'=>'auto');
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=>'conf.json is missing, using conf.default.json instead', 
+                    'fix'=>'auto'
+                );
             }
         } else {
             $manifest = json_decode(file_get_contents(__DIR__."/../usr/conf/conf.json"), true);
 
             if (empty($manifest['user_name']) || $manifest['user_name'] == "[your name]") {
-                $results[] = array('type'=>'warning', 'message'=>'conf.json is missing your name', 'fix'=>'manual');
+                $results[] = array(
+                    'type'=>'warning', 
+                    'message'=>'conf.json is missing your name', 
+                    'fix'=>'manual'
+                );
             }
             if ($manifest['upload']['rename_on_upload']) {
                 if (empty($manifest['upload']['rename_to'])) {
-                    $results[] = array('type'=>'critical', 'message'=>'conf.json doesnt know what to rename your files to', 'fix'=>'manual');
+                    $results[] = array(
+                        'type'=>'critical', 
+                        'message'=>'conf.json doesnt know what to rename your files to', 
+                        'fix'=>'manual'
+                    );
                 } else {
                     $rename_to      = $manifest['upload']['rename_to'];
                     $rename_rate    = 0;
@@ -464,15 +484,26 @@ class Sanity  {
                     if (str_contains($rename_to, '{{username}}') || str_contains($rename_to, '{{userid}}')) $rename_rate += 1;
 
                     if ($rename_rate < 2) {
-                        $results[] = array('type'=>'critical', 'message'=>'You will encounter errors when uploading images due to filenames, update your conf.json', 'fix'=>'manual');
+                        $results[] = array(
+                            'type'=>'critical', 
+                            'message'=>'You will encounter errors when uploading images due to filenames, update your conf.json', 
+                            'fix'=>'manual'
+                        );
                     } elseif ($rename_rate < 5 && $rename_rate > 2) {
-                        $results[] = array('type'=>'warning', 'message'=>'You may encounter errors when uploading images due to filenames, concider modifying your conf.json', 'fix'=>'manual');
+                        $results[] = array(
+                            'type'=>'warning', 
+                            'message'=>'You may encounter errors when uploading images due to filenames, concider modifying your conf.json', 
+                            'fix'=>'manual'
+                        );
                     }
                 }
             }
 
             if ($manifest['is_testing']) {
-                $results[] = array('type'=>'warning', 'message'=>'You are currently in testing mode, errors will be displayed to the user. This is not recommended for production use.');
+                $results[] = array(
+                    'type'=>'warning', 
+                    'message'=>'You are currently in testing mode, errors will be displayed to the user. This is not recommended for production use.'
+                );
             }
         }
 
@@ -484,16 +515,32 @@ class Sanity  {
         $results = array();
 
         if (!is_dir("usr/images")) {
-            $results[] = array('type'=>'critical', 'message'=>'You need to setup an images folder.', 'fix'=>'auto');
+            $results[] = array(
+                'type'=>'critical',
+                'message'=>'You need to setup an images folder.',
+                'fix'=>'auto'
+            );
         }
         if (!is_dir("usr/images/pfp")) {
-            $results[] = array('type'=>'critical', 'message'=>'You need to setup an pfp folder.', 'fix'=>'auto');
+            $results[] = array(
+                'type'=>'critical',
+                'message'=>'You need to setup an pfp folder.',
+                'fix'=>'auto'
+            );
         }
         if (!is_dir("usr/images/previews")) {
-            $results[] = array('type'=>'critical', 'message'=>'You need to setup an previews folder.', 'fix'=>'auto');
+            $results[] = array(
+                'type'=>'critical',
+                'message'=>'You need to setup an previews folder.',
+                'fix'=>'auto'
+            );
         }
         if (!is_dir("usr/images/thumbnails")) {
-            $results[] = array('type'=>'critical', 'message'=>'You need to setup an thumbnails folder.', 'fix'=>'auto');
+            $results[] = array(
+                'type'=>'critical',
+                'message'=>'You need to setup an thumbnails folder.',
+                'fix'=>'auto'
+            );
         }
 
         return $results;
@@ -517,13 +564,28 @@ class Sanity  {
         $app_repo   = json_decode($result, true);
 
         if ($app_local['version'] < $app_repo['version']) {
-            $results[] = array('type'=>'critical', 'message'=>'You are not running the latest version of the app v'.$app_repo['version'], 'fix'=>'manual');
+            $results[] = array(
+                'type'=>'critical',
+                'message'=>'You are not running the latest version of the app v'.$app_repo['version'],
+                'link'=>'https://github.com/Fluffy-Bean/image-gallery',
+                'fix'=>'manual'
+            );
         } elseif ($app_local['version'] > $app_repo['version']) {
-            $results[] = array('type'=>'critical', 'message'=>'You are running a version of the app that is newer than the latest release v'.$app_repo['version'], 'fix'=>'manual');
+            $results[] = array(
+                'type'=>'critical',
+                'message'=>'You are running a version of the app that is newer than the latest release v'.$app_repo['version'],
+                'link'=>'https://github.com/Fluffy-Bean/image-gallery',
+                'fix'=>'manual'
+            );
         }
 
         if (PHP_VERSION_ID < 80000) {
-            $results[] = array('type'=>'warning', 'message'=>'Your current version of PHP is '.PHP_VERSION.' The reccomended version is 8.0.0 or higher', 'link'=>'https://www.php.net/downloads.php');
+            $results[] = array(
+                'type'=>'warning',
+                'message'=>'Your current version of PHP is '.PHP_VERSION.' The reccomended version is 8.0.0 or higher',
+                'link'=>'https://www.php.net/downloads.php',
+                'fix'=>'manual'
+            );
         }
 
         return $results;
@@ -534,16 +596,32 @@ class Sanity  {
         $results = array();
 
         if (!is_writable("usr/images")) {
-            $results[] = array('type'=>'critical', 'message'=>'You need to make the images folder writable', 'fix'=>'manual');
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=>'You need to make the images folder writable', 
+                'fix'=>'manual'
+            );
         }
         if (!is_writable("usr/images/pfp")) {
-            $results[] = array('type'=>'critical', 'message'=>'You need to make the pfp folder writable', 'fix'=>'manual');
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=>'You need to make the pfp folder writable', 
+                'fix'=>'manual'
+            );
         }
         if (!is_writable("usr/images/previews")) {
-            $results[] = array('type'=>'critical', 'message'=>'You need to make the previews folder writable', 'fix'=>'manual');
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=>'You need to make the previews folder writable', 
+                'fix'=>'manual'
+            );
         }
         if (!is_writable("usr/images/thumbnails")) {
-            $results[] = array('type'=>'critical', 'message'=>'You need to make the thumbnails folder writable', 'fix'=>'manual');
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=>'You need to make the thumbnails folder writable', 
+                'fix'=>'manual'
+            );
         }
 
         return $results;
@@ -554,7 +632,11 @@ class Sanity  {
         $results = array();
 
         if (!is_dir("usr/conf") && !is_dir("usr/images")) {
-            $results[] = array('type'=>'warning', 'message'=>'You are running a fresh install, please configure your app through the settings. Alternatively you can import usr folder from a previous install', 'fix'=>'manual');
+            $results[] = array(
+                'type'=>'warning', 
+                'message'=>'You are running a fresh install, please configure your app through the settings. Alternatively you can import usr folder from a previous install', 
+                'fix'=>'manual'
+            );
         }
 
         return $results;
@@ -564,21 +646,11 @@ class Sanity  {
     {
         $results = array();
 
-        foreach ($this->check_json() as $result) {
-            $results[] = $result;
-        }
-        foreach ($this->check_files() as $result) {
-            $results[] = $result;
-        }
-        foreach ($this->check_permissions() as $result) {
-            $results[] = $result;
-        }
-        foreach ($this->check_version() as $result) {
-            $results[] = $result;
-        }
-        foreach ($this->check_freshinstall() as $result) {
-            $results[] = $result;
-        }
+        foreach ($this->check_json() as $result) $results[] = $result;
+        foreach ($this->check_files() as $result) $results[] = $result;
+        foreach ($this->check_permissions() as $result) $results[] = $result;
+        foreach ($this->check_version() as $result) $results[] = $result;
+        foreach ($this->check_freshinstall() as $result) $results[] = $result;
 
         return $results;
     }
