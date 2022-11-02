@@ -117,6 +117,8 @@
   object-fit: contain;
 
   background-color: #15151533;
+
+  border-radius: var(--rad);
 }
 /*
   Notification header

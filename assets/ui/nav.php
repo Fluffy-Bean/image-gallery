@@ -16,11 +16,18 @@ $loggedin = new Account();
 		<hr>
 		<?php
 		if ($_SESSION["loggedin"]) {
+			$profile_info = $user_info->get_user_info($conn, $_SESSION['id']);
+
 			?>
 				<a class='btn' href='upload.php'><img class='svg' src='assets/icons/upload.svg'><span class='nav-hide'>Upload</span></a>
 				<hr>
-				<a class='btn' href='account.php'><img class='svg' src='assets/icons/gear.svg'><span class='nav-hide'><?php echo substr($_SESSION["username"], 0, 15); ?></span></a>
 			<?php
+
+			if (is_file("usr/images/pfp/".$profile_info['pfp_path'])) {
+				echo "<a class='btn' href='account.php'><img class='svg' src='usr/images/pfp/".$profile_info['pfp_path']."'><span class='nav-hide'>".substr($_SESSION["username"], 0, 15)."</span></a>";
+			} else {
+				echo "<a class='btn' href='account.php'><img class='svg' src='assets/icons/gear.svg'><span class='nav-hide'>".substr($_SESSION["username"], 0, 15)."</span></a>";
+			}
 		} else {
 			?>
 				<a class='btn' href='account.php'><img class='svg' src='assets/icons/sign-in.svg'><span class='nav-hide'>Login</span></a>

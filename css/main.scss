@@ -29,7 +29,7 @@ html {
     position: relative;
 
     background-color: $bg;
-    background-image: url("../assets/bg.svg");
+    background-image: url("../assets/backgrounds/bg.svg");
 
     background-position: center;
     background-size: cover;
@@ -198,6 +198,48 @@ a.btn {
 
 /*
  |-------------------------------------------------------------
+ | BADGES
+ |-------------------------------------------------------------
+*/
+@mixin badge($color, $fg: $color) {
+    background: rgba($color, 0.3);
+    border: $color $border-thickness solid;
+}
+
+.badge {
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 0 0.25rem;
+    padding: 0.2em 0.4em;
+    border: $black $border-thickness solid;
+    @if $rad <= 0 {
+        border-radius: 3px;
+    } @else {
+        border-radius: $rad;
+    }
+    color: $fg;
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: 1;
+    vertical-align: baseline;
+    white-space: nowrap;
+    text-align: center;
+
+    &.badge-primary {
+        @include badge($page-accent);
+    }
+
+    &.badge-critical {
+        @include badge($red);
+    }
+
+    &.badge-warning {
+        @include badge($orange);
+    }
+}
+
+/*
+ |-------------------------------------------------------------
  | FORM SIZING
  |-------------------------------------------------------------
 */
@@ -221,12 +263,18 @@ textarea {
 .svg {
     margin: 0 0.2rem 0.1rem 0;
 
-    width: 19px;
-    height: 18px;
+    width: 1.15rem;
+    height: 1.1rem;
 
     vertical-align: middle;
 
     display: inline;
+
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
 }
 
 /*

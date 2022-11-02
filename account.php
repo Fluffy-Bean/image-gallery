@@ -396,19 +396,32 @@
 								foreach ($check_sanity as $result) {
 									if ($result['type'] == 'critical') {
 										echo "<p class='alert alert-bad'>
-												<img class='svg' src='assets/icons/warning.svg'>
-												".$result['message']."
-											</p>";
-									} elseif ($result['type'] == 'warning') {
-										echo "<p class='alert alert-warning'>
-												<img class='svg' src='assets/icons/warning.svg'>
-												".$result['message']."
-											</p>";
+											<img class='svg' src='assets/icons/warning.svg'>
+											".$result['message'];
+
+										if (isset($result['link'])) echo " <a class='link' href='".$result['link']."'>Link</a>";
+
+										if ($result['fix'] == 'auto') {
+											echo "<span class='badge badge-primary'>Auto fix available</span>";	
+										} elseif ($result['fix'] == 'manual') {
+											echo "<span class='badge badge-critical'>Manual fix required</span>";
+										}
+										
+										echo "</p>";
 									} else {
 										echo "<p class='alert alert-warning'>
-												<img class='svg' src='assets/icons/warning.svg'>
-												".$result['message']."
-											</p>";
+											<img class='svg' src='assets/icons/warning.svg'>
+											".$result['message'];
+
+										if (isset($result['link'])) echo " <a class='link' href='".$result['link']."'>Link</a>";
+
+										if ($result['fix'] == 'auto') {
+											echo "<span class='badge badge-primary'>Auto fix available</span>";	
+										} elseif ($result['fix'] == 'manual') {
+											echo "<span class='badge badge-critical'>Manual fix required</span>";
+										}
+										
+										echo "</p>";
 									}
 								}
 

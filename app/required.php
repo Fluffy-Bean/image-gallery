@@ -1,5 +1,5 @@
 <?php
-$exec_start = microtime(true); 
+$exec_start = microtime(true); // Track how long it took to generate the page
 
 require_once dirname(__DIR__)."/app/conn.php";
 require_once dirname(__DIR__)."/app/app.php";

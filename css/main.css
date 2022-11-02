@@ -114,6 +114,7 @@ nav .btn {
 @media (max-width: 550px) {
   nav {
     margin: 0;
+    padding-bottom: 1rem;
     position: fixed;
     top: auto;
     bottom: 0;
@@ -990,7 +991,7 @@ html {
   max-width: 100vw;
   position: relative;
   background-color: #151515;
-  background-image: url("../assets/bg.svg");
+  background-image: url("../assets/backgrounds/bg.svg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1129,6 +1130,39 @@ a.btn {
 
 /*
  |-------------------------------------------------------------
+ | BADGES
+ |-------------------------------------------------------------
+*/
+.badge {
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 0 0.25rem;
+  padding: 0.2em 0.4em;
+  border: #121212 0.2rem solid;
+  border-radius: 0.4rem;
+  color: #E8E3E3;
+  font-size: 0.8em;
+  font-weight: bold;
+  line-height: 1;
+  vertical-align: baseline;
+  white-space: nowrap;
+  text-align: center;
+}
+.badge.badge-primary {
+  background: rgba(140, 151, 125, 0.3);
+  border: #8C977D 0.2rem solid;
+}
+.badge.badge-critical {
+  background: rgba(182, 100, 103, 0.3);
+  border: #B66467 0.2rem solid;
+}
+.badge.badge-warning {
+  background: rgba(216, 166, 87, 0.3);
+  border: #D8A657 0.2rem solid;
+}
+
+/*
+ |-------------------------------------------------------------
  | FORM SIZING
  |-------------------------------------------------------------
 */
@@ -1151,10 +1185,11 @@ textarea {
 */
 .svg {
   margin: 0 0.2rem 0.1rem 0;
-  width: 19px;
-  height: 18px;
+  width: 1.15rem;
+  height: 1.1rem;
   vertical-align: middle;
   display: inline;
+  border-radius: 3px;
 }
 
 /*

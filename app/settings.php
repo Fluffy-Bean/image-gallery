@@ -19,4 +19,4 @@ if (is_file(__DIR__."/../usr/conf/msg.json")) {
     $user_welcome   = $user_welcome['welcome'];
 }
 
-$web_info = json_decode(file_get_contents(__DIR__."/app.json"), true);
+$web_info = json_decode(file_get_contents(__DIR__."/gallery.json"), true);
