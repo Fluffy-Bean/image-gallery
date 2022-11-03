@@ -192,7 +192,7 @@
 							</div>
 							<?php
 								// Reading images from table
-								$logs_request = mysqli_query($conn, "SELECT * FROM logs ORDER BY id DESC");
+								$logs_request = mysqli_query($conn, "SELECT * FROM logs ORDER BY id DESC LIMIT 100");
 
 								while ($log = mysqli_fetch_array($logs_request)) {
 									?>
@@ -208,6 +208,9 @@
 									<?php
 								}
 							?>
+							<div>
+								<button class="btn btn-neutral" onclick="loadMore()" disabled>Load More</button>
+							</div>
 						</div>
 						
 						<div id="bans" class="bans tabcontent">
@@ -262,11 +265,7 @@
 												echo "<p>".$user_time->format('Y-m-d H:i:s T')." (".$diff->time($user['last_modified']).")</p>";
 											
 												if ($user['id'] == 1) {
-													?>
-														<button class="btn btn-bad" disabled>Reset Password</button>
-														<button class="btn btn-bad" disabled>Delete user</button>
-														<button class="btn btn-bad" disabled>Toggle admin</button>
-													<?php
+													echo "<p></p><p></p><p></p>";
 												} else {
 													?>
 														<button id="userResetPassword" class="btn btn-bad" onclick="userResetPassword('<?php echo $user['id']; ?>', '<?php echo $user['username']; ?>')">Reset Password</button>
@@ -369,6 +368,7 @@
 								for (i = 0; i < tabcontent.length; i++) {
 									tabcontent[i].style.height = "0";
 									tabcontent[i].style.overflow = "hidden";
+									tabcontent[i].style.transform = "scale(0.9)";
 								}
 
 								tablinks = document.getElementsByClassName("tablinks");
@@ -378,6 +378,7 @@
 
 								document.getElementById(tabName).style.height = "21rem";
 								document.getElementById(tabName).style.overflow = "scroll";
+								document.getElementById(tabName).style.transform = "scale(1)";
 								evt.currentTarget.className += " active-tab";
 							}
 						</script>
@@ -398,48 +399,49 @@
 								<?php
 								foreach ($check_sanity as $result) {
 									if ($result['type'] == 'critical') {
-										echo "<p class='alert alert-bad'>";
-
-										echo "<span class='badge badge-critical'>Critical</span> ";
-
-										if ($result['fix'] == 'auto') {
-											echo "<span class='badge badge-primary'>Auto fix available</span> ";	
-										} elseif ($result['fix'] == 'manual') {
-											echo "<span class='badge badge-critical'>Manual fix required</span> ";
-										}
-
-										if (isset($result['link'])) {
-											echo "<a class='link badge badge-primary' href='".$result['link']."'>Recources</a> ";
-										}
-										
-										echo $result['message'];
-										
-										echo "</p>";
-									} else {
-										echo "<p class='alert alert-warning'>";
-
-										echo "<span class='badge badge-warning'>Warning</span> ";
-
-										if ($result['fix'] == 'auto') {
-											echo "<span class='badge badge-primary'>Auto fix available</span> ";	
-										} elseif ($result['fix'] == 'manual') {
-											echo "<span class='badge badge-critical'>Manual fix required</span> ";
-										}
-
-										if (isset($result['link'])) {
-											echo "<a class='link badge badge-primary' href='".$result['link']."'>Recources</a> ";
-										}
-										
-										echo $result['message'];
-										
-										echo "</p>";
+										echo "<p class='alert alert-bad'>
+											<span class='badge badge-critical'>Critical</span> ";
+									} elseif ($result['type'] == 'warning') {
+										echo "<p class='alert alert-warning'>
+											<span class='badge badge-warning'>Warning</span> ";
 									}
+
+									if ($result['fix'] == 'auto') {
+										echo "<span class='badge badge-primary'>Auto fix available</span> ";	
+									} elseif ($result['fix'] == 'manual') {
+										echo "<span class='badge badge-critical'>Manual fix required</span> ";
+									}
+
+									if (isset($result['link'])) {
+										echo "<a class='link badge badge-primary' href='".$result['link']."'>Recources</a> ";
+									}
+									
+									echo $result['message']."</p>";
 								}
 
-								echo "<button class='btn btn-bad' disabled>
-										<img class='svg' src='assets/icons/wrench.svg'>
-										Attempt Autofix
-									</button>";
+								?>
+									<button class='btn btn-bad' onclick="runAutofix()"><img class='svg' src='assets/icons/wrench.svg'>Attempt Autofix</button>
+
+									<div id="autofix">
+										<button onclick='closeAutofix()'><img src='assets/icons/cross.svg'></button>
+										<div id="autofix-log"></div>
+									</div>
+
+									<script>
+										function runAutofix() {
+											document.getElementById('autofix').style.display = "block";
+											document.getElementById('autofix-log').innerHTML = "<p><span style='color: var(--accent);'>[INFO]</span> Starting autofix</p>";
+
+											setTimeout(function() {
+												$("#autofix-log").load("app/sanity/sanity.php", {autofix: "true"});
+											}, 1000);
+										}
+
+										function closeAutofix() {
+											document.getElementById('autofix').style.display = "none";
+										}
+									</script>
+								<?php
 							}
 						?>
 					</div>

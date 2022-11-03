@@ -8,10 +8,16 @@
 	}
 ?>
 <!-- Auto generated header tags -->
-<title><?php echo $user_settings['website_name']; ?></title>
-<meta name="description" content="<?php echo $user_settings['website_description']; ?>"/>
+<?php
+	if (isset($user_settings['logo']) && $user_settings['logo'] != "") {
+		echo "<link rel='icon' href='usr/".$user_settings['logo']."'>";
+	}
+
+	echo "<title>".$user_settings['website_name']."</title>
+	<meta name='description' content='".$user_settings['website_description']."'/>
+	<meta name='author' content='".$user_settings['user_name']."'/>";
+?>
 <meta name="keywords" content="Image, Gallery"/>
-<meta name="author" content="<?php echo $user_settings['user_name']; ?>"/>
 <!-- OG -->
 <meta property="og:title" content="<?php echo $user_settings['website_name']; ?>"/>
 <meta property="og:description" content="<?php echo $user_settings['website_description']; ?>"/>
@@ -30,6 +36,7 @@
 <!-- Google Fonts -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600"> 
 
 <!-- JQuery -->
 <script

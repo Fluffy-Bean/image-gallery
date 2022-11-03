@@ -121,7 +121,7 @@
 }
 
 .nsfw-blur {
-    filter: blur(8px);
+    filter: blur(15px);
 }
 
 .nsfw-warning {
@@ -181,10 +181,10 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translateX(-050%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
 
     background-color: $bg-alt;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(20px);
 
     z-index: 999;
 
@@ -219,7 +219,11 @@
         box-sizing: border-box;
     
         border: none;
-        border-radius: $rad;
+        @if calc($rad - 0.5rem) > 0 {
+            border-radius: calc($rad - 0.5rem);
+        } @else {
+            border-radius: 3px;
+        }
     
         transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
     
@@ -789,7 +793,7 @@
         border-radius: 3px;
     }
 
-    transition: height 0.3s cubic-bezier(.19, 1, .22, 1);
+    transition: height 0.3s cubic-bezier(.19, 1, .22, 1), transform 0.3s cubic-bezier(.19, 1, .22, 1);
 }
 .log {
     min-width: 850px;
@@ -849,7 +853,7 @@
         border-radius: 3px;
     }
 
-    transition: height 0.3s cubic-bezier(.19, 1, .22, 1);
+    transition: height 0.3s cubic-bezier(.19, 1, .22, 1), transform 0.3s cubic-bezier(.19, 1, .22, 1);
 }
 .ban {
     min-width: 900px;
@@ -915,7 +919,7 @@
         border-radius: 3px;
     }
 
-    transition: height 0.3s cubic-bezier(.19, 1, .22, 1);
+    transition: height 0.3s cubic-bezier(.19, 1, .22, 1), transform 0.3s cubic-bezier(.19, 1, .22, 1);
 }
 .user {
     min-width: 950px;
@@ -987,5 +991,82 @@
         &::after {
             content: "";
         }
+    }
+}
+
+#autofix {
+    padding: 0;
+
+    display: none;
+
+    //border-left: $border;
+    
+    background-color: #121212;
+
+    position: relative;
+
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
+
+    button {
+        padding: 0.25rem;
+
+        width: 1.5rem; height: 1.5rem;
+
+        position: absolute;
+        top: 0.25rem;
+        right: 0.25rem;
+
+        display: block;
+        box-sizing: border-box;
+
+        border: none;
+        @if calc($rad - 0.5rem) > 0 {
+            border-radius: calc($rad - 0.5rem);
+        } @else {
+            border-radius: 3px;
+        }
+
+        transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
+
+        background-color: $bg-alt;
+
+        z-index: +2;
+
+        img {
+            width: 1rem;
+    
+            display: block;
+        }
+    
+        &:hover {
+            outline: $white 0.2rem solid;
+            color: $fg;
+
+            cursor: pointer;
+        }
+    }
+}
+
+#autofix-log {
+    padding: 0.5rem 0.5rem 0 0.5rem;
+
+    display: flex; flex-direction: column;
+
+    @if calc($rad - 0.5rem) > 0 {
+        border-radius: calc($rad - 0.5rem);
+    } @else {
+        border-radius: 3px;
+    }
+
+    > * {
+        font-family: $font-code;
+        font-size: 0.9rem;
+        line-height: 1.1rem;
+
+        margin: 0 0 0.5rem 0;
     }
 }

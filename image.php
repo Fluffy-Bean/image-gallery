@@ -134,16 +134,12 @@
 							echo "<p>ID: ".$image['id']."</p>";
 						}
 
-						$upload_time = new DateTime();
-						echo "<p id='updateTime'>Uploaded at: ".$upload_time->format('d/m/Y H:i:s T')."</p>";
+						$upload_date = new DateTime($image['upload_date']);
+						echo "<p id='updateTime'>Uploaded at: ".$upload_date->format('d/m/Y H:i:s T')."</p>";
 					?>
 					<script>
-						// Updating time to Viewers local
-						var updateDate	= new Date('<?php echo $upload_time->format('m/d/Y H:i:s T'); ?>');
-						var format		= {year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'};
-									 
-						updateDate = updateDate.toLocaleDateString('en-GB', format);
-
+						var updateDate = new Date('<?php echo $upload_date->format('m/d/Y H:i:s T'); ?>');
+						updateDate = updateDate.toLocaleDateString('en-GB', {year: 'numeric', month: 'short', day: 'numeric'});
 						$("#updateTime").html("Uploaded at: "+updateDate);
 					</script>
 
