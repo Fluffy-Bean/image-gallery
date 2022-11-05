@@ -1,5 +1,5 @@
 <?php
-if (defined('ROOT')) {
+if (defined('ROOT') && $_SESSION['id'] == 1) {
     function check_database($conn, $database) {
         try {
             $check = $conn->query("SELECT 1 FROM $database LIMIT 1");
@@ -14,7 +14,8 @@ if (defined('ROOT')) {
         }
     }
     
-    /*if (check_database($conn, 'images')) {
+    /*
+    if (check_database($conn, 'images')) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found images table</p>";
     } else {
         echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find images table</p>";

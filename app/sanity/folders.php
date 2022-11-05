@@ -1,5 +1,5 @@
 <?php
-if (defined('ROOT')) {
+if (defined('ROOT') && $_SESSION['id'] == 1) {
     if (is_dir(__DIR__."/../../usr")) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found usr/ folder!</p>";
     } else {
@@ -37,7 +37,7 @@ if (defined('ROOT')) {
         mkdir("usr/conf");
     }
 
-    if (is_file(__DIR__."/../../usr/conf/conf.json")) {
+    if (is_file("../../usr/conf/conf.json")) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found usr/conf/conf.json file!</p>";
     } else {
         echo "<p><span style='color: var(--warning);'>[ERRO]</span>  usr/conf/conf.json file not found</p>";
@@ -45,8 +45,13 @@ if (defined('ROOT')) {
 
         try {
             $conf = file_get_contents(__DIR__."/../../usr/conf.default.json");
+            
+            $conf_new = fopen(__DIR__."/../../usr/conf/conf.json", "w");
 
-            if (file_put_contents(__DIR__."/../../usr/conf/conf.json", $conf)) {
+            if ($conf_new) {
+                fwrite($conf_new, $conf);
+                fclose($conf_new);
+                
                 echo "<p><span style='color: var(--accent);'>[INFO]</span>  usr/conf/conf.json file created!</p>";
             } else {
                 echo "<p><span style='color: var(--warning);'>[ERRO]</span>  Failed to create usr/conf/conf.json file</p>";

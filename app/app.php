@@ -492,33 +492,41 @@ class Sanity  {
     {
         $results = array();
 
-        if (!is_writable("usr/images")) {
+        if (!fileperms("usr")) {
             $results[] = array(
                 'type'=>'critical', 
-                'message'=>'You need to make the images folder writable', 
+                'message'=>'You need to give PHP usr folder permissions', 
                 'fix'=>'manual'
             );
-        }
-        if (!is_writable("usr/images/pfp")) {
-            $results[] = array(
-                'type'=>'critical', 
-                'message'=>'You need to make the pfp folder writable', 
-                'fix'=>'manual'
-            );
-        }
-        if (!is_writable("usr/images/previews")) {
-            $results[] = array(
-                'type'=>'critical', 
-                'message'=>'You need to make the previews folder writable', 
-                'fix'=>'manual'
-            );
-        }
-        if (!is_writable("usr/images/thumbnails")) {
-            $results[] = array(
-                'type'=>'critical', 
-                'message'=>'You need to make the thumbnails folder writable', 
-                'fix'=>'manual'
-            );
+        } else {
+            if (!fileperms("usr/images")) {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=>'You need to give PHP images folder permissions', 
+                    'fix'=>'manual'
+                );
+            }
+            if (!fileperms("usr/images/pfp")) {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=>'You need to give PHP pfp folder permissions', 
+                    'fix'=>'manual'
+                );
+            }
+            if (!fileperms("usr/images/previews")) {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=>'You need to give PHP previews folder permissions', 
+                    'fix'=>'manual'
+                );
+            }
+            if (!fileperms("usr/images/thumbnails")) {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=>'You need to give PHP thumbnails folder permissions', 
+                    'fix'=>'manual'
+                );
+            }
         }
 
         return $results;

@@ -13,7 +13,10 @@ if (isset($_POST['autofix'])) {
 
     echo "<p><span style='color: var(--accent);'>[INFO]</span> Starting autofix</p>";
 
-    if ($_SESSION['id'] != 1) {
+    if (empty($_SESSION['id'])) {
+        echo "<p><span style='color: var(--warning);'>[ERROR]</span> You are not logged in</p>";
+        exit();
+    } elseif ($_SESSION['id'] != 1) {
         echo "<p><span style='color: var(--warning);'>[ERRO]</span>  You cannot use Autofix as an Admin currently.</p>";
         exit();
     }
@@ -23,7 +26,7 @@ if (isset($_POST['autofix'])) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Sanity check passed. No errors found.</p>";
         exit();
     } else {
-        //echo "<p><span style='color: var(--alert);'>[WARN]</span> Sanity check failed</p>";
+        echo "<p><span style='color: var(--alert);'>[WARN]</span> Sanity check failed, continuing...</p>";
     }
 
     define('ROOT', true); // Only run scripts from this file
