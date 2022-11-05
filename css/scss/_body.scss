@@ -994,79 +994,22 @@
     }
 }
 
-#autofix {
+#sanityCheck {
     padding: 0;
 
-    display: none;
+    display: flex;
+    flex-direction: column;
 
-    //border-left: $border;
-    
-    background-color: #121212;
+    opacity: 0;
+    transform: scale(0.8);
 
-    position: relative;
-
-    @if calc($rad - 0.5rem) > 0 {
-        border-radius: calc($rad - 0.5rem);
-    } @else {
-        border-radius: 3px;
-    }
-
-    button {
-        padding: 0.25rem;
-
-        width: 1.5rem; height: 1.5rem;
-
-        position: absolute;
-        top: 0.25rem;
-        right: 0.25rem;
-
-        display: block;
-        box-sizing: border-box;
-
-        border: none;
-        @if calc($rad - 0.5rem) > 0 {
-            border-radius: calc($rad - 0.5rem);
-        } @else {
-            border-radius: 3px;
-        }
-
-        transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
-
-        background-color: $bg-alt;
-
-        z-index: +2;
-
-        img {
-            width: 1rem;
-    
-            display: block;
-        }
-    
-        &:hover {
-            outline: $white 0.2rem solid;
-            color: $fg;
-
-            cursor: pointer;
-        }
-    }
-}
-
-#autofix-log {
-    padding: 0.5rem 0.5rem 0 0.5rem;
-
-    display: flex; flex-direction: column;
-
-    @if calc($rad - 0.5rem) > 0 {
-        border-radius: calc($rad - 0.5rem);
-    } @else {
-        border-radius: 3px;
-    }
+    transition: all 0.3s cubic-bezier(.19, 1, .22, 1);
 
     > * {
-        font-family: $font-code;
-        font-size: 0.9rem;
-        line-height: 1.1rem;
-
         margin: 0 0 0.5rem 0;
+    }
+
+    & > *:last-child {
+        margin: 0;
     }
 }

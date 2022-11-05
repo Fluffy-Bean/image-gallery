@@ -5,7 +5,6 @@
 	use App\Sanity;
 
 	$user_info = new Account();
-	$sanity = new Sanity();
 ?>
 
 <!DOCTYPE html>
@@ -40,17 +39,6 @@
 						sniffleAdd('O hi <?php echo $_SESSION["username"]; ?>', 'You are now logged in, enjoy your stay!', 'var(--success)', 'assets/icons/hand-waving.svg');
 					</script>
 				<?php
-			}
-
-			if ($user_info->is_admin($conn, $_SESSION['id'])) {
-				$check_sanity = $sanity->get_results();
-				if (!empty($check_sanity)) {
-					?>
-						<script>
-							sniffleAdd('Uh oh', 'Website has not passed some Sanity checks, please check your settings for more information', 'var(--warning)', 'assets/icons/warning.svg');
-						</script>
-					<?php
-				}
 			}
 			
 			unset($_SESSION['welc']);

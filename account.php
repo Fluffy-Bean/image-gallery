@@ -3,11 +3,9 @@
 	
 	use App\Account;
 	use App\Diff;
-	use App\Sanity;
 
 	$user_info	= new Account();
 	$diff		= new Diff();
-	$sanity		= new Sanity();
 
 	$profile_info = $user_info->get_user_info($conn, $_SESSION['id']);
 ?>
@@ -384,66 +382,30 @@
 						</script>
 
 						<br><h3>Sanity check</h3>
-						<?php
-							$check_sanity = $sanity->get_results();
+						<div id='sanityCheck'></div>
+						
+						<button class='btn btn-good' onclick='sanityCheck(this)'>Run check</button>
+						<script>
+							function sanityCheck(thisButton) {
+								thisButton.innerHTML = "<img src='assets/icons/circle-notch.svg' class='svg loading'> Running...";
+								document.getElementById('sanityCheck').style.cssText = "transform: scale(0.8);opacity: 0;";
+								$("#sanityCheck").html("");
 
-							if (empty($check_sanity)) {
-								echo "<p class='alert alert-good'>No errors! Lookin' good :3</p>";
-							} else {
-								?>
-									<style>
-										.sanity-check {
-											border-color: var(--warning);
+								setTimeout(function() {
+									$.ajax ({
+										url: "app/sanity/sanity.php",
+										type: "POST",
+										data: { check: true},
+
+										success: function(response) {
+											$("#sanityCheck").html(response);
+											thisButton.innerHTML = "Run check";
+											document.getElementById('sanityCheck').style.cssText = "transform: scale(1);opacity: 1;";
 										}
-									</style>
-								<?php
-								foreach ($check_sanity as $result) {
-									if ($result['type'] == 'critical') {
-										echo "<p class='alert alert-bad'>
-											<span class='badge badge-critical'>Critical</span> ";
-									} elseif ($result['type'] == 'warning') {
-										echo "<p class='alert alert-warning'>
-											<span class='badge badge-warning'>Warning</span> ";
-									}
-
-									if ($result['fix'] == 'auto') {
-										echo "<span class='badge badge-primary'>Auto fix available</span> ";	
-									} elseif ($result['fix'] == 'manual') {
-										echo "<span class='badge badge-critical'>Manual fix required</span> ";
-									}
-
-									if (isset($result['link'])) {
-										echo "<a class='link badge badge-primary' href='".$result['link']."'>Recources</a> ";
-									}
-									
-									echo $result['message']."</p>";
-								}
-
-								?>
-									<button class='btn btn-bad' onclick="runAutofix()"><img class='svg' src='assets/icons/wrench.svg'>Attempt Autofix</button>
-
-									<div id="autofix">
-										<button onclick='closeAutofix()'><img src='assets/icons/cross.svg'></button>
-										<div id="autofix-log"></div>
-									</div>
-
-									<script>
-										function runAutofix() {
-											document.getElementById('autofix').style.display = "block";
-											document.getElementById('autofix-log').innerHTML = "<p><span style='color: var(--accent);'>[INFO]</span> Starting autofix</p>";
-
-											setTimeout(function() {
-												$("#autofix-log").load("app/sanity/sanity.php", {autofix: "true"});
-											}, 1000);
-										}
-
-										function closeAutofix() {
-											document.getElementById('autofix').style.display = "none";
-										}
-									</script>
-								<?php
+									});
+								}, 1000);
 							}
-						?>
+						</script>
 					</div>
 					<?php
 					$sql_end = microtime(true);
