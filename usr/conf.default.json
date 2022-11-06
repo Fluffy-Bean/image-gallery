@@ -14,5 +14,6 @@
             "png",
             "webp"
         ]
-    }
+    },
+    "manifest": "3"
 }

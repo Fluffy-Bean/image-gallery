@@ -1,6 +1,6 @@
 <?php
 if (defined('ROOT') && $_SESSION['id'] == 1) {
-    if (is_dir(__DIR__."/../../usr")) {
+    if (is_dir(__DIR__."/../../../usr")) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found usr/ folder!</p>";
     } else {
         echo "<p><span style='color: var(--warning);'>[ERRO]</span>  usr/ folder not found</p>";
@@ -9,7 +9,7 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
         mkdir("usr");
     }
 
-    if (is_dir(__DIR__."/../../usr/images")) {
+    if (is_dir(__DIR__."/../../../usr/images")) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found usr/images/ folder!</p>";
     } else {
         echo "<p><span style='color: var(--warning);'>[ERRO]</span>  usr/images/ folder not found</p>";
@@ -17,36 +17,36 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
 
         mkdir("usr/images");
     }
-    if (!is_dir(__DIR__."/../../usr/images/thumbnails")) {
+    if (!is_dir(__DIR__."/../../../usr/images/thumbnails")) {
         echo "<p><span style='color: var(--warning);'>[ERRO]</span>  usr/images/thumbnails/ folder not found</p>";
         echo "<p><span style='color: var(--accent);'>[INFO]</span>  Creating usr/images/thumbnails/ folder...</p>";
 
         mkdir("usr/images/thumbnails");
     }
-    if (!is_dir(__DIR__."/../../usr/images/previews")) {
+    if (!is_dir(__DIR__."/../../../usr/images/previews")) {
         echo "<p><span style='color: var(--warning);'>[ERRO]</span>  usr/images/previews/ folder not found</p>";
         echo "<p><span style='color: var(--accent);'>[INFO]</span>  Creating usr/images/previews/ folder...</p>";
 
         mkdir("usr/images/previews");
     }
 
-    if (!is_dir(__DIR__."/../../usr/conf")) {
+    if (!is_dir(__DIR__."/../../../usr/conf")) {
         echo "<p><span style='color: var(--warning);'>[ERRO]</span>  usr/conf/ folder not found</p>";
         echo "<p><span style='color: var(--accent);'>[INFO]</span>  Creating usr/conf/ folder...</p>";
 
         mkdir("usr/conf");
     }
 
-    if (is_file("../../usr/conf/conf.json")) {
+    if (is_file(__DIR__."/../../../usr/conf/conf.json")) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found usr/conf/conf.json file!</p>";
     } else {
         echo "<p><span style='color: var(--warning);'>[ERRO]</span>  usr/conf/conf.json file not found</p>";
         echo "<p><span style='color: var(--accent);'>[INFO]</span>  Creating usr/conf/conf.json file...</p>";
 
         try {
-            $conf = file_get_contents(__DIR__."/../../usr/conf.default.json");
+            $conf = file_get_contents(__DIR__."/../../../usr/conf.default.json");
             
-            $conf_new = fopen(__DIR__."/../../usr/conf/conf.json", "w");
+            $conf_new = fopen(__DIR__."/../../../usr/conf/conf.json", "w");
 
             if ($conf_new) {
                 fwrite($conf_new, $conf);
