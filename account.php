@@ -164,18 +164,77 @@
 						<h3>Invite Codes</h3>
 						<?php
 						$token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
-						while ($token = mysqli_fetch_array($token_request)) {
-							?>
-								<button onclick='copyCode()' class='btn btn-neutral btn-code'><?php echo $token['code']; ?></button>
-								<script>
-									function copyCode() {
-										navigator.clipboard.writeText("<?php echo $token['code']; ?>");
-										sniffleAdd("Info", "Invite code has been copied!", "var(--green)", "assets/icons/clipboard-text.svg");
-									}
-								</script>
-							<?php
-						}
+						if (mysqli_num_rows($token_request) > 0) {
+							while ($token = mysqli_fetch_array($token_request)) {
+								?>
+									<div style="display: flex; flex-direction: row; gap: 0.5rem;">
+										<button onclick='copyCode(this)' class='btn btn-neutral btn-code'><?php echo $token['code']; ?></button>
+										<button onclick='regenerateCode("<?php echo $token["code"]; ?>", this)' class='btn btn-good btn-code-reg'><img src="assets/icons/arrow-clockwise.svg"></button>
+										<button onclick='deleteCode(<?php echo $token["id"]; ?>)' class='btn btn-bad btn-code-reg'><img src="assets/icons/cross.svg"></button>
+									</div>
+								<?php
+							}
+						} else {
+							echo "<div class='info-text defaultFonts' style='text-align: center !important; margin-left: 0 !important;'>
+								<p>No invite codes/tokens :c</p>
+							</div>";
+						}						
 						?>
+						<button onclick='generateCode()' class='btn btn-good'>Generate code</button>
+						<script>
+							function copyCode(thisButton) {
+								var text = thisButton.innerHTML;
+								navigator.clipboard.writeText(text);
+								sniffleAdd("Info", "Invite code has been copied!", "var(--green)", "assets/icons/clipboard-text.svg");
+							}
+							function regenerateCode(code, thisButton) {
+								$.ajax ({
+									url: "app/account/token.php",
+									type: "POST",
+									data: { regenerate: code },
+
+									success: function(response) {
+										if (response == true) {
+											sniffleAdd("Woop!", "Invite code has been regenerated!", "var(--green)", "assets/icons/check.svg");
+											//thisButton.parentNode.remove();
+										} else {
+											sniffleAdd("Oops!", "Something went wrong!", "var(--red)", "assets/icons/cross.svg");
+										}
+									}
+								});
+							}
+							function generateCode() {
+								$.ajax ({
+									url: "app/account/token.php",
+									type: "POST",
+									data: { generate: true },
+
+									success: function(response) {
+										if (response == true) {
+											sniffleAdd("Woop!", "Invite code has been generated!", "var(--green)", "assets/icons/check.svg");
+										} else {
+											sniffleAdd("Oops!", "Something went wrong!", "var(--red)", "assets/icons/cross.svg");
+										}
+									}
+								});
+							}
+							function deleteCode(codeID, thisButton) {
+								$.ajax ({
+									url: "app/account/token.php",
+									type: "POST",
+									data: { delete: codeID },
+
+									success: function(response) {
+										if (response == true) {
+											sniffleAdd("Woop!", "Invite code has been deleted!", "var(--green)", "assets/icons/check.svg");
+											//thisButton.parentNode.remove();
+										} else {
+											sniffleAdd("Oops!", "Something went wrong!", "var(--red)", "assets/icons/cross.svg");
+										}
+									}
+								});
+							}
+						</script>
 
 						<br><h3>Admin</h3>
 						<div class="tabs">
@@ -207,7 +266,20 @@
 								}
 							?>
 							<div>
-								<button class="btn btn-neutral" onclick="loadMore()" disabled>Load More</button>
+								<button class="btn btn-neutral" onclick="loadMore()">Load More</button>
+								<script>
+									function loadMore() {
+										$.ajax ({
+											url: "app/account/load.php",
+											type: "POST",
+											data: { log: true},
+
+											success: function(response) {
+												$("#logs").html(response);
+											}
+										});
+									}
+								</script>
 							</div>
 						</div>
 						

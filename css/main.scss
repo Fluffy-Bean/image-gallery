@@ -68,6 +68,7 @@ body {
 
     width: 100%;
 
+    position: relative;
     display: block;
     box-sizing: border-box;
 
@@ -86,11 +87,45 @@ body {
 
     transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
 
+    /*
+    &::after {
+        content: "";
+        position: absolute;
+        box-sizing: border-box;
+        width: calc(100% + calc($border-thickness * 4));
+        height: calc(100% + calc($border-thickness * 4));
+        top: calc($border-thickness * -2);
+        left: calc($border-thickness * -2);
+        z-index: +1;
+        @if calc($rad - 0.5rem) > 0 {
+            border-radius: calc($rad - 0.5rem);
+        } @else {
+            border-radius: calc(3px * 2);
+        }
+        border: $fg $border-thickness solid;
+        opacity: 0;
+
+        transition: all 0.1s ease-in-out;
+
+        pointer-events: none;
+    }
+    */
+
     &:hover {
         outline: $white 0.2rem solid;
         color: $fg;
 
         cursor: pointer;
+
+        /*
+        &::after {
+            opacity: 1;
+            width: calc(100% + calc($border-thickness * 2));
+            height: calc(100% + calc($border-thickness * 2));
+            top: calc($border-thickness * -1);
+            left: calc($border-thickness * -1);
+        }
+        */
     }
 
     &:where(input[type="file"])::file-selector-button {

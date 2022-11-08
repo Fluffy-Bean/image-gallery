@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include dirname(__DIR__) . "/conn.php";
+include dirname(__DIR__) . "/../conn.php";
 
 if (isset($_POST['fix'])) {
     $autofix_start = microtime(true);

@@ -975,7 +975,7 @@
     color: #00000000;
     position: relative;
 
-    &::after {
+    &::before {
         content: "Hover to show code";
         color: $fg;
 
@@ -988,9 +988,23 @@
     &:hover {
         color: $fg;
 
-        &::after {
+        &::before {
             content: "";
         }
+    }
+}
+
+.btn-code-reg {
+    width: auto !important;
+    display: inline-block !important;
+
+    img {
+        margin: auto 2px;
+
+        width: 1.25rem;
+        height: 1.25rem;
+
+        display: block;
     }
 }
 
