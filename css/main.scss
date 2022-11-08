@@ -85,7 +85,9 @@ body {
         border-radius: 3px;
     }
 
-    transition: outline 0.1s cubic-bezier(.19, 1, .22, 1);
+    outline: $fg 0 solid;
+
+    transition: outline 0.1s;
 
     /*
     &::after {
@@ -112,7 +114,7 @@ body {
     */
 
     &:hover {
-        outline: $white 0.2rem solid;
+        outline: $fg $border-thickness solid;
         color: $fg;
 
         cursor: pointer;
@@ -129,7 +131,7 @@ body {
     }
 
     &:where(input[type="file"])::file-selector-button {
-        margin: -0.25rem 0.5rem -0.25rem -0.25rem;
+        margin: -0.5rem 0.5rem -0.5rem -0.5rem;
         padding: 0.5rem;
 
         display: inline-block;
@@ -301,7 +303,7 @@ a.btn {
 */
 form {
     width: 100%;
-    box-sizing: content-box;
+    box-sizing: border-box;
 
     & > * {
         margin-bottom: 0.5rem;

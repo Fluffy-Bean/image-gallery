@@ -39,6 +39,11 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
             'link'=>'https://github.com/Fluffy-Bean/image-gallery',
             'fix'=>'manual'
         );
+    } else {
+        $results[] = array(
+            'type'=>'success',
+            'message'=>'You are running the latest version of the app v'.$app_repo['version']
+        );
     }
     
     if (PHP_VERSION_ID < 80000) {

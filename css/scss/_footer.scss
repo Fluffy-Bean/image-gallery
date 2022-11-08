@@ -13,9 +13,12 @@ footer {
     text-transform: uppercase;
 
     display: flex; flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
 
     p {
-        margin: 0.2rem;
+        margin: 0;
         padding: 0;
 
         text-decoration: none;
@@ -24,7 +27,7 @@ footer {
     }
 
     a {
-        margin: 0.2rem;
+        margin: 0;
         padding: 0;
 
         text-decoration: none;

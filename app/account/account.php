@@ -698,7 +698,7 @@ if (isset($_POST['account_delete_submit'])) {
 if (isset($_POST['pfp_submit'])) {
 	if (isset($_SESSION['id'])) {
 		// Root paths
-		$dir = "../../images/pfp/";
+		$dir = "../../usr/images/pfp/";
 
 		// File name updating
 		$file_type = pathinfo($dir.$_FILES['image']['name'],PATHINFO_EXTENSION);

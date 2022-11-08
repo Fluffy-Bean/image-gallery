@@ -33,11 +33,7 @@
 			<div class="defaultDecoration defaultSpacing defaultFonts">
 				<h2>Profile</h2>
 				<div class="pfp-upload">
-					<form id="pfpForm" method="POST" enctype="multipart/form-data">
-						<h3>Profile Picture</h3>
-						<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
-						<button id="pfpSubmit" class="btn btn-good" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
-					</form>
+					<h3>Profile Picture</h3>
 					<?php
 						if (is_file("usr/images/pfp/".$profile_info['pfp_path'])) {
 							echo "<img alt='profile picture' src='usr/images/pfp/".$profile_info['pfp_path']."'>";
@@ -45,6 +41,10 @@
 							echo "<img alt='profile picture' src='assets/no_image.png'>";
 						}
 					?>
+					<form id="pfpForm" method="POST" enctype="multipart/form-data">
+						<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
+						<button id="pfpSubmit" class="btn btn-good btn-icon" type="submit"><img class="svg" src="assets/icons/upload.svg"></button>
+					</form>
 					<script>
 						$("#pfpForm").submit(function(event) {
 							event.preventDefault();
@@ -162,26 +162,33 @@
 						<h2>Website</h2>
 
 						<h3>Invite Codes</h3>
-						<?php
-						$token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
-						if (mysqli_num_rows($token_request) > 0) {
-							while ($token = mysqli_fetch_array($token_request)) {
-								?>
-									<div style="display: flex; flex-direction: row; gap: 0.5rem;">
-										<button onclick='copyCode(this)' class='btn btn-neutral btn-code'><?php echo $token['code']; ?></button>
-										<button onclick='regenerateCode("<?php echo $token["code"]; ?>", this)' class='btn btn-good btn-code-reg'><img src="assets/icons/arrow-clockwise.svg"></button>
-										<button onclick='deleteCode(<?php echo $token["id"]; ?>)' class='btn btn-bad btn-code-reg'><img src="assets/icons/cross.svg"></button>
-									</div>
-								<?php
-							}
-						} else {
-							echo "<div class='info-text defaultFonts' style='text-align: center !important; margin-left: 0 !important;'>
-								<p>No invite codes/tokens :c</p>
-							</div>";
-						}						
-						?>
+						<div style="display: flex; flex-direction: column; gap: 0.5rem;" id="tokenList">
+							<?php
+							$token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
+							if (mysqli_num_rows($token_request) > 0) {
+								while ($token = mysqli_fetch_array($token_request)) {
+									?>
+										<div style="display: flex; flex-direction: row; gap: 0.5rem;">
+											<button onclick='copyCode(this)' class='btn btn-neutral btn-code'><?php echo $token['code']; ?></button>
+											<button onclick='regenerateCode("<?php echo $token["code"]; ?>", this)' class='btn btn-good btn-icon'><img src="assets/icons/arrow-clockwise.svg"></button>
+											<button onclick='deleteCode(<?php echo $token["id"]; ?>)' class='btn btn-bad btn-icon'><img src="assets/icons/cross.svg"></button>
+										</div>
+									<?php
+								}
+							} else {
+								echo "<div class='info-text defaultFonts' style='text-align: center !important; margin-left: 0 !important;'>
+									<p>No invite codes/tokens :c</p>
+								</div>";
+							}						
+							?>
+						</div>
 						<button onclick='generateCode()' class='btn btn-good'>Generate code</button>
 						<script>
+							function refreshList() {
+								$("#tokenList").load("app/account/token.php", {
+									refresh: 'true'
+								});
+							}
 							function copyCode(thisButton) {
 								var text = thisButton.innerHTML;
 								navigator.clipboard.writeText(text);
@@ -196,10 +203,13 @@
 									success: function(response) {
 										if (response == true) {
 											sniffleAdd("Woop!", "Invite code has been regenerated!", "var(--green)", "assets/icons/check.svg");
-											//thisButton.parentNode.remove();
+											refreshList();
 										} else {
 											sniffleAdd("Oops!", "Something went wrong!", "var(--red)", "assets/icons/cross.svg");
 										}
+									},
+									error: function() {
+										sniffleAdd("AAAAAAAAAAAAAAAAA", "Something went wrong!", "var(--red)", "assets/icons/cross.svg");
 									}
 								});
 							}
@@ -212,9 +222,13 @@
 									success: function(response) {
 										if (response == true) {
 											sniffleAdd("Woop!", "Invite code has been generated!", "var(--green)", "assets/icons/check.svg");
+											refreshList();
 										} else {
 											sniffleAdd("Oops!", "Something went wrong!", "var(--red)", "assets/icons/cross.svg");
 										}
+									},
+									error: function() {
+										sniffleAdd("AAAAAAAAAAAAAAAAA", "Something went wrong!", "var(--red)", "assets/icons/cross.svg");
 									}
 								});
 							}
@@ -227,10 +241,32 @@
 									success: function(response) {
 										if (response == true) {
 											sniffleAdd("Woop!", "Invite code has been deleted!", "var(--green)", "assets/icons/check.svg");
-											//thisButton.parentNode.remove();
+											refreshList();
 										} else {
-											sniffleAdd("Oops!", "Something went wrong!", "var(--red)", "assets/icons/cross.svg");
+											sniffleAdd("AAAAAAAAAAAAAAAAA", "Something went wrong!", "var(--red)", "assets/icons/cross.svg");
 										}
+									},
+									error: function() {
+										sniffleAdd("AAAAAAAAAAAAAAAAA", "Something went wrong!", "var(--red)", "assets/icons/cross.svg");
+									}
+								});
+							}
+							function gwa() {
+								$.ajax ({
+									url: "app/account/token.php",
+									type: "POST",
+									data: { gwagwa: true },
+
+									success: function(response) {
+										if (response == true) {
+											sniffleAdd("Woop!", "Invite code has been deleted!", "var(--green)", "assets/icons/check.svg");
+											refreshList();
+										} else {
+											sniffleAdd("AAAAAAAAAAAAAAAAA", "Something went wrong!", "var(--red)", "assets/icons/cross.svg");
+										}
+									},
+									error: function() {
+										sniffleAdd("AAAAAAAAAAAAAAAAA", "Something went wrong!", "var(--red)", "assets/icons/cross.svg");
 									}
 								});
 							}
@@ -266,7 +302,6 @@
 								}
 							?>
 							<div>
-								<button class="btn btn-neutral" onclick="loadMore()">Load More</button>
 								<script>
 									function loadMore() {
 										$.ajax ({
@@ -279,10 +314,19 @@
 											}
 										});
 									}
+
+									if ($("#logs").children().length > 100) {
+										var trueHeight = $("#logs").children().length * document.getElementById('logs').children.item(1).clientHeight;
+	
+										$('#logs').scroll (function() {
+											if ($(this).scrollTop() + $(this).innerHeight() >= trueHeight - 100) {
+												loadMore();
+											}
+										});
+									}
 								</script>
 							</div>
 						</div>
-						
 						<div id="bans" class="bans tabcontent">
 							<div class="ban">
 								<p>ID</p> <p>User IP</p> <p>Reason</p> <p>Lenght</p> <p>Time</p>

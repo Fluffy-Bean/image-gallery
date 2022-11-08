@@ -59,3 +59,24 @@ if (isset($_POST['delete'])) {
         }
     }
 }
+
+if (isset($_POST['refresh'])) {
+    if ($user_info->is_admin($conn, $_SESSION['id'])) {
+        $request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
+        if (mysqli_num_rows($request) > 0) {
+            while ($token = mysqli_fetch_array($request)) {
+                ?>
+                    <div style="display: flex; flex-direction: row; gap: 0.5rem;">
+                        <button onclick='copyCode(this)' class='btn btn-neutral btn-code'><?php echo $token['code']; ?></button>
+                        <button onclick='regenerateCode("<?php echo $token["code"]; ?>", this)' class='btn btn-good btn-icon'><img src="assets/icons/arrow-clockwise.svg"></button>
+                        <button onclick='deleteCode(<?php echo $token["id"]; ?>)' class='btn btn-bad btn-icon'><img src="assets/icons/cross.svg"></button>
+                    </div>
+                <?php
+            }
+        } else {
+            echo "<div class='info-text defaultFonts' style='text-align: center !important; margin-left: 0 !important;'>
+                <p>No invite codes/tokens :c</p>
+            </div>";
+        }
+    }
+}

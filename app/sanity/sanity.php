@@ -54,8 +54,10 @@ if (isset($_POST['check'])) {
         foreach ($results as $result) {
             if ($result['type'] == 'critical') {
                 echo "<p class='alert alert-bad'><span class='badge badge-critical'>Critical</span> ";
-            } else {
+            } elseif ($result['type'] == 'warning') {
                 echo "<p class='alert alert-warning'><span class='badge badge-warning'>Warning</span> ";
+            } elseif ($result['type'] == 'success') {
+                echo "<p class='alert alert-good'><span class='badge badge-primary'>Success</span> ";
             }
     
             if ($result['fix'] == 'auto') {
