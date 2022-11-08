@@ -329,7 +329,7 @@ if (isset($_POST['submit_signup'])) {
                     $token_array = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz';
                     $new_token = substr(str_shuffle($token_array), 0, 15);
                     
-                    mysqli_query($conn, "INSERT INTO tokens (code, used) VALUES('$new_toke', 0)");
+                    mysqli_query($conn, "INSERT INTO tokens (code, used) VALUES('$new_token', 0)");
                 }
         
                 // Yupeee! Account was made
