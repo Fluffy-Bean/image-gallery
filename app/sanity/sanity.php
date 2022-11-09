@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-include dirname(__DIR__) . "/../conn.php";
+include "../conn.php";
 
 if (isset($_POST['fix'])) {
-    $autofix_start = microtime(true);
+    $timer_start = microtime(true);
 
     echo "<p><span style='color: var(--accent);'>[INFO]</span> Starting autofix</p>";
 
@@ -24,14 +24,12 @@ if (isset($_POST['fix'])) {
     echo "<p>==== Folders ====</p>";
     require_once "fix/_folders.php";
 
-    $autofix_end    = microtime(true);
-    $autofix_time   = ($autofix_end - $autofix_start);
-    $autofix_time   = round($autofix_time, 6) * 1000;
+    $timer_end    = microtime(true);
+    $timer_diff   = ($timer_end - $timer_start);
+    $timer_diff   = round($timer_diff, 6) * 1000;
 
-    echo "<p><span style='color: var(--accent);'>[INFO]</span> Autofix complete in $autofix_time ms</p>";
-}
-
-elseif (isset($_POST['check'])) {
+    echo "<p><span style='color: var(--accent);'>[INFO]</span> Autofix complete in $timer_diff ms</p>";
+} elseif (isset($_POST['check'])) {
     if (empty($_SESSION['id'])) {
         echo "<p><span style='color: var(--warning);'>[ERROR]</span> You are not logged in</p>";
         exit();
@@ -40,13 +38,17 @@ elseif (isset($_POST['check'])) {
         exit();
     }
 
-    define('ROOT', true); // Only run scripts from this file
-    $results = array(); // Array to store results
+    $timer_start = microtime(true);
 
-    require_once "check/_dir.php";
-    require_once "check/_json.php";
-    require_once "check/_perms.php";
-    require_once "check/_versions.php";
+    $autofix_enable = false;
+    $results = array();     // Array to store results
+    define('ROOT', true);   // Only run scripts from this file
+    
+    include_once "check/_dir.php";
+    include_once "check/_json.php";
+    include_once "check/_perms.php";
+    include_once "check/_versions.php";
+    include_once "check/_database.php";
 
     if (empty($results)) {
         echo "<p class='alert alert-good'>No errors! Lookin' good :3</p>";
@@ -73,15 +75,19 @@ elseif (isset($_POST['check'])) {
             
             echo $result['message']."</p>";
         }
-    
-        if ($autofix_enable) {
-            echo "<button class='btn btn-bad' onclick=\"$('#sanityCheck').load('app/sanity/sanity.php', {fix: 'true'});\">
-                    Attempt Autofix
-                </button>";
-        }
     }
-}
 
-else {
+    $timer_end    = microtime(true);
+    $timer_diff   = ($timer_end - $timer_start);
+    $timer_diff   = round($timer_diff, 6) * 1000;
+
+    echo "<p class='alert alert-good'> Scan complete in $timer_diff ms</p>";
+
+    if ($autofix_enable) {
+        echo "<button class='btn btn-bad' onclick=\"$('#sanityCheck').load('app/sanity/sanity.php', {fix: 'true'});\">
+                Attempt Autofix
+            </button>";
+    }
+} else {
     echo "<p class='alert alert-warning'><span class='badge badge-warning'>Warning</span> Bruh, what do you want?</p>";
 }

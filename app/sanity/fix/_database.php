@@ -14,7 +14,7 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
         }
     }
     
-    /*
+    
     if (check_database($conn, 'images')) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found images table</p>";
     } else {
@@ -23,9 +23,9 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
 
         $sql = "CREATE TABLE IF NOT EXISTS images ( 
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
-            imagename VARCHAR(255) NOT NULL,
-            alt VARCHAR(text) NOT NULL,
-            tags VARCHAR(text) NOT NULL,
+            imagename VARCHAR(255) NOT NULL UNIQUE,
+            alt TEXT NOT NULL,
+            tags TEXT NOT NULL,
             author INT(11) NOT NULL,
             last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -124,7 +124,7 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
         if ($conn->query($sql) === TRUE) {
             echo "<p><span style='color: var(--accent);'>[INFO]</span> Table tokens made!</p>";
         }
-    }*/
+    }
     
     if (check_database($conn, 'test')) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found test table</p>";
