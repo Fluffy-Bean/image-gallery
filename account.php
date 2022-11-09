@@ -3,11 +3,14 @@
 	
 	use App\Account;
 	use App\Diff;
+	use App\Make;
 
 	$user_info	= new Account();
 	$diff		= new Diff();
+	$make_stuff	= new Make();
 
 	$profile_info = $user_info->get_user_info($conn, $_SESSION['id']);
+	$join_date = new DateTime($profile_info['created_at']);
 ?>
 
 <!DOCTYPE html>
@@ -29,63 +32,94 @@
 		}
 
 		if ($user_info->is_loggedin($conn)) {
-		?>
-			<div class="defaultDecoration defaultSpacing defaultFonts">
-				<h2>Profile</h2>
-				<div class="pfp-upload">
-					<h3>Profile Picture</h3>
+			?>
+				<div class="profile-root defaultDecoration defaultSpacing defaultFonts">
 					<?php
 						if (is_file("usr/images/pfp/".$profile_info['pfp_path'])) {
-							echo "<img alt='profile picture' src='usr/images/pfp/".$profile_info['pfp_path']."'>";
+							echo "<img src='usr/images/pfp/".$profile_info['pfp_path']."'>";
+
+							$pfp_colour = $make_stuff->get_image_colour("usr/images/pfp/".$profile_info['pfp_path']);
+							if (empty($pfp_colour)) $pfp_colour = "var(--bg-3)";
+							?>
+								<style>
+									.profile-root {
+										background-image: linear-gradient(120deg, <?php echo $pfp_colour; ?>, var(--bg-3) 80%) !important;
+									}
+									@media (max-width: 669px) {
+										.profile-root {
+											background-image: linear-gradient(200deg, <?php echo $pfp_colour; ?>, var(--bg-3) 80%) !important;
+										}
+									}
+								</style>
+							<?php
 						} else {
-							echo "<img alt='profile picture' src='assets/no_image.png'>";
+							echo "<img src='assets/no_image.png'>";
 						}
 					?>
-					<form id="pfpForm" method="POST" enctype="multipart/form-data">
-						<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
-						<button id="pfpSubmit" class="btn btn-good btn-icon" type="submit"><img class="svg" src="assets/icons/upload.svg"></button>
-					</form>
+				<h2>
+					<?php
+						echo $_SESSION['username'];
+						if ($user_info->is_admin($conn, $_SESSION['id'])) echo "<span style='color: var(--accent); font-size: 16px; margin-left: 0.5rem;'>Admin</span>";
+					?>
+				</h2>
+				<div class="profile-info">
+					<p id="joinDate">Member since: <?php echo $join_date->format('d/m/Y T'); ?></p>
 					<script>
-						$("#pfpForm").submit(function(event) {
-							event.preventDefault();
-							// Check if image avalible
-							var file = $("#image").val();
+						var updateDate = new Date('<?php echo $join_date->format('m/d/Y T'); ?>');
+						var format = {year: 'numeric', month: 'short', day: 'numeric'};
+										
+						updateDate = updateDate.toLocaleDateString('en-GB', format);
 
-							if (file == "") {
-								sniffleAdd('Gwha!', 'Pls provide image', 'var(--warning)', 'assets/icons/file-search.svg');
-								return;
-							}
-
-							// Make form
-							var formData = new FormData();
-
-							// Get image
-							var image_data = $("#image").prop("files")[0];
-							formData.append("image", image_data);
-							// Submit data
-							var submit = $("#pfpSubmit").val();
-							formData.append("pfp_submit", submit);
-
-							// Upload the information
-							$.ajax({
-								url: 'app/account/account.php',
-								type: 'post',
-								data: formData,
-								contentType: false,
-								processData: false,
-								success: function(response) {
-									$("#newSniff").html(response);
-								}
-							});
-
-							// Empty values
-							$("#image").val("");
-							$("#submit").val("");
-						});
+						$("#joinDate").html("Member since: "+updateDate);
 					</script>
 				</div>
-				<br>
-				<a href="profile.php?user=<?php echo $_SESSION['id']; ?>" class="btn btn-neutral">Go to profile</a>
+			</div>
+
+			<div class="defaultDecoration defaultSpacing defaultFonts">
+				<h2>Profile</h2>
+				<h3>Profile Picture</h3>
+				<form id="pfpForm" method="POST" enctype="multipart/form-data">
+					<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
+					<button id="pfpSubmit" class="btn btn-good btn-icon" type="submit"><img class="svg" src="assets/icons/upload.svg"></button>
+				</form>
+				<script>
+					$("#pfpForm").submit(function(event) {
+						event.preventDefault();
+						// Check if image avalible
+						var file = $("#image").val();
+
+						if (file == "") {
+							sniffleAdd('Gwha!', 'Pls provide image', 'var(--warning)', 'assets/icons/file-search.svg');
+							return;
+						}
+
+						// Make form
+						var formData = new FormData();
+
+						// Get image
+						var image_data = $("#image").prop("files")[0];
+						formData.append("image", image_data);
+						// Submit data
+						var submit = $("#pfpSubmit").val();
+						formData.append("pfp_submit", submit);
+
+						// Upload the information
+						$.ajax({
+							url: 'app/account/account.php',
+							type: 'post',
+							data: formData,
+							contentType: false,
+							processData: false,
+							success: function(response) {
+								$("#newSniff").html(response);
+							}
+						});
+
+						// Empty values
+						$("#image").val("");
+						$("#submit").val("");
+					});
+				</script>
 			</div>
 
 			<div class="warningDecoration defaultSpacing defaultFonts">
@@ -517,9 +551,19 @@
 											$("#sanityCheck").html(response);
 											thisButton.innerHTML = "Run check";
 											document.getElementById('sanityCheck').style.cssText = "transform: scale(1);opacity: 1;";
+										},
+										error: function(error) {
+											$("#sanityCheck").html(`<p class='alert alert-bad'>\
+											<span class='badge badge-critical'>Critical</span> \
+											An error occured when proccessing your request, sowwy :c\
+											<br>\
+											Response: ${error.status} - ${error.statusText}\
+											</p>`);
+											thisButton.innerHTML = "Run check";
+											document.getElementById('sanityCheck').style.cssText = "transform: scale(1);opacity: 1;";
 										}
 									});
-								}, 1000);
+								}, 621);
 							}
 						</script>
 					</div>

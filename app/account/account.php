@@ -499,16 +499,21 @@ if (isset($_POST['password_reset_submit'])) {
             if (mysqli_stmt_execute($stmt)) {
                 // Password updated!!!! Now goodbye
                 if ($user_id == $_SESSION["id"]) {
+                    mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','".$_SESSION['username']." has reset their password')");
+
                     // Check if password reset was done by user
                     session_destroy();
                     ?>
                         <script>
                             sniffleAdd('Password updated', 'Now goodbye.... you will be redirected in a moment', 'var(--success)', 'assets/icons/check.svg');
-                            setTimeout(function(){window.location.href = "account/login.php";}, 2000);
+                            setTimeout(function(){window.location.href = "account.php";}, 2000);
                         </script>
                     <?php
                 } else {
                     // An admin has changed the password
+                    $user_reset_info = $user_info->get_user_info($conn, $user_id);
+
+                    mysqli_query($conn,"INSERT INTO logs (ipaddress, action) VALUES('$user_ip','".$_SESSION['username']." has reset ".$user_reset_info['username']." password')");
                     ?>
                         <script>
                             sniffleAdd('Password updated', 'Password has been reset for user! But their session may still be active', 'var(--success)', 'assets/icons/check.svg');

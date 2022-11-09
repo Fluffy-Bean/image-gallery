@@ -86,6 +86,7 @@
 				document.querySelector(".fullscreen-image > img").src = "<?php echo $image_path;?>";
 				setTimeout(function(){
 					document.querySelector(".fullscreen-image").style.opacity = 1;
+					document.querySelector(".fullscreen-image").style.transform = "translateX(-50%) translateY(-50%) scale(1)";
 				}, 1);
 			}
 
@@ -96,6 +97,7 @@
 				document.querySelector(".fullscreen-image").style.opacity = 0;
 				setTimeout(function(){
 					document.querySelector(".fullscreen-image").style.display = "none";
+					document.querySelector(".fullscreen-image").style.transform = "translateX(-50%) translateY(-50%) scale(0.9)";
 				}, 500);
 			}
 		</script>

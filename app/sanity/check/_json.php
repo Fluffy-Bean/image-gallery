@@ -1,11 +1,21 @@
 <?php
 if (defined('ROOT') && $_SESSION['id'] == 1) {
     if (!is_file(__DIR__."/../../../usr/conf/msg.json")) {
-        $results[] = array(
-            'type'=>'warning', 
-            'message'=>'msg.json is missing', 
-            'fix'=>'auto'
-        );
+        $manifest = json_decode(file_get_contents(__DIR__."/../../../usr/conf/conf.json"), true);
+        
+        if (isset($manifest['welcome_msg'])) {
+            $results[] = array(
+                'type'=>'warning', 
+                'message'=>'Welcome message is currently stored in conf.json. Please move it to msg.json', 
+                'fix'=>'auto'
+            );
+        } else {
+            $results[] = array(
+                'type'=>'warning', 
+                'message'=>'msg.json is missing', 
+                'fix'=>'auto'
+            );
+        }
     }
     
     if (!is_file(__DIR__."/../../../usr/conf/conf.json")) {

@@ -31,7 +31,7 @@ if (isset($_POST['fix'])) {
     echo "<p><span style='color: var(--accent);'>[INFO]</span> Autofix complete in $autofix_time ms</p>";
 }
 
-if (isset($_POST['check'])) {
+elseif (isset($_POST['check'])) {
     if (empty($_SESSION['id'])) {
         echo "<p><span style='color: var(--warning);'>[ERROR]</span> You are not logged in</p>";
         exit();
@@ -80,4 +80,8 @@ if (isset($_POST['check'])) {
                 </button>";
         }
     }
+}
+
+else {
+    echo "<p class='alert alert-warning'><span class='badge badge-warning'>Warning</span> Bruh, what do you want?</p>";
 }

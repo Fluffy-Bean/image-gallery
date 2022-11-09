@@ -40,11 +40,11 @@
                     ?>
                         <style>
                             .profile-root {
-                                background-image: linear-gradient(to right, <?php echo $pfp_colour; ?>, var(--bg-3), var(--bg-3)) !important;
+                                background-image: linear-gradient(120deg, <?php echo $pfp_colour; ?>, var(--bg-3) 80%) !important;
                             }
                             @media (max-width: 669px) {
                                 .profile-root {
-                                    background-image: linear-gradient(to bottom, <?php echo $pfp_colour; ?>, var(--bg-3)) !important;
+                                    background-image: linear-gradient(200deg, <?php echo $pfp_colour; ?>, var(--bg-3) 80%) !important;
                                 }
                             }
                         </style>
