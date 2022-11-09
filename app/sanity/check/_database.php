@@ -1,13 +1,20 @@
 
 <?php
-// Database check, this will check if the database table is setup correctly
-// Adding these check hopefully will make the gallery more stable as I dont
-// Trust my programming skills nor my ability to write good documentation
-
-// Im also so sorry for the code you're about to read
+/*
+ |-------------------------------------------------------------
+ | Database Sanity Check
+ |-------------------------------------------------------------
+ | this will check if the database table is setup correctly
+ | Adding these checks hopefully will make the gallery more
+ | stable as I dont trust my programming skills nor my ability
+ | to write good documentation.
+ |
+ | Im also so sorry for the code you're about to read
+ |-------------------------------------------------------------
+*/
 
 if (defined('ROOT') && $_SESSION['id'] == 1) {
-    //        Column name       Type            Null    Key     Default                 Extra
+    /*             Column name      Type            Null    Key     Default                 Extra                 */
     $table_templates = array(
         'images' => array(
             array('id',             'int(11)',      'NO',   'PRI',  '',                     'auto_increment'),
@@ -34,9 +41,15 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
             array('last_modified',  'timestamp',    'NO',   '',     'CURRENT_TIMESTAMP',    'on update CURRENT_TIMESTAMP'),
             array('created_at',     'timestamp',    'NO',   '',     'CURRENT_TIMESTAMP',    '')
         ),
+        'tokens' => array(
+            array('id',             'int(11)',      'NO',   'PRI',  '',                     'auto_increment'),
+            array('code',           'varchar(255)', 'NO',   '',     '',                     ''),
+            array('used',           'boolean',      'NO',   '',     'FALSE',                ''),
+            array('created_at',     'timestamp',    'NO',   '',     'CURRENT_TIMESTAMP',    '')
+        ),
         'logs' => array(
             array('id',             'int(11)',      'NO',   'PRI',  '',                     'auto_increment'),
-            array('ipaddress',      'varchar(16)', 'NO',   '',     '',                     ''),
+            array('ipaddress',      'varchar(16)',  'NO',   '',     '',                     ''),
             array('action',         'varchar(255)', 'NO',   '',     '',                     ''),
             array('created_at',     'timestamp',    'NO',   '',     'CURRENT_TIMESTAMP',    '')
         ),
@@ -47,12 +60,6 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
             array('time',           'timestamp',    'NO',   '',     'CURRENT_TIMESTAMP',    ''),
             array('length',         'int(255)',     'NO',   '',     '',                     ''),
             array('pernament',      'boolean',      'NO',   '',     'FALSE',                '')
-        ),
-        'tokens' => array(
-            array('id',             'int(11)',      'NO',   'PRI',  '',                     'auto_increment'),
-            array('code',           'varchar(255)', 'NO',   '',     '',                     ''),
-            array('used',           'boolean',      'NO',   '',     'FALSE',                ''),
-            array('created_at',     'timestamp',    'NO',   '',     'CURRENT_TIMESTAMP',    '')
         )
     );
 

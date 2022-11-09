@@ -9,10 +9,10 @@ if (isset($_POST['fix'])) {
     echo "<p><span style='color: var(--accent);'>[INFO]</span> Starting autofix</p>";
 
     if (empty($_SESSION['id'])) {
-        echo "<p><span style='color: var(--warning);'>[ERROR]</span> You are not logged in</p>";
+        echo "<p class='alert alert-bad'>You are not logged in</p>";
         exit();
     } elseif ($_SESSION['id'] != 1) {
-        echo "<p><span style='color: var(--warning);'>[ERRO]</span>  You cannot use Autofix as an Admin currently.</p>";
+        echo "<p class='alert alert-warning'>Autofix is currently not avaliable to You.</p>";
         exit();
     }
 
@@ -31,10 +31,10 @@ if (isset($_POST['fix'])) {
     echo "<p><span style='color: var(--accent);'>[INFO]</span> Autofix complete in $timer_diff ms</p>";
 } elseif (isset($_POST['check'])) {
     if (empty($_SESSION['id'])) {
-        echo "<p><span style='color: var(--warning);'>[ERROR]</span> You are not logged in</p>";
+        echo "<p class='alert alert-bad'>You are not logged in</p>";
         exit();
     } elseif ($_SESSION['id'] != 1) {
-        echo "<p><span style='color: var(--warning);'>[ERRO]</span>  You cannot use Autofix as an Admin currently.</p>";
+        echo "<p class='alert alert-warning'>Autofix is currently not avaliable to You.</p>";
         exit();
     }
 

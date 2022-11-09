@@ -1,41 +1,42 @@
 /*
- |-------------------------------------------------------------
- | FOOTER
- |-------------------------------------------------------------
+|-------------------------------------------------------------
+| FOOTER
+|-------------------------------------------------------------
 */
 footer {
-    margin: 0 auto;
+  margin: 0 auto;
 
-    width: auto;
+  width: auto;
 
-    text-align: center;
-    font-size: 12px;
-    text-transform: uppercase;
+  text-align: center;
+  font-size: 12px;
+  text-transform: uppercase;
 
-    display: flex; flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
 
-    p {
-        margin: 0;
-        padding: 0;
+  p {
+    margin: 0;
+    padding: 0;
 
-        text-decoration: none;
+    text-decoration: none;
 
-        font-family: $font-body;
+    font-family: $font-body;
+  }
+
+  a {
+    margin: 0;
+    padding: 0;
+
+    text-decoration: none;
+
+    font-family: $font-body;
+
+    &:hover {
+      color: $orange;
     }
-
-    a {
-        margin: 0;
-        padding: 0;
-
-        text-decoration: none;
-
-        font-family: $font-body;
-
-        &:hover {
-            color: $orange;
-        }
-    }
+  }
 }

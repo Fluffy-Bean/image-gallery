@@ -1,20 +1,20 @@
 $bg: #151515;
 $bg-alt: #151515bb;
 
-$fg: #E8E3E3;
+$fg: #e8e3e3;
 $fg-alt: #151515;
 
-$red: #B66467;
-$orange: #D8A657;
-$yellow: #D9BC8C;
-$green: #8C977D;
-$blue: #8DA3B9;
-$purple: #A988B0;
+$red: #b66467;
+$orange: #d8a657;
+$yellow: #d9bc8c;
+$green: #8c977d;
+$blue: #8da3b9;
+$purple: #a988b0;
 
 $black: #121212;
-$white: #E8E3E3;
+$white: #e8e3e3;
 
-$page-accent: #8C977D;
+$page-accent: #8c977d;
 $warning: $red;
 $alert: $orange;
 $success: $green;
@@ -29,18 +29,15 @@ $border: $page-accent $border-thickness solid;
 $weight-bold: 621;
 $weight-normal: 400;
 
-$font-header: 'Lexend Deca',
-sans-serif;
-$font-body: 'Secular One',
-sans-serif;
-$font-code: 'JetBrains Mono',
-monospace;
+$font-header: "Lexend Deca", sans-serif;
+$font-body: "Secular One", sans-serif;
+$font-code: "JetBrains Mono", monospace;
 
 // Fallback for items that do not yet support the new sass stylesheet system
 :root {
   --bg: #{$bg-alt};
   --bg-1: #242621;
-  --bg-2: #1D1E1C;
+  --bg-2: #1d1e1c;
   --bg-3: #{$bg};
 
   --fg: #{$fg};

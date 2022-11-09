@@ -1,61 +1,60 @@
 @mixin defaultDecoration($border-colour) {
-    background-color: $bg;
-    color: $fg;
+  background-color: $bg;
+  color: $fg;
 
-    border-radius: $rad;
-    border: $border-colour $border-thickness solid;
+  border-radius: $rad;
+  border: $border-colour $border-thickness solid;
 
-    box-shadow: $shadow;
+  box-shadow: $shadow;
 }
 
 @mixin defaultSpacing() {
-    margin-bottom: 1rem;
-    padding: 0.5rem 0.5rem 0 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
 
-    width: 100%;
+  width: 100%;
 
-    box-sizing: border-box;
+  box-sizing: border-box;
 
-    >* {
-        margin-top: 0;
-        margin-bottom: 0.5rem;
-    }
+  > * {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
 }
 
 @mixin defaultFont() {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: $font-header;
+    text-rendering: optimizeLegibility;
+  }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-        font-family: $font-header;
-        text-rendering: optimizeLegibility;
-    }
-
-    p,
-    a,
-    button,
-    input {
-        font-family: $font-body;
-        text-rendering: optimizeLegibility;
-    }
+  p,
+  a,
+  button,
+  input {
+    font-family: $font-body;
+    text-rendering: optimizeLegibility;
+  }
 }
 
 @mixin flexDown($justify) {
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
+  flex-direction: column;
 
-    justify-content: $justify;
+  justify-content: $justify;
 }
 
 @mixin flexLeft($justify) {
-    display: flex;
+  display: flex;
 
-    flex-direction: row;
+  flex-direction: row;
 
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 
-    justify-content: $justify;
+  justify-content: $justify;
 }

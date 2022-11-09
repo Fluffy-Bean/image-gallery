@@ -4,146 +4,146 @@
  |-------------------------------------------------------------
 */
 nav {
-    @include defaultDecoration($page-accent);
-    @include flexLeft(space-between);
+  @include defaultDecoration($page-accent);
+  @include flexLeft(space-between);
 
-    margin: 0 auto 1rem;
-    padding: 0.5rem;
+  margin: 0 auto 1rem;
+  padding: 0.5rem;
 
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 
-    background-color: $bg-alt;
-    backdrop-filter: blur(69px) saturate(100%) brightness(100%);
+  background-color: $bg-alt;
+  backdrop-filter: blur(69px) saturate(100%) brightness(100%);
 
-    box-sizing: border-box;
+  box-sizing: border-box;
 
-    position: sticky;
-    z-index: 99;
-    top: 1rem;
+  position: sticky;
+  z-index: 99;
+  top: 1rem;
 
-    align-items: center;
+  align-items: center;
+  vertical-align: middle;
+
+  p {
+    margin: 0;
     vertical-align: middle;
+  }
 
-    p {
-        margin: 0;
-        vertical-align: middle;
-    }
+  hr {
+    margin: 0.5rem 0.2rem;
+    padding: 0;
+    opacity: 0;
+  }
 
-    hr {
-        margin: 0.5rem 0.2rem;
-        padding: 0;
-        opacity: 0;
-    }
-
-    .btn {
-        width: auto;
-    }
+  .btn {
+    width: auto;
+  }
 }
 
 .nav-name {
-    @include flexLeft(space-around);
+  @include flexLeft(space-around);
 
-    margin: 0;
+  margin: 0;
 
-    font-family: $font-header;
+  font-family: $font-header;
 
-    font-size: 1.5rem;
-    line-height: 1.69rem;
+  font-size: 1.5rem;
+  line-height: 1.69rem;
 
-    img {
-        margin: 0 0.5rem 0 0;
-        padding: 0;
+  img {
+    margin: 0 0.5rem 0 0;
+    padding: 0;
 
-        width: 1.69rem;
-        height: 1.69rem;
+    width: 1.69rem;
+    height: 1.69rem;
 
-        //vertical-align: middle;
+    //vertical-align: middle;
 
-        display: inline;
+    display: inline;
 
-        @if calc($rad - 0.5rem) > 0 {
-            border-radius: calc($rad - 0.3rem);
-        } @else {
-            border-radius: 3px;
-        }
+    @if calc($rad - 0.5rem) > 0 {
+      border-radius: calc($rad - 0.3rem);
+    } @else {
+      border-radius: 3px;
     }
+  }
 }
 
 .nav-links {
-    @include flexLeft(space-around);
+  @include flexLeft(space-around);
 
-    margin: 0;
+  margin: 0;
 
-    font-family: $font-body;
+  font-family: $font-body;
 
-    width: auto;
+  width: auto;
 
-    a.btn {
-        padding: 0.2rem 0.5rem;
-    }
+  a.btn {
+    padding: 0.2rem 0.5rem;
+  }
 }
 
 .nav-mobile {
-    display: none;
+  display: none;
 }
 
 @media (max-width: 800px) {
-    .nav-name {
-        display: none;
-    }
+  .nav-name {
+    display: none;
+  }
 
-    .nav-links {
-        width: 100%;
-    }
+  .nav-links {
+    width: 100%;
+  }
 }
 
 @media (max-width: 550px) {
-    nav {
-        margin: 0;
-        padding-bottom: 1rem;
+  nav {
+    margin: 0;
+    padding-bottom: 1rem;
 
-        position: fixed;
-        top: auto;
-        bottom: 0;
-        left: 0;
-        right: 0;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
 
-        border: none;
-        border-top: $border;
-        border-radius: 0;
+    border: none;
+    border-top: $border;
+    border-radius: 0;
 
-        backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
 
-        .svg {
-            margin: 0;
+    .svg {
+      margin: 0;
 
-            display: block;
-        }
+      display: block;
     }
+  }
 
-    .nav-links {
-        a.btn {
-            padding: 0.5rem;
-        }
+  .nav-links {
+    a.btn {
+      padding: 0.5rem;
     }
+  }
 
-    .nav-hide {
-        display: none;
-    }
+  .nav-hide {
+    display: none;
+  }
 
-    .info-text {
-        text-align: left !important;
-    }
+  .info-text {
+    text-align: left !important;
+  }
 
-    footer {
-        margin-bottom: 4rem !important;
-    }
+  footer {
+    margin-bottom: 4rem !important;
+  }
 
-    #back-to-top {
-        bottom: 5rem !important;
-    }
-    .nav-mobile {
-        display: block;
-    }
+  #back-to-top {
+    bottom: 5rem !important;
+  }
+  .nav-mobile {
+    display: block;
+  }
 }
