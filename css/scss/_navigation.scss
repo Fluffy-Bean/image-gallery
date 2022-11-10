@@ -101,11 +101,11 @@ nav {
 @media (max-width: 550px) {
   nav {
     margin: 0;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
 
     position: fixed;
     top: auto;
-    bottom: 0;
+    bottom: -1rem;
     left: 0;
     right: 0;
 
@@ -113,11 +113,8 @@ nav {
     border-top: $border;
     border-radius: 0;
 
-    backdrop-filter: blur(16px);
-
     .svg {
       margin: 0;
-
       display: block;
     }
   }

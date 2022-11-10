@@ -85,24 +85,28 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
         return $results;
     }
 
-    $table_list = array('images', 'users', 'groups', 'tokens', 'logs', 'bans');
+    $table_list = array('images', 'users', 'groups', 'tokens', 'logs', 'bans', 'test');
 
     foreach ($table_list as $table) {
-        $error_count = 0;
+        $error_type = array();
         $get_table = check_table($conn, $table);
 
         if ($get_table != false) {
             foreach ($table_templates[$table] as $key => $value) {
                 if (!empty(array_diff($get_table[$key], $value))) {
-                    $error_count += 1;
+                    $error_type[] = $table;
+                    foreach (array_diff($get_table[$key], $value) as $value) {
+                        $error_type[$table][] = $value;
+                    }
                 }
             }
 
-            if ($error_count > 0) {
+            if (!empty($error_type)) {
                 $results[] = array(
                     'type'=>'warning', 
-                    'message'=> 'Table '.$table.' is not setup correctly, '.$error_count.' errors found', 
-                    'fix'=>'auto'
+                    'message'=> 'Table "'.$table.'" is not setup correctly, the errors you see below may seem crypic, 
+                    and thats normal because of the shit way I made this:<br><br>'.implode(", ",$error_type[$table]),
+                    'fix'=>'manual'
                 );
             }
             

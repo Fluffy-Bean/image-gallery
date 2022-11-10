@@ -182,6 +182,15 @@ a.btn {
 }
 
 .btn-good {
+  background-color: $success;
+  background-image: linear-gradient(
+    to top,
+    darken($success, 5%),
+    $success
+  );
+}
+
+.btn-primary {
   background-color: $page-accent;
   background-image: linear-gradient(
     to top,
@@ -225,6 +234,12 @@ a.btn {
   }
 }
 
+.alert-good {
+  border-color: $page-accent;
+  background-image: linear-gradient(120deg, rgba($page-accent, 0.3),rgba($bg, 0)
+  );
+}
+
 .alert-bad {
   border-color: $warning;
   background-image: linear-gradient(120deg, rgba($warning, 0.3), rgba($bg, 0));
@@ -236,12 +251,8 @@ a.btn {
 }
 
 .alert-good {
-  border-color: $page-accent;
-  background-image: linear-gradient(
-    120deg,
-    rgba($page-accent, 0.3),
-    rgba($bg, 0)
-  );
+  border-color: $success;
+  background-image: linear-gradient(120deg, rgba($success, 0.3), rgba($bg, 0));
 }
 
 .alert-box {
@@ -298,6 +309,10 @@ a.btn {
 
   &.badge-primary {
     @include badge($page-accent);
+  }
+
+  &.badge-good {
+    @include badge($success);
   }
 
   &.badge-critical {
@@ -381,7 +396,7 @@ br {
 */
 a.link {
   display: inline;
-  text-decoration: underline;
+  text-decoration: underline $border-thickness solid $page-accent;
 
   &:hover {
     color: $page-accent;

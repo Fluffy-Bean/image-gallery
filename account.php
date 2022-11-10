@@ -80,7 +80,7 @@
 				<h3>Profile Picture</h3>
 				<form id="pfpForm" method="POST" enctype="multipart/form-data">
 					<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
-					<button id="pfpSubmit" class="btn btn-good btn-icon" type="submit"><img class="svg" src="assets/icons/upload.svg"></button>
+					<button id="pfpSubmit" class="btn btn-primary btn-icon" type="submit"><img class="svg" src="assets/icons/upload.svg"></button>
 				</form>
 				<script>
 					$("#pfpForm").submit(function(event) {
@@ -193,9 +193,7 @@
 					$sql_start = microtime(true);
 				?>
 					<div class="sanity-check defaultDecoration defaultSpacing defaultFonts">
-						<h2>Website</h2>
-
-						<h3>Invite Codes</h3>
+						<h2>Invite Codes</h2>
 						<div style="display: flex; flex-direction: column; gap: 0.5rem;" id="tokenList">
 							<?php
 							$token_request = mysqli_query($conn, "SELECT * FROM tokens WHERE used = 0");
@@ -204,7 +202,7 @@
 									?>
 										<div style="display: flex; flex-direction: row; gap: 0.5rem;">
 											<button onclick='copyCode(this)' class='btn btn-neutral btn-code'><?php echo $token['code']; ?></button>
-											<button onclick='regenerateCode("<?php echo $token["code"]; ?>", this)' class='btn btn-good btn-icon'><img src="assets/icons/arrow-clockwise.svg"></button>
+											<button onclick='regenerateCode("<?php echo $token["code"]; ?>", this)' class='btn btn-primary btn-icon'><img src="assets/icons/arrow-clockwise.svg"></button>
 											<button onclick='deleteCode(<?php echo $token["id"]; ?>)' class='btn btn-bad btn-icon'><img src="assets/icons/cross.svg"></button>
 										</div>
 									<?php
@@ -216,7 +214,7 @@
 							}						
 							?>
 						</div>
-						<button onclick='generateCode()' class='btn btn-good'>Generate code</button>
+						<button onclick='generateCode()' class='btn btn-primary'>Generate code</button>
 						<script>
 							function refreshList() {
 								$("#tokenList").load("app/account/token.php", {
@@ -305,8 +303,11 @@
 								});
 							}
 						</script>
+					</div>
 
-						<br><h3>Admin</h3>
+					<div class="sanity-check defaultDecoration defaultSpacing defaultFonts">
+						<h2>Admin</h2>
+						<p>Check gallery activity, login attemps, auto timeouts and more!</p>
 						<div class="tabs">
 							<button class="btn btn-neutral tablinks" onclick="openTab(event, 'logs')">Logs</button>
 							<button class="btn btn-neutral tablinks" onclick="openTab(event, 'bans')">Bans</button>
@@ -530,11 +531,16 @@
 								evt.currentTarget.className += " active-tab";
 							}
 						</script>
+					</div>
 
-						<br><h3>Sanity check</h3>
+					<div class="sanity-check warningDecoration defaultSpacing defaultFonts">
+						<h2>Sanity check</h2>
+						<p>You can check the stability of your gallery here, this is still being tested to running 
+							autofix is only reccomended for people who like to live on the edge.</p>
+
 						<div id='sanityCheck'></div>
 						
-						<button class='btn btn-good' onclick='sanityCheck(this)'>Run check</button>
+						<button class='btn btn-bad' onclick='sanityCheck(this)'>Run check</button>
 						<script>
 							function sanityCheck(thisButton) {
 								thisButton.innerHTML = "<img src='assets/icons/circle-notch.svg' class='svg loading'> Running...";

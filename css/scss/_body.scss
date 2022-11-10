@@ -176,8 +176,8 @@
  |-------------------------------------------------------------
 */
 .fullscreen-image {
-  width: 100vw;
-  height: 100vh;
+  width: 110vw;
+  height: 110vh;
 
   position: fixed;
   top: 50%;
@@ -194,59 +194,21 @@
 
   display: none; // Automatically hidden, revealed on fullscreen
   opacity: 0; // expose
-
+  
   img {
-    max-width: 95%;
-    max-height: 95%;
-
+    max-width: calc(95% - 10rem);
+    max-height: calc(95% - 10rem);
+    
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-
+    
     border-radius: $rad;
+    
+    box-shadow: $shadow;
 
     z-index: +1;
-  }
-
-  button {
-    padding: 0.25rem;
-
-    width: 2rem;
-    height: 2rem;
-
-    position: absolute;
-    top: 1.25rem;
-    right: 1.25rem;
-
-    display: block;
-    box-sizing: border-box;
-
-    border: none;
-    @if calc($rad - 0.5rem) > 0 {
-      border-radius: calc($rad - 0.5rem);
-    } @else {
-      border-radius: 3px;
-    }
-
-    transition: outline 0.1s cubic-bezier(0.19, 1, 0.22, 1);
-
-    background-color: $black;
-
-    z-index: +2;
-
-    img {
-      width: 1.5rem;
-
-      display: block;
-    }
-
-    &:hover {
-      outline: $white 0.2rem solid;
-      color: $fg;
-
-      cursor: pointer;
-    }
   }
 }
 
@@ -700,20 +662,48 @@
  | UPLOAD
  |-------------------------------------------------------------
 */
-.upload-root > img {
-  margin: 0 auto;
-
-  max-width: 100%;
-  max-height: 15rem;
-
-  @if calc($rad - 0.5rem) > 0 {
-    border-radius: calc($rad - 0.5rem);
-  } @else {
-    border-radius: 3px;
+.upload-root {
+  > img {
+    margin: 0 auto;
+  
+    max-width: 100%;
+    height: 15rem;
+  
+    @if calc($rad - 0.5rem) > 0 {
+      border-radius: calc($rad - 0.5rem);
+    } @else {
+      border-radius: 3px;
+    }
+  
+    display: none;
+    flex-direction: column;
   }
 
-  display: flex;
-  flex-direction: column;
+  > #imagePreviewBlock {
+    margin: 0 auto;
+  
+    max-width: 100%;
+    height: 15rem;
+
+    animation: uploadGradient 10s ease infinite;
+    background: linear-gradient(-45rad, #000000, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+    background-size: 200% 200%;
+  
+    @if calc($rad - 0.5rem) > 0 {
+      border-radius: calc($rad - 0.5rem);
+    } @else {
+      border-radius: 3px;
+    }
+  
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@keyframes uploadGradient {
+  0%{background-position:10% 0%}
+  50%{background-position:91% 100%}
+  100%{background-position:10% 0%}
 }
 
 /*

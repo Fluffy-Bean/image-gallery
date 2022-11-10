@@ -58,10 +58,7 @@
 			unset($_SESSION['msg']);
 		}
 
-		echo "<div class='fullscreen-image'>
-			<button onclick='closeFullScreen()'><img src='assets/icons/cross.svg'></button>
-			<img>
-			</div>";
+		echo "<div class='fullscreen-image'><img></div>";
 		
 		if (is_file("usr/images/previews/".$image['imagename'])) {
 			echo "<div class='image-container'>
@@ -78,6 +75,11 @@
 
 		?>
 		<script>
+			$('.fullscreen-image').click(function(e) {
+				//if (e.target !== this) return;
+				closeFullScreen();
+			});
+
 			function fullScreen() {
 				document.querySelector(".preview-button").style.display = "none";
 				document.querySelector("html").style.overflow = "hidden";
@@ -171,7 +173,7 @@
 				</div>
 			</div>
 			<!-- Download Image -->
-			<a id='download' class='btn btn-good' href='<?php echo "usr/images/".$image['imagename']; ?>' download='<?php echo $image['imagename']; ?>'><img class='svg' src='assets/icons/download.svg'>Download image</a>
+			<a id='download' class='btn btn-primary' href='<?php echo "usr/images/".$image['imagename']; ?>' download='<?php echo $image['imagename']; ?>'><img class='svg' src='assets/icons/download.svg'>Download image</a>
 			<script>
 				$("#download").click(function() {
 					sniffleAdd("Info", "Image download started!", "var(--success)", "assets/icons/download.svg");
@@ -179,7 +181,7 @@
 			</script>
 
 			<!-- Copy link -->
-			<button class='btn btn-good' onclick='copyLink()'><img class='svg' src='assets/icons/clipboard-text.svg'>Copy image link</button>
+			<button class='btn btn-primary' onclick='copyLink()'><img class='svg' src='assets/icons/clipboard-text.svg'>Copy image link</button>
 			<script>
 				function copyLink() {
 					navigator.clipboard.writeText(window.location.href);

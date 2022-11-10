@@ -161,7 +161,7 @@
                 }
 
                 ?>
-                    <button class='btn btn-good' onclick='copyLink()'><img class='svg' src='assets/icons/clipboard-text.svg'>Copy link</button>
+                    <button class='btn btn-primary' onclick='copyLink()'><img class='svg' src='assets/icons/clipboard-text.svg'>Copy link</button>
                     <script>
                         function copyLink() {
                             navigator.clipboard.writeText(window.location.href);

@@ -25,6 +25,7 @@
 		<h2>Upload image</h2>
 		<p>In this world you have 2 choices, to upload a really cute picture of an animal or fursuit, or something other than those 2 things.</p>
 		<img id="imagePreview" src="">
+        <span id="imagePreviewBlock"></span>
 		<br>
 		<form id="uploadSubmit" class="flex-down between" method="POST" enctype="multipart/form-data">
 			<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
@@ -32,14 +33,19 @@
             <input id="alt" class="btn btn-neutral" placeholder="Description/Alt for image" type='text'>
             <input id="tags" class="btn btn-neutral" placeholder="Tags, seperated by spaces" type='text'>
 			<br>
-			<button id="submit" class="btn btn-good" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
+			<button id="submit" class="btn btn-primary" type="submit"><img class="svg" src="assets/icons/upload.svg">Upload Image</button>
 		</form>
 		<script>
 			image.onchange = evt => {
 				const [file] = image.files
-				if (file) {
+				if (file && file.src !== "") {
 					imagePreview.src = URL.createObjectURL(file);
-				}
+                    imagePreview.style.display = "flex";
+                    document.getElementById("imagePreviewBlock").style.display = "none";
+				} else {
+                    imagePreview.style.display = "none";
+                    document.getElementById("imagePreviewBlock").style.display = "block";
+                }
 			}
 		</script>
 	</div>
@@ -77,6 +83,15 @@
                     processData: false,
                     success: function (response) {
                         $("#newSniff").html(response);
+
+                        document.getElementById("imagePreview").style.display = "none";
+                        document.getElementById("imagePreviewBlock").style.display = "block";
+                    },
+                    error: function (response) {
+                        $("#newSniff").html(response);
+
+                        document.getElementById("imagePreview").style.display = "none";
+                        document.getElementById("imagePreviewBlock").style.display = "block";
                     }
                 });
 
