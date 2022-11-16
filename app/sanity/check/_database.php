@@ -104,8 +104,7 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
             if (!empty($error_type)) {
                 $results[] = array(
                     'type'=>'warning', 
-                    'message'=> 'Table "'.$table.'" is not setup correctly, the errors you see below may seem crypic, 
-                    and thats normal because of the shit way I made this:<br><br>'.implode(", ",$error_type[$table]),
+                    'message'=> 'Table "'.$table.'" is not setup correctly. Please make sure you setup the table correctly. Errors found: '.count($error_type[$table]),
                     'fix'=>'manual'
                 );
             }

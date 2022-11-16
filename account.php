@@ -82,6 +82,7 @@
 					<input id="image" class="btn btn-neutral" type="file" placeholder="select image UwU">
 					<button id="pfpSubmit" class="btn btn-primary btn-icon" type="submit"><img class="svg" src="assets/icons/upload.svg"></button>
 				</form>
+				<a class="btn btn-primary" href="profile.php?user=<?php echo $_SESSION['id'] ?>">Profile</a> 
 				<script>
 					$("#pfpForm").submit(function(event) {
 						event.preventDefault();

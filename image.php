@@ -75,32 +75,42 @@
 
 		?>
 		<script>
+			var fullScreenTimeout = false;
+
 			$('.fullscreen-image').click(function(e) {
 				//if (e.target !== this) return;
-				closeFullScreen();
+				if (fullScreenTimeout) {
+					closeFullScreen();
+				}
 			});
 
 			function fullScreen() {
-				document.querySelector(".preview-button").style.display = "none";
-				document.querySelector("html").style.overflow = "hidden";
+				fullScreenTimeout = false;
 
+				document.querySelector("html").style.overflow = "hidden";
 				document.querySelector(".fullscreen-image").style.display = "block";
 				document.querySelector(".fullscreen-image > img").src = "<?php echo $image_path;?>";
+
 				setTimeout(function(){
 					document.querySelector(".fullscreen-image").style.opacity = 1;
 					document.querySelector(".fullscreen-image").style.transform = "translateX(-50%) translateY(-50%) scale(1)";
 				}, 1);
+
+				setTimeout(function(){fullScreenTimeout = true;}, 500);
 			}
 
 			function closeFullScreen() {
-				document.querySelector(".preview-button").style.display = "block";
+				fullScreenTimeout = false;
+
 				document.querySelector("html").style.overflow = "auto";
-				
 				document.querySelector(".fullscreen-image").style.opacity = 0;
+
 				setTimeout(function(){
 					document.querySelector(".fullscreen-image").style.display = "none";
 					document.querySelector(".fullscreen-image").style.transform = "translateX(-50%) translateY(-50%) scale(0.9)";
 				}, 500);
+
+				setTimeout(function(){fullScreenTimeout = true;}, 500);
 			}
 		</script>
 

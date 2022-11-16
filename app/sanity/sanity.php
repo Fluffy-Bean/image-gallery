@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include "../conn.php";
+require_once "../conn.php";
 
 if (isset($_POST['fix'])) {
     $timer_start = microtime(true);

@@ -14,12 +14,10 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
         }
     }
     
-    
     if (check_database($conn, 'images')) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found images table</p>";
     } else {
-        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find images table</p>";
-        echo "<p><span style='color: var(--alert);'>[INFO]</span> Creating test table...</p>";
+        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find images table, creating test table...</p>";
 
         $sql = "CREATE TABLE IF NOT EXISTS images ( 
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -38,8 +36,7 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
     if (check_database($conn, 'users')) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found users table</p>";
     } else {
-        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find users table</p>";
-        echo "<p><span style='color: var(--alert);'>[INFO]</span> Creating test table...</p>";
+        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find users table, creating test table...</p>";
 
         $sql = "CREATE TABLE IF NOT EXISTS users ( 
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -58,8 +55,7 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
     if (check_database($conn, 'groups')) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found groups table</p>";
     } else {
-        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find groups table</p>";
-        echo "<p><span style='color: var(--alert);'>[INFO]</span> Creating test table...</p>";
+        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find groups table, creating test table...</p>";
 
         $sql = "CREATE TABLE IF NOT EXISTS groups (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -76,8 +72,7 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
     if (check_database($conn, 'logs')) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found logs table</p>";
     } else {
-        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find logs table</p>";
-        echo "<p><span style='color: var(--alert);'>[INFO]</span> Creating test table...</p>";
+        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find logs table, creating test table...</p>";
 
         $sql = "CREATE TABLE IF NOT EXISTS logs (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -93,8 +88,7 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
     if (check_database($conn, 'bans')) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found bans table</p>";
     } else {
-        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find bans table</p>";
-        echo "<p><span style='color: var(--alert);'>[INFO]</span> Creating test table...</p>";
+        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find bans table, creating test table...</p>";
 
         $sql = "CREATE TABLE IF NOT EXISTS bans (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -112,8 +106,7 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
     if (check_database($conn, 'tokens')) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found tokens table</p>";
     } else {
-        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find tokens table</p>";
-        echo "<p><span style='color: var(--alert);'>[INFO]</span> Creating test table...</p>";
+        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find tokens table, creating test table...</p>";
 
         $sql = "CREATE TABLE IF NOT EXISTS tokens (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -129,7 +122,6 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
     if (check_database($conn, 'test')) {
         echo "<p><span style='color: var(--accent);'>[INFO]</span> Found test table</p>";
     } else {
-        echo "<p><span style='color: var(--warning);'>[ERRO]</span> Could not find test table</p>";
-        echo "<p><span style='color: var(--alert);'>[INFO]</span> Creating test table...</p>";
+        echo "<p><span style='color: var(--warning);'>[ERRO]</span> Could not find test table, creating test table...</p>";
     }
 }
