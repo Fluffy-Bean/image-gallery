@@ -172,4 +172,38 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
             );
         }
     }
+
+    if (is_file(__DIR__."/../../../usr/conf/msg.json")) {
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found usr/conf/msg.json folder!',
+        );
+    } else {
+        try {
+            $conf = json_encode(array('welcome'=>array('Welcome to your new Only Legs installation!')));
+            $conf_new = fopen(__DIR__."/../../../usr/conf/msg.json", "w");
+
+            if ($conf_new) {
+                fwrite($conf_new, $conf);
+                fclose($conf_new);
+                
+                $results[] = array(
+                    'type'=>'success', 
+                    'message'=> 'Created usr/conf/msg.json file!',
+                );
+            } else {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=> 'Error creating usr/conf/msg.json file!',
+                    'fix'=>'manual',
+                );
+            }
+        } catch (Exception $e) {
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=> 'Error creating usr/conf/msg.json file: '.$e,
+                'fix'=>'manual',
+            );
+        }
+    }
 }

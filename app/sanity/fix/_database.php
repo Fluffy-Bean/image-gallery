@@ -21,11 +21,11 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
         );
     } else {
         $sql = "CREATE TABLE IF NOT EXISTS images ( 
-            id INT(11) AUTO_INCREMENT PRIMARY KEY,
-            imagename VARCHAR(255) NOT NULL UNIQUE,
-            alt TEXT NOT NULL,
-            tags TEXT NOT NULL,
-            author INT(11) NOT NULL,
+            id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+            imagename VARCHAR(255) UNIQUE,
+            alt TEXT,
+            tags TEXT,
+            author VARCHAR(50) NOT NULL,
             last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
@@ -59,11 +59,11 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
         );
     } else {
         $sql = "CREATE TABLE IF NOT EXISTS users ( 
-            id INT(11) AUTO_INCREMENT PRIMARY KEY,
-            username VARCHAR(255) NOT NULL UNIQUE,
+            id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+            username VARCHAR(50) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
-            pfp_path VARCHAR(255) NOT NULL,
-            admin BOOLEAN NOT NULL DEFAULT FALSE, 
+            pfp_path VARCHAR(50),
+            admin BOOLEAN DEFAULT FALSE,
             last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
@@ -96,10 +96,11 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
             'message'=> 'Found groups table',
         );
     } else {
-        $sql = "CREATE TABLE IF NOT EXISTS groups (
-            id INT(11) AUTO_INCREMENT PRIMARY KEY,
-            group_name VARCHAR(255) NOT NULL,
-            image_list VARCHAR(text) NOT NULL,
+        $sql = "CREATE TABLE IF NOT EXISTS groups (`
+            id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+            group_name TEXT NOT NULL,
+            image_list TEXT NOT NULL,
+            author VARCHAR(50) NOT NULL,
             last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
@@ -133,10 +134,10 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
         );
     } else {
         $sql = "CREATE TABLE IF NOT EXISTS logs (
-            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
             ipaddress VARCHAR(16) NOT NULL,
-            action VARCHAR(255) NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            action TEXT NOT NULL,
+            time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
         
         try {
@@ -167,10 +168,10 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
             'message'=> 'Found bans table',
         );
     } else {
-        $sql = "CREATE TABLE IF NOT EXISTS bans (
-            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+        $sql = "CREATE TABLE IF NOT EXISTS bans (            
+            id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
             ipaddress VARCHAR(16) NOT NULL,
-            reason VARCHAR(255) NOT NULL,
+            reason TEXT NOT NULL,
             time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             length VARCHAR(255) NOT NULL,
             permanent BOOLEAN NOT NULL DEFAULT FALSE
@@ -206,7 +207,7 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
     } else {
         $sql = "CREATE TABLE IF NOT EXISTS tokens (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
-            code VARCHAR(59) NOT NULL,
+            code VARCHAR(16) NOT NULL,
             used BOOLEAN NOT NULL DEFAULT FALSE,
             timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         )";
@@ -233,6 +234,7 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
         }
     }
     
+    /* TEST TABLE, NOT TO BE USED IN RRODCTION
     if (check_database($conn, 'test')) {
         $results[] = array(
             'type'=>'success', 
@@ -244,4 +246,5 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
             'message'=> 'Error creating table tokens: This is a test, you do not need to act on this',
         );
     }
+    */
 }

@@ -19,17 +19,17 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
         'images' => array(
             array('id',             'int(11)',      'NO',   'PRI',  '',                     'auto_increment'),
             array('imagename',      'varchar(255)', 'NO',   'UNI',  '',                     ''),
-            array('alt',            'text',         'NO',   '',     '',                     ''),
-            array('tags',           'text',         'NO',   '',     '',                     ''),
+            array('alt',            'text',         'YES',  '',     '',                     ''),
+            array('tags',           'text',         'YES',  '',     '',                     ''),
             array('author',         'int(11)',      'NO',   '',     '',                     ''),
             array('last_modified',  'timestamp',    'NO',   '',     'CURRENT_TIMESTAMP',    'on update CURRENT_TIMESTAMP'),
             array('upload_date',    'timestamp',    'NO',   '',     'CURRENT_TIMESTAMP',    '')
         ),
         'users' => array(
             array('id',             'int(11)',      'NO',   'PRI',  '',                     'auto_increment'),
-            array('username',       'varchar(255)', 'NO',   'UNI',  '',                     ''),
+            array('username',       'varchar(50)',  'NO',   'UNI',  '',                     ''),
             array('password',       'varchar(255)', 'NO',   '',     '',                     ''),
-            array('pfp_path',       'varchar(255)', 'NO',   '',     '',                     ''),
+            array('pfp_path',       'varchar(50)',  'NO',   '',     '',                     ''),
             array('admin',          'boolean',      'NO',   '',     'FALSE',                ''),
             array('last_modified',  'timestamp',    'NO',   '',     'CURRENT_TIMESTAMP',    'on update CURRENT_TIMESTAMP'),
             array('created_at',     'timestamp',    'NO',   '',     'CURRENT_TIMESTAMP',    '')
@@ -37,6 +37,7 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
         'groups' => array(
             array('id',             'int(11)',      'NO',   'PRI',  '',                     'auto_increment'),
             array('group_name',     'varchar(255)', 'NO',   'UNI',  '',                     ''),
+            array('author',         'varchar(50)',  'NO',   '',     '',                     ''),
             array('image_list',     'text',         'NO',   '',     '',                     ''),
             array('last_modified',  'timestamp',    'NO',   '',     'CURRENT_TIMESTAMP',    'on update CURRENT_TIMESTAMP'),
             array('created_at',     'timestamp',    'NO',   '',     'CURRENT_TIMESTAMP',    '')
@@ -56,7 +57,7 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
         'bans' => array(
             array('id',             'int(11)',      'NO',   'PRI',  '',                     'auto_increment'),
             array('ipaddress',      'varchar(16)',  'NO',   '',     '',                     ''),
-            array('reason',         'varchar(255)', 'NO',   '',     '',                     ''),
+            array('reason',         'text',         'NO',   '',     '',                     ''),
             array('time',           'timestamp',    'NO',   '',     'CURRENT_TIMESTAMP',    ''),
             array('length',         'int(255)',     'NO',   '',     '',                     ''),
             array('pernament',      'boolean',      'NO',   '',     'FALSE',                '')
@@ -85,7 +86,8 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
         return $results;
     }
 
-    $table_list = array('images', 'users', 'groups', 'tokens', 'logs', 'bans', 'test');
+    //$table_list = array('images', 'users', 'groups', 'tokens', 'logs', 'bans', 'test');
+    $table_list = array('images', 'users', 'groups', 'tokens', 'logs', 'bans');
 
     foreach ($table_list as $table) {
         $error_type = array();
