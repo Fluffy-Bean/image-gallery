@@ -15,10 +15,11 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
     }
     
     if (check_database($conn, 'images')) {
-        echo "<p><span style='color: var(--accent);'>[INFO]</span> Found images table</p>";
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found images table',
+        );
     } else {
-        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find images table, creating test table...</p>";
-
         $sql = "CREATE TABLE IF NOT EXISTS images ( 
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
             imagename VARCHAR(255) NOT NULL UNIQUE,
@@ -28,16 +29,35 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
             last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
-        if ($conn->query($sql) === TRUE) {
-            echo "<p><span style='color: var(--accent);'>[INFO]</span> Table images made!</p>";
+
+        try {
+            if ($conn->query($sql) === TRUE) {
+                $results[] = array(
+                    'type'=>'success', 
+                    'message'=> 'Table images created!',
+                );
+            } else {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=> 'Error creating table images: '.$conn->error,
+                    'fix'=>'manual',
+                );
+            }
+        } catch (Exception $e) {
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=> 'Error creating table images: '.$e,
+                'fix'=>'manual',
+            );
         }
     }
     
     if (check_database($conn, 'users')) {
-        echo "<p><span style='color: var(--accent);'>[INFO]</span> Found users table</p>";
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found users table',
+        );
     } else {
-        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find users table, creating test table...</p>";
-
         $sql = "CREATE TABLE IF NOT EXISTS users ( 
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
             username VARCHAR(255) NOT NULL UNIQUE,
@@ -47,16 +67,35 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
             last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
-        if ($conn->query($sql) === TRUE) {
-            echo "<p><span style='color: var(--accent);'>[INFO]</span> Table users made!</p>";
+
+        try {
+            if ($conn->query($sql) === TRUE) {
+                $results[] = array(
+                    'type'=>'success', 
+                    'message'=> 'Table users created!',
+                );
+            } else {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=> 'Error creating table users: '.$conn->error,
+                    'fix'=>'manual',
+                );
+            }
+        } catch (Exception $e) {
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=> 'Error creating table users: '.$e,
+                'fix'=>'manual',
+            );
         }
     }
     
     if (check_database($conn, 'groups')) {
-        echo "<p><span style='color: var(--accent);'>[INFO]</span> Found groups table</p>";
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found groups table',
+        );
     } else {
-        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find groups table, creating test table...</p>";
-
         $sql = "CREATE TABLE IF NOT EXISTS groups (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
             group_name VARCHAR(255) NOT NULL,
@@ -64,32 +103,70 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
             last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
-        if ($conn->query($sql) === TRUE) {
-            echo "<p><span style='color: var(--accent);'>[INFO]</span> Table groups made!</p>";
+        
+        try {
+            if ($conn->query($sql) === TRUE) {
+                $results[] = array(
+                    'type'=>'success', 
+                    'message'=> 'Table groups created!',
+                );
+            } else {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=> 'Error creating table groups: '.$conn->error,
+                    'fix'=>'manual',
+                );
+            }
+        } catch (Exception $e) {
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=> 'Error creating table groups: '.$e,
+                'fix'=>'manual',
+            );
         }
     }
     
     if (check_database($conn, 'logs')) {
-        echo "<p><span style='color: var(--accent);'>[INFO]</span> Found logs table</p>";
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found logs table',
+        );
     } else {
-        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find logs table, creating test table...</p>";
-
         $sql = "CREATE TABLE IF NOT EXISTS logs (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
             ipaddress VARCHAR(16) NOT NULL,
             action VARCHAR(255) NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )";
-        if ($conn->query($sql) === TRUE) {
-            echo "<p><span style='color: var(--accent);'>[INFO]</span> Table logs made!</p>";
+        
+        try {
+            if ($conn->query($sql) === TRUE) {
+                $results[] = array(
+                    'type'=>'success', 
+                    'message'=> 'Table logs created!',
+                );
+            } else {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=> 'Error creating table logs: '.$conn->error,
+                    'fix'=>'manual',
+                );
+            }
+        } catch (Exception $e) {
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=> 'Error creating table logs: '.$e,
+                'fix'=>'manual',
+            );
         }
     }
     
     if (check_database($conn, 'bans')) {
-        echo "<p><span style='color: var(--accent);'>[INFO]</span> Found bans table</p>";
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found bans table',
+        );
     } else {
-        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find bans table, creating test table...</p>";
-
         $sql = "CREATE TABLE IF NOT EXISTS bans (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
             ipaddress VARCHAR(16) NOT NULL,
@@ -98,30 +175,73 @@ if (defined('ROOT') && $_SESSION['id'] == 1) {
             length VARCHAR(255) NOT NULL,
             permanent BOOLEAN NOT NULL DEFAULT FALSE
         )";
-        if ($conn->query($sql) === TRUE) {
-            echo "<p><span style='color: var(--accent);'>[INFO]</span> Table bans made!</p>";
+        
+        try {
+            if ($conn->query($sql) === TRUE) {
+                $results[] = array(
+                    'type'=>'success', 
+                    'message'=> 'Table bans created!',
+                );
+            } else {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=> 'Error creating table bans: '.$conn->error,
+                    'fix'=>'manual',
+                );
+            }
+        } catch (Exception $e) {
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=> 'Error creating table bans: '.$e,
+                'fix'=>'manual',
+            );
         }
     }
     
     if (check_database($conn, 'tokens')) {
-        echo "<p><span style='color: var(--accent);'>[INFO]</span> Found tokens table</p>";
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found tokens table',
+        );
     } else {
-        echo "<p><span style='color: var(--warning);'>[INFO]</span> Could not find tokens table, creating test table...</p>";
-
         $sql = "CREATE TABLE IF NOT EXISTS tokens (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
             code VARCHAR(59) NOT NULL,
             used BOOLEAN NOT NULL DEFAULT FALSE,
             timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         )";
-        if ($conn->query($sql) === TRUE) {
-            echo "<p><span style='color: var(--accent);'>[INFO]</span> Table tokens made!</p>";
+        
+        try {
+            if ($conn->query($sql) === TRUE) {
+                $results[] = array(
+                    'type'=>'success', 
+                    'message'=> 'Table tokens created!',
+                );
+            } else {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=> 'Error creating table tokens: '.$conn->error,
+                    'fix'=>'manual',
+                );
+            }
+        } catch (Exception $e) {
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=> 'Error creating table tokens: '.$e,
+                'fix'=>'manual',
+            );
         }
     }
     
     if (check_database($conn, 'test')) {
-        echo "<p><span style='color: var(--accent);'>[INFO]</span> Found test table</p>";
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found test table',
+        );
     } else {
-        echo "<p><span style='color: var(--warning);'>[ERRO]</span> Could not find test table, creating test table...</p>";
+        $results[] = array(
+            'type'=>'critical', 
+            'message'=> 'Error creating table tokens: This is a test, you do not need to act on this',
+        );
     }
 }

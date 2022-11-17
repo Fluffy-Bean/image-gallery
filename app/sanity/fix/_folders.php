@@ -1,63 +1,175 @@
 <?php
 if (defined('ROOT') && $_SESSION['id'] == 1) {
     if (is_dir(__DIR__."/../../../usr")) {
-        echo "<p><span style='color: var(--accent);'>[INFO]</span> Found usr/ folder!</p>";
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found usr/ folder!',
+        );
     } else {
-        echo "<p><span style='color: var(--warning);'>[ERRO]</span>  usr/ folder not found</p>";
-        echo "<p><span style='color: var(--accent);'>[INFO]</span>  Creating usr/ folder...</p>";
-
-        mkdir("usr");
+        try {
+            if (mkdir(__DIR__."/../../../usr")) {
+                $results[] = array(
+                    'type'=>'success', 
+                    'message'=> 'Created usr/ folder!',
+                );
+            } else {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=> 'Error creating usr/ folder',
+                    'fix'=>'manual',
+                );
+            }
+        } catch (Exception $e) {
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=> 'Error creating usr/ folder: '.$e,
+                'fix'=>'manual',
+            );
+        }
     }
 
     if (is_dir(__DIR__."/../../../usr/images")) {
-        echo "<p><span style='color: var(--accent);'>[INFO]</span> Found usr/images/ folder!</p>";
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found usr/images/ folder!',
+        );
     } else {
-        echo "<p><span style='color: var(--warning);'>[ERRO]</span>  usr/images/ folder not found</p>";
-        echo "<p><span style='color: var(--accent);'>[INFO]</span>  Creating usr/images/ folder...</p>";
-
-        mkdir("usr/images");
+        try {
+            if (mkdir(__DIR__."/../../../usr/images")) {
+                $results[] = array(
+                    'type'=>'success', 
+                    'message'=> 'Created usr/images/ folder!',
+                );
+            } else {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=> 'Error creating usr/images/ folder',
+                    'fix'=>'manual',
+                );
+            }
+        } catch (Exception $e) {
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=> 'Error creating usr/images/ folder: '.$e,
+                'fix'=>'manual',
+            );
+        }
     }
-    if (!is_dir(__DIR__."/../../../usr/images/thumbnails")) {
-        echo "<p><span style='color: var(--warning);'>[ERRO]</span>  usr/images/thumbnails/ folder not found</p>";
-        echo "<p><span style='color: var(--accent);'>[INFO]</span>  Creating usr/images/thumbnails/ folder...</p>";
 
-        mkdir("usr/images/thumbnails");
+    if (is_dir(__DIR__."/../../../usr/images/thumbnails")) {
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found usr/images/thumbnails/ folder!',
+        );
+    } else {
+        try {
+            if (mkdir(__DIR__."/../../../usr/images/thumbnails")) {
+                $results[] = array(
+                    'type'=>'success', 
+                    'message'=> 'Created usr/images/thumbnails/ folder!',
+                );
+            } else {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=> 'Error creating usr/images/thumbnails/ folder',
+                    'fix'=>'manual',
+                );
+            }
+        } catch (Exception $e) {
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=> 'Error creating usr/images/thumbnails/ folder: '.$e,
+                'fix'=>'manual',
+            );
+        }
     }
-    if (!is_dir(__DIR__."/../../../usr/images/previews")) {
-        echo "<p><span style='color: var(--warning);'>[ERRO]</span>  usr/images/previews/ folder not found</p>";
-        echo "<p><span style='color: var(--accent);'>[INFO]</span>  Creating usr/images/previews/ folder...</p>";
-
-        mkdir("usr/images/previews");
+    if (is_dir(__DIR__."/../../../usr/images/previews")) {
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found usr/images/previews/ folder!',
+        );
+    } else {
+        try {
+            if (mkdir(__DIR__."/../../../usr/images/previews")) {
+                $results[] = array(
+                    'type'=>'success', 
+                    'message'=> 'Created usr/images/previews/ folder!',
+                );
+            } else {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=> 'Error creating usr/images/previews/ folder',
+                    'fix'=>'manual',
+                );
+            }
+        } catch (Exception $e) {
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=> 'Error creating usr/images/previews/ folder: '.$e,
+                'fix'=>'manual',
+            );
+        }
     }
 
-    if (!is_dir(__DIR__."/../../../usr/conf")) {
-        echo "<p><span style='color: var(--warning);'>[ERRO]</span>  usr/conf/ folder not found</p>";
-        echo "<p><span style='color: var(--accent);'>[INFO]</span>  Creating usr/conf/ folder...</p>";
-
-        mkdir("usr/conf");
+    if (is_dir(__DIR__."/../../../usr/conf")) {
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found usr/conf/ folder!',
+        );
+    } else {
+        try {
+            if (mkdir(__DIR__."/../../../usr/conf")) {
+                $results[] = array(
+                    'type'=>'success', 
+                    'message'=> 'Created usr/conf/ folder!',
+                );
+            } else {
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=> 'Error creating usr/conf/ folder',
+                    'fix'=>'manual',
+                );
+            }
+        } catch (Exception $e) {
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=> 'Error creating usr/conf/ folder: '.$e,
+                'fix'=>'manual',
+            );
+        }
     }
 
     if (is_file(__DIR__."/../../../usr/conf/conf.json")) {
-        echo "<p><span style='color: var(--accent);'>[INFO]</span> Found usr/conf/conf.json file!</p>";
+        $results[] = array(
+            'type'=>'success', 
+            'message'=> 'Found usr/conf/conf.json folder!',
+        );
     } else {
-        echo "<p><span style='color: var(--warning);'>[ERRO]</span>  usr/conf/conf.json file not found</p>";
-        echo "<p><span style='color: var(--accent);'>[INFO]</span>  Creating usr/conf/conf.json file...</p>";
-
         try {
             $conf = file_get_contents(__DIR__."/../../../usr/conf.default.json");
-            
             $conf_new = fopen(__DIR__."/../../../usr/conf/conf.json", "w");
 
             if ($conf_new) {
                 fwrite($conf_new, $conf);
                 fclose($conf_new);
                 
-                echo "<p><span style='color: var(--accent);'>[INFO]</span>  usr/conf/conf.json file created!</p>";
+                $results[] = array(
+                    'type'=>'success', 
+                    'message'=> 'Created usr/conf/conf.json file!',
+                );
             } else {
-                echo "<p><span style='color: var(--warning);'>[ERRO]</span>  Failed to create usr/conf/conf.json file</p>";
+                $results[] = array(
+                    'type'=>'critical', 
+                    'message'=> 'Error creating usr/conf/conf.json file!',
+                    'fix'=>'manual',
+                );
             }
         } catch (Exception $e) {
-            echo "<p><span style='color: var(--warning);'>[ERRO]</span>  Could not read usr/conf.default.json file</p>";
+            $results[] = array(
+                'type'=>'critical', 
+                'message'=> 'Error creating usr/conf/conf.json file: '.$e,
+                'fix'=>'manual',
+            );
         }
     }
 }
