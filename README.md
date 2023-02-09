@@ -1,3 +1,6 @@
+<h1 align="center">This project has moved!</h1>
+I will no-longer be updating the PHP based Onlylegs, the project has moved to Flask (python) which is much better suited for what this projects goals are. You can find it <a href="https://github.com/Fluffy-Bean/onlylegs">at this link</a>. The project is still not at the stage this was left at, but its getting close and at much better quality! Thank you to all the cretures who helped me work on this and see you on the new repo!
+
 <div align="center">
     <img src="onlylegs.jpg" width="621px" align="center">
     <p></p>
